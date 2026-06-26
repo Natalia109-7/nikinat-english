@@ -113,7 +113,7 @@
     <h2 class="section-title">Мои направления</h2>
     <p class="section-subtitle">Choose your path to fluency</p>
     <div class="services">
-      <div class="service"><div class="icon"></div><h4>General English</h4><p>Общий английский с нуля до продвинутого уровня</p></div>
+      <div class="service"><div class="icon">📚</div><h4>General English</h4><p>Общий английский с нуля до продвинутого уровня</p></div>
       <div class="service"><div class="icon">💼</div><h4>Business English</h4><p>Деловой английский для карьеры и переговоров</p></div>
       <div class="service"><div class="icon">🎓</div><h4>Подготовка к экзаменам</h4><p>ЕГЭ, ОГЭ</p></div>
       <div class="service"><div class="icon">✈️</div><h4>Разговорный</h4><p>Свободное общение в путешествиях и жизни</p></div>
@@ -159,7 +159,7 @@
   <h2 class="section-title">Свяжитесь со мной</h2>
   <p class="section-subtitle">Let's start your journey together</p>
   <div class="contacts">
-    <div class="contact-item"><div class="ic"></div><div><strong>Телефон</strong><br>+7 (999) 123-45-67</div></div>
+    <div class="contact-item"><div class="ic">📞</div><div><strong>Телефон</strong><br>+7 (999) 123-45-67</div></div>
     <div class="contact-item"><div class="ic">✉️</div><div><strong>Email</strong><br>natalie.english@mail.ru</div></div>
     <div class="contact-item"><div class="ic">💬</div><div><strong>Telegram</strong><br>@natalie_english</div></div>
     <div class="contact-item"><div class="ic">📷</div><div><strong>Instagram</strong><br>@natalie.english</div></div>
@@ -190,30 +190,26 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-  // Роутинг
+  // Роутинг - переключение вкладок
   document.querySelectorAll('.nav-link').forEach(l=>{
-    l.addEventListener('click',e=>{
+    l.addEventListener('click',function(e){
       e.preventDefault();
-      const id = l.dataset.page;
-      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      const id = this.dataset.page;
+      
+      // Убираем active со всех ссылок и страниц
       document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      
+      // Добавляем active на текущую ссылку и страницу
+      this.classList.add('active');
       document.getElementById(id).classList.add('active');
-      l.classList.add('active');
+      
+      // Прокрутка вверх
       window.scrollTo({top:0,behavior:'smooth'});
     });
   });
 
-  function listenCollection(name, render){
-    db.collection(name).orderBy('createdAt','desc').onSnapshot(
-      snap=>{
-        const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
-        render(items);
-      },
-      err=>{ console.error(err); document.getElementById(name+'-list').innerHTML='<div class="empty">Ошибка загрузки 😔</div>'; }
-    );
-  }
-
-  // Загрузка программ И тренажёров вместе
+  // Загрузка программ и тренажёров
   function renderPrograms(){
     const el = document.getElementById('programs-list');
     
@@ -233,23 +229,21 @@
         
         // Программы
         programs.forEach((p,i)=>{
-            html += `
-                <div class="card" style="animation-delay:${i*0.1}s">
-                    ${p.imageUrl?`<img src="${p.imageUrl}" alt="">`:''}
-                    <h3>${p.title}</h3>
-                    <p>${(p.description||'').replace(/\n/g,'<br>')}</p>
-                </div>`;
+            html += '<div class="card" style="animation-delay:'+i*0.1+'s">' +
+                (p.imageUrl?'<img src="'+p.imageUrl+'" alt="">':'') +
+                '<h3>'+p.title+'</h3>' +
+                '<p>'+(p.description||'').replace(/\n/g,'<br>')+'</p>' +
+                '</div>';
         });
         
         // Тренажёры
         trainers.forEach((t,i)=>{
-            html += `
-                <div class="card" style="animation-delay:${(programs.length+i)*0.1}s; cursor:pointer" onclick="openTrainer('${t.file}', '${t.title.replace(/'/g, "\\'")}')">
-                    <div style="font-size:48px; text-align:center; margin-bottom:16px">🎮</div>
-                    <h3>${t.title}</h3>
-                    <p>${(t.description||'').replace(/\n/g,'<br>')}</p>
-                    <button class="btn" style="margin-top:12px; font-size:13px; padding:10px 20px">Открыть тренажёр →</button>
-                </div>`;
+            html += '<div class="card" style="animation-delay:'+(programs.length+i)*0.1+'s; cursor:pointer" onclick="openTrainer(\''+t.file+'\', \''+t.title.replace(/'/g, "\\'")+'\')">' +
+                '<div style="font-size:48px; text-align:center; margin-bottom:16px">🎮</div>' +
+                '<h3>'+t.title+'</h3>' +
+                '<p>'+(t.description||'').replace(/\n/g,'<br>')+'</p>' +
+                '<button class="btn" style="margin-top:12px; font-size:13px; padding:10px 20px">Открыть тренажёр →</button>' +
+                '</div>';
         });
         
         el.innerHTML = html;
@@ -259,64 +253,76 @@
     });
   }
 
-  // Открытие тренажёра в модальном окне
+  // Открытие тренажёра
   function openTrainer(file, title){
     const modal = document.createElement('div');
     modal.style.cssText = 'position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;';
-    modal.innerHTML = `
-        <div style="background:white;border-radius:24px;width:95%;height:90%;max-width:1400px;overflow:hidden;display:flex;flex-direction:column;">
-            <div style="padding:20px;border-bottom:1px solid #e8dff5;display:flex;justify-content:space-between;align-items:center;">
-                <h3 style="font-family:'Cormorant Garamond',serif;color:#5a4a7a;margin:0;font-size:24px">${title}</h3>
-                <button onclick="this.closest('div[style]').parentElement.remove()" style="background:none;border:none;font-size:28px;cursor:pointer;color:#8b7ba8">✕</button>
-            </div>
-            <iframe src="${file}" style="flex:1;border:none;width:100%;"></iframe>
-        </div>
-    `;
+    modal.innerHTML = '<div style="background:white;border-radius:24px;width:95%;height:90%;max-width:1400px;overflow:hidden;display:flex;flex-direction:column;">' +
+        '<div style="padding:20px;border-bottom:1px solid #e8dff5;display:flex;justify-content:space-between;align-items:center;">' +
+        '<h3 style="font-family:\'Cormorant Garamond\',serif;color:#5a4a7a;margin:0;font-size:24px">'+title+'</h3>' +
+        '<button onclick="this.closest(\'div[style]\').parentElement.remove()" style="background:none;border:none;font-size:28px;cursor:pointer;color:#8b7ba8">✕</button>' +
+        '</div>' +
+        '<iframe src="'+file+'" style="flex:1;border:none;width:100%;"></iframe>' +
+        '</div>';
     document.body.appendChild(modal);
   }
 
+  // Загрузка статей
   function renderArticles(items){
     const el = document.getElementById('articles-list');
     if(!items.length){ el.innerHTML='<div class="empty">Статьи скоро появятся ✨</div>'; return; }
-    el.innerHTML = items.map((a,i)=>`
-      <div class="card" style="animation-delay:${i*0.1}s">
-        ${a.imageUrl?`<img src="${a.imageUrl}" alt="">`:''}
-        <div class="date">${a.date||''}</div>
-        <h3>${a.title}</h3>
-        <p>${(a.content||'').replace(/\n/g,'<br>')}</p>
-      </div>`).join('');
+    el.innerHTML = items.map((a,i)=>'<div class="card" style="animation-delay:'+i*0.1+'s">' +
+        (a.imageUrl?'<img src="'+a.imageUrl+'" alt="">':'') +
+        '<div class="date">'+(a.date||'')+'</div>' +
+        '<h3>'+a.title+'</h3>' +
+        '<p>'+(a.content||'').replace(/\n/g,'<br>')+'</p>' +
+        '</div>').join('');
   }
 
+  // Загрузка видео
   function renderVideos(items){
     const el = document.getElementById('videos-list');
     if(!items.length){ el.innerHTML='<div class="empty">Видео скоро появятся ✨</div>'; return; }
     el.innerHTML = items.map((v,i)=>{
       const id = v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
-      const embed = id ? `<iframe src="https://www.youtube.com/embed/${id[1]}" allowfullscreen></iframe>` : '';
-      return `<div class="video-card" style="animation:slideUp 0.6s ease ${i*0.1}s backwards">
-        ${embed}
-        <div class="info"><h4>${v.title}</h4><p>${v.description||''}</p></div>
-      </div>`;
+      const embed = id ? '<iframe src="https://www.youtube.com/embed/'+id[1]+'" allowfullscreen></iframe>' : '';
+      return '<div class="video-card" style="animation:slideUp 0.6s ease '+i*0.1+'s backwards">' +
+        embed +
+        '<div class="info"><h4>'+v.title+'</h4><p>'+(v.description||'')+'</p></div>' +
+        '</div>';
     }).join('');
   }
 
+  // Загрузка галереи
   function renderGallery(items){
     const el = document.getElementById('gallery-list');
     if(!items.length){ el.innerHTML='<div class="empty">Фото скоро появятся ✨</div>'; return; }
-    el.innerHTML = items.map((g,i)=>`
-      <div class="gallery-item" style="animation:slideUp 0.6s ease ${i*0.05}s backwards" onclick="openModal('${g.imageUrl}')">
-        <img src="${g.imageUrl}" alt="${g.caption||''}">
-      </div>`).join('');
+    el.innerHTML = items.map((g,i)=>'<div class="gallery-item" style="animation:slideUp 0.6s ease '+i*0.05+'s backwards" onclick="openModal(\''+g.imageUrl+'\')">' +
+        '<img src="'+g.imageUrl+'" alt="'+(g.caption||'')+'">' +
+        '</div>').join('');
   }
 
   function openModal(src){ document.getElementById('modalImg').src=src; document.getElementById('imgModal').classList.add('active'); }
   function closeModal(){ document.getElementById('imgModal').classList.remove('active'); }
 
-  // Запуск всех разделов
+  // Запуск
   renderPrograms();
-  listenCollection('articles', renderArticles);
-  listenCollection('videos', renderVideos);
-  listenCollection('gallery', renderGallery);
+  
+  // Подписка на обновления
+  db.collection('articles').orderBy('createdAt','desc').onSnapshot(snap=>{
+    const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderArticles(items);
+  }, err=>{ console.error(err); document.getElementById('articles-list').innerHTML='<div class="empty">Ошибка 😔</div>'; });
+  
+  db.collection('videos').orderBy('createdAt','desc').onSnapshot(snap=>{
+    const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderVideos(items);
+  }, err=>{ console.error(err); document.getElementById('videos-list').innerHTML='<div class="empty">Ошибка 😔</div>'; });
+  
+  db.collection('gallery').orderBy('createdAt','desc').onSnapshot(snap=>{
+    const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderGallery(items);
+  }, err=>{ console.error(err); document.getElementById('gallery-list').innerHTML='<div class="empty">Ошибка 😔</div>'; });
 </script>
 </body>
 </html>
