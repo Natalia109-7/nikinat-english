@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Админ-панель · Наталья Николаева</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--deep:#5a4a7a;--soft:#8b7ba8;--lavender:#e8dff5;--rose:#f7d6e0;--cream:#fdf6f0}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Montserrat',sans-serif;color:#3d3554;background:linear-gradient(135deg,var(--cream),var(--lavender));background-attachment:fixed;min-height:100vh;padding:30px}
+  .container{max-width:1100px;margin:0 auto}
+  h1{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--deep);margin-bottom:8px}
+  .sub{color:var(--soft);margin-bottom:30px;font-style:italic}
+  .login-box{max-width:400px;margin:100px auto;background:white;padding:50px;border-radius:24px;box-shadow:0 10px 40px rgba(138,107,175,0.15);text-align:center}
+  .login-box h2{font-family:'Cormorant Garamond',serif;color:var(--deep);margin-bottom:24px;font-size:32px}
+  input,textarea,select{width:100%;padding:14px 18px;margin:8px 0;border:2px solid var(--lavender);border-radius:14px;font-family:inherit;font-size:14px;background:white;transition:all 0.3s}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--soft)}
+  textarea{min-height:120px;resize:vertical}
+  .btn{padding:14px 32px;background:linear-gradient(135deg,var(--deep),var(--soft));color:white;border:none;border-radius:30px;cursor:pointer;font-weight:500;font-size:14px;box-shadow:0 6px 20px rgba(90,74,122,0.3);transition:all 0.3s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:disabled{opacity:0.6;cursor:not-allowed}
+  .btn-danger{background:linear-gradient(135deg,#e88a9a,#d66b7e)}
+  .btn-small{padding:8px 16px;font-size:12px}
+  .tabs{display:flex;gap:8px;margin-bottom:30px;flex-wrap:wrap}
+  .tab{padding:12px 24px;background:rgba(255,255,255,0.6);border:none;border-radius:30px;cursor:pointer;font-family:inherit;font-size:14px;transition:all 0.3s}
+  .tab.active{background:linear-gradient(135deg,var(--deep),var(--soft));color:white}
+  .panel{background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);padding:30px;border-radius:24px;margin-bottom:30px;box-shadow:0 10px 40px rgba(138,107,175,0.1)}
+  .panel h3{font-family:'Cormorant Garamond',serif;color:var(--deep);font-size:26px;margin-bottom:16px}
+  .items-list{margin-top:24px}
+  .item{display:flex;justify-content:space-between;align-items:center;padding:16px;background:white;border-radius:14px;margin-bottom:10px;border:1px solid var(--lavender);gap:16px}
+  .item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
+  .item-info{flex:1;min-width:0}
+  .item-info strong{color:var(--deep);display:block;margin-bottom:4px}
+  .item-info small{color:var(--soft);font-size:12px}
+  .hidden{display:none}
+  .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+  a.back{color:var(--deep);text-decoration:none;font-weight:500}
+  .preview{max-width:200px;border-radius:12px;margin-top:10px}
+  .notice{padding:12px;background:var(--lavender);border-radius:12px;margin-bottom:16px;font-size:13px;color:var(--deep)}
+  .error{color:#c0392b;background:#fde8e8;padding:10px;border-radius:10px;margin-top:10px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ЛОГИН -->
+<div id="loginScreen" class="login-box">
+  <h2> Вход в админ-панель</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="pwd" placeholder="Пароль" onkeypress="if(event.key==='Enter')login()">
+  <br><button class="btn" id="loginBtn" onclick="login()">Войти</button>
+  <div id="loginError" class="error hidden"></div>
+  <p style="margin-top:20px;font-size:12px;color:var(--soft)">Используйте email и пароль из Firebase Authentication</p>
+</div>
+
+<!-- ПАНЕЛЬ -->
+<div id="adminPanel" class="hidden">
+  <div class="top-bar">
+    <div>
+      <h1>Админ-панель</h1>
+      <p class="sub">Управление контентом сайта</p>
+    </div>
+    <div>
+      <a href="index.html" class="back">← На сайт</a>
+      <button class="btn btn-small" onclick="logout()" style="margin-left:12px">Выйти</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="programs">📚 Программы</button>
+    <button class="tab" data-tab="articles">📝 Статьи</button>
+    <button class="tab" data-tab="videos"> Видео</button>
+    <button class="tab" data-tab="gallery">🖼️ Фото</button>
+  </div>
+
+  <!-- ПРОГРАММЫ -->
+  <div class="panel tab-panel" data-panel="programs">
+    <h3>Добавить программу</h3>
+    <input type="text" id="prog_title" placeholder="Название программы">
+    <textarea id="prog_desc" placeholder="Описание программы"></textarea>
+    <input type="file" id="prog_img" accept="image/*">
+    <img id="prog_preview" class="preview hidden">
+    <br><button class="btn" id="prog_btn" onclick="addProgram()">Добавить</button>
+    <div class="items-list" id="programs_list"></div>
+  </div>
+
+  <!-- СТАТЬИ -->
+  <div class="panel tab-panel hidden" data-panel="articles">
+    <h3>Добавить статью</h3>
+    <input type="text" id="art_title" placeholder="Заголовок">
+    <input type="text" id="art_date" placeholder="Дата (например, 26 июня 2026)">
+    <textarea id="art_content" placeholder="Текст статьи"></textarea>
+    <input type="file" id="art_img" accept="image/*">
+    <img id="art_preview" class="preview hidden">
+    <br><button class="btn" id="art_btn" onclick="addArticle()">Опубликовать</button>
+    <div class="items-list" id="articles_list"></div>
+  </div>
+
+  <!-- ВИДЕО -->
+  <div class="panel tab-panel hidden" data-panel="videos">
+    <h3>Добавить видео</h3>
+    <div class="notice">💡 Вставьте ссылку на YouTube-видео. Например: https://youtube.com/watch?v=...</div>
+    <input type="text" id="vid_title" placeholder="Название видео">
+    <textarea id="vid_desc" placeholder="Описание (необязательно)"></textarea>
+    <input type="text" id="vid_url" placeholder="https://youtube.com/watch?v=...">
+    <br><button class="btn" id="vid_btn" onclick="addVideo()">Добавить</button>
+    <div class="items-list" id="videos_list"></div>
+  </div>
+
+  <!-- ФОТО -->
+  <div class="panel tab-panel hidden" data-panel="gallery">
+    <h3>Добавить фото</h3>
+    <div class="notice">💡 Фото будут сжаты автоматически. Рекомендуется не более 5 фото за раз.</div>
+    <input type="text" id="gal_cap" placeholder="Подпись (необязательно)">
+    <input type="file" id="gal_img" accept="image/*" multiple>
+    <br><button class="btn" id="gal_btn" onclick="addGallery()">Загрузить</button>
+    <div class="items-list" id="gallery_list"></div>
+  </div>
+</div>
+
+</div>
+
+<!-- Firebase SDK (только Auth + Firestore, без Storage) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyC9WFkK_cmQGt7pNd926W4kIeo4C8p3H3I",
+    authDomain: "nikinat-english.firebaseapp.com",
+    projectId: "nikinat-english",
+    storageBucket: "nikinat-english.firebasestorage.app",
+    messagingSenderId: "820894083136",
+    appId: "1:820894083136:web:24ba3bddbe4f1ba719d7a5"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  auth.onAuthStateChanged(user=>{
+    if(user){
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('adminPanel').classList.remove('hidden');
+      renderAll();
+    }
+  });
+
+  async function login(){
+    const email = document.getElementById('email').value.trim();
+    const pwd = document.getElementById('pwd').value;
+    const errEl = document.getElementById('loginError');
+    errEl.classList.add('hidden');
+    try{
+      await auth.signInWithEmailAndPassword(email, pwd);
+    }catch(e){
+      errEl.textContent = 'Ошибка: ' + e.message;
+      errEl.classList.remove('hidden');
+    }
+  }
+
+  function logout(){ auth.signOut(); location.reload(); }
+
+  // Вкладки
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.onclick = ()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(x=>x.classList.add('hidden'));
+      t.classList.add('active');
+      document.querySelector(`[data-panel="${t.dataset.tab}"]`).classList.remove('hidden');
+    };
+  });
+
+  // Сжатие изображения в base64 (макс. 800px, качество 0.7)
+  function compressImage(file, maxW=800, quality=0.7){
+    return new Promise((resolve, reject)=>{
+      const reader = new FileReader();
+      reader.onload = e=>{
+        const img = new Image();
+        img.onload = ()=>{
+          let w = img.width, h = img.height;
+          if(w > maxW){ h = h * maxW / w; w = maxW; }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Превью
+  function setupPreview(inputId, previewId){
+    document.getElementById(inputId).onchange = async e=>{
+      const f = e.target.files[0]; if(!f) return;
+      const base64 = await compressImage(f);
+      const p = document.getElementById(previewId);
+      p.src = base64; p.classList.remove('hidden');
+    };
+  }
+  setupPreview('prog_img','prog_preview');
+  setupPreview('art_img','art_preview');
+
+  // ПРОГРАММЫ
+  async function addProgram(){
+    const title = document.getElementById('prog_title').value.trim();
+    const desc = document.getElementById('prog_desc').value.trim();
+    const img = document.getElementById('prog_img').files[0];
+    if(!title){ alert('Введите название'); return; }
+    const btn = document.getElementById('prog_btn'); btn.disabled = true;
+    try{
+      let imageUrl = '';
+      if(img) imageUrl = await compressImage(img);
+      await db.collection('programs').add({title, description:desc, imageUrl, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      document.getElementById('prog_title').value='';
+      document.getElementById('prog_desc').value='';
+      document.getElementById('prog_img').value='';
+      document.getElementById('prog_preview').classList.add('hidden');
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
+  }
+
+  // СТАТЬИ
+  async function addArticle(){
+    const title = document.getElementById('art_title').value.trim();
+    const date = document.getElementById('art_date').value.trim();
+    const content = document.getElementById('art_content').value.trim();
+    const img = document.getElementById('art_img').files[0];
+    if(!title||!content){ alert('Заполните заголовок и текст'); return; }
+    const btn = document.getElementById('art_btn'); btn.disabled = true;
+    try{
+      let imageUrl = '';
+      if(img) imageUrl = await compressImage(img);
+      await db.collection('articles').add({title, date, content, imageUrl, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      document.getElementById('art_title').value='';
+      document.getElementById('art_date').value='';
+      document.getElementById('art_content').value='';
+      document.getElementById('art_img').value='';
+      document.getElementById('art_preview').classList.add('hidden');
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
+  }
+
+  // ВИДЕО (только YouTube)
+  async function addVideo(){
+    const title = document.getElementById('vid_title').value.trim();
+    const desc = document.getElementById('vid_desc').value.trim();
+    const url = document.getElementById('vid_url').value.trim();
+    if(!title){ alert('Введите название'); return; }
+    if(!url){ alert('Вставьте ссылку YouTube'); return; }
+    const btn = document.getElementById('vid_btn'); btn.disabled = true;
+    try{
+      await db.collection('videos').add({title, description:desc, type:'youtube', url, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      document.getElementById('vid_title').value='';
+      document.getElementById('vid_desc').value='';
+      document.getElementById('vid_url').value='';
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
+  }
+
+  // ФОТО
+  async function addGallery(){
+    const cap = document.getElementById('gal_cap').value.trim();
+    const files = document.getElementById('gal_img').files;
+    if(!files.length){ alert('Выберите фото'); return; }
+    const btn = document.getElementById('gal_btn'); btn.disabled = true;
+    try{
+      for(const f of files){
+        const imageUrl = await compressImage(f);
+        await db.collection('gallery').add({caption:cap, imageUrl, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      }
+      document.getElementById('gal_cap').value='';
+      document.getElementById('gal_img').value='';
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
+  }
+
+  // Удаление
+  async function delItem(collection, id){
+    if(!confirm('Удалить элемент?')) return;
+    try{
+      await db.collection(collection).doc(id).delete();
+    }catch(e){ alert('Ошибка: '+e.message); }
+  }
+
+  // Рендер списков
+  function listen(name, render){
+    db.collection(name).orderBy('createdAt','desc').onSnapshot(snap=>{
+      const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+      render(items);
+    });
+  }
+
+  function renderPrograms(items){
+    document.getElementById('programs_list').innerHTML = items.map(p=>`
+      <div class="item">
+        ${p.imageUrl?`<img src="${p.imageUrl}">`:''}
+        <div class="item-info"><strong>${p.title}</strong><small>${(p.description||'').slice(0,80)}...</small></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('programs','${p.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+  function renderArticles(items){
+    document.getElementById('articles_list').innerHTML = items.map(a=>`
+      <div class="item">
+        ${a.imageUrl?`<img src="${a.imageUrl}">`:''}
+        <div class="item-info"><strong>${a.title}</strong><small>${a.date||''}</small></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('articles','${a.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+  function renderVideos(items){
+    document.getElementById('videos_list').innerHTML = items.map(v=>`
+      <div class="item">
+        <div class="item-info"><strong>🎬 ${v.title}</strong><small>${v.description||''}</small></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('videos','${v.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+  function renderGallery(items){
+    document.getElementById('gallery_list').innerHTML = items.map(g=>`
+      <div class="item">
+        <img src="${g.imageUrl}">
+        <div class="item-info"><strong>${g.caption||'Без подписи'}</strong></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('gallery','${g.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+
+  function renderAll(){
+    listen('programs', renderPrograms);
+    listen('articles', renderArticles);
+    listen('videos', renderVideos);
+    listen('gallery', renderGallery);
+  }
+</script>
+</body>
+</html>
