@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is That What You Mean? · Natalie English</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #5a4a7a;
+  --success: #6ba889;
+  --danger: #c97b84;
+  --warning: #d4a574;
+  --bg: #fdf6f0;
+  --card: rgba(255,255,255,0.7);
+  --card-solid: #ffffff;
+  --text: #3d3554;
+  --text-light: #8b7ba8;
+  --border: #e8dff5;
+  --lavender: #e8dff5;
+  --peach: #fce4d6;
+  --mint: #d4f1e8;
+  --rose: #f7d6e0;
+  --cream: #fdf6f0;
+  --deep: #5a4a7a;
+  --soft: #8b7ba8;
+  --shadow: 0 10px 40px rgba(138,107,175,0.15);
+}
+
+body.dark {
+  --bg: #2a2438;
+  --card: rgba(60,50,80,0.7);
+  --card-solid: #3c3250;
+  --text: #f0e8f5;
+  --text-light: #b8a8d0;
+  --border: #4a3a6a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--lavender) 50%, var(--peach) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  transition: 0.4s;
+  overflow-x: hidden;
+}
+
+/* Плавающие декоративные круги */
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: -1;
+  animation: float 20s infinite ease-in-out;
+}
+.blob1 { width: 400px; height: 400px; background: var(--rose); top: -100px; left: -100px; }
+.blob2 { width: 500px; height: 500px; background: var(--mint); bottom: -150px; right: -150px; animation-delay: -10s; }
+.blob3 { width: 300px; height: 300px; background: var(--lavender); top: 50%; left: 50%; animation-delay: -5s; }
+
+@keyframes float {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(50px,-50px) scale(1.1); }
+  66% { transform: translate(-30px,40px) scale(0.95); }
+}
+
+/* Верхняя навигация */
+.top-nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(253,246,240,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 12px 25px;
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--deep);
+  letter-spacing: 1px;
+}
+.logo span { color: var(--soft); font-style: italic; }
+
+.back-btn {
+  padding: 8px 20px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+  transition: all 0.3s;
+}
+.back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+
+.theme-toggle {
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(232,223,245,0.8);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: all 0.3s;
+}
+.theme-toggle:hover { background: linear-gradient(135deg, var(--lavender), var(--rose)); transform: rotate(180deg); }
+
+/* Боковая панель */
+.sidebar {
+  width: 290px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 90px 22px 22px;
+  box-shadow: var(--shadow);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.6);
+  margin-top: 80px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  height: calc(100vh - 100px);
+  position: sticky;
+  top: 20px;
+}
+
+.sidebar h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  font-size: 1.3em;
+  font-weight: 500;
+  border-bottom: 2px solid var(--lavender);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  margin: 5px 0;
+  border: 1px solid rgba(232,223,245,0.8);
+  background: rgba(255,255,255,0.7);
+  color: var(--text);
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s;
+  font-size: 0.9em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+
+.sidebar button:hover {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  color: var(--deep);
+  transform: translateX(5px);
+  box-shadow: 0 6px 18px rgba(138,107,175,0.2);
+}
+
+.sidebar button.active {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.3);
+  font-weight: 500;
+}
+
+.sidebar button.special {
+  background: linear-gradient(135deg, var(--warning), var(--peach));
+  color: var(--deep);
+  font-weight: 500;
+}
+.sidebar button.special:hover {
+  background: linear-gradient(135deg, #c99560, var(--warning));
+  color: white;
+}
+
+.sidebar-info {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--lavender);
+  font-size: 0.75em;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.sidebar-info kbd {
+  background: var(--card-solid);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-family: monospace;
+  font-size: 0.9em;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+.sidebar-info strong { color: var(--deep); }
+
+/* Основная область */
+.main {
+  flex: 1;
+  padding: 100px 30px 30px;
+  overflow-y: auto;
+  max-width: calc(100% - 330px);
+}
+
+/* Карточки */
+.card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.8);
+  border-radius: 24px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--soft);
+  transition: all 0.4s;
+  animation: slideUp 0.6s ease backwards;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(138,107,175,0.25);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wrong {
+  color: var(--danger);
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.correct {
+  color: var(--success);
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.explain {
+  background: rgba(232,223,245,0.4);
+  padding: 14px;
+  border-radius: 14px;
+  margin: 12px 0;
+  font-size: 0.95em;
+  color: var(--text);
+  line-height: 1.6;
+  border-left: 3px solid var(--soft);
+}
+
+/* Блок для изображений */
+.img-box {
+  width: 100%;
+  min-height: 220px;
+  max-height: 400px;
+  border: 2px dashed var(--soft);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  background: rgba(253,246,240,0.5);
+  margin-top: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.img-box:hover {
+  border-color: var(--deep);
+  background: rgba(232,223,245,0.3);
+}
+.img-box.target-hover {
+  border-color: var(--deep);
+  border-style: solid;
+  box-shadow: 0 0 0 3px rgba(90,74,122,0.2);
+  background: rgba(232,223,245,0.4);
+}
+.img-box.target-active {
+  border-color: var(--success);
+  border-style: solid;
+  box-shadow: 0 0 0 3px rgba(107,168,137,0.3);
+  background: rgba(212,241,232,0.3);
+}
+.img-box.target-active::after {
+  content: '🎯 Целевая карточка для Ctrl+V';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--success);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 500;
+  z-index: 5;
+}
+.img-box img {
+  max-width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: 12px;
+}
+.img-box .placeholder {
+  font-size: 3em;
+  margin-bottom: 10px;
+  opacity: 0.6;
+}
+.img-box .hint {
+  font-size: 0.85em;
+  color: var(--text-light);
+  text-align: center;
+  padding: 10px;
+  line-height: 1.6;
+}
+.img-box .hint strong { color: var(--deep); }
+
+/* Practice A items */
+.practice-a-item {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.7);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 12px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(138,107,175,0.08);
+}
+.practice-a-item.answered-correct {
+  background: rgba(212,241,232,0.5);
+  border-left: 4px solid var(--success);
+}
+.practice-a-item.answered-wrong {
+  background: rgba(247,214,224,0.5);
+  border-left: 4px solid var(--danger);
+}
+.practice-a-item.hidden-item { display: none; }
+
+/* Кнопки */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  transition: all 0.3s;
+  font-size: 0.9em;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.3px;
+}
+.btn-right {
+  background: linear-gradient(135deg, var(--success), #5a9678);
+  color: white;
+  box-shadow: 0 4px 12px rgba(107,168,137,0.3);
+}
+.btn-wrong {
+  background: linear-gradient(135deg, var(--danger), #b56870);
+  color: white;
+  box-shadow: 0 4px 12px rgba(201,123,132,0.3);
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  box-shadow: 0 6px 18px rgba(90,74,122,0.25);
+}
+.btn-warning {
+  background: linear-gradient(135deg, var(--warning), #c49560);
+  color: white;
+  box-shadow: 0 4px 12px rgba(212,165,116,0.3);
+}
+.btn:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.answer-box {
+  margin-top: 12px;
+  padding: 14px;
+  background: rgba(253,246,240,0.6);
+  border-radius: 14px;
+  display: none;
+  border-left: 4px solid var(--success);
+  line-height: 1.6;
+}
+
+.fill-blank {
+  border: none;
+  border-bottom: 2px solid var(--soft);
+  width: 130px;
+  text-align: center;
+  font-size: 1em;
+  padding: 4px;
+  margin: 0 5px;
+  background: transparent;
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+}
+.fill-blank:focus {
+  outline: none;
+  border-bottom-color: var(--deep);
+}
+.fill-blank.correct {
+  border-bottom-color: var(--success);
+  background: rgba(212,241,232,0.4);
+  color: var(--success);
+  font-weight: 600;
+}
+.fill-blank.wrong {
+  border-bottom-color: var(--danger);
+  background: rgba(247,214,224,0.4);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Заголовок */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  font-size: 2em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Статистика */
+.stats {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.stat-box {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  padding: 14px 22px;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  min-width: 110px;
+  border: 1px solid rgba(255,255,255,0.8);
+}
+.stat-box .label {
+  font-size: 0.75em;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.stat-box .value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8em;
+  font-weight: 600;
+  color: var(--deep);
+}
+
+/* Прогресс-бар */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(232,223,245,0.5);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success), var(--soft), var(--deep));
+  transition: width 0.5s;
+  border-radius: 4px;
+}
+
+/* Флеш-карточки */
+.flashcard {
+  perspective: 1000px;
+  height: 380px;
+  margin: 25px 0;
+}
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 24px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.flashcard-front {
+  background: linear-gradient(135deg, var(--rose), var(--peach));
+  color: var(--deep);
+}
+.flashcard-back {
+  background: linear-gradient(135deg, var(--mint), var(--lavender));
+  color: var(--deep);
+  transform: rotateY(180deg);
+}
+.flashcard .emoji { font-size: 4em; margin-bottom: 18px; }
+.flashcard .sentence {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6em;
+  font-weight: 500;
+  margin-bottom: 18px;
+  line-height: 1.3;
+}
+.flashcard .explanation {
+  font-size: 1em;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+.flashcard-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  align-items: center;
+}
+.flashcard-controls span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2em;
+  color: var(--deep);
+  padding: 8px 16px;
+}
+
+/* Панель фильтров */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.filter-bar button {
+  padding: 8px 16px;
+  font-size: 0.85em;
+  background: rgba(255,255,255,0.6);
+  color: var(--text);
+  border: 1px solid rgba(232,223,245,0.8);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Montserrat', sans-serif;
+}
+.filter-bar button:hover {
+  background: rgba(232,223,245,0.8);
+}
+.filter-bar button.active {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border-color: transparent;
+}
+
+/* Toast уведомления */
+.toast {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: linear-gradient(135deg, var(--success), #5a9678);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(107,168,137,0.4);
+  z-index: 1000;
+  animation: slideIn 0.4s;
+  font-weight: 500;
+}
+.toast.error { background: linear-gradient(135deg, var(--danger), #b56870); box-shadow: 0 10px 30px rgba(201,123,132,0.4); }
+.toast.info { background: linear-gradient(135deg, var(--deep), var(--soft)); box-shadow: 0 10px 30px rgba(90,74,122,0.4); }
+
+@keyframes slideIn {
+  from { transform: translateX(400px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+  body { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    margin: 80px 10px 10px;
+    height: auto;
+    max-height: 300px;
+    position: relative;
+    top: 0;
+  }
+  .main {
+    max-width: 100%;
+    padding: 20px;
+  }
+  .top-nav {
+    width: calc(100% - 20px);
+    justify-content: space-between;
+  }
+  .logo { font-size: 18px; }
+  .header h1 { font-size: 1.5em; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="top-nav">
+  <div class="logo">Natalie <span>English</span></div>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">🌓</button>
+  <a href="index.html" class="back-btn">← На главную</a>
+</div>
+
+<div class="sidebar">
+  <h2>📚 Units</h2>
+  <div id="unit-buttons"></div>
+  <h2 style="margin-top:20px;">📝 Mode</h2>
+  <button onclick="setMode('theory')" id="btn-theory" class="active">📖 Theory (Правила)</button>
+  <button onclick="setMode('flashcards')" id="btn-flashcards">🎴 Flashcards</button>
+  <button onclick="setMode('practiceA')" id="btn-practiceA">✅ Practice A (True/False)</button>
+  <button onclick="setMode('practiceB')" id="btn-practiceB">✏️ Practice B (Fill gaps)</button>
+  <button onclick="setMode('randomTest')" id="btn-randomTest" class="special">🎲 Случайный тест</button>
+  <h2 style="margin-top:20px;">⚙️ Tools</h2>
+  <button onclick="exportProgress()">💾 Экспорт прогресса</button>
+  <button onclick="document.getElementById('import-file').click()">📂 Импорт прогресса</button>
+  <input type="file" id="import-file" accept=".json" style="display:none" onchange="importProgress(event)">
+  <button onclick="resetProgress()" style="background:linear-gradient(135deg, var(--danger), #b56870); color:white;">🗑️ Сбросить прогресс</button>
+  <div class="sidebar-info">
+    💡 <strong>Вставка картинок:</strong><br>
+    1. Наведите мышь на карточку (рамка станет фиолетовой)<br>
+    2. <kbd>PrintScreen</kbd> → <kbd>Ctrl+V</kbd><br>
+    3. Или кликните по карточке для выбора файла<br>
+    4. Новая картинка заменит старую
+  </div>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h1 id="main-title">Unit 1 - Theory</h1>
+    <div id="header-controls"></div>
+  </div>
+  <div class="stats" id="stats-area"></div>
+  <div class="filter-bar" id="filter-bar"></div>
+  <div id="content-area"></div>
+</div>
+
+<script>
+// ==================== DATA ====================
+const DATA = {
+1: {
+    theory: [
+        {w:"Try to phone", e:"try + to = difficult action (пытаться). try + -ing = experiment (попробовать для проверки результата).", c:"Try phoning", emoji:"📞🤔"},
+        {w:"very little people", e:"little используется с неисчисляемыми (little time). Для множественного числа (people) нужно few.", c:"very few people", emoji:"👥"},
+        {w:"hitting themselves", e:"themselves = каждый сам себя. Если боксеры бьют друг друга, нужно each other.", c:"hitting each other", emoji:"🥊🔄"},
+        {w:"out of work", e:"out of work = без работы (для людей). Сломанный механизм = out of order.", c:"out of order", emoji:"☕❌"},
+        {w:"stole a bank", e:"steal = украсть ВЕЩЬ (money). rob = ограбить МЕСТО или ЧЕЛОВЕКА (bank).", c:"robbed a bank", emoji:"🏦💰"},
+        {w:"controlled tickets", e:"control = управлять/контролировать. Проверять билеты = check / examine.", c:"checked tickets", emoji:"🎟️🔍"},
+        {w:"good cooker", e:"cooker = кухонная плита (машина). Человек = cook.", c:"good cook", emoji:"👩‍🍳🍳"},
+        {w:"on time", e:"on time = пунктуально, ровно в срок. in time = вовремя, успеть до чего-то (до пожара).", c:"in time", emoji:"🔥‍♂️"},
+        {w:"throw at him", e:"throw at = бросить со злостью (попасть). throw to = бросить дружески (чтобы поймал).", c:"throw to him", emoji:"🔨😊"},
+        {w:"with her car", e:"with = вместе с кем-то. Способ транспорта = by car (без местоимений).", c:"by car", emoji:"🚗💨"}
+    ],
+    practiceA: [
+        {s:"When Jakob realized he was locked out of the house, he tried to knock on the door.", ans:false, fix:"tried knocking", ref:"p.2"},
+        {s:"If you have a headache, try taking an aspirin.", ans:true, fix:"", ref:"p.2"},
+        {s:"I lost my watch on the beach and three of my friends tried finding it for me.", ans:false, fix:"tried to find", ref:"p.1"},
+        {s:"Mick and Sarah often meet themselves in the town centre.", ans:false, fix:"meet each other", ref:"p.6"},
+        {s:"Paul and Colin are both good at tennis so they enjoy playing each other.", ans:true, fix:"", ref:"p.6"},
+        {s:"I'm afraid there is very little food in the house.", ans:true, fix:"", ref:"p.3"},
+        {s:"There was a lot of trouble at the football match because there were very little policemen there.", ans:false, fix:"very few policemen", ref:"p.4"},
+        {s:"Now that we have a drinks machine the coffee lady will be out of work.", ans:true, fix:"", ref:"p.7"},
+        {s:"We had to carry our bags upstairs because the lift was out of work.", ans:false, fix:"out of order", ref:"p.8"},
+        {s:"Our telephone is out of order, so you'll have to use the neighbour's.", ans:true, fix:"", ref:"p.8"},
+        {s:"Stuart told me that the Post Office in Chinnor was stolen last week.", ans:false, fix:"was robbed", ref:"p.10"},
+        {s:"The new bank in Geneva is impossible to rob.", ans:true, fix:"", ref:"p.10"},
+        {s:"Sometimes Miss Kavanagh's students were very difficult to control.", ans:true, fix:"", ref:"p.11"},
+        {s:"The man at the US embassy checked our passports and gave us a visa.", ans:true, fix:"", ref:"p.12"},
+        {s:"Every time I arrive in England the customs men control my luggage.", ans:false, fix:"check my luggage", ref:"p.12"},
+        {s:"Julie doesn't like washing up - she prefers to be the cooker.", ans:false, fix:"the cook", ref:"p.14"},
+        {s:"After Joan has made a big meal John usually has to clean the cooker.", ans:true, fix:"", ref:"p.13"},
+        {s:"The trains in Greece never arrive in time.", ans:false, fix:"on time", ref:"p.15"},
+        {s:"The hotel bathroom flooded because Vicki didn't turn the taps off on time.", ans:false, fix:"in time", ref:"p.16"},
+        {s:"If the play starts on time we should be able to get out of the theatre in time to catch the last train home.", ans:true, fix:"", ref:"p.15"},
+        {s:"Harriet took a photograph of Robert throwing the doll at his little sister.", ans:false, fix:"to his little sister", ref:"p.17"},
+        {s:"Karen was so angry with Keith that she threw her tennis racket to him.", ans:false, fix:"at him", ref:"p.18"},
+        {s:"Martin saw his brother on the other side of the street and shouted to him.", ans:true, fix:"", ref:"p.18"},
+        {s:"Sue's car is being repaired, so she's going to come with her bicycle.", ans:false, fix:"by bicycle", ref:"p.19"},
+        {s:"The cinema is very near here, so you don't need to go by your car.", ans:false, fix:"by car", ref:"p.20"}
+    ],
+    practiceB: {
+        text: "I had decided to go into town (1) ___ car, hoping that it would be easy to find a free parking place. The streets were full of cars, even though there seemed to be (2) ___ people in the town centre, and so I had to go to a car park. I found the ticket machine, but it was out (3) ___ . I didn't want to leave the car without a ticket because York is full of bored traffic wardens, who (4) ___ all the cars to make sure that the owners have paid. I think it's probably easier to (5) ___ a bank than park your car without paying! I tried (find) (6) ___ a traffic warden so that I could explain my problem, but of course, you can never find one if you want to! I had very (7) ___ time, so in the end I decided to leave some money on top of the car and hope that no one would (8) ___ it. It was 2.00 p.m. by now, and I had arranged to meet my friend Alastair in an Indian restaurant at 1.45 p.m., so I hoped he hadn't arrived (9) ___ time. I tried (phone) (10) ___ the restaurant to let him know that I would be late. One of the (11) ___ who worked in the restaurant kitchen answered the phone, but he said he couldn't see anyone in the restaurant who looked like Alastair. When I got to the restaurant, Alastair wasn't there yet. I was standing next to two men, who were having an argument at the bar. One of them threw his drink (12) ___ the other and I thought they were going to start hitting (13) ___ , but the manager came over (14) ___ time to stop them. As the manager was throwing them out, I saw Alastair standing in the doorway, looking for me. I shouted (15) ___ him, and once the waiter had brought us our food and drinks, I finally began to relax.",
+        answers: ["by", "few", "of order", "check", "rob", "to find", "little", "steal", "on", "phoning", "cooks", "at", "each other", "in", "to"]
+    }
+},
+2: {
+    theory: [
+        {w:"wish you would be taller", e:"would для изменений в поведении. Для неизменного (рост) = Past Simple (were).", c:"wish you were taller", emoji:"📏🤷‍♂️"},
+        {w:"stop to sleep", e:"stop to do = остановиться, чтобы сделать. stop doing = прекратить делать.", c:"stop sleeping", emoji:"🛑💤"},
+        {w:"I am very boring", e:"boring = вызывающий скуку. bored = чувствующий скуку.", c:"I am very bored", emoji:"🥱😐"},
+        {w:"change the train", e:"change trains = делать пересадку (множ. число).", c:"change trains", emoji:"🚆🔄"},
+        {w:"so that", e:"so that = чтобы (цель). so = поэтому (результат).", c:"so", emoji:"☔🌧️"},
+        {w:"grown up", e:"grow up = взрослеть. grow = расти (о растениях/размере).", c:"grown", emoji:"🌱"},
+        {w:"educate their children", e:"educate = давать академические знания (школа). bring up = воспитывать.", c:"bring up", emoji:"👨‍👩‍‍👦"},
+        {w:"careless", e:"careless = неосторожный. carefree = беззаботный.", c:"carefree", emoji:"🏖️"},
+        {w:"on the platform", e:"on the platform = на платформе (жд). at the platform = прибыть к платформе.", c:"at the platform", emoji:"🚉⏱️"},
+        {w:"died with pneumonia", e:"die of = от внутренней болезни. die from = от внешней причины (травма).", c:"died of pneumonia", emoji:"🤒🕊️"}
+    ],
+    practiceA: [
+        {s:"Dan wishes Joanna would spend less time in the bathroom.", ans:true, fix:"", ref:"p.23"},
+        {s:"Don't you wish I would have blue eyes?", ans:false, fix:"wish I had blue eyes", ref:"p.24"},
+        {s:"Diana's friend wishes she played her music more quietly.", ans:false, fix:"wishes she would play", ref:"p.23"},
+        {s:"I wish I didn't have three brothers.", ans:true, fix:"", ref:"p.24"},
+        {s:"Fiona stopped to smoke three years ago.", ans:false, fix:"stopped smoking", ref:"p.25"},
+        {s:"I saw Amanda when I was walking in the park, but we didn't stop to talk.", ans:true, fix:"", ref:"p.25"},
+        {s:"I don't speak English very well. I stopped to learn it when I was fifteen.", ans:false, fix:"stopped learning", ref:"p.26"},
+        {s:"Tim left before the film finished because he was boring.", ans:false, fix:"he was bored", ref:"p.28"},
+        {s:"I'm very exciting about my new job, because it's never boring.", ans:false, fix:"very excited", ref:"p.28"},
+        {s:"Because Benedicte didn't like the view from the balcony, Steve asked if they could change the room.", ans:false, fix:"change rooms", ref:"p.30"},
+        {s:"It's cheaper to fly from Paris, but you have to change planes three times.", ans:true, fix:"", ref:"p.30"},
+        {s:"The sun shone for five days so that Katie got very brown.", ans:false, fix:", so Katie got", ref:"p.32"},
+        {s:"The car ran out of petrol so that we had to walk to the hotel.", ans:false, fix:", so we had to", ref:"p.32"},
+        {s:"The hotel was expensive, so Inge decided to find another one.", ans:true, fix:"", ref:"p.32"},
+        {s:"My dog has grown up so much he can jump into the next garden now.", ans:false, fix:"has grown so much", ref:"p.33"},
+        {s:"Clare, you're behaving like a baby - why don't you grow up?", ans:true, fix:"", ref:"p.33"},
+        {s:"The tree you bought is growing very quickly - it will probably have apples on it next year.", ans:true, fix:"", ref:"p.34"},
+        {s:"Christine's children are very well-educated. They never take things without asking.", ans:false, fix:"well brought-up", ref:"p.36"},
+        {s:"It's not easy for both parents to work and bring children up.", ans:true, fix:"", ref:"p.36"},
+        {s:"My parents educated me very well and I went to a very good school.", ans:false, fix:"brought me up", ref:"p.36"},
+        {s:"Miles would like to be young and careless again.", ans:false, fix:"carefree", ref:"p.38"},
+        {s:"You speak English very well, but you are too careless with your written work.", ans:true, fix:"", ref:"p.37"},
+        {s:"There were hundreds of people waiting at the platform when the train arrived.", ans:false, fix:"on the platform", ref:"p.39"},
+        {s:"The Prime Minister suddenly died with a heart attack.", ans:false, fix:"died of", ref:"p.42"},
+        {s:"Five people died from their injuries when a bus crashed yesterday.", ans:true, fix:"", ref:"p.42"}
+    ],
+    practiceB: {
+        text: "Richard Rogers wanted to catch the 8.30 train to Reading. Unfortunately his alarm clock didn't work, (1) ___ he had to catch the 9.15 train. Now he was standing (2) ___ the platform at Reading station, where he had to change (3) ___ . The train was already twenty minutes late. 'I wish the train (come) (4) ___ ,' he said to himself. At last the train stopped (5) ___ the platform and he found a seat. Unfortunately he was sitting next to some very badly behaved children, who were making a lot of noise. Their parents kept telling them to be quiet, but they wouldn't stop (shout) (6) ___ and (hit) (7) ___ each other. 'When I have children I'll (8) ___ them ___ quite strictly,' Richard thought. His father had died (9) ___ a heart attack when Richard was six, but his mother had been very firm with him as a child, and he had (10) ___ to become a man who liked discipline and hard work. 'I wish Gatwick Airport (11) ___ closer to London,' he thought, as the train stopped (let) (12) ___ more people on at another station. At last he arrived at Gatwick, and was soon waiting to get on the plane to Italy. He bought a book from the bookshop (13) ___ he would have something to read if the plane was late taking off. When he was younger he used to find flying exciting, but because he often flew on business now, he usually felt very (14) ___ on aeroplanes. But he was already looking forward to forgetting all about work, eating good Italian food, lying on the beach, and feeling completely (15) ___ .",
+        answers: ["so", "on", "trains", "would come", "at", "shouting", "hitting", "bring, up", "of", "grown up", "was/were", "to let", "so that", "bored", "carefree"]
+    }
+},
+3: {
+    theory: [
+        {w:"been smoking thirty", e:"Present Perfect Continuous для процесса. Для результата (30 сигарет) = Present Perfect Simple.", c:"smoked thirty", emoji:"🚬🔢"},
+        {w:"After putting... my husband", e:"Если subjekty разные, нельзя использовать -ing после after. Нужно: After I put...", c:"After I put", emoji:"👗"},
+        {w:"paid the car", e:"pay someone / pay FOR something.", c:"paid for the car", emoji:"🚗💸"},
+        {w:"beautiful hairs", e:"hair на голове = неисчисляемое. hairs = отдельные волосинки (в супе).", c:"beautiful hair", emoji:"💇‍♀️✨"},
+        {w:"a paper", e:"paper = бумага (неисч.) или газета. Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📝📄"},
+        {w:"matches you", e:"match = подходить по цвету/стилю к ДРУГОЙ вещи. suit = идти к ЧЕЛОВЕКУ.", c:"suits you", emoji:"👗"},
+        {w:"make a picture", e:"make = создавать. Фотографировать = take a picture.", c:"take a picture", emoji:"📸🖼️"},
+        {w:"borrow the money", e:"borrow = брать взаймы (к себе). lend = давать взаймы (от себя).", c:"lend the money", emoji:"🏦"},
+        {w:"married with", e:"get married TO someone.", c:"married to", emoji:"💍👰"},
+        {w:"good in Italian", e:"good AT = хорош в навыке/предмете. good IN = хорош в классе/месте.", c:"good at", emoji:"🍝‍🍳"}
+    ],
+    practiceA: [
+        {s:"Madge has been cleaning thirty windows today.", ans:false, fix:"has cleaned", ref:"p.45"},
+        {s:"The police have been watching those three men for two hours.", ans:true, fix:"", ref:"p.45"},
+        {s:"Tony has been playing the cello for four hours.", ans:true, fix:"", ref:"p.45"},
+        {s:"Diana has played three piano sonatas by Beethoven this evening.", ans:true, fix:"", ref:"p.46"},
+        {s:"After spending three hours working in the garden, Olwyn went shopping.", ans:true, fix:"", ref:"p.47"},
+        {s:"After cooking a meal with fish in it, my cat Jemima likes licking the plates.", ans:false, fix:"After I cook", ref:"p.47"},
+        {s:"After reading a lot of English books, my English became much better.", ans:false, fix:"After I read/I had read", ref:"p.47"},
+        {s:"Before we left, Penny went to pay the hotel room.", ans:false, fix:"pay for the hotel room", ref:"p.49"},
+        {s:"When he comes, can you pay the waiter?", ans:true, fix:"", ref:"p.49"},
+        {s:"Your grandfather's very old, but he has a beautiful hair.", ans:false, fix:"has beautiful hair", ref:"p.52"},
+        {s:"Wanda changes the colour of her hairs every month.", ans:false, fix:"her hair", ref:"p.52"},
+        {s:"Can you give me a paper to write Maggie's telephone number on?", ans:false, fix:"a piece of paper/some paper", ref:"p.54"},
+        {s:"I don't read much in the week, but I often buy a paper on Sunday.", ans:true, fix:"", ref:"p.53"},
+        {s:"That red skirt really suits your shoes Pat.", ans:false, fix:"matches your shoes", ref:"p.55"},
+        {s:"The new carpet in the living room doesn't match the walls.", ans:true, fix:"", ref:"p.55"},
+        {s:"It's so easy to make pictures with some of the new Japanese cameras.", ans:false, fix:"take pictures", ref:"p.58"},
+        {s:"Would you like Mark to take a picture of you?", ans:true, fix:"", ref:"p.58"},
+        {s:"Jack's just going down to the library to lend some books.", ans:false, fix:"to borrow", ref:"p.59"},
+        {s:"Do you think you could borrow me your bicycle for the afternoon?", ans:false, fix:"lend me", ref:"p.60"},
+        {s:"I can't play you my favourite cassette because Ege has borrowed it.", ans:true, fix:"", ref:"p.59"},
+        {s:"Honor got married with two of her friends.", ans:true, fix:"", ref:"p.61"},
+        {s:"Maria was engaged with Jimmy for six months before they got married.", ans:false, fix:"engaged to", ref:"p.62"},
+        {s:"I didn't know that Paul was married with Holly. I thought they were just good friends.", ans:false, fix:"married to", ref:"p.62"},
+        {s:"Saraita's class are very good in prepositions.", ans:false, fix:"good at", ref:"p.64"},
+        {s:"Anthony is very clever at inventing new games.", ans:true, fix:"", ref:"p.64"}
+    ],
+    practiceB: {
+        text: "'I'm so tired!' said Mrs Airey, 'I've (make) (1) ___ eleven phone calls this morning.' Mrs Airey was busy preparing for her daughter's wedding. Her daughter, Sue, was getting married (2) ___ a Frenchman, but the wedding was going to be typically English, in a small village church. Mrs Airey had (worry) (3) ___ all morning - first about the weather. She had heard the weather forecast on the radio and they said it might rain later. Then she had to go to the hairdresser's at 11.00 a.m. to have her (4) ___ done. After (5) ___ to the hairdresser's, she went round to her neighbour's to (6) ___ a umbrella, because she'd lost hers the week before. At 12.00 a.m. she started to get ready. She put on her new green dress and a pair of green shoes that (7) ___ it perfectly. She looked very smart, and everyone agreed that green (8) ___ her. After (put on) (9) ___ her make-up, Mr Airey arrived. He'd been organizing all the arrangements for getting to the church. 'Have you got the money to (10) ___ the taxis?' Mrs Airey asked him. 'Oh no! I forgot! It's OK, your brother Martin always has lots of cash. He'll (11) ___ me the money and I can (12) ___ him back on Monday.' 'You're not very good (13) ___ remembering things, are you? Did you phone the restaurant to make sure they've got an extra table?' 'No. I didn't forget, but I wrote the phone number on (14) ___ paper and I've lost it.' 'Don't worry,' said Mrs Airey, noticing how tired he looked. 'I hope you'll be able to smile later, or no one will want to (15) ___ a picture of you.'",
+        answers: ["made", "to", "been worrying", "hair", "going/having been", "borrow", "matched", "suited", "she put on/she'd put on", "pay for", "lend", "pay", "at", "a piece of", "take"]
+    }
+},
+4: {
+    theory: [
+        {w:"cut my hair", e:"have something done = делать что-то в салоне (have my hair cut).", c:"have my hair cut", emoji:"💇‍♂️📰"},
+        {w:"played tennis when", e:"Длительное действие прерывается кратким: were playing ... when it started.", c:"were playing tennis", emoji:"🎾🌧️"},
+        {w:"In case the weather gets", e:"in case = на случай (подготовка). if = условие.", c:"If the weather gets", emoji:"🧥❄️"},
+        {w:"go to prison", e:"go to prison = как заключенный. go to THE prison = как посетитель.", c:"go to the prison", emoji:"👮‍♂️🔒"},
+        {w:"few friends", e:"few = мало (негатив). a few = несколько (позитив).", c:"a few friends", emoji:"🎉"},
+        {w:"laying on the sofa", e:"lay = класть (с объектом). lie = лежать (без объекта).", c:"lying on the sofa", emoji:"🛋️🐶"},
+        {w:"says the truth", e:"tell the truth (устойчивое выражение).", c:"tells the truth", emoji:"🤥🤐"},
+        {w:"At last, I will end", e:"at last = наконец-то (после долгого ожидания). finally = последним пунктом.", c:"Finally", emoji:"🎤🔚"},
+        {w:"look for his plants", e:"look for = искать (потерянное). look after = присматривать/ухаживать.", c:"look after", emoji:"🌿👀"},
+        {w:"backside", e:"backside = неформ. 'пятая точка'. Обратная сторона фото = back.", c:"back", emoji:"📸🍑"}
+    ],
+    practiceA: [
+        {s:"Satoko is going to the hairdresser's this afternoon to cut her hair.", ans:false, fix:"to have her hair cut", ref:"p.68"},
+        {s:"If Gary cuts your hair, he always gives you a drink.", ans:true, fix:"", ref:"p.67"},
+        {s:"I talked and laughed with the passenger sitting next to me when the train crashed.", ans:false, fix:"I was talking and laughing", ref:"p.70"},
+        {s:"Tony was reading a newspaper when his boss telephoned him.", ans:true, fix:"", ref:"p.70"},
+        {s:"Takuro wrote a letter when all the lights suddenly went out.", ans:false, fix:"was writing", ref:"p.70"},
+        {s:"In case my little brother throws his toys at you, shout at him.", ans:false, fix:"If my little brother throws", ref:"p.72"},
+        {s:"Put a swimming costume in your suitcase in case we go to the sea.", ans:true, fix:"", ref:"p.71"},
+        {s:"In case my watch breaks, I'll take it to be repaired.", ans:false, fix:"If my watch breaks", ref:"p.72"},
+        {s:"Because Uzi is having problems in class, his parents are going to school next week to talk to the teachers.", ans:false, fix:"to the school", ref:"p.74"},
+        {s:"When you've left school, would you like to go to the university?", ans:false, fix:"to university", ref:"p.73"},
+        {s:"Tracy's car broke down, so she caught a bus that was going to the prison.", ans:true, fix:"", ref:"p.74"},
+        {s:"It's no problem if you're hungry. Chloe's got a few sandwiches.", ans:true, fix:"", ref:"p.76"},
+        {s:"Richard brought his guitar on the picnic, so we sang few songs and had a really good time.", ans:false, fix:"a few songs", ref:"p.76"},
+        {s:"Katherine's very happy with the car - she's had a few problems with it.", ans:false, fix:"few problems", ref:"p.75"},
+        {s:"If you lay the towels out on the grass, they'll dry very quickly.", ans:true, fix:"", ref:"p.77"},
+        {s:"In summer, the park is full of people laying on the grass.", ans:false, fix:"lying on the grass", ref:"p.78"},
+        {s:"If Laila keeps saying lies, no one will ever believe her.", ans:false, fix:"telling lies", ref:"p.80"},
+        {s:"Yoshi always tries to tell the truth, even if it's difficult.", ans:true, fix:"", ref:"p.80"},
+        {s:"At last, the rain stopped, and we were able to continue with our walk.", ans:true, fix:"", ref:"p.81"},
+        {s:"Finally, before I end, I'd like to thank Vicki for all the good things she did for me.", ans:true, fix:"", ref:"p.82"},
+        {s:"At last, the important thing I haven't said about prison is that it never succeeds in stopping crime.", ans:false, fix:"Finally, the important thing", ref:"p.82"},
+        {s:"They still haven't found the gorilla that escaped from London Zoo. The police are looking after it.", ans:false, fix:"looking for it", ref:"p.83"},
+        {s:"Could you live in my house and look after the cat while I'm away?", ans:true, fix:"", ref:"p.84"},
+        {s:"I like this photograph of you. Can you sign your name on the backside?", ans:false, fix:"on the back", ref:"p.86"},
+        {s:"I can't remember where I bought that postcard. Is there any writing on the back?", ans:true, fix:"", ref:"p.86"}
+    ],
+    practiceB: {
+        text: "Phillip Marlowe (sleep) (1) ___ when the telephone (ring) (2) ___ . 'Hello, is that Phillip Marlowe, private detective?' a voice asked. 'I wish it wasn't,' he replied. 'But to (3) ___ the truth, it is.' There were (4) ___ times when he didn't want offers of work, but this was one of them. 'I wonder if you can help me. Are you busy at the moment?' 'I'm (5) ___ in bed at the moment,' Marlowe said. 'In two hours I'm going to the hairdresser's to (6) ___ , but for the rest of the year I'm not busy.' 'Good. Let me introduce myself. I'm Dirk Phillips, and I'm afraid I've got (7) ___ problems.' 'What are your problems - apart from having a name like Dirk?' 'Well, a friend of mine who sells unusual pets is away on holiday, and she asked me to look (8) ___ her collection of snakes. Unfortunately one of them has escaped. I think I should find it as soon as possible (9) ___ it bites someone.' 'And why are you asking me to help?' Marlowe asked. 'Because I've tried everyone else. I (call) (10) ___ the police when I noticed it was missing, but they wouldn't be able to find an elephant. I've tried the zoo. I even went (11) ___ university to ask someone in the Zoology department to help, but no luck. (12) ___ I decided to try you.' 'Well, I never went (13) ___ university - I left school when I was five. But you want me to look (14) ___ your snake. How do you expect me to find it?' 'I don't know. You're the detective. I'll send you a photograph of the snake and I'll write my address and phone number on the (15) ___ . Give me a call when you find it. Goodbye.'",
+        answers: ["was sleeping", "rang", "tell", "few", "lying", "have my hair cut", "a few", "after", "in case", "called", "to the", "Finally", "to", "for", "back"]
+    }
+},
+5: {
+    theory: [
+        {w:"suggested going", e:"suggest + -ing (для всех). suggest + that + subject + verb (без s).", c:"suggested she go", emoji:"🛏️🩺"},
+        {w:"coming from Colombia", e:"coming = в процессе пути. comes from = родился/происходит.", c:"comes from", emoji:"🇨🇴️"},
+        {w:"searching the boy", e:"search someone = обыскивать человека. search FOR = искать.", c:"searching for", emoji:"🔦🐕"},
+        {w:"a toast", e:"toast (напиток) = неисч. a piece of toast (еда).", c:"toast", emoji:"🍞🥂"},
+        {w:"in the bed", e:"in bed = спать/болеть. in THE bed = физически на конкретной кровати.", c:"in bed", emoji:"🛌💤"},
+        {w:"wounded", e:"wounded = от оружия (война/драка). injured = в аварии/несчастном случае.", c:"injured", emoji:"🚑"},
+        {w:"won Liverpool", e:"win = выиграть ПРИЗ/СОРЕВНОВАНИЕ. beat = победить КОМАНДУ/ЧЕЛОВЕКА.", c:"beat Liverpool", emoji:"⚽"},
+        {w:"discovered", e:"discover = найти то, что уже есть. invent = изобрести новое.", c:"invented", emoji:"💡🎶"},
+        {w:"killed by a knife", e:"by = кем/чем (субъект). with = с помощью инструмента.", c:"killed with a knife", emoji:"🔪🩸"},
+        {w:"reminded me of them", e:"remind of = вызывать воспоминание (сходство). remind about = напомнить о деле.", c:"reminded me about", emoji:"💭🌸"}
+    ],
+    practiceA: [
+        {s:"'I suggest going by train,' the travel agent said to Sarah.", ans:false, fix:"I suggest you go", ref:"p.90"},
+        {s:"It was so hot that our teacher suggested having a lesson in the garden.", ans:true, fix:"", ref:"p.89"},
+        {s:"'I suggest getting off at the next stop and walking to the station,' the bus driver said.", ans:false, fix:"I suggest you get off", ref:"p.90"},
+        {s:"Can I introduce you to my friend Huang-Mei. She's coming from Taiwan.", ans:false, fix:"She comes from", ref:"p.92"},
+        {s:"That was Chris telephoning from the railway station. She's coming up from London to visit us.", ans:true, fix:"", ref:"p.91"},
+        {s:"When Janis speaks, you can hear that she comes from London.", ans:true, fix:"", ref:"p.92"},
+        {s:"When Ron drove into Germany, the customs men searched for his car.", ans:false, fix:"searched his car", ref:"p.93"},
+        {s:"Fran couldn't remember where she'd parked her car and spent two hours searching it.", ans:false, fix:"searching for it", ref:"p.94"},
+        {s:"When Andrea went to Florence, she spent all day searching for a room.", ans:true, fix:"", ref:"p.94"},
+        {s:"Pam, would you like to have a toast with your coffee?", ans:false, fix:"have toast/a piece of toast", ref:"p.96"},
+        {s:"I'd like to propose a toast to John for all the help he's given me.", ans:true, fix:"", ref:"p.95"},
+        {s:"When Norbert was in hospital he had to stay in the bed all day.", ans:false, fix:"in bed", ref:"p.98"},
+        {s:"It was a single room, so I slept on the floor and she slept in the bed.", ans:true, fix:"", ref:"p.97"},
+        {s:"No one died in the plane crash, but many people were wounded.", ans:false, fix:"were injured", ref:"p.100"},
+        {s:"The police caught the robbers, but two policemen were wounded in the fighting.", ans:true, fix:"", ref:"p.99"},
+        {s:"The petrol tanker exploded in the street and thirty-five people were injured.", ans:true, fix:"", ref:"p.100"},
+        {s:"I like playing tennis with Shige, but he often wins me.", ans:false, fix:"beats me", ref:"p.102"},
+        {s:"Keith won a lot of money at the horse races last Saturday.", ans:true, fix:"", ref:"p.101"},
+        {s:"Richard has trained so hard for the race that no one can beat him.", ans:true, fix:"", ref:"p.102"},
+        {s:"It would be really exciting to discover a new planet.", ans:true, fix:"", ref:"p.104"},
+        {s:"I hope you enjoyed the soup. Juliet invented the recipe herself!", ans:true, fix:"", ref:"p.103"},
+        {s:"Anja was hit with a horse that was running away.", ans:false, fix:"hit by a horse", ref:"p.105"},
+        {s:"This lock can only be opened by a very large key.", ans:false, fix:"with a very large key", ref:"p.106"},
+        {s:"If you see me tomorrow morning, could you remind me of the phone bill?", ans:false, fix:"remind me about", ref:"p.108"},
+        {s:"When I hear this music it reminds me of being in Greece.", ans:true, fix:"", ref:"p.107"}
+    ],
+    practiceB: {
+        text: "Chris was telling me about his planned trip to Australia in December and I told him that I didn't know what to do at Christmas. 'I suggest (1) ___ skiing,' he said, and I laughed. I explained that whenever I heard anything about skiing it reminded me (2) ___ a very strange man called Urs, who I met when I was working in Switzerland. He lived in Switzerland and worked for a company that made skis, but he actually (3) ___ from Germany. He was crazy about skiing, and every year he entered the men's skiing competition, but he'd never managed to (4) ___ it. I saw him working in the factory one day and he told me that he'd (5) ___ a new type of ski that could go faster than any other. He was going to try using his new skis in the competition that year and was sure that he could (6) ___ the other skiers easily. Just before the race began, I tried to remind him (7) ___ the change they'd made in the race course, but he wasn't listening to me. In fact he went the wrong way and he was going so fast that he disappeared off the side of the mountain! He landed in the forest below and was hit on the head (8) ___ one of his skis that came down after him. We spent a couple of hours (9) ___ the forest, and there were even mountain dogs (10) ___ him in the snow. Eventually we found him, unconscious. Luckily he wasn't badly (11) ___ and we took him home. The doctor examined him and said that he should spend a few days (12) ___ bed. I went to visit him and took him a bottle of his favourite whisky. He suggested (have) (13) ___ a drink immediately, and soon our glasses were filled (14) ___ whisky. 'Let's drink (15) ___ ,' he said, raising his glass. 'To next year's competition, and an even better type of ski - with brakes!'",
+        answers: ["you go", "of", "came", "win", "invented", "beat", "about", "by", "searching", "searching for", "injured", "in", "having", "with", "a toast"]
+    }
+}
+};
+
+// ==================== STATE ====================
+let currentUnit = 1;
+let currentMode = 'theory';
+let currentFlashcard = 0;
+let stats = JSON.parse(localStorage.getItem('trainer_stats') || '{}');
+let userAnswers = JSON.parse(localStorage.getItem('trainer_answers') || '{}');
+let filterMode = 'all';
+let currentTargetBox = null;
+
+// ==================== INIT ====================
+function init() {
+    renderUnitButtons();
+    setMode('theory');
+    if (localStorage.getItem('trainer_theme') === 'dark') document.body.classList.add('dark');
+    document.addEventListener('paste', handleGlobalPaste);
+}
+
+function renderUnitButtons() {
+    const container = document.getElementById('unit-buttons');
+    container.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = `Unit ${i}`;
+        btn.onclick = () => selectUnit(i);
+        if (i === currentUnit) btn.classList.add('active');
+        container.appendChild(btn);
+    }
+}
+
+function selectUnit(unit) {
+    currentUnit = unit;
+    currentFlashcard = 0;
+    currentTargetBox = null;
+    renderUnitButtons();
+    renderContent();
+}
+
+function setMode(mode) {
+    currentMode = mode;
+    document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
+    document.getElementById(`btn-${mode}`).classList.add('active');
+    currentTargetBox = null;
+    renderContent();
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('trainer_theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// ==================== RENDER ====================
+function renderContent() {
+    const title = document.getElementById('main-title');
+    const area = document.getElementById('content-area');
+    const statsArea = document.getElementById('stats-area');
+    const filterBar = document.getElementById('filter-bar');
+    const controls = document.getElementById('header-controls');
+    
+    area.innerHTML = '';
+    statsArea.innerHTML = '';
+    filterBar.innerHTML = '';
+    controls.innerHTML = '';
+    
+    const modeNames = {
+        theory: '📖 Theory',
+        flashcards: '🎴 Flashcards',
+        practiceA: '✅ Practice A',
+        practiceB: '✏️ Practice B',
+        randomTest: '🎲 Случайный тест'
+    };
+    
+    if (currentMode === 'randomTest') {
+        title.innerText = '🎲 Случайный тест (все юниты)';
+    } else {
+        title.innerText = `Unit ${currentUnit} — ${modeNames[currentMode]}`;
+    }
+
+    if (currentMode === 'theory') renderTheory(area);
+    else if (currentMode === 'flashcards') renderFlashcards(area);
+    else if (currentMode === 'practiceA') renderPracticeA(area);
+    else if (currentMode === 'practiceB') renderPracticeB(area);
+    else if (currentMode === 'randomTest') renderRandomTest(area);
+    
+    updateStats();
+}
+
+// ==================== IMAGE HANDLING ====================
+function handleGlobalPaste(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const items = e.clipboardData.items;
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+            e.preventDefault();
+            const blob = items[i].getAsFile();
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const targetBox = getTargetImageBox();
+                if (targetBox) {
+                    const unit = targetBox.dataset.unit;
+                    const id = targetBox.dataset.id;
+                    saveImage(unit, id, event.target.result);
+                    showToast(`✅ Картинка вставлена в Unit ${unit}, Правило #${id}`);
+                } else {
+                    showToast('❌ Нет активной карточки. Наведите мышь на карточку и повторите Ctrl+V', true);
+                }
+            };
+            reader.readAsDataURL(blob);
+            return;
+        }
+    }
+}
+
+function getTargetImageBox() {
+    if (currentTargetBox && document.body.contains(currentTargetBox)) return currentTargetBox;
+    const hoveredBox = document.querySelector('.img-box.target-hover');
+    if (hoveredBox) return hoveredBox;
+    const allBoxes = document.querySelectorAll('.img-box');
+    for (let box of allBoxes) {
+        const rect = box.getBoundingClientRect();
+        if (rect.top >= 0 && rect.bottom <= window.innerHeight && rect.top < window.innerHeight) return box;
+    }
+    return null;
+}
+
+function initImageBox(unit, id) {
+    const box = document.getElementById(`img-box-${unit}-${id}`);
+    if (!box) return;
+    box.dataset.unit = unit;
+    box.dataset.id = id;
+    
+    box.addEventListener('mouseenter', () => {
+        document.querySelectorAll('.img-box.target-hover').forEach(b => {
+            if (b !== box && b !== currentTargetBox) b.classList.remove('target-hover');
+        });
+        if (box !== currentTargetBox) box.classList.add('target-hover');
+    });
+    
+    box.addEventListener('mouseleave', () => {
+        if (box !== currentTargetBox) box.classList.remove('target-hover');
+    });
+    
+    box.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG') {
+            const input = document.getElementById(`file-${unit}-${id}`);
+            if (input) input.click();
+            return;
+        }
+        if (currentTargetBox && currentTargetBox !== box) currentTargetBox.classList.remove('target-active');
+        if (currentTargetBox === box) {
+            currentTargetBox.classList.remove('target-active');
+            currentTargetBox = null;
+        } else {
+            box.classList.add('target-active');
+            box.classList.remove('target-hover');
+            currentTargetBox = box;
+            showToast(`🎯 Карточка #${id} зафиксирована как целевая для Ctrl+V`, false, 'info');
+        }
+    });
+    
+    const fileInput = document.getElementById(`file-${unit}-${id}`);
+    if (fileInput) fileInput.onchange = (e) => handleFileUpload(unit, id, e);
+    
+    const savedImg = localStorage.getItem(`img_u${unit}_t${id}`);
+    if (savedImg) updateImageUI(unit, id, savedImg);
+}
+
+function handleFileUpload(unit, id, e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        saveImage(unit, id, event.target.result);
+        showToast(`✅ Картинка заменена (Unit ${unit}, Правило #${id})`);
+    };
+    reader.readAsDataURL(file);
+}
+
+function saveImage(unit, id, imgData) {
+    localStorage.setItem(`img_u${unit}_t${id}`, imgData);
+    updateImageUI(unit, id, imgData);
+}
+
+function updateImageUI(unit, id, imgData) {
+    const box = document.getElementById(`img-box-${unit}-${id}`);
+    if (!box) return;
+    const wasActive = box.classList.contains('target-active');
+    const wasHovered = box.classList.contains('target-hover');
+    box.innerHTML = `<img src="${imgData}" alt="Book Image" title="Кликните, чтобы заменить картинку">`;
+    if (wasActive) box.classList.add('target-active');
+    if (wasHovered) box.classList.add('target-hover');
+}
+
+function showToast(message, isError = false, type = null) {
+    const toast = document.createElement('div');
+    toast.className = 'toast' + (isError ? ' error' : '') + (type ? ' ' + type : '');
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
+}
+
+// ==================== THEORY ====================
+function renderTheory(area) {
+    const theories = DATA[currentUnit].theory;
+    theories.forEach((t, idx) => {
+        const id = idx + 1;
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.animationDelay = (idx * 0.08) + 's';
+        card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:var(--deep); font-family:'Cormorant Garamond',serif; font-size:1.3em;">Правило #${id}</strong>
+            </div>
+            <div class="wrong" style="margin-top:12px;">❌ ${t.w}</div>
+            <div class="explain">💡 ${t.e}</div>
+            <div class="correct">✅ ${t.c}</div>
+            <div class="img-box" id="img-box-${currentUnit}-${id}">
+                <div class="placeholder">${t.emoji}</div>
+                <div class="hint">
+                    <strong>📎 Вставить картинку из книги:</strong><br>
+                    Наведите мышь сюда → <kbd>PrintScreen</kbd> → <kbd>Ctrl+V</kbd><br>
+                    или кликните для выбора файла
+                </div>
+                <input type="file" accept="image/*" id="file-${currentUnit}-${id}" style="display:none">
+            </div>
+        `;
+        area.appendChild(card);
+        initImageBox(currentUnit, id);
+    });
+}
+
+// ==================== FLASHCARDS ====================
+function renderFlashcards(area) {
+    const theories = DATA[currentUnit].theory;
+    const t = theories[currentFlashcard];
+    
+    area.innerHTML = `
+        <div class="flashcard" id="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <div class="emoji">${t.emoji}</div>
+                    <div class="sentence">❌ ${t.w}</div>
+                    <div style="font-size:0.9em; opacity:0.8;">Нажмите, чтобы увидеть ответ</div>
+                </div>
+                <div class="flashcard-back">
+                    <div class="emoji">${t.emoji}</div>
+                    <div class="sentence">✅ ${t.c}</div>
+                    <div class="explanation">💡 ${t.e}</div>
+                </div>
+            </div>
+        </div>
+        <div class="flashcard-controls">
+            <button class="btn btn-primary" onclick="prevCard()">⬅️ Назад</button>
+            <span>${currentFlashcard + 1} / ${theories.length}</span>
+            <button class="btn btn-primary" onclick="nextCard()">Вперёд ➡️</button>
+        </div>
+        <div style="text-align:center; margin-top:18px; color:var(--text-light); font-size:0.9em; font-style:italic;">
+            💡 Кликните на карточку, чтобы перевернуть
+        </div>
+    `;
+}
+
+function nextCard() {
+    const theories = DATA[currentUnit].theory;
+    currentFlashcard = (currentFlashcard + 1) % theories.length;
+    renderContent();
+}
+
+function prevCard() {
+    const theories = DATA[currentUnit].theory;
+    currentFlashcard = (currentFlashcard - 1 + theories.length) % theories.length;
+    renderContent();
+}
+
+// ==================== PRACTICE A ====================
+function renderPracticeA(area) {
+    const practices = DATA[currentUnit].practiceA;
+    if (!practices) {
+        area.innerHTML = `<div class="card">Practice A для этого юнита недоступен.</div>`;
+        return;
+    }
+    
+    const filterBar = document.getElementById('filter-bar');
+    filterBar.innerHTML = `
+        <button onclick="setFilter('all')" class="${filterMode==='all'?'active':''}">Все (${practices.length})</button>
+        <button onclick="setFilter('wrong')" class="${filterMode==='wrong'?'active':''}">❌ Ошибки</button>
+        <button onclick="setFilter('correct')" class="${filterMode==='correct'?'active':''}">✅ Верные</button>
+        <button onclick="setFilter('unanswered')" class="${filterMode==='unanswered'?'active':''}">⚪ Без ответа</button>
+    `;
+    
+    const controls = document.getElementById('header-controls');
+    controls.innerHTML = `
+        <button class="btn btn-warning" onclick="showAllAnswers()">👁️ Показать все ответы</button>
+        <button class="btn btn-primary" onclick="resetUnitAnswers()">🔄 Сбросить</button>
+    `;
+    
+    practices.forEach((p, idx) => {
+        const key = `${currentUnit}_A_${idx}`;
+        const userAns = userAnswers[key];
+        const isAnswered = userAns !== undefined;
+        const isCorrect = isAnswered && (userAns === p.ans);
+        
+        let itemClass = 'practice-a-item';
+        if (isAnswered) itemClass += isCorrect ? ' answered-correct' : ' answered-wrong';
+        
+        if (filterMode === 'wrong' && (!isAnswered || isCorrect)) itemClass += ' hidden-item';
+        if (filterMode === 'correct' && (!isAnswered || !isCorrect)) itemClass += ' hidden-item';
+        if (filterMode === 'unanswered' && isAnswered) itemClass += ' hidden-item';
+        
+        const item = document.createElement('div');
+        item.className = itemClass;
+        item.id = `item-${idx}`;
+        item.innerHTML = `
+            <div style="margin-bottom:12px;"><strong style="color:var(--deep);">${idx + 1}.</strong> ${p.s}</div>
+            <button class="btn btn-right" onclick="checkA(this, true, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', '${p.ref}', ${idx})" ${isAnswered?'disabled':''}>✅ Right</button>
+            <button class="btn btn-wrong" onclick="checkA(this, false, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', '${p.ref}', ${idx})" ${isAnswered?'disabled':''}>❌ Wrong</button>
+            <div class="answer-box" id="ans-${idx}" style="display:${isAnswered?'block':'none'};">
+                ${isAnswered ? (isCorrect ? 
+                    `<span style="color:var(--success); font-weight:600;">🎉 Верно!</span>${!p.ans ? `<br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>` : ''}` :
+                    `<span style="color:var(--danger); font-weight:600;">❌ Ошибка.</span><br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>`) : ''}
+                <div style="margin-top:8px; font-size:0.85em; color:var(--text-light);">📖 См. правило ${p.ref}</div>
+            </div>
+        `;
+        area.appendChild(item);
+    });
+}
+
+function setFilter(mode) {
+    filterMode = mode;
+    renderContent();
+}
+
+function checkA(btn, userAns, correctAns, fix, ref, idx) {
+    const key = `${currentUnit}_A_${idx}`;
+    userAnswers[key] = userAns;
+    localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
+    
+    if (!stats[currentUnit]) stats[currentUnit] = {correct: 0, wrong: 0};
+    const isCorrect = (userAns === correctAns);
+    if (isCorrect) stats[currentUnit].correct++;
+    else stats[currentUnit].wrong++;
+    localStorage.setItem('trainer_stats', JSON.stringify(stats));
+    
+    renderContent();
+}
+
+function showAllAnswers() {
+    const practices = DATA[currentUnit].practiceA;
+    practices.forEach((p, idx) => {
+        const ansBox = document.getElementById(`ans-${idx}`);
+        if (ansBox) {
+            ansBox.style.display = 'block';
+            if (!ansBox.innerHTML.trim()) {
+                ansBox.innerHTML = `
+                    <strong>Ответ:</strong> ${p.ans ? '✅ Right' : '❌ Wrong'}
+                    ${!p.ans ? `<br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>` : ''}
+                    <div style="margin-top:8px; font-size:0.85em; color:var(--text-light);">📖 См. правило ${p.ref}</div>
+                `;
+            }
+        }
+    });
+}
+
+function resetUnitAnswers() {
+    if (!confirm('Сбросить все ответы Unit ' + currentUnit + '?')) return;
+    Object.keys(userAnswers).forEach(k => {
+        if (k.startsWith(`${currentUnit}_`)) delete userAnswers[k];
+    });
+    stats[currentUnit] = {correct: 0, wrong: 0};
+    localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
+    localStorage.setItem('trainer_stats', JSON.stringify(stats));
+    renderContent();
+}
+
+// ==================== PRACTICE B ====================
+function renderPracticeB(area) {
+    const p = DATA[currentUnit].practiceB;
+    if (!p) {
+        area.innerHTML = `<div class="card">Practice B для этого юнита недоступен.</div>`;
+        return;
+    }
+    
+    let textHtml = p.text.replace(/\((\d+)\) ___/g, (match, num) => {
+        const savedKey = `${currentUnit}_B_${num}`;
+        const savedVal = userAnswers[savedKey] || '';
+        return `<input type="text" class="fill-blank" id="blank-${num}" data-ans="${p.answers[num-1]}" data-num="${num}" value="${savedVal}" placeholder="(${num})">`;
+    });
+    
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+        <div style="line-height: 2.5; font-size: 1.05em;">${textHtml}</div>
+        <div style="margin-top:25px; text-align:right;">
+            <button class="btn btn-primary" onclick="checkB()">✓ Проверить ответы</button>
+            <button class="btn btn-warning" onclick="showAllB()">👁️ Показать все</button>
+            <button class="btn btn-wrong" onclick="resetB()">🔄 Сбросить</button>
+        </div>
+    `;
+    area.appendChild(card);
+    
+    document.querySelectorAll('.fill-blank').forEach(inp => {
+        inp.addEventListener('input', (e) => {
+            const num = e.target.dataset.num;
+            userAnswers[`${currentUnit}_B_${num}`] = e.target.value;
+            localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
+        });
+    });
+}
+
+function checkB() {
+    const inputs = document.querySelectorAll('.fill-blank');
+    let score = 0;
+    let total = inputs.length;
+    inputs.forEach(inp => {
+        const userVal = inp.value.trim().toLowerCase();
+        const correctVal = inp.dataset.ans.toLowerCase();
+        inp.classList.remove('correct', 'wrong');
+        
+        const correctOptions = correctVal.split('/').map(s => s.trim());
+        const isCorrect = correctOptions.includes(userVal);
+        
+        if (isCorrect) {
+            inp.classList.add('correct');
+            score++;
+        } else {
+            inp.classList.add('wrong');
+            inp.title = `Правильный ответ: ${inp.dataset.ans}`;
+        }
+    });
+    alert(`Ваш результат: ${score} из ${total} (${Math.round(score/total*100)}%)`);
+}
+
+function showAllB() {
+    document.querySelectorAll('.fill-blank').forEach(inp => {
+        inp.value = inp.dataset.ans;
+        inp.classList.remove('wrong');
+        inp.classList.add('correct');
+    });
+}
+
+function resetB() {
+    if (!confirm('Сбросить все ответы?')) return;
+    document.querySelectorAll('.fill-blank').forEach(inp => {
+        inp.value = '';
+        inp.classList.remove('correct', 'wrong');
+        delete userAnswers[`${currentUnit}_B_${inp.dataset.num}`];
+    });
+    localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
+}
+
+// ==================== RANDOM TEST ====================
+function renderRandomTest(area) {
+    let allQuestions = [];
+    for (let u = 1; u <= 5; u++) {
+        DATA[u].practiceA.forEach((p, idx) => {
+            allQuestions.push({...p, unit: u, origIdx: idx});
+        });
+    }
+    
+    allQuestions = allQuestions.sort(() => Math.random() - 0.5).slice(0, 15);
+    
+    area.innerHTML = `
+        <div class="card">
+            <h3 style="font-family:'Cormorant Garamond',serif; color:var(--deep); font-size:1.6em; margin-bottom:10px;">🎲 Случайный тест из всех юнитов</h3>
+            <p style="color:var(--text-light);">Определите, верны ли следующие предложения. Если нет — исправьте ошибку.</p>
+        </div>
+    `;
+    
+    allQuestions.forEach((p, idx) => {
+        const item = document.createElement('div');
+        item.className = 'practice-a-item';
+        item.innerHTML = `
+            <div style="margin-bottom:12px;"><strong style="color:var(--deep);">[Unit ${p.unit}]</strong> ${idx + 1}. ${p.s}</div>
+            <button class="btn btn-right" onclick="checkRandom(this, true, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', ${p.unit})">✅ Right</button>
+            <button class="btn btn-wrong" onclick="checkRandom(this, false, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', ${p.unit})">❌ Wrong</button>
+            <div class="answer-box"></div>
+        `;
+        area.appendChild(item);
+    });
+}
+
+function checkRandom(btn, userAns, correctAns, fix, unit) {
+    const item = btn.parentElement;
+    const ansBox = item.querySelector('.answer-box');
+    const isCorrect = (userAns === correctAns);
+    
+    let html = '';
+    if (isCorrect) {
+        html = `<span style="color:var(--success); font-weight:600;">🎉 Верно!</span>`;
+        item.classList.add('answered-correct');
+    } else {
+        html = `<span style="color:var(--danger); font-weight:600;">❌ Ошибка.</span><br>`;
+        item.classList.add('answered-wrong');
+    }
+    
+    if (!correctAns && fix) {
+        html += `<strong>Правильный вариант:</strong> <span class="correct">${fix}</span>`;
+    }
+    
+    ansBox.innerHTML = html;
+    ansBox.style.display = 'block';
+    btn.parentElement.querySelectorAll('button').forEach(b => b.disabled = true);
+    
+    if (!stats['random']) stats['random'] = {correct: 0, wrong: 0};
+    if (isCorrect) stats['random'].correct++;
+    else stats['random'].wrong++;
+    localStorage.setItem('trainer_stats', JSON.stringify(stats));
+    updateStats();
+}
+
+// ==================== STATS ====================
+function updateStats() {
+    const statsArea = document.getElementById('stats-area');
+    if (currentMode === 'randomTest') {
+        const s = stats['random'] || {correct: 0, wrong: 0};
+        const total = s.correct + s.wrong;
+        const pct = total ? Math.round(s.correct / total * 100) : 0;
+        statsArea.innerHTML = `
+            <div class="stat-box"><div class="label">✅ Верно</div><div class="value" style="color:var(--success);">${s.correct}</div></div>
+            <div class="stat-box"><div class="label">❌ Ошибки</div><div class="value" style="color:var(--danger);">${s.wrong}</div></div>
+            <div class="stat-box"><div class="label">📊 Точность</div><div class="value">${pct}%</div></div>
+        `;
+        return;
+    }
+    
+    if (currentMode !== 'practiceA' && currentMode !== 'practiceB') {
+        statsArea.innerHTML = '';
+        return;
+    }
+    
+    const s = stats[currentUnit] || {correct: 0, wrong: 0};
+    const total = s.correct + s.wrong;
+    const pct = total ? Math.round(s.correct / total * 100) : 0;
+    const totalQuestions = DATA[currentUnit].practiceA ? DATA[currentUnit].practiceA.length : 0;
+    
+    statsArea.innerHTML = `
+        <div class="stat-box"><div class="label">✅ Верно</div><div class="value" style="color:var(--success);">${s.correct}</div></div>
+        <div class="stat-box"><div class="label">❌ Ошибки</div><div class="value" style="color:var(--danger);">${s.wrong}</div></div>
+        <div class="stat-box"><div class="label">📊 Точность</div><div class="value">${pct}%</div></div>
+        <div class="stat-box"><div class="label">📝 Всего вопросов</div><div class="value">${totalQuestions}</div></div>
+    `;
+    
+    if (total > 0) {
+        statsArea.innerHTML += `
+            <div style="width:100%;">
+                <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+            </div>
+        `;
+    }
+}
+
+// ==================== EXPORT/IMPORT ====================
+function exportProgress() {
+    const data = {
+        stats: stats,
+        userAnswers: userAnswers,
+        images: {},
+        exportDate: new Date().toISOString()
+    };
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('img_')) {
+            data.images[key] = localStorage.getItem(key);
+        }
+    }
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `trainer_progress_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('💾 Прогресс экспортирован!');
+}
+
+function importProgress(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.stats) {
+                stats = data.stats;
+                localStorage.setItem('trainer_stats', JSON.stringify(stats));
+            }
+            if (data.userAnswers) {
+                userAnswers = data.userAnswers;
+                localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
+            }
+            if (data.images) {
+                Object.keys(data.images).forEach(k => {
+                    localStorage.setItem(k, data.images[k]);
+                });
+            }
+            showToast('✅ Прогресс успешно импортирован!');
+            renderContent();
+        } catch (err) {
+            showToast('❌ Ошибка импорта: ' + err.message, true);
+        }
+    };
+    reader.readAsText(file);
+}
+
+function resetProgress() {
+    if (!confirm('Удалить ВСЁ: прогресс, ответы и картинки?')) return;
+    if (!confirm('Вы уверены? Все данные будут потеряны!')) return;
+    localStorage.clear();
+    stats = {};
+    userAnswers = {};
+    showToast('✅ Прогресс сброшен.');
+    setTimeout(() => location.reload(), 1000);
+}
+
+// Start
+init();
+</script>
+</body>
+</html>
