@@ -115,7 +115,7 @@
     <div class="services">
       <div class="service"><div class="icon"></div><h4>General English</h4><p>Общий английский с нуля до продвинутого уровня</p></div>
       <div class="service"><div class="icon">💼</div><h4>Business English</h4><p>Деловой английский для карьеры и переговоров</p></div>
-      <div class="service"><div class="icon">🎓</div><h4>Подготовка к экзаменам</h4><p>IELTS, TOEFL, ЕГЭ, ОГЭ</p></div>
+      <div class="service"><div class="icon">🎓</div><h4>Подготовка к экзаменам</h4><p> ЕГЭ, ОГЭ</p></div>
       <div class="service"><div class="icon">✈️</div><h4>Разговорный</h4><p>Свободное общение в путешествиях и жизни</p></div>
     </div>
   </div>
@@ -215,14 +215,64 @@
 
   function renderPrograms(items){
     const el = document.getElementById('programs-list');
-    if(!items.length){ el.innerHTML='<div class="empty">Программы скоро появятся ✨</div>'; return; }
-    el.innerHTML = items.map((p,i)=>`
-      <div class="card" style="animation-delay:${i*0.1}s">
-        ${p.imageUrl?`<img src="${p.imageUrl}" alt="">`:''}
-        <h3>${p.title}</h3>
-        <p>${(p.description||'').replace(/\n/g,'<br>')}</p>
-      </div>`).join('');
-  }
+    
+    // Загружаем программы и тренажёры
+    Promise.all([
+        db.collection('programs').orderBy('createdAt','desc').get(),
+        db.collection('trainers').orderBy('createdAt','desc').get()
+    ]).then(([progSnap, trainSnap]) => {
+        const programs = progSnap.docs.map(d=>({id:d.id, ...d.data()}));
+        const trainers = trainSnap.docs.map(d=>({id:d.id, ...d.data()}));
+        
+        if(!programs.length && !trainers.length){
+            el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся ✨</div>';
+            return;
+        }
+        
+        let html = '';
+        
+        // Программы
+        programs.forEach((p,i)=>{
+            html += `
+                <div class="card" style="animation-delay:${i*0.1}s">
+                    ${p.imageUrl?`<img src="${p.imageUrl}" alt="">`:''}
+                    <h3>${p.title}</h3>
+                    <p>${(p.description||'').replace(/\n/g,'<br>')}</p>
+                </div>`;
+        });
+        
+        // Тренажёры
+        trainers.forEach((t,i)=>{
+            html += `
+                <div class="card" style="animation-delay:${(programs.length+i)*0.1}s; cursor:pointer" onclick="openTrainer('${t.file}', '${t.title.replace(/'/g, "\\'")}')">
+                    <div style="font-size:48px; text-align:center; margin-bottom:16px">🎮</div>
+                    <h3>${t.title}</h3>
+                    <p>${(t.description||'').replace(/\n/g,'<br>')}</p>
+                    <button class="btn" style="margin-top:12px; font-size:13px; padding:10px 20px">Открыть тренажёр →</button>
+                </div>`;
+        });
+        
+        el.innerHTML = html;
+    }).catch(err=>{
+        console.error(err);
+        el.innerHTML='<div class="empty">Ошибка загрузки 😔</div>';
+    });
+}
+
+function openTrainer(file, title){
+    const modal = document.createElement('div');
+    modal.style.cssText = 'position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.innerHTML = `
+        <div style="background:white;border-radius:24px;width:95%;height:90%;max-width:1400px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="padding:20px;border-bottom:1px solid #e8dff5;display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="font-family:'Cormorant Garamond',serif;color:#5a4a7a;margin:0;font-size:24px">${title}</h3>
+                <button onclick="this.closest('div[style]').parentElement.remove()" style="background:none;border:none;font-size:28px;cursor:pointer;color:#8b7ba8">✕</button>
+            </div>
+            <iframe src="${file}" style="flex:1;border:none;width:100%;"></iframe>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
 
   function renderArticles(items){
     const el = document.getElementById('articles-list');
