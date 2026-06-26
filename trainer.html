@@ -1,12 +1,939 @@
-<nav>
-  <ul>
-    <li><a data-page="home" class="nav-link active">Главная</a></li>
-    <li><a data-page="about" class="nav-link">Обо мне</a></li>
-    <li><a data-page="programs" class="nav-link">Программы</a></li>
-    <li><a data-page="articles" class="nav-link">Статьи</a></li>
-    <li><a data-page="videos" class="nav-link">Видео</a></li>
-    <li><a data-page="gallery" class="nav-link">Галерея</a></li>
-    <li><a href="trainer.html" class="nav-link">🎮 Тренажёр</a></li>
-    <li><a data-page="contacts" class="nav-link">Контакты</a></li>
-  </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренажёр · Наталья Николаева</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --lavender:#e8dff5;
+            --peach:#fce4d6;
+            --mint:#d4f1e8;
+            --rose:#f7d6e0;
+            --cream:#fdf6f0;
+            --deep:#5a4a7a;
+            --soft:#8b7ba8;
+            --text:#3d3554;
+            --shadow:0 10px 40px rgba(138,107,175,0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--lavender) 50%, var(--peach) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        /* Плавающие декоративные круги */
+        .blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.4;z-index:-1;animation:float 20s infinite ease-in-out}
+        .blob1{width:400px;height:400px;background:var(--rose);top:-100px;left:-100px}
+        .blob2{width:500px;height:500px;background:var(--mint);bottom:-150px;right:-150px;animation-delay:-10s}
+        .blob3{width:300px;height:300px;background:var(--lavender);top:50%;left:50%;animation-delay:-5s}
+        @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-30px,40px) scale(0.95)}}
+        
+        .top-nav {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: rgba(253,246,240,0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: var(--shadow);
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--deep);
+            letter-spacing: 1px;
+        }
+        .logo span { color: var(--soft); font-style: italic; }
+        
+        .back-btn {
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--deep), var(--soft));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+            transition: all 0.3s;
+        }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--lavender) 0%, var(--rose) 50%, var(--peach) 100%);
+            color: var(--deep);
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .header p {
+            font-size: 1.05em;
+            color: var(--soft);
+            font-style: italic;
+        }
+        
+        .main-content { display: flex; min-height: 600px; }
+        
+        .sidebar {
+            width: 320px;
+            background: rgba(253,246,240,0.5);
+            padding: 25px;
+            border-right: 1px solid rgba(255,255,255,0.6);
+            overflow-y: auto;
+            max-height: 750px;
+        }
+        
+        .sidebar h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--deep);
+            font-size: 1.4em;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+        
+        .topic-btn {
+            width: 100%;
+            padding: 13px 18px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(232,223,245,0.8);
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.9em;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+        
+        .topic-btn:hover {
+            background: linear-gradient(135deg, var(--lavender), var(--rose));
+            color: var(--deep);
+            transform: translateX(5px);
+            box-shadow: 0 6px 18px rgba(138,107,175,0.2);
+        }
+        
+        .topic-btn.active {
+            background: linear-gradient(135deg, var(--deep), var(--soft));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 6px 20px rgba(90,74,122,0.3);
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: 35px;
+            overflow-y: auto;
+            max-height: 750px;
+        }
+        
+        .exercise-container { display: none; }
+        .exercise-container.active { display: block; animation: fadeIn 0.5s ease; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .exercise-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8em;
+            color: var(--deep);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--lavender);
+            font-weight: 500;
+        }
+        
+        .question-card {
+            background: rgba(255,255,255,0.7);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--soft);
+            box-shadow: 0 4px 15px rgba(138,107,175,0.08);
+        }
+        
+        .question-text {
+            font-size: 1.1em;
+            color: var(--text);
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+        
+        .input-group { display: flex; gap: 12px; margin-bottom: 15px; flex-wrap: wrap; }
+        
+        input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 14px 18px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            border: 2px solid var(--lavender);
+            border-radius: 16px;
+            transition: border-color 0.3s;
+            background: white;
+        }
+        
+        input[type="text"]:focus { outline: none; border-color: var(--soft); }
+        
+        .btn {
+            padding: 13px 26px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+        }
+        
+        .btn-check {
+            background: linear-gradient(135deg, var(--deep), var(--soft));
+            color: white;
+            box-shadow: 0 6px 18px rgba(90,74,122,0.25);
+        }
+        .btn-check:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+        
+        .btn-speak {
+            background: linear-gradient(135deg, var(--rose), var(--peach));
+            color: var(--deep);
+        }
+        .btn-speak:hover { transform: translateY(-2px); }
+        
+        .btn-next {
+            background: linear-gradient(135deg, var(--mint), var(--lavender));
+            color: var(--deep);
+        }
+        .btn-next:hover { transform: translateY(-2px); }
+        
+        .feedback {
+            margin-top: 18px;
+            padding: 18px;
+            border-radius: 16px;
+            display: none;
+            line-height: 1.6;
+        }
+        
+        .feedback.correct {
+            background: rgba(212,241,232,0.6);
+            color: #2d6a5a;
+            border: 1px solid var(--mint);
+        }
+        
+        .feedback.incorrect {
+            background: rgba(247,214,224,0.6);
+            color: #8b3a4a;
+            border: 1px solid var(--rose);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(232,223,245,0.5);
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--deep) 0%, var(--soft) 50%, var(--rose) 100%);
+            width: 0%;
+            transition: width 0.4s;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 1.15em;
+            color: var(--deep);
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.5px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content { flex-direction: column; }
+            .sidebar { width: 100%; max-height: 280px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.6); }
+            .header h1 { font-size: 1.8em; }
+            .content-area { padding: 20px; }
+            .top-nav { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="top-nav">
+    <div class="logo">Natalie <span>English</span></div>
+    <a href="index.html" class="back-btn">← На главную</a>
+</div>
+
+<div class="container">
+    <div class="header">
+        <h1>📚 Тренажёр по английскому языку</h1>
+        <p>На основе книги А. Аргудиной · Лексический минимум</p>
+    </div>
+    
+    <div class="main-content">
+        <div class="sidebar">
+            <h3>Выберите тему:</h3>
+            <button class="topic-btn active" onclick="showTopic('family', this)">👨‍👩‍👧‍👦 Family / Семья</button>
+            <button class="topic-btn" onclick="showTopic('friendship', this)">🤝 Friendship / Дружба</button>
+            <button class="topic-btn" onclick="showTopic('daily', this)">🏠 Daily Life / Повседневная жизнь</button>
+            <button class="topic-btn" onclick="showTopic('shopping', this)">🛍️ Shopping / Покупки</button>
+            <button class="topic-btn" onclick="showTopic('fashion', this)">👗 Fashion / Мода</button>
+            <button class="topic-btn" onclick="showTopic('food', this)">🥗 Food & Health / Еда и здоровье</button>
+            <button class="topic-btn" onclick="showTopic('appearance', this)">👤 Appearance / Внешность</button>
+            <button class="topic-btn" onclick="showTopic('hobbies', this)">🎨 Hobbies / Хобби</button>
+            <button class="topic-btn" onclick="showTopic('school', this)">🏫 School Life / Школьная жизнь</button>
+            <button class="topic-btn" onclick="showTopic('career', this)">💼 Career / Карьера</button>
+            <button class="topic-btn" onclick="showTopic('holidays', this)">🎄 Holidays / Праздники</button>
+            <button class="topic-btn" onclick="showTopic('travel', this)">✈️ Travelling / Путешествия</button>
+            <button class="topic-btn" onclick="showTopic('urban', this)">🏙️ Urban Life / Город и деревня</button>
+            <button class="topic-btn" onclick="showTopic('health', this)">🏥 Health / Здоровье</button>
+            <button class="topic-btn" onclick="showTopic('media', this)">📺 Mass Media / СМИ</button>
+            <button class="topic-btn" onclick="showTopic('environment', this)">🌍 Environment / Окружающая среда</button>
+            <button class="topic-btn" onclick="showTopic('phrasal', this)">🔄 Phrasal Verbs / Фразовые глаголы</button>
+            <button class="topic-btn" onclick="showTopic('collocations', this)">💫 Collocations / Коллокации</button>
+        </div>
+        
+        <div class="content-area">
+            <div id="family" class="exercise-container active">
+                <h2 class="exercise-title">Family / Семья</h2>
+                <div class="score-display">Счёт: <span id="score-family">0</span> / <span id="total-family">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-family"></div></div>
+                <div id="questions-family"></div>
+            </div>
+            
+            <div id="friendship" class="exercise-container">
+                <h2 class="exercise-title">Friendship / Дружба</h2>
+                <div class="score-display">Счёт: <span id="score-friendship">0</span> / <span id="total-friendship">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-friendship"></div></div>
+                <div id="questions-friendship"></div>
+            </div>
+            
+            <div id="daily" class="exercise-container">
+                <h2 class="exercise-title">Daily Life / Повседневная жизнь</h2>
+                <div class="score-display">Счёт: <span id="score-daily">0</span> / <span id="total-daily">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-daily"></div></div>
+                <div id="questions-daily"></div>
+            </div>
+            
+            <div id="shopping" class="exercise-container">
+                <h2 class="exercise-title">Shopping / Покупки</h2>
+                <div class="score-display">Счёт: <span id="score-shopping">0</span> / <span id="total-shopping">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-shopping"></div></div>
+                <div id="questions-shopping"></div>
+            </div>
+            
+            <div id="fashion" class="exercise-container">
+                <h2 class="exercise-title">Fashion / Мода</h2>
+                <div class="score-display">Счёт: <span id="score-fashion">0</span> / <span id="total-fashion">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-fashion"></div></div>
+                <div id="questions-fashion"></div>
+            </div>
+            
+            <div id="food" class="exercise-container">
+                <h2 class="exercise-title">Food & Healthy Lifestyle / Еда и здоровый образ жизни</h2>
+                <div class="score-display">Счёт: <span id="score-food">0</span> / <span id="total-food">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-food"></div></div>
+                <div id="questions-food"></div>
+            </div>
+            
+            <div id="appearance" class="exercise-container">
+                <h2 class="exercise-title">Appearance & Character / Внешность и характер</h2>
+                <div class="score-display">Счёт: <span id="score-appearance">0</span> / <span id="total-appearance">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-appearance"></div></div>
+                <div id="questions-appearance"></div>
+            </div>
+            
+            <div id="hobbies" class="exercise-container">
+                <h2 class="exercise-title">Leisure & Hobbies / Досуг и хобби</h2>
+                <div class="score-display">Счёт: <span id="score-hobbies">0</span> / <span id="total-hobbies">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-hobbies"></div></div>
+                <div id="questions-hobbies"></div>
+            </div>
+            
+            <div id="school" class="exercise-container">
+                <h2 class="exercise-title">School Life / Школьная жизнь</h2>
+                <div class="score-display">Счёт: <span id="score-school">0</span> / <span id="total-school">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-school"></div></div>
+                <div id="questions-school"></div>
+            </div>
+            
+            <div id="career" class="exercise-container">
+                <h2 class="exercise-title">Choosing a Career / Выбор профессии</h2>
+                <div class="score-display">Счёт: <span id="score-career">0</span> / <span id="total-career">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-career"></div></div>
+                <div id="questions-career"></div>
+            </div>
+            
+            <div id="holidays" class="exercise-container">
+                <h2 class="exercise-title">Holidays / Праздники</h2>
+                <div class="score-display">Счёт: <span id="score-holidays">0</span> / <span id="total-holidays">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-holidays"></div></div>
+                <div id="questions-holidays"></div>
+            </div>
+            
+            <div id="travel" class="exercise-container">
+                <h2 class="exercise-title">Travelling / Путешествия</h2>
+                <div class="score-display">Счёт: <span id="score-travel">0</span> / <span id="total-travel">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-travel"></div></div>
+                <div id="questions-travel"></div>
+            </div>
+            
+            <div id="urban" class="exercise-container">
+                <h2 class="exercise-title">Urban & Rural Life / Жизнь в городе и деревне</h2>
+                <div class="score-display">Счёт: <span id="score-urban">0</span> / <span id="total-urban">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-urban"></div></div>
+                <div id="questions-urban"></div>
+            </div>
+            
+            <div id="health" class="exercise-container">
+                <h2 class="exercise-title">Health & Illness / Здоровье и болезни</h2>
+                <div class="score-display">Счёт: <span id="score-health">0</span> / <span id="total-health">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-health"></div></div>
+                <div id="questions-health"></div>
+            </div>
+            
+            <div id="media" class="exercise-container">
+                <h2 class="exercise-title">Mass Media / Средства массовой информации</h2>
+                <div class="score-display">Счёт: <span id="score-media">0</span> / <span id="total-media">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-media"></div></div>
+                <div id="questions-media"></div>
+            </div>
+            
+            <div id="environment" class="exercise-container">
+                <h2 class="exercise-title">Environment / Окружающая среда</h2>
+                <div class="score-display">Счёт: <span id="score-environment">0</span> / <span id="total-environment">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-environment"></div></div>
+                <div id="questions-environment"></div>
+            </div>
+            
+            <div id="phrasal" class="exercise-container">
+                <h2 class="exercise-title">Phrasal Verbs / Фразовые глаголы</h2>
+                <div class="score-display">Счёт: <span id="score-phrasal">0</span> / <span id="total-phrasal">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-phrasal"></div></div>
+                <div id="questions-phrasal"></div>
+            </div>
+            
+            <div id="collocations" class="exercise-container">
+                <h2 class="exercise-title">Collocations / Устойчивые выражения</h2>
+                <div class="score-display">Счёт: <span id="score-collocations">0</span> / <span id="total-collocations">0</span></div>
+                <div class="progress-bar"><div class="progress" id="progress-collocations"></div></div>
+                <div id="questions-collocations"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// База данных всех упражнений из книги
+const allExercises = {
+    family: [
+        {ru: "Наша семья состоит из 5 человек: моя мама, мой папа, моя старшая сестра, мой младший брат и я.", en: "My family consists of 5 members: my mom, my dad, my elder sister, my younger brother, and me."},
+        {ru: "Его воспитывала приемная мать до 12 лет.", en: "He was raised by a foster mother until the age of 12."},
+        {ru: "Мэри - мать-одиночка. Она воспитывает дочь в одиночку с тех пор, как развелась с мужем.", en: "Mary is a single mother. She has been raising her daughter on her own since her divorce."},
+        {ru: "Моя тетя и дядя живут по соседству. Я довольно часто захожу к ним в гости.", en: "My aunt and uncle live in the neighborhood. I quite often call on them."},
+        {ru: "Моей племяннице 5 лет. Она избалованный ребенок.", en: "My niece is 5 years old. She is a spoilt child."},
+        {ru: "Мои родители женаты 25 лет. Они любят и уважают друг друга.", en: "My parents have been married for 25 years. They love and respect each other."},
+        {ru: "Мои бабушка и дедушка на пенсии. Моя бабушка любит вязать. Мой дедушка часто ходит на рыбалку.", en: "My grandparents are retired. My granny is fond of knitting. My granddad often goes fishing."},
+        {ru: "Мою крестную маму зовут Любовь. Она добрая и заботливая.", en: "My godmother's name is Lyubov. She is kind and caring."},
+        {ru: "Его мачеха живет в Лондоне. Ей немного за 30. Она работает в банке главным бухгалтером.", en: "His stepmother lives in London. She is in her early 30s. She works at a bank as a chief accountant."},
+        {ru: "У Джона нет братьев и сестер.", en: "John has no siblings."},
+        {ru: "Мои родственники живут в Париже. Я хорошо лажу с ними.", en: "My relatives live in Paris. I get on well with them."},
+        {ru: "Мой сводный брат хорошо воспитан и умен. У нас с ним много общего.", en: "My stepbrother is well-bred and intelligent. We have much in common."},
+        {ru: "Мой папа - глава нашей семьи. Он часто очень занят.", en: "My dad is the head of our household. He is often very tired."},
+        {ru: "У меня есть домашние обязанности: мытье посуды и глажка.", en: "I have my household chores: washing up and ironing."},
+        {ru: "Я люблю проводить время со своей семьей.", en: "I like to spend time with my family."},
+        {ru: "Я всегда могу положиться на свою сестру. Я уверена, она никогда меня не подведет.", en: "I can always rely on my sister. I am sure she'll never let me down."},
+        {ru: "По твоему мнению, есть ли способ преодоления конфликта поколений?", en: "In your opinion, is there any way to bridge the generation gap?"},
+        {ru: "Я никогда не наказывала своего ребенка за плохие отметки в школе.", en: "I have never punished my child for bad marks at school."},
+        {ru: "Мои родители были разочарованы во мне, когда я провалила экзамен.", en: "My parents were disappointed in me when I failed my exam."},
+        {ru: "Родители Джона развелись, когда он был младенцем.", en: "John's parents got divorced when he was an infant."}
+    ],
+    friendship: [
+        {ru: "Мой лучший друг честный и понимающий. Я всегда могу на него положиться.", en: "My best friend is honest and understanding. I can always rely on him."},
+        {ru: "Я добросердечная и легкая в общении. У меня много настоящих друзей.", en: "I am kind-hearted and easy-going. I have a lot of true friends."},
+        {ru: "Мы дружим с Мэри уже более 5 лет. Мы часто ссоримся и спорим. Однако, я уверена, она никогда не отвернется от меня.", en: "We have been friendly with Mary for more than 5 years. We often quarrel and argue. However, I am sure she'll never let me down."},
+        {ru: "У нас с лучшим другом много общего. Нам всегда есть о чем поговорить.", en: "We have much in common with my best friend. We always have something to talk about."},
+        {ru: "Что вы знаете о давлении со стороны сверстников?", en: "What do you know about peer pressure?"},
+        {ru: "Некоторые родители не разрешают своим несовершеннолетним детям приглашать друзей.", en: "Some parents don't allow their under-age children to invite friends."},
+        {ru: "Вы когда-нибудь сталкивались с запугиванием в школе?", en: "Have you ever experienced bullying at school?"},
+        {ru: "Мой друг вежливый и трудолюбивый. Мы проводим много времени вместе и наслаждаемся обществом друг друга.", en: "My friend is polite and hardworking. We spend much time together and enjoy each other's company."},
+        {ru: "Джон всегда готов помочь мне. Он надежный и поддерживающий.", en: "John is always there for me. He is reliable and supportive."},
+        {ru: "Мне не хочется сейчас смотреть фильмы. Давай пойдем в парк.", en: "I don't feel like watching any movies now. Let's go to the park."},
+        {ru: "Она всегда завидовала моему успеху. Она двуличный человек.", en: "She was always envious of my success. She is a two-faced person."},
+        {ru: "Мы познакомились с Марком 2 года назад. Он часто дает мне мудрые советы. Он всегда готов помочь мне.", en: "We got acquainted with Mark 2 years ago. He often gives me sound advice. He is always there for me."},
+        {ru: "У меня большой круг друзей и знакомых. Я общительная и понимающая.", en: "I have a large circle of friends and acquaintances. I am sociable and understanding."},
+        {ru: "Мой друг трудолюбивый и вежливый. Когда я в плохом настроении, она всегда старается подбодрить и поддержать меня.", en: "My friend is hardworking and polite. When I am in a bad mood, she always tries to cheer me up and support."},
+        {ru: "Если ты хочешь помириться с Мэри, просто сделай первый шаг.", en: "If you want to put it up with Mary, just take the first step."},
+        {ru: "Мне нравится общаться с разными людьми. Знакомство с новыми людьми - это всегда прекрасный опыт.", en: "I like to socialize with different people. Getting to know new people is always a great experience."},
+        {ru: "Мы с Джоном одного возраста. У нас много общего.", en: "We are the same age with John. We have much in common."},
+        {ru: "Я никогда не ссорюсь с друзьями. По правде говоря, мы часто спорим и злимся друг на друга.", en: "I never quarrel with my friends. To tell you the truth, we often argue and get angry with each other."},
+        {ru: "Моя лучшая подруга ревнует, когда я общаюсь со своими одноклассниками.", en: "My best friend is jealous when I socialize with my classmates."},
+        {ru: "Джессика - понимающий человек. Я уверена, что могу рассчитывать на нее в любое время, и она всегда поможет мне.", en: "Jessica is an understanding person. I am sure I can count on her in anytime, and she will always help me out."}
+    ],
+    daily: [
+        {ru: "Я планирую сделать ремонт в квартире. Сейчас я собираюсь за покупками.", en: "I am planning to refurbish my apartment. Now I am going shopping."},
+        {ru: "У меня есть круг ежедневных обязанностей. Я поливаю растения, выношу мусор и мою окна.", en: "I have my usual round of duties. I water plants, take out the garbage and wash the windows."},
+        {ru: "Сейчас моя мама готовит обед, пока я гуляю с собакой.", en: "Now my mom is cooking dinner, while I am walking with my dog."},
+        {ru: "Когда мы приглашаем гостей в наш дом, я всегда накрываю на стол к обеду.", en: "When we invite guests to our house, I always lay the table for dinner."},
+        {ru: "Я ненавижу мыть посуду. Недавно мой папа подарил мне посудомоечную машину на день рождения. Теперь я просто загружаю и разгружаю ее. Иногда я убираю со стола.", en: "I hate washing up. Recently my dad has given me a dishwasher as a birthday gift. Now I just load and empty it. Sometimes I clear the table."},
+        {ru: "В прошлом году я клеила обои в своей комнате и красила стены на кухне.", en: "Last year I hung wallpaper in my room and painted walls in the kitchen."},
+        {ru: "Мы делим наши домашние обязанности, чтобы помочь друг другу. Я глажу и мою окна. Моя мама готовит еду и ходит по магазинам. Два раза в год мы делаем генеральную уборку.", en: "We share our household chores to help each other. I do the ironing and wash the windows. My mom cooks meals and goes shopping. Twice a year we do spring and fall cleaning."},
+        {ru: "Как часто вы меняете постельное белье?", en: "How often do you change the bed?"},
+        {ru: "Мой шкаф - такой беспорядок. Я вечно разбрасываю свои вещи повсюду.", en: "My wardrobe is such a mess. I am always leaving my things all over the place."},
+        {ru: "Сколько раз в день вы обычно проверяете почту?", en: "How many times a day do you usually check the mail?"},
+        {ru: "Уборка в доме - это ответственность всей семьи.", en: "Cleaning the house is a responsibility of the whole family."},
+        {ru: "Каждое утро я вытираю пыль и убираюсь в своей комнате.", en: "Every morning I dust and tidy up my room."},
+        {ru: "Эту юбку нужно погладить.", en: "This skirt needs ironing."},
+        {ru: "Мне нужно навести порядок в шкафу.", en: "I have to arrange my wardrobe."},
+        {ru: "Поскольку у нас нет пылесоса, мне приходится подметать пол веником.", en: "Since we don't have a vacuum-cleaner, I have to sweep the floor with a broom."}
+    ],
+    shopping: [
+        {ru: "Вчера я ходила в мясной магазин и купила немного свинины и говядины.", en: "Yesterday I went to the butcher's and bought some pork and beef."},
+        {ru: "Я собираюсь в магазин, торгующий спиртными напитками, чтобы купить шампанское и вино на ужин.", en: "I'm going to the liquor store to buy some champagne and wine for supper."},
+        {ru: "Мы обычно покупаем овощи в овощном магазине.", en: "We usually buy vegetables at the greengrocer's."},
+        {ru: "Вы будете платить кредитной картой или наличными?", en: "Would you like to pay cash or by credit card?"},
+        {ru: "Вчера я потратила много денег. Я разместила заказ в интернет-магазине. К сожалению, когда ты покупаешь вещи онлайн, ты не можешь их примерить. Зато тебе не приходится стоять в очередях и тратить время на дорогу.", en: "Yesterday I spent a lot of money. I placed an order with an online store. Unfortunately, when you shop online, you can't try clothes on. However, you don't have to stand in long lines or spend a lot of time on the road."},
+        {ru: "В свободное время я люблю рассматривать витрины магазинов. Больше всего я люблю покупать парфюмерию и косметику. Я могу провести несколько часов в магазине парфюмерии.", en: "In my free time I like to window-shop. Most of all I like to buy perfumery and cosmetics. I can spend hours in the perfumer's shop."},
+        {ru: "Мне нужно сходить в аптеку, чтобы купить обезболивающее. У меня ужасно болит голова.", en: "I have to go to the chemist's to buy some painkiller. I have a terrible headache."},
+        {ru: "Мне нужно сходить в молочный магазин, чтобы купить творог и сметану.", en: "I have to go to the dairy to buy some cottage cheese and sour cream."},
+        {ru: "У нас закончились бананы и яблоки. Я хочу приготовить фруктовый салат.", en: "We have run out of bananas and apples. I'm going to make some fruit salad."},
+        {ru: "Вчера я ходила в кондитерский магазин и купила много вкусных конфет и пирожных.", en: "Yesterday I went to the candy store and bought some tasty candy and pastries."},
+        {ru: "Сколько обычно ты тратишь на продукты в месяц?", en: "How much do you usually spend for foodstuffs a month?"},
+        {ru: "Сколько стоит это платье? Могу я его примерить? Вы не подскажете, где примерочная?", en: "How much does this dress cost? Can I try it on? Could you tell me where the fitting room is?"},
+        {ru: "Я бы хотела приобрести этот костюм. Могу я расплатиться кредитной картой?", en: "I'd like to purchase this suit. Can I pay by credit card?"},
+        {ru: "На ней красивое платье. Интересно, где она его купила.", en: "She is wearing a nice dress. I wonder where she has bought it."},
+        {ru: "Многие люди покупают недорогие подержанные вещи на блошиных рынках.", en: "Many people buy cheap second-hand goods at flea markets."},
+        {ru: "Я собираюсь в книжный магазин, чтобы купить какой-нибудь роман-бестселлер.", en: "I am going to the bookstore to buy some bestselling novel."},
+        {ru: "Тебе следовало сходить в аптеку и купить лекарство от гриппа.", en: "You should have gone to the drugstore to buy some flu medicine."},
+        {ru: "В вашем городе есть торговый центр?", en: "Is there any shopping mall in your town?"},
+        {ru: "В гастрономе я часто покупаю различные салаты и сэндвичи.", en: "At the delicatessen (deli) I often buy some mixed salads and sandwiches."},
+        {ru: "Ох, это слишком дорого для меня. Не могли бы вы сделать мне скидку?", en: "Oh, it's too expensive for me. Could you give me a discount?"}
+    ],
+    fashion: [
+        {ru: "Сегодня джинсы с дырками на пике моды.", en: "Today distressed jeans are in high fashion."},
+        {ru: "Классическое черное платье никогда не выйдет из моды.", en: "A classic black dress will never go out of fashion."},
+        {ru: "Я хочу купить модные кожаные сапоги.", en: "I want to buy a pair of trendy leather boots."},
+        {ru: "Туфли-лодочки бежевого цвета должны быть в гардеробе каждой модницы.", en: "Nude pumps are must-have for every fashionable girl."},
+        {ru: "Какое красивое пальто! Ты выглядишь красиво в нем.", en: "What a nice coat! You look so beautiful in it."},
+        {ru: "Этот пиджак выглядит старомодно.", en: "This jacket looks a bit old-fashioned."},
+        {ru: "Я стараюсь следовать последним модным тенденциям.", en: "I try to keep up with the latest fashion."},
+        {ru: "Вчера я купила восхитительные туфли и подобрала под них коктейльную сумочку.", en: "Yesterday I bought a pair of stunning shoes and a matching cocktail bag."},
+        {ru: "Синий цвет тебе очень к лицу.", en: "Blue suits you very much."},
+        {ru: "Наша учительница всегда хорошо одета. У нее превосходное чувство стиля.", en: "Our teacher is always well dressed. She has a perfect sense of style."},
+        {ru: "Очень важно уметь грамотно одеваться в соответствии с поводом.", en: "It is very important to dress up for the occasion."},
+        {ru: "Если ты купишь это платье, то однозначно будешь выделяться из толпы.", en: "If you buy this dress, you'll absolutely stand out in a crowd."},
+        {ru: "Законодатели моды - это люди, которые устанавливают новые модные тенденции.", en: "Trendsetters are people who establish new fashion trends."},
+        {ru: "Для меня икона стиля - это однозначно Мирослава Дума.", en: "Mira Duma is absolutely a style icon for me."},
+        {ru: "Школьная форма способствует лучшей успеваемости учащихся.", en: "School uniform helps children perform academically better."},
+        {ru: "В прошлом году я купила новый пиджак.", en: "Last year I bought a new jacket."},
+        {ru: "Моя любимая одежда для сна - пижама из хлопка.", en: "My favorite sleepwear is cotton pajamas."},
+        {ru: "Многие подростки надевают шокирующие наряды и делают странные прически с одной целью - выразить протест своим родителям.", en: "Many teenagers rebel against their parents by wearing outrageous clothes and hairstyles."},
+        {ru: "Мой друг подарил мне кольцо с бриллиантом на день рождения.", en: "My friend gave me a diamond ring as a birthday present."},
+        {ru: "Ее одежда была подобрана безвкусно.", en: "Her clothes were tastelessly matched."}
+    ],
+    food: [
+        {ru: "Они соблюдают правильное сбалансированное питание, содержащее необходимые питательные компоненты, такие как протеины, витамины и минералы.", en: "They keep a balanced diet containing the essential nutrients such as proteins, vitamins and minerals."},
+        {ru: "Йога помогает мне быть в хорошей спортивной форме.", en: "Yoga helps me be in a good shape."},
+        {ru: "Вам нужно избегать курения и вести здоровый образ жизни.", en: "You should avoid smoking and lead a healthy lifestyle."},
+        {ru: "Я выхожу на пробежку каждый день. Когда я возвращаюсь домой, я принимаю витамины и пью апельсиновый сок.", en: "I go jogging every day. When I come home, I take vitamin supplements and drink a glass of orange juice."},
+        {ru: "После тренировки я обычно ем низкокалорийный творог.", en: "After my workout I usually have some low fat cottage cheese."},
+        {ru: "Ты выглядишь уставшим и изможденным. Тебе нужно хорошо выспаться.", en: "You look tired and exhausted. You should have a good night's sleep."},
+        {ru: "Я регулярно хожу на медосмотры. Я считаю, что каждый человек должен следить за своим здоровьем.", en: "I go for regular medical checkups. I think everyone should look after their health."},
+        {ru: "У нас закончилась клубника и вишня.", en: "We have run out of strawberries and cherries."},
+        {ru: "На завтрак я обычно ем бутерброд с сыром и ветчиной и пью кофе с молоком.", en: "For breakfast I usually have ham and cheese sandwich and drink a cup of tea with milk."},
+        {ru: "Сегодня я буду запекать баклажаны в духовке.", en: "Today I am going to bake some eggplants in the oven."},
+        {ru: "Я соблюдаю равное сбалансированное питание. Я ем много фруктов и овощей. Кроме того, я пью только минеральную негазированную воду. Я не люблю газированные напитки.", en: "I am keeping a balanced diet. I eat many vegetables and fruit. Besides, I prefer mineral still water. I don't like fizzy drinks."},
+        {ru: "Я люблю молочные продукты: творог, сметану, йогурт и молоко.", en: "I like dairy products: cottage cheese, sour cream, yoghurt and milk."},
+        {ru: "Фаст-фуд вреден для здоровья.", en: "Fast food is harmful to your health."},
+        {ru: "Сегодня все больше и больше людей едят в ресторанах нездоровую пищу, такую как гамбургеры и чипсы.", en: "Nowadays more and more people eat junk food such as hamburgers and chips at the restaurants."},
+        {ru: "Я регулярно занимаюсь спортом. Я хожу в спортзал 3 раза в неделю. После тренировок я часто плаваю в бассейне.", en: "I exercise regularly. I go to the gym 3 times a week. After workouts I often swim in the pool."}
+    ],
+    appearance: [
+        {ru: "Какая она по характеру? - Она ранимая, отзывчивая и честная.", en: "What is she like? - She is vulnerable, kind-hearted and honest."},
+        {ru: "Как она выглядит? - Она высокая и стройная. У нее длинные пепельно-русые волосы и голубые глаза.", en: "What does she look like? - She is tall and slim. She has got long ash blond hair and blue eyes."},
+        {ru: "Моя лучшая подруга оптимист. С ней легко в общении.", en: "My best friend is always optimistic and easy-going."},
+        {ru: "Я не выношу жадных и заносчивых людей.", en: "I can't stand greedy and arrogant people."},
+        {ru: "Она с детства завидовала успеху Мэри. Она жестокая и хитрая.", en: "She has been envious of Mary's success since childhood. She is cruel and sly."},
+        {ru: "Мои друзья всегда пытаются меня подбодрить, когда я в плохом настроении или расстроена чем-то.", en: "My friends always try to cheer me up when I am in low spirits or upset."},
+        {ru: "Наш шеф очень вспыльчивый и легко выходит из себя.", en: "My boss is hot-tempered. He flies into a rage easily."},
+        {ru: "Мой друг очень прямой и недоверчивый. Мы часто горячо спорим с ним.", en: "My friend is a stubborn and distrustful person. We often argue with him."},
+        {ru: "Я целеустремленная и трудолюбивая. Я считаю, чтобы преуспеть в жизни, нужно усердно работать и не останавливаться на достигнутом.", en: "I am purposeful and hardworking. I think that if you want to succeed in life, you should work hard and never stop doing what needs to be done."},
+        {ru: "Меня легко обидеть. Я очень ранимая и мягкосердечная.", en: "I am easily offended. I am vulnerable and kind-hearted."},
+        {ru: "Я общительная и всегда готова прийти на помощь. У меня большой круг знакомых и друзей.", en: "I am sociable and supportive. I have a large circle of friends and acquaintances."},
+        {ru: "У каждого из нас есть как отрицательные, так и положительные черты характера.", en: "Each of us has both negative and positive character traits."},
+        {ru: "У нее вздернутый нос и пухлые губы.", en: "She has a turned-up nose and full lips."},
+        {ru: "Ты похожа на свою маму.", en: "You look like your mom."},
+        {ru: "Когда я была маленькой, у меня были светлые волосы и зеленые глаза. Сейчас у меня карие глаза и каштановые волосы.", en: "When I was a little girl, I was fair haired and had green eyes. Now I have hazel eyes and brown hair."},
+        {ru: "Мой дядя - широкоплечий мужчина с карими глазами и короткими темными волосами.", en: "My uncle is a broad-shouldered man with brown eyes and short dark hair."},
+        {ru: "У рыжеволосых людей с бледной кожей довольно часто можно увидеть веснушки.", en: "People who have red hair and pale skin are more likely to have freckles."},
+        {ru: "Моя тетя хорошо выглядит для своего возраста. Ей далеко за 50.", en: "My aunt looks good for her age. She is in her late 50s."},
+        {ru: "Мой учитель английского - мужчина средних лет. Он высокий и хорошо сложен.", en: "My English teacher is a middle-aged man. He is tall and well-built."},
+        {ru: "Она женщина приятной наружности с темными волосами и голубыми глазами.", en: "She is a good-looking woman with dark hair and blue eyes."},
+        {ru: "Мэри двуличная. Она с детства завидовала успеху своей лучшей подруги.", en: "Mary is two-faced. She has been envious of her best friend's success since childhood."},
+        {ru: "У нее избыточный вес, и чтобы похудеть, ей нужно составить четкий план диеты.", en: "She is overweight and needs a good diet plan to lose weight slowly."},
+        {ru: "Наша учительница английского всегда хорошо одета.", en: "Our English teacher is always nicely-dressed."},
+        {ru: "Моей бабушке далеко за 70. Она очень добрая и понимающая.", en: "My granny is in her late 70-s. She is very kind and understanding."},
+        {ru: "Джим низкого роста и весьма упитан.", en: "Jim is short and rather fat."}
+    ],
+    hobbies: [
+        {ru: "Многие люди любят легкие, поверхностные истории о любви, а я же люблю фильмы с запутанными сюжетами.", en: "Many people like light-weight love stories, but I prefer to watch films with intricate plots."},
+        {ru: "Какие жанры фильмов ты любишь? - Больше всего мне нравятся фильмы ужасов. Но мне также нравятся комедии, триллеры и боевики.", en: "What genres of films do you prefer? - Well, most of all I like horror films. Besides, I love comedies, thrillers and action films."},
+        {ru: "Я люблю книги, наводящие на размышления. Моя любимая книга - 'Отец Горио' Бальзака.", en: "I like thought provoking books. My favorite book is 'Father Goriot' by Balzac."},
+        {ru: "'Пролетая над гнездом кукушки' - кассовый фильм, экранизация одноименного романа Кена Кизи.", en: "'Flying over the cuckoo's nest' is a box-office hit based on the novel of the same name by Ken Kesey."},
+        {ru: "Я часто хожу в кино с друзьями и всегда заказываю билеты заранее по телефону.", en: "I often go to the movies with my friends. I always book tickets in advance by phone."},
+        {ru: "Я всегда стараюсь смотреть кинопремьеры.", en: "I always try to catch the latest movie."},
+        {ru: "Когда я устала или хочу отвлечься от переживаний, я часто сижу в интернете или переписываюсь с друзьями онлайн.", en: "When I am tired or want to get rid of worries, I often surf the net or chat online with my friends."},
+        {ru: "Мне не нравится играть в компьютерные игры. Я люблю читать.", en: "I don't like to play computer games. I am fond of reading."},
+        {ru: "Когда я хочу расслабиться, то обычно хожу на рыбалку или собираю грибы в лесу.", en: "When I want to relax, I usually go fishing or gather mushrooms in the forest."},
+        {ru: "Я планирую заняться фотографией. Я мечтала об этом с раннего детства.", en: "I am planning to take up photography. I have been dreaming about it since early childhood."},
+        {ru: "Недавно я занялась скрапбукингом. Это очень увлекательно.", en: "Recently I have taken up scrapbooking. It is so exciting."},
+        {ru: "Мы создали свою музыкальную группу с моими одноклассниками.", en: "We have started a band with my classmates."},
+        {ru: "Через месяц мы едем в отпуск. Обычно каждое лето мы ездим на море, а в этом году мы планируем поехать в Лондон.", en: "In a month we are going on holidays. Every summer we usually go to the seaside. But this year we are planning to go to London."},
+        {ru: "Ты когда-нибудь принимал участие в соревнованиях?", en: "Have you ever taken part in any competitions?"},
+        {ru: "Я меломан. Я люблю абсолютно все музыкальные жанры. Кроме того, я люблю заниматься йогой на свежем воздухе.", en: "I am a keen music lover. I like all genres of music. Besides, I love doing yoga in the open air."},
+        {ru: "Можете вспомнить какой-нибудь малоизвестный фильм, который стал блокбастером?", en: "Can you recall any low-cost film that became a blockbuster?"},
+        {ru: "Трейлеры помогают мне определиться, стоит ли смотреть тот или иной фильм или нет.", en: "Movie trailers help me decide whether or not a film is worth watching."},
+        {ru: "Я очень советую посмотреть этот фильм. В нем много неожиданных поворотов.", en: "I highly recommend you to watch this film. The story in it has a lot of unexpected turns."},
+        {ru: "Я беру уроки верховой езды, практикую йогу и изучаю английский язык. Кроме всего прочего, я профессионально играю в футбол.", en: "I take horseback riding lessons, practice yoga and study English. Besides, I am a professional football player."},
+        {ru: "Я решила заняться бальными танцами. Я сделаю все, чтобы преуспеть.", en: "I've made up my mind to take ballroom dancing lessons. I'll do my best to succeed."}
+    ],
+    school: [
+        {ru: "Совершенное владение английским языком дает больше возможностей найти высокооплачиваемую работу.", en: "Having a perfect command of English gives you much more opportunities to find a highly-paid job."},
+        {ru: "Я собираюсь записаться на языковые курсы. Я мечтаю бегло говорить на английском.", en: "I am going to enroll for a language course. I am dreaming to become fluent in English."},
+        {ru: "Какие самые распространенные языки в мире?", en: "What are the most widespread languages in the world?"},
+        {ru: "Я хочу путешествовать по миру, узнавать интересных людей и расширять свой кругозор.", en: "I want to travel around the world, meet interesting people and expand my horizons."},
+        {ru: "Очень важно решить, действительно ли вы хотите жить за границей, вдали от своей семьи и друзей, и приспосабливаться к незнакомым традициям, культуре и окружающей среде.", en: "It is very important to decide whether or not you really want to study abroad, away from your family and friends, and adjust to unfamiliar customs, culture and environment."},
+        {ru: "У многих людей возникает языковой барьер. Лично я мечтаю учиться за границей.", en: "Many people experience a language barrier. As for me, I am dreaming to study abroad."},
+        {ru: "На выходных мы часто выезжаем за город. Я люблю купаться в реке и загорать. Я люблю проводить время на свежем воздухе.", en: "On weekends we often leave our town for the country. I like to swim in the river and lie in the sun. All in all, I like to spend time out in the open air."},
+        {ru: "Ты должен был выучить стихотворение наизусть. Мне придется поставить тебе плохую оценку.", en: "You should have learnt a poem by heart. I'll have to put you a bad mark."},
+        {ru: "Обычно я провожу свои школьные каникулы в деревне.", en: "I usually spend my summer holidays out of town."},
+        {ru: "Что вы обычно делаете на уроках английского? - Мы переводим тексты, делаем упражнения на практику и развитие навыков аудирования, пишем эссе и составляем диалоги.", en: "What do you usually do at your English lessons? - We translate texts, do some exercises to practice and improve our listening skills, write essays and make up some dialogues."},
+        {ru: "В нашей школе просторные и хорошо оборудованные классы.", en: "There are spacious and well-equipped rooms in our school."},
+        {ru: "Ты часто ходишь в школьную библиотеку? Я лично часто готовлюсь там к урокам.", en: "Do you often go to the school library? As for me, I often prepare for my lessons there."},
+        {ru: "Моя младшая сестра ходит в начальную школу. В следующем году она переходит в среднюю школу.", en: "My younger sister goes to the primary school. Next year she is moving to the secondary school."},
+        {ru: "Моя близкая подруга бросила учебу в возрасте 16 лет. Ее родители были очень разочарованы.", en: "My close friend dropped out of school at the age of 16. Her parents were very disappointed."},
+        {ru: "Студенты, которые списывают, обычно используют шпаргалки, мобильный телефон или просто списывают у других студентов во время контрольной работы.", en: "Students who cheat usually use crib sheets, mobile phone or just look at another student's work while writing a test paper."}
+    ],
+    career: [
+        {ru: "У тебя есть постоянная работа сейчас? - Нет, я работаю официанткой, но это лишь временная работа.", en: "Do you have any permanent job? - No, I don't. I work as a waiter now. But it is just a temporary job."},
+        {ru: "Когда я была студенткой, я совмещала работу с учебой. Я работала продавцом-консультантом на полставки.", en: "When I was a student, I combined my studies with work. I worked part time as a shop assistant."},
+        {ru: "Кем вы работаете? - Я переводчик, и это мое призвание. Я полностью согласна со следующим утверждением: 'Выбери работу по душе, и тебе больше не придется работать ни дня в своей жизни'.", en: "What is your job? - I am an interpreter. This is my life's calling. I absolutely agree with the following statement: 'Choose a job you love, and you will never have to work a day in your life.'"},
+        {ru: "Выбор профессии является одним из важнейших решений, с принятием которых каждый сталкивается на пороге во взрослую жизнь.", en: "Choosing a career is one of the most important life decisions that every person faces on the threshold of adulthood."},
+        {ru: "Что входит в ваши обязанности на работе? - Я ответственна за закупки по контрактам.", en: "What are your main responsibilities in your job? - I am responsible for contract purchasing."},
+        {ru: "Моя ежемесячная зарплата - около 25 000 рублей.", en: "My monthly pay is about 25,000 rubles."},
+        {ru: "У вас есть какие-нибудь вакансии? Я ищу работу. У меня пока нет опыта работы, но я быстро учусь.", en: "Have you got any vacancies? I am looking for a job. I have had no work experience yet, but I learn quickly."},
+        {ru: "Найти высокооплачиваемую работу фрилансера не так просто в наше время.", en: "To find a high-paying freelance job is not that easy nowadays."},
+        {ru: "Я хочу открыть свое дело.", en: "I want to start my own business."},
+        {ru: "Мой работодатель попросил меня принять участие в переговорах.", en: "My employer asked me to be party to negotiations."},
+        {ru: "Мой друг без работы больше полутора лет. Я рекомендую ему обратиться в бюро по трудоустройству.", en: "My friend has been unemployed for more than a year and a half. I recommend him to turn the employment agency."},
+        {ru: "Рабочий день с 9 до 17 - самый распространенный график работы. Но я хочу работать посменно.", en: "The 9 to 5 is the most common work schedule. But I'd like to work in shifts."},
+        {ru: "До того, как я стала журналистом, я работала личным секретарем.", en: "Before finding a job as a journalist, I worked as a personal secretary."},
+        {ru: "Прошлым летом я работала официанткой. Это был отличный опыт.", en: "Last summer I worked as a waitress. It was a great experience."},
+        {ru: "Я уверена, через несколько лет мой сын станет бизнесменом и откроет свое дело.", en: "I am sure that in a couple of years my son will become a businessman and start his own business."}
+    ],
+    holidays: [
+        {ru: "Как вы празднуете Рождество? Есть ли у вас праздничное меню?", en: "How do you celebrate Christmas Day? Do you have any special menu for this day?"},
+        {ru: "В ночь на Хэллоуин английские дети одеваются в ведьм и привидений, стучатся в двери и говорят: 'Откупись, а то заколдую'.", en: "On Halloween night English youngsters dress up as witches and ghosts, knock on doors and say, 'Trick or treat'."},
+        {ru: "Какие есть государственные праздники в России?", en: "What are the public holidays in Russia?"},
+        {ru: "Англичане отмечают различные праздники. Среди них - Рождество, Новый год, День Святого Валентина, День матери, Пасха и Хэллоуин.", en: "The English celebrate different holidays. Among them are Christmas, New Year's Day, St. Valentine's Day, Mother's Day, Easter and Halloween."},
+        {ru: "Дети пишут письма-пожелания Санта-Клаусу или, как его еще называют в Англии, Рождественскому деду, и сжигают их в камине.", en: "Children often write letters to Santa Claus, traditionally called Father Christmas in England, and throw them into the fire."},
+        {ru: "В День Святого Валентина каждый, кто влюблен, традиционно посылает анонимные открытки в форме сердечек своим возлюбленным.", en: "On St. Valentine's Day people who are in love traditionally send anonymous greeting cards in the shape of hearts to their special ones."},
+        {ru: "День Независимости - действительно важный праздник для всех россиян.", en: "Independence Day is a very important holiday to all Russian people."},
+        {ru: "Новый год считается семейным торжеством и поэтому отмечается в кругу семьи.", en: "New Year is generally accepted as a family holiday. It is usually celebrated in the bosom of the family."},
+        {ru: "Дети обычно получают долгожданные подарки от Деда Мороза и Снегурочки.", en: "Children usually receive long-awaited presents from Grandfather Frost and Snow Maiden."},
+        {ru: "Еще один любимый праздник - это Международный женский день, или Восьмое марта. В этот день все женщины получают подарки, цветы и открытки.", en: "Another beloved holiday is the eighth of March or Women's Day. On this holiday all women are traditionally given presents, flowers and postcards."},
+        {ru: "Мы обычно празднуем Новый год дома в кругу нашей семьи.", en: "We usually celebrate New Year's Day at home in the bosom of our family."},
+        {ru: "В полночь мы все загадываем желания, поднимаем бокалы шампанского и желаем друг другу счастливого Нового года.", en: "At midnight all of us make wishes, hold glasses of champagne and wish each other Happy New Year."},
+        {ru: "Какой твой любимый праздник? Ты больше любишь дарить или получать подарки?", en: "What is your favorite holiday? Do you prefer giving or receiving presents?"},
+        {ru: "В канун Нового года я обычно наряжаю елку гирляндами, мишурой и игрушками.", en: "On New Year's Eve I usually decorate a New Year tree with colored lights, tinsel and toys."},
+        {ru: "Я думаю, что все люди с нетерпением ждут праздников, поскольку это время для восстановления сил, веселья и развлечений.", en: "I think that all people look forward to their holidays because it is time for recreation, joy and entertainment."},
+        {ru: "Пасха - это один из самых значимых религиозных праздников в России.", en: "Easter is one of the most important holidays in Russia."},
+        {ru: "В Чистый четверг христиане красят яйца, пекут куличи или готовят творожные пасхи.", en: "On Maundy Thursday Christians usually color eggs, bake Easter cakes or make Russian Easter cheesecakes."},
+        {ru: "В России Рождество ежегодно празднуют 7 января. В канун Рождества дети по традиции ходят от дома к дому и поют колядки.", en: "In Russia Christmas is annually celebrated on the 7th of January. On Christmas Eve children traditionally go from house to house and sing carols."},
+        {ru: "У Хэллоуина множество символов: оранжевые тыквы, черные ведьмы и кошки.", en: "Halloween has many symbols, such as orange pumpkins, black witches and cats."},
+        {ru: "Все люди чтят память погибших героев и дарят ветеранам цветы и подарки.", en: "All people honor the memory of fallen heroes and give veterans flowers and presents."}
+    ],
+    travel: [
+        {ru: "На следующей неделе я еду в отпуск в Майами. Я всегда мечтала посетить Америку.", en: "Next week I am going on a trip to Miami. I have always dreamt of going to America."},
+        {ru: "Я предпочитаю путешествовать на автомобиле. Кроме того, это самый недорогой из всех видов путешествий, особенно если ты планируешь исследовать свою родную страну.", en: "I prefer travelling by car. Besides, it is the cheapest way to travel, especially if you plan to explore your own country."},
+        {ru: "В прошлом году я посетила Мексику. Я получила массу незабываемых впечатлений и ярких эмоций во время поездки.", en: "Last year I visited Mexico. I got unforgettable impressions and vivid emotions during my trip."},
+        {ru: "Чем больше вы путешествуете, тем больше новых людей вы узнаете и тем больше вы расширяете свой кругозор.", en: "The more you travel, the more new people you get to know and the more horizons you widen."},
+        {ru: "Ты когда-нибудь была за границей? Какую из зарубежных стран ты бы хотела еще посетить?", en: "Have you ever been abroad? What foreign country would you like to visit?"},
+        {ru: "Мне нужно сменить обстановку. Я собираюсь в турагентство, чтобы купить турпакет по программе 'Все включено'.", en: "I need to change the scene. I am going to the travel agency to buy some package tour."},
+        {ru: "Для въезда в Доминиканскую республику не требуется заранее получать визу.", en: "There is no need to obtain prior visas for entering the Dominican Republic."},
+        {ru: "Вчера мы были на экскурсии в Чичен-Ице, в одном из самых посещаемых туристических мест в Мексике.", en: "Yesterday we went on excursion to Chichen Itza, one of the most visited tourist destinations in Mexico."},
+        {ru: "Когда самолет взлетает, пассажиры должны пристегнуть ремни и выключить все электронные устройства, такие как мобильные телефоны, планшеты и ноутбуки.", en: "When the plane takes off, passengers should fasten their belts and switch off all electronic devices such as mobile phones, tablets or laptops."},
+        {ru: "Во время полета стюардесса обычно предлагает напитки и закуски.", en: "During the flight the airhostess offers all passengers some drinks and snacks."},
+        {ru: "Пеший туризм является популярным направлением среди молодых путешественников, которые хотят слиться с природой.", en: "Backpacking is very popular among young travelers who want to join the nature."},
+        {ru: "Обычно я бронирую отели и билеты на самолет заранее.", en: "I usually book hotels and flights in advance."},
+        {ru: "Туристы часто берут автомобили напрокат и самостоятельно осматривают достопримечательности.", en: "Tourists often rent cars and go sightseeing on their own."},
+        {ru: "Одной из главных достопримечательностей Парижа считается Эйфелева башня.", en: "One of the main tourist attractions in Paris is the Eiffel Tower."},
+        {ru: "Я всегда люблю поболтать с попутчиками во время полета.", en: "I always love chatting with fellow-travelers during my flight."}
+    ],
+    urban: [
+        {ru: "Еще одна проблема больших городов - загрязнение атмосферного воздуха и воды промышленными предприятиями, домашним отоплением и транспортом.", en: "Another problem of big cities is air and water pollution caused by industrial plants, domestic heating and traffic."},
+        {ru: "Одной из самых актуальных проблем, с которыми ежедневно сталкивается городской житель, является интенсивное дорожное движение.", en: "One of the most burning problems a city dweller faces every day is heavy traffic."},
+        {ru: "Жизнь в большом городе определенно подойдет тому, кто предпочитает активный образ жизни и кому не хватает двадцати четырех часов в сутках.", en: "Urban life will definitely suit an individual who prefers to lead an active lifestyle and who think that there are too few hours in a day."},
+        {ru: "Жители деревни содержат домашний скот и занимаются садоводством.", en: "Village people keep the livestock and do gardening."},
+        {ru: "Основным недостатком жизни в деревне является проблема с транспортом. Если вы хотите построить карьеру или получить высшее образование, то вам придется ежедневно ездить из пригорода в город и обратно.", en: "The main disadvantage of rural life is a commuting problem. If you want to make a career or get a higher education, you'll have to commute between your home in the country and your office in the city."},
+        {ru: "В настоящее время люди живут в перенаселенных городах. Как следствие, проблема нехватки жилья становится с каждым днем все более острой.", en: "Nowadays people live in overcrowded cities. Hence, the problem of the housing shortage is getting more and more burning with every passing day."},
+        {ru: "Некоторые люди предпочитают шум и суету больших городов, в то время как другие любят тишину и покой деревенской жизни.", en: "Some people prefer hustle and bustle of big cities, while others prefer peaceful lifestyle of rural areas."},
+        {ru: "Одной из самых актуальных экологических проблем является проблема перенаселенности.", en: "One of the most burning ecological problems is overpopulation."},
+        {ru: "Такие проблемы, как городская бедность, безработица, азартные игры и ограбления, становятся все более важными и актуальными в современном обществе сегодня.", en: "Such problems as urban poverty, unemployment, gambling and robbery are becoming more and more important and acute in the modern society today."},
+        {ru: "Я живу в окрестностях Ростова-на-Дону. Каждое утро я сажусь на электричку и примерно за 15 минут добираюсь до своей школы.", en: "I live in the neighborhood of Rostov-on-Don. Every morning I take the same commuter train. It takes me about 15 minutes to get to school."}
+    ],
+    health: [
+        {ru: "Когда люди болеют, они записываются на прием к врачу, вызывают врача на дом или, в более серьезных случаях, вызывают скорую помощь.", en: "When people feel sick they make an appointment with a doctor, send for a doctor or, in most serious cases, call an ambulance."},
+        {ru: "Как часто ты посещаешь своего врача? Я хожу на регулярный медосмотр дважды в год.", en: "How often do you visit your doctor? I go for regular medical checkups twice a year."},
+        {ru: "Вчера я вызвала врача на дом. Когда доктор меня осмотрел, он рекомендовал мне соблюдать постельный режим и принимать лекарства.", en: "Yesterday I sent for a doctor. When the doctor examined me, he recommended me that I should keep the bed and take some medicine."},
+        {ru: "У меня высокая температура, болит горло и насморк. Мне следует записаться на прием к врачу.", en: "I am running a high temperature. Besides, I have a sore throat and a runny nose. I should make an appointment with my doctor."},
+        {ru: "Я всегда чищу зубы после еды. Кроме того, я считаю, что регулярный осмотр у стоматолога предотвратит образование кариеса.", en: "I always brush my teeth each time after meals. Besides, in my opinion, regular checkups with a dentist will help to prevent dental caries."},
+        {ru: "Вчера мой врач выписал мне лекарство от гриппа. Сейчас я собираюсь в аптеку, чтобы купить противовоспалительное средство и сироп от кашля.", en: "Yesterday my doctor prescribed me some flu medicine. Now I am going to the chemist's to buy some anti-inflammatory drugs and cough syrup."},
+        {ru: "У меня ужасно болит живот. Мне придется принять обезболивающее средство.", en: "I have a terrible stomachache. I'll have to take a painkiller."},
+        {ru: "Любое пребывание в больнице, любое лечение и хирургическое вмешательство - это большой стресс.", en: "Any hospital stay, any treatment or any surgical operation is stressful."},
+        {ru: "У Джона вчера был сердечный приступ. Его начальнику пришлось вызвать скорую помощь. Сейчас Джон в больнице.", en: "John had a heart attack yesterday. His boss had to call an ambulance. Now John is in the hospital."},
+        {ru: "Выпей лекарство, чтобы снять боль. Ты вот-вот упадешь в обморок.", en: "Take some medicine to relieve pain. You are about to faint."},
+        {ru: "У меня ужасно болит зуб. Я до смерти боюсь удалять свой зуб мудрости.", en: "I have a terrible toothache. I am scared to death of getting my wisdom tooth pulled out."},
+        {ru: "Когда пришел наш семейный доктор, то он первым делом измерил давление.", en: "When our family doctor came, the first thing he did was take blood pressure."},
+        {ru: "Если у вас болит в желудке до или после еды, вам нужно проконсультироваться с гастроэнтерологом.", en: "If you have a stomachache after or before eating, then you should consult a gastroenterologist."},
+        {ru: "У Джона была отдельная, светлая и хорошо оборудованная палата.", en: "John's private ward was light and well-equipped."},
+        {ru: "Когда у меня насморк, то я обычно плохо сплю по ночам.", en: "When I have a runny nose, I can't sleep at night."}
+    ],
+    media: [
+        {ru: "Сегодня практически у каждого человека есть аккаунт в социальных сетях.", en: "Nowadays almost everyone has a social networking account."},
+        {ru: "Интернет помогает мне оставаться на связи с моими друзьями, которые живут за границей, быть в курсе последних событий во всем мире, заказывать билеты в режиме онлайн, совершать покупки в онлайн-магазинах, а также находить полезную информацию, такую как редкие книги, энциклопедии и словари.", en: "The Internet helps me to get in touch with my friends who live abroad, to be abreast of the news in the world, to book tickets online, to purchase different goods at e-shops and to find all useful information like rare books, encyclopedias or dictionaries."},
+        {ru: "Интернет помогает мне улучшить мои языковые навыки, поскольку у меня есть уникальная возможность практиковать английский ежедневно. Чтобы лучше освоить разговорный язык, я часто общаюсь через Skype со своими друзьями по переписке из США.", en: "The Internet helps me improve my language skills. I have a brilliant opportunity to practice English every day. To increase my fluency, I speak with my pen-pals from the USA through Skype."},
+        {ru: "Интернет помогает расширить круг знакомых и друзей.", en: "The Internet helps people widen the circle of acquaintances and friends."},
+        {ru: "Некоторые люди предпочитают смотреть телевизор вместо того, чтобы читать книги, встречаться с друзьями, гулять в парке или ходить в театр. Они готовы сидеть часами перед телевизором подобно лежебокам и смотреть все без разбора.", en: "Some people prefer watching TV instead of reading books, meeting with friends, walking in the park or going to the theater. They can sit in front of their TV-sets like couch potatoes for hours and watch everything."},
+        {ru: "Телепрограмма предлагает много интересного: телесериалы, ток-шоу, художественные фильмы, концерты, мультфильмы, спортивные матчи в прямом эфире и другие программы.", en: "There is always something great to watch: TV serials, talk-shows, feature films, concerts, cartoons, live sport matches and many others."},
+        {ru: "Мои любимые телеканалы - это CNN и BBC News. Они позволяют мне оставаться в курсе последних новостей и событий в мире.", en: "My favorite TV channels are CNN and BBC News. They let me stay abreast of the latest news and events in the world."},
+        {ru: "Здесь каждый читатель найдет для себя что-то интересное, будь то последние главные новости, криминальные хроники или экономический анализ.", en: "Here each reader will find something interesting to read whether it is the latest breaking news, criminal news or economic analysis."},
+        {ru: "Я подписана на несколько региональных газет и журналов. Кроме того, я часто читаю статьи в электронной версии.", en: "I subscribe to several newspapers and magazines. Besides, I often read some articles in e-newspapers."},
+        {ru: "Иногда я читаю желтую прессу. Но, по правде говоря, это пустая трата времени, потому что там содержится много недостоверной информации.", en: "Sometimes I read the gutter press. To tell you the truth, it is a waste of time because there is a lot of unreliable information."},
+        {ru: "В этой газете несколько рубрик: 'Новости', 'Спорт', 'События' и другие.", en: "There are different columns in this newspaper: 'News', 'Sport', 'Events' and some others."},
+        {ru: "По телевизину показывают очень много назойливой рекламы.", en: "There are too many annoying commercials on TV."},
+        {ru: "У меня много друзей по переписке со всего мира.", en: "I have a lot of pen pals from all over the world."},
+        {ru: "Фильм 'Великий Гэтсби' - это экранизация одноименного романа Фитцджеральда.", en: "'The Great Gatsby' movie is based on Fitzgerald's novel of the same name."},
+        {ru: "Я никогда не смотрела ни мыльные оперы, ни ток-шоу.", en: "I watch neither soap operas nor talk shows."}
+    ],
+    environment: [
+        {ru: "Вне всяких сомнений, проблема защиты окружающей среды является одной из самых волнующих в современном мире.", en: "There is no doubt that the problem of environmental protection is one of the most pressing issues in the modern world."},
+        {ru: "Согласно недавно проведенным исследованиям, выделяют несколько видов загрязнения окружающей среды, включая загрязнение воды, воздуха, почвы и некоторые другие.", en: "According to the recent studies there are different types of environmental pollution, including air pollution, water pollution, soil pollution and some others."},
+        {ru: "Какие основные факторы изменения климата?", en: "What are the main factors of climate changes?"},
+        {ru: "Всем известно, что вырубка лесов является одной из основных причин изменения климата.", en: "It is widely accepted that deforestation is one of the main causes of climate change."},
+        {ru: "Россия богата природными ресурсами, такими как нефть и газ.", en: "Russia is rich in natural resources such as oil and natural gas."},
+        {ru: "Какова естественная среда обитания дельфинов?", en: "What is natural habitat of dolphins?"},
+        {ru: "Природные катастрофы, такие как землетрясения, наводнения и ураганы, происходят во всем мире.", en: "Natural disasters such as earthquakes, floods, hurricanes happen all over the world."},
+        {ru: "Как известно, глобальное потепление - это постепенное нагревание поверхности Земли, океанов и атмосферы.", en: "As is well known, global warming is the gradual heating of Earth's surface, oceans and atmosphere."},
+        {ru: "Какие самые большие тропические леса в мире? Где они находятся?", en: "What are the biggest rainforests in the world? Where are they located?"},
+        {ru: "Какие меры следует предпринять, чтобы спасти исчезающие виды животных и растений от вымирания?", en: "What measures should be taken to save endangered species of animals and plants from extinction?"}
+    ],
+    phrasal: [
+        {ru: "Джон слег с гриппом. У него ужасно болела голова и был жар.", en: "John came down with the flu. He had a terrible headache and a fever."},
+        {ru: "Мэри пропустила неделю занятий в школе, и ей пришлось догнать свою группу.", en: "Mary missed school for a week and had to catch up with her group."},
+        {ru: "Я люблю всех своих друзей. Мы хорошо ладим друг с другом.", en: "I love my friends. We get on well with each other."},
+        {ru: "Раньше я курил, но несколько месяцев назад бросил.", en: "I used to smoke but I gave up a couple of months ago."},
+        {ru: "Пожалуйста, не клади трубку! Мне нужно сказать тебе кое-что действительно важное.", en: "Please, don't hang up! I have to tell you something really important."},
+        {ru: "Я часто забочусь о своей младшей сестре, пока моя мама на работе.", en: "I often look after my little sister while my mother is at work."},
+        {ru: "Когда я читаю книги в оригинале, я всегда ищу новые слова в словаре и записываю их в свой блокнот.", en: "When I read books in the original, I always look up new words in a dictionary and put them down into my notebook."},
+        {ru: "Надень куртку! На улице дождь льет как из ведра.", en: "Put on your jacket! It is raining cats and dogs outside."},
+        {ru: "У нас закончились персики и яблоки. Сходи, пожалуйста, в магазин.", en: "We have run out of peaches and apples. Go to the greengrocer's, please."},
+        {ru: "Я действительно очень похожа на свою маму.", en: "I really take after my mommy."},
+        {ru: "Обычно я просыпаюсь в 10 утра. Я не ранняя пташка.", en: "I usually wake up at 10 a.m. I am not an early bird."},
+        {ru: "Мои родители никогда меня не ругают и не отчитывают.", en: "My parents neither tell me off nor lecture me."},
+        {ru: "Мне нужно время, чтобы обдумать твое предложение.", en: "I need some time to think over your offer."},
+        {ru: "Где я могу примерить это платье?", en: "Where can I try this dress on?"},
+        {ru: "Я с нетерпением жду твоего ответа.", en: "I am looking forward to hearing from you soon."},
+        {ru: "Не могли бы вы перезвонить через полчаса? У мистера Смита сейчас конференция.", en: "Could you please call back in half an hour? Mr. Smith is at the conference at the moment."},
+        {ru: "Когда Джон вернулся с работы, его младшие братья играли в шахматы.", en: "When John came back from work, his younger brothers were playing chess."},
+        {ru: "Роман Полы Хокинс 'Девушка в поезде' вышел в свет в 2015 году.", en: "Paula Hawkins' novel 'The girl on the train' came out in 2015."},
+        {ru: "Я хочу избавиться от дурных привычек. Я хочу стать лучше.", en: "I want to get rid of bad habits. I want to become a better person."},
+        {ru: "Мы часто гуляем с Джессикой. Она легкая в общении, веселая и беззаботная.", en: "We often hang out with Jessica. She is easy-going, cheerful and careless."}
+    ],
+    collocations: [
+        {ru: "Я делаю утреннюю зарядку каждый день.", en: "I do my morning exercises every day."},
+        {ru: "Мэри сделала много ошибок в своей контрольной работе.", en: "Mary made a lot of mistakes on her test paper."},
+        {ru: "Я сделаю все возможное, чтобы помочь тебе.", en: "I'll do my best to help you out."},
+        {ru: "Кто обычно делает покупки в вашей семье?", en: "Who usually does the shopping in your family?"},
+        {ru: "Я уже принял решение подавать заявление в Оксфорд.", en: "I have already made my decision to apply to Oxford."},
+        {ru: "Для меня не имеет значения, что ты говоришь.", en: "It makes no difference to me what you say."},
+        {ru: "Мы поднимаем бокалы шампанского и загадываем желания.", en: "We hold glasses of champagne and make wishes."},
+        {ru: "Мэри хорошо учится в школе. Она умная и трудолюбивая девушка.", en: "Mary does well at school. She is a smart and hardworking girl."},
+        {ru: "Кто готовит в вашей семье?", en: "Who does the cooking in your family?"},
+        {ru: "Мы подружились с Лизой 5 лет назад.", en: "We made friends with Lisa 5 years ago."},
+        {ru: "Я боюсь змей. Некоторые из них ядовиты и могут нападать на людей.", en: "I am afraid of snakes. Some of them are venomous and can attack humans."},
+        {ru: "Вчера я ходила к врачу. У меня была высокая температура и ужасная головная боль. Врач рекомендовал мне соблюдать постельный режим и принимать лекарства.", en: "Yesterday I went to the doctor's. I was running a high temperature and had a terrible headache. The doctor recommended that I should keep the bed and take some medicine."},
+        {ru: "Родители Тома разочарованы в нем, потому что он провалил выпускной экзамен.", en: "Tom's parents were disappointed with him because he had failed his final exam."},
+        {ru: "Я хорошо лажу со своими родителями. Они отзывчивые и любящие. Я люблю проводить время в кругу своей семьи.", en: "I get on well with my parents. They are helpful and loving. I do love spending time in the bosom of my family."},
+        {ru: "Майкл хорош в иностранных языках. Он может читать книги британских или американских авторов в оригинале и смотреть большинство фильмов без субтитров.", en: "Michael is good at foreign languages. He can read books of British or American authors in the original and watch most movies without subtitles."},
+        {ru: "Вольтер однажды сказал: 'Женщина может хранить секрет своего возраста'. На самом деле, это не имеет ко мне никакого отношения. Ты можешь доверять мне, и я никогда не выдам твой секрет.", en: "Voltaire once said, 'A woman can keep the secret of her age'. Actually, this is nothing to do with me. You can trust me and I'll never let you down."},
+        {ru: "Я замужем и у меня двое детей. Мой муж - архитектор, а я домохозяйка.", en: "I am married and have two children. My husband is an architect and I am a housewife."},
+        {ru: "Почему ты всегда возлагаешь вину на других? Ты постоянно ворчишь. Это действует мне на нервы.", en: "Why do you always put the blame on others? You're constantly grumbling. It is getting on my nerves."},
+        {ru: "Когда мои друзья приходят ко мне в гости, мы наслаждаемся и всегда хорошо проводим время.", en: "When my friends come to see me, we enjoy ourselves and always have a lot of fun."},
+        {ru: "Вчера я ходила в парикмахерскую и постриглась. Теперь мне нравится моя новая прическа!", en: "Yesterday I went to the hairdresser and had my hair cut. Now I do like my new hairstyle!"}
+    ]
+};
+
+let currentState = {};
+
+function initializeAllTopics() {
+    Object.keys(allExercises).forEach(topic => {
+        currentState[topic] = {
+            currentQuestion: 0,
+            score: 0,
+            questions: [...allExercises[topic]].sort(() => Math.random() - 0.5)
+        };
+        document.getElementById(`total-${topic}`).textContent = currentState[topic].questions.length;
+        loadQuestion(topic);
+    });
+}
+
+function loadQuestion(topic) {
+    const state = currentState[topic];
+    const container = document.getElementById(`questions-${topic}`);
+    if (state.currentQuestion >= state.questions.length) { showResults(topic); return; }
+    const q = state.questions[state.currentQuestion];
+    container.innerHTML = `
+        <div class="question-card">
+            <div class="question-text">${q.ru}</div>
+            <div class="input-group">
+                <input type="text" id="input-${topic}" placeholder="Введите перевод на английском..." autocomplete="off">
+                <button class="btn btn-check" onclick="checkAnswer('${topic}')">Проверить</button>
+            </div>
+            <div class="feedback" id="feedback-${topic}"></div>
+        </div>
+    `;
+    const input = document.getElementById(`input-${topic}`);
+    input.focus();
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') checkAnswer(topic);
+    });
+    updateProgress(topic);
+}
+
+function checkAnswer(topic) {
+    const state = currentState[topic];
+    const q = state.questions[state.currentQuestion];
+    const userInput = document.getElementById(`input-${topic}`).value.trim().toLowerCase();
+    const correctAnswer = q.en.toLowerCase();
+    const feedback = document.getElementById(`feedback-${topic}`);
+    const words = correctAnswer.split(/\s+/).filter(w => w.length > 3);
+    const matchCount = words.filter(w => userInput.includes(w)).length;
+    const matchPercent = (matchCount / words.length) * 100;
+    
+    if (matchPercent >= 60) {
+        state.score++;
+        feedback.className = 'feedback correct';
+        feedback.innerHTML = `✅ <b>Отлично!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
+    } else {
+        feedback.className = 'feedback incorrect';
+        feedback.innerHTML = `❌ <b>Почти!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
+    }
+    feedback.style.display = 'block';
+    document.getElementById(`input-${topic}`).disabled = true;
+    feedback.innerHTML += `<br><br><button class="btn btn-next" onclick="nextQuestion('${topic}')">Далее ➔</button>`;
+    document.getElementById(`score-${topic}`).textContent = state.score;
+}
+
+function nextQuestion(topic) {
+    currentState[topic].currentQuestion++;
+    loadQuestion(topic);
+}
+
+function updateProgress(topic) {
+    const state = currentState[topic];
+    const progress = (state.currentQuestion / state.questions.length) * 100;
+    document.getElementById(`progress-${topic}`).style.width = progress + '%';
+}
+
+function showResults(topic) {
+    const state = currentState[topic];
+    const percentage = Math.round((state.score / state.questions.length) * 100);
+    let message = "";
+    if (percentage === 100) message = "🏆 Идеально! Вы мастер!";
+    else if (percentage >= 80) message = "🔥 Отличный результат!";
+    else if (percentage >= 60) message = "👍 Хорошая работа!";
+    else message = "💪 Продолжайте тренироваться!";
+    document.getElementById(`questions-${topic}`).innerHTML = `
+        <div style="text-align: center; padding: 40px;">
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size: 2em; margin-bottom: 20px; color: var(--deep);">Тренировка завершена!</h3>
+            <p style="font-size: 1.4em; margin-bottom: 20px; color: var(--text);">Ваш результат: ${state.score} / ${state.questions.length} (${percentage}%)</p>
+            <p style="font-size: 1.2em; margin-bottom: 30px; color: var(--soft); font-style: italic;">${message}</p>
+            <button class="btn btn-check" onclick="resetTopic('${topic}')">🔄 Пройти еще раз</button>
+        </div>
+    `;
+}
+
+function resetTopic(topic) {
+    currentState[topic] = {
+        currentQuestion: 0,
+        score: 0,
+        questions: [...allExercises[topic]].sort(() => Math.random() - 0.5)
+    };
+    document.getElementById(`score-${topic}`).textContent = 0;
+    loadQuestion(topic);
+}
+
+function speakText(text) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+        speechSynthesis.speak(utterance);
+    } else {
+        alert("Ваш браузер не поддерживает синтез речи.");
+    }
+}
+
+function showTopic(topic, btn) {
+    document.querySelectorAll('.exercise-container').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(topic).classList.add('active');
+    btn.classList.add('active');
+}
+
+window.onload = function() { initializeAllTopics(); };
+</script>
+</body>
+</html>
