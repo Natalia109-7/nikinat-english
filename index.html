@@ -115,7 +115,7 @@
     <div class="services">
       <div class="service"><div class="icon"></div><h4>General English</h4><p>Общий английский с нуля до продвинутого уровня</p></div>
       <div class="service"><div class="icon">💼</div><h4>Business English</h4><p>Деловой английский для карьеры и переговоров</p></div>
-      <div class="service"><div class="icon">🎓</div><h4>Подготовка к экзаменам</h4><p> ЕГЭ, ОГЭ</p></div>
+      <div class="service"><div class="icon">🎓</div><h4>Подготовка к экзаменам</h4><p>ЕГЭ, ОГЭ</p></div>
       <div class="service"><div class="icon">✈️</div><h4>Разговорный</h4><p>Свободное общение в путешествиях и жизни</p></div>
     </div>
   </div>
@@ -132,8 +132,8 @@
 </section>
 
 <section id="programs" class="page">
-  <h2 class="section-title">Программы обучения</h2>
-  <p class="section-subtitle">My teaching programs</p>
+  <h2 class="section-title">Программы и тренажёры</h2>
+  <p class="section-subtitle">My teaching programs & interactive trainers</p>
   <div id="programs-list" class="grid"><div class="loader">Загрузка</div></div>
 </section>
 
@@ -173,12 +173,11 @@
 
 <footer>© 2026 Наталья Николаева · English with love <a href="admin.html">Админ</a></footer>
 
-<!-- Firebase SDK (только Firestore, без Storage) -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <script>
- <script>
   const firebaseConfig = {
     apiKey: "AIzaSyC9WFkK_cmQGt7pNd926W4kIeo4C8p3H3I",
     authDomain: "nikinat-english.firebaseapp.com",
@@ -214,7 +213,7 @@
     );
   }
 
-  // НОВАЯ ФУНКЦИЯ: загружает программы и тренажёры вместе
+  // Загрузка программ И тренажёров вместе
   function renderPrograms(){
     const el = document.getElementById('programs-list');
     
@@ -313,12 +312,11 @@
   function openModal(src){ document.getElementById('modalImg').src=src; document.getElementById('imgModal').classList.add('active'); }
   function closeModal(){ document.getElementById('imgModal').classList.remove('active'); }
 
-  // ✅ ИСПРАВЛЕННЫЙ ВЫЗОВ:
-  renderPrograms();  // новая функция — без параметров
+  // Запуск всех разделов
+  renderPrograms();
   listenCollection('articles', renderArticles);
   listenCollection('videos', renderVideos);
   listenCollection('gallery', renderGallery);
-</script>
 </script>
 </body>
 </html>
