@@ -160,7 +160,7 @@
   <p class="section-subtitle">Let's start your journey together</p>
   <div class="contacts">
     <div class="contact-item"><div class="ic">📞</div><div><strong>Телефон</strong><br>+7 (999) 123-45-67</div></div>
-    <div class="contact-item"><div class="ic">️</div><div><strong>Email</strong><br>natalie.english@mail.ru</div></div>
+    <div class="contact-item"><div class="ic">✉️</div><div><strong>Email</strong><br>natalie.english@mail.ru</div></div>
     <div class="contact-item"><div class="ic">💬</div><div><strong>Telegram</strong><br>@natalie_english</div></div>
     <div class="contact-item"><div class="ic">📷</div><div><strong>Instagram</strong><br>@natalie.english</div></div>
   </div>
@@ -196,10 +196,12 @@
 
     // Роутинг - переключение вкладок с поддержкой URL
     function showPage(pageId) {
+      // Убираем active со всех ссылок и страниц
       document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       
-      const link = document.querySelector('.nav-link[data-page="' + pageId + '"]');
+      // Находим ссылку и страницу
+      const link = document.querySelector(`.nav-link[data-page="${pageId}"]`);
       const page = document.getElementById(pageId);
       
       if (link && page) {
@@ -210,12 +212,13 @@
     }
 
     // Обработка кликов по навигации
-    document.querySelectorAll('.nav-link').forEach(function(link) {
+    document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
-        var pageId = this.dataset.page;
+        const pageId = this.dataset.page;
         showPage(pageId);
         
+        // Обновляем URL
         if (pageId === 'home') {
           history.pushState(null, '', window.location.pathname);
         } else {
@@ -225,8 +228,8 @@
     });
 
     // Обработка загрузки страницы
-    document.addEventListener('DOMContentLoaded', function() {
-      var hash = window.location.hash.substring(1);
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.substring(1);
       if (hash && document.getElementById(hash)) {
         showPage(hash);
       } else {
@@ -235,8 +238,8 @@
     });
 
     // Обработка кнопки "назад"
-    window.addEventListener('popstate', function() {
-      var hash = window.location.hash.substring(1);
+    window.addEventListener('popstate', () => {
+      const hash = window.location.hash.substring(1);
       if (hash && document.getElementById(hash)) {
         showPage(hash);
       } else {
@@ -244,61 +247,42 @@
       }
     });
 
-    // Открытие тренажёра в новой вкладке
-    function openTrainer(file, title) {
-      console.log('Открываем тренажёр:', file, title);
-      if (file) {
-        window.open(file, '_blank');
-      } else {
-        alert('Ошибка: файл тренажёра не найден!');
-      }
-    }
-
-    // Закрытие модалок по Escape
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-    });
-
     // Загрузка программ и тренажёров
-    function renderPrograms() {
-      var el = document.getElementById('programs-list');
+    function renderPrograms(){
+      const el = document.getElementById('programs-list');
       if (!el) return;
       
       Promise.all([
           db.collection('programs').orderBy('createdAt','desc').get(),
           db.collection('trainers').orderBy('createdAt','desc').get()
-      ]).then(function(results) {
-          var progSnap = results[0];
-          var trainSnap = results[1];
-          var programs = progSnap.docs.map(function(d) { return {id: d.id, ...d.data()}; });
-          var trainers = trainSnap.docs.map(function(d) { return {id: d.id, ...d.data()}; });
+      ]).then(([progSnap, trainSnap]) => {
+          const programs = progSnap.docs.map(d=>({id:d.id, ...d.data()}));
+          const trainers = trainSnap.docs.map(d=>({id:d.id, ...d.data()}));
           
-          if (!programs.length && !trainers.length) {
-              el.innerHTML = '<div class="empty">Программы и тренажёры скоро появятся ✨</div>';
+          if(!programs.length && !trainers.length){
+              el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся ✨</div>';
               return;
           }
           
-          var html = '';
+          let html = '';
           
           // Программы
-          programs.forEach(function(p, i) {
-              html += '<div class="card" style="animation-delay:' + (i * 0.1) + 's">' +
-                  (p.imageUrl ? '<img src="' + p.imageUrl + '" alt="">' : '') +
-                  '<h3>' + p.title + '</h3>' +
-                  '<p>' + (p.description || '').replace(/\n/g, '<br>') + '</p>' +
+          programs.forEach((p,i)=>{
+              html += '<div class="card" style="animation-delay:'+i*0.1+'s">' +
+                  (p.imageUrl?'<img src="'+p.imageUrl+'" alt="">':'') +
+                  '<h3>'+p.title+'</h3>' +
+                  '<p>'+(p.description||'').replace(/\n/g,'<br>')+'</p>' +
                   '</div>';
           });
           
           // Тренажёры
-          trainers.forEach(function(t, i) {
-              var safeFile = t.file.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-              var safeTitle = t.title.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-              html += '<div class="card trainer-card" style="animation-delay:' + ((programs.length + i) * 0.1) + 's; cursor:pointer" data-trainer-file="' + safeFile + '" data-trainer-title="' + safeTitle + '">' +
+          trainers.forEach((t,i)=>{
+              const safeTitle = t.title.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+              const safeFile = t.file.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+              html += '<div class="card" style="animation-delay:'+(programs.length+i)*0.1+'s; cursor:pointer" data-trainer-file="'+safeFile+'" data-trainer-title="'+safeTitle+'">' +
                   '<div style="font-size:48px; text-align:center; margin-bottom:16px">🎮</div>' +
-                  '<h3>' + t.title + '</h3>' +
-                  '<p>' + (t.description || '').replace(/\n/g, '<br>') + '</p>' +
+                  '<h3>'+t.title+'</h3>' +
+                  '<p>'+(t.description||'').replace(/\n/g,'<br>')+'</p>' +
                   '<button class="btn" style="margin-top:12px; font-size:13px; padding:10px 20px">Открыть тренажёр →</button>' +
                   '</div>';
           });
@@ -306,43 +290,118 @@
           el.innerHTML = html;
           
           // Добавляем обработчики для тренажёров
-          var trainerCards = el.querySelectorAll('.trainer-card');
-          trainerCards.forEach(function(card) {
-            card.addEventListener('click', function(e) {
-              e.stopPropagation();
-              var file = this.dataset.trainerFile;
-              var title = this.dataset.trainerTitle;
-              openTrainer(file, title);
+          el.querySelectorAll('[data-trainer-file]').forEach(card => {
+            card.addEventListener('click', function() {
+              openTrainer(this.dataset.trainerFile, this.dataset.trainerTitle);
             });
           });
-      }).catch(function(err) {
+      }).catch(err=>{
           console.error('Ошибка загрузки программ:', err);
-          el.innerHTML = '<div class="empty">Ошибка загрузки 😔</div>';
+          el.innerHTML='<div class="empty">Ошибка загрузки 😔</div>';
       });
     }
 
+    // Открытие тренажёра в новой вкладке на весь экран
+    function openTrainer(file, title){
+        window.open(file, '_blank');
+    }
+
+    // Закрытие модалок по Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.trainer-modal').forEach(m => m.remove());
+        closeModal();
+      }
+    });
+
     // Загрузка статей
-    function renderArticles(items) {
-      var el = document.getElementById('articles-list');
+    function renderArticles(items){
+      const el = document.getElementById('articles-list');
       if (!el) return;
-      if (!items.length) { el.innerHTML = '<div class="empty">Статьи скоро появятся ✨</div>'; return; }
-      var html = items.map(function(a, i) {
-        return '<div class="card" style="animation-delay:' + (i * 0.1) + 's">' +
-            (a.imageUrl ? '<img src="' + a.imageUrl + '" alt="">' : '') +
-            '<div class="date">' + (a.date || '') + '</div>' +
-            '<h3>' + a.title + '</h3>' +
-            '<p>' + (a.content || '').replace(/\n/g, '<br>') + '</p>' +
-            '</div>';
-      }).join('');
-      el.innerHTML = html;
+      if(!items.length){ el.innerHTML='<div class="empty">Статьи скоро появятся ✨</div>'; return; }
+      el.innerHTML = items.map((a,i)=>'<div class="card" style="animation-delay:'+i*0.1+'s">' +
+          (a.imageUrl?'<img src="'+a.imageUrl+'" alt="">':'') +
+          '<div class="date">'+(a.date||'')+'</div>' +
+          '<h3>'+a.title+'</h3>' +
+          '<p>'+(a.content||'').replace(/\n/g,'<br>')+'</p>' +
+          '</div>').join('');
     }
 
     // Загрузка видео
-    function renderVideos(items) {
-      var el = document.getElementById('videos-list');
+    function renderVideos(items){
+      const el = document.getElementById('videos-list');
       if (!el) return;
-      if (!items.length) { el.innerHTML = '<div class="empty">Видео скоро появятся ✨</div>'; return; }
-      var html = items.map(function(v, i) {
-        var id = v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
-        var embed = id ? '<iframe src="https://www.youtube.com/embed/' + id[1] + '" allowfullscreen></iframe>' : '';
-        return '<div class="video-card" style="animation:slideUp 0.6s ease ' + (i * 0.1) + 's backwards">' +
+      if(!items.length){ el.innerHTML='<div class="empty">Видео скоро появятся ✨</div>'; return; }
+      el.innerHTML = items.map((v,i)=>{
+        const id = v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
+        const embed = id ? '<iframe src="https://www.youtube.com/embed/'+id[1]+'" allowfullscreen></iframe>' : '';
+        return '<div class="video-card" style="animation:slideUp 0.6s ease '+i*0.1+'s backwards">' +
+          embed +
+          '<div class="info"><h4>'+v.title+'</h4><p>'+(v.description||'')+'</p></div>' +
+          '</div>';
+      }).join('');
+    }
+
+    // Загрузка галереи
+    function renderGallery(items){
+      const el = document.getElementById('gallery-list');
+      if (!el) return;
+      if(!items.length){ el.innerHTML='<div class="empty">Фото скоро появятся ✨</div>'; return; }
+      el.innerHTML = items.map((g,i)=>'<div class="gallery-item" style="animation:slideUp 0.6s ease '+i*0.05+'s backwards" onclick="openModal(\''+g.imageUrl+'\')">' +
+          '<img src="'+g.imageUrl+'" alt="'+(g.caption||'')+'">' +
+          '</div>').join('');
+    }
+
+    function openModal(src){ 
+      const modal = document.getElementById('imgModal');
+      const img = document.getElementById('modalImg');
+      if (modal && img) {
+        img.src = src; 
+        modal.classList.add('active'); 
+      }
+    }
+    
+    function closeModal(){ 
+      const modal = document.getElementById('imgModal');
+      if (modal) modal.classList.remove('active'); 
+    }
+
+    // Закрытие модалки по клику вне изображения
+    document.getElementById('imgModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imgModal') closeModal();
+    });
+
+    // Запуск
+    renderPrograms();
+    
+    // Подписка на обновления
+    db.collection('articles').orderBy('createdAt','desc').onSnapshot(snap=>{
+      const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+      renderArticles(items);
+    }, err=>{ 
+      console.error('Ошибка загрузки статей:', err); 
+      const el = document.getElementById('articles-list');
+      if (el) el.innerHTML='<div class="empty">Ошибка 😔</div>'; 
+    });
+    
+    db.collection('videos').orderBy('createdAt','desc').onSnapshot(snap=>{
+      const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+      renderVideos(items);
+    }, err=>{ 
+      console.error('Ошибка загрузки видео:', err); 
+      const el = document.getElementById('videos-list');
+      if (el) el.innerHTML='<div class="empty">Ошибка 😔</div>'; 
+    });
+    
+    db.collection('gallery').orderBy('createdAt','desc').onSnapshot(snap=>{
+      const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+      renderGallery(items);
+    }, err=>{ 
+      console.error('Ошибка загрузки галереи:', err); 
+      const el = document.getElementById('gallery-list');
+      if (el) el.innerHTML='<div class="empty">Ошибка 😔</div>'; 
+    });
+  }
+</script>
+</body>
+</html>
