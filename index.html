@@ -88,13 +88,13 @@
   <div class="logo">Natalie <span>English</span></div>
   <nav>
     <ul>
-      <li><a data-page="home" class="nav-link active">Главная</a></li>
-      <li><a data-page="about" class="nav-link">Обо мне</a></li>
-      <li><a data-page="programs" class="nav-link">Программы</a></li>
-      <li><a data-page="articles" class="nav-link">Статьи</a></li>
-      <li><a data-page="videos" class="nav-link">Видео</a></li>
-      <li><a data-page="gallery" class="nav-link">Галерея</a></li>
-      <li><a data-page="contacts" class="nav-link">Контакты</a></li>
+      <li><a href="#home" data-page="home" class="nav-link active">Главная</a></li>
+      <li><a href="#about" data-page="about" class="nav-link">Обо мне</a></li>
+      <li><a href="#programs" data-page="programs" class="nav-link">Программы</a></li>
+      <li><a href="#articles" data-page="articles" class="nav-link">Статьи</a></li>
+      <li><a href="#videos" data-page="videos" class="nav-link">Видео</a></li>
+      <li><a href="#gallery" data-page="gallery" class="nav-link">Галерея</a></li>
+      <li><a href="#contacts" data-page="contacts" class="nav-link">Контакты</a></li>
     </ul>
   </nav>
 </header>
@@ -104,8 +104,8 @@
     <div class="hero-text">
       <h1>Английский <em>с душой</em> и удовольствием</h1>
       <p>Меня зовут Наталья Николаева. Я помогаю влюбиться в английский язык — через живое общение, интересные материалы и индивидуальный подход.</p>
-      <a data-page="contacts" class="btn nav-link">Записаться на урок</a>
-      <a data-page="about" class="btn btn-outline nav-link">Узнать больше</a>
+      <a href="#contacts" data-page="contacts" class="btn nav-link">Записаться на урок</a>
+      <a href="#about" data-page="about" class="btn btn-outline nav-link">Узнать больше</a>
     </div>
     <div class="hero-img"><div class="placeholder">N</div></div>
   </div>
@@ -190,23 +190,56 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 
-  // Роутинг - переключение вкладок
-  document.querySelectorAll('.nav-link').forEach(l=>{
-    l.addEventListener('click',function(e){
+  // Роутинг - переключение вкладок с поддержкой URL
+  function showPage(pageId) {
+    // Убираем active со всех ссылок и страниц
+    document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    
+    // Находим ссылку и страницу
+    const link = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+    const page = document.getElementById(pageId);
+    
+    if (link && page) {
+      link.classList.add('active');
+      page.classList.add('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+  }
+
+  // Обработка кликов по навигации
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
       e.preventDefault();
-      const id = this.dataset.page;
+      const pageId = this.dataset.page;
+      showPage(pageId);
       
-      // Убираем active со всех ссылок и страниц
-      document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
-      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-      
-      // Добавляем active на текущую ссылку и страницу
-      this.classList.add('active');
-      document.getElementById(id).classList.add('active');
-      
-      // Прокрутка вверх
-      window.scrollTo({top:0,behavior:'smooth'});
+      // Обновляем URL
+      if (pageId === 'home') {
+        history.pushState(null, '', window.location.pathname);
+      } else {
+        history.pushState(null, '', '#' + pageId);
+      }
     });
+  });
+
+  // Обработка загрузки страницы и кнопки "назад"
+  window.addEventListener('load', () => {
+    const hash = window.location.hash.substring(1); // Убираем #
+    if (hash && document.getElementById(hash)) {
+      showPage(hash);
+    } else {
+      showPage('home');
+    }
+  });
+
+  window.addEventListener('popstate', () => {
+    const hash = window.location.hash.substring(1);
+    if (hash && document.getElementById(hash)) {
+      showPage(hash);
+    } else {
+      showPage('home');
+    }
   });
 
   // Загрузка программ и тренажёров
