@@ -653,7 +653,7 @@ body {
 <div class="top-nav">
   <div class="logo">Natalie <span>English</span></div>
   <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">🌓</button>
-<a href="https://ВАШ_ЛОГИН.github.io/nikinat-english/" class="back-btn">← На главную</a>
+  <a href="https://natalia109-7.github.io/nikinat-english/" target="_top" class="back-btn">← На главную</a>
 </div>
 
 <div class="sidebar">
@@ -934,6 +934,13 @@ function init() {
     setMode('theory');
     if (localStorage.getItem('trainer_theme') === 'dark') document.body.classList.add('dark');
     document.addEventListener('paste', handleGlobalPaste);
+    
+    // Если страница открыта в iframe — все ссылки будут открываться в главном окне
+    if (window.self !== window.top) {
+        document.querySelectorAll('a').forEach(link => {
+            if (!link.target) link.target = '_top';
+        });
+    }
 }
 
 function renderUnitButtons() {
