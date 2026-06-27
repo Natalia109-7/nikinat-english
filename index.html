@@ -302,42 +302,9 @@
     }
 
     // Открытие тренажёра
-    function openTrainer(file, title){
-      const modal = document.createElement('div');
-      modal.className = 'trainer-modal';
-      modal.style.cssText = 'position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;';
-      
-      const modalContent = document.createElement('div');
-      modalContent.style.cssText = 'background:white;border-radius:24px;width:95%;height:90%;max-width:1400px;overflow:hidden;display:flex;flex-direction:column;';
-      
-      const header = document.createElement('div');
-      header.style.cssText = 'padding:20px;border-bottom:1px solid #e8dff5;display:flex;justify-content:space-between;align-items:center;';
-      
-      const titleEl = document.createElement('h3');
-      titleEl.style.cssText = 'font-family:"Cormorant Garamond",serif;color:#5a4a7a;margin:0;font-size:24px';
-      titleEl.textContent = title;
-      
-      const closeBtn = document.createElement('button');
-      closeBtn.style.cssText = 'background:none;border:none;font-size:28px;cursor:pointer;color:#8b7ba8';
-      closeBtn.innerHTML = '✕';
-      closeBtn.onclick = () => modal.remove();
-      
-      header.appendChild(titleEl);
-      header.appendChild(closeBtn);
-      
-      const iframe = document.createElement('iframe');
-      iframe.src = file;
-      iframe.style.cssText = 'flex:1;border:none;width:100%;';
-      
-      modalContent.appendChild(header);
-      modalContent.appendChild(iframe);
-      modal.appendChild(modalContent);
-      
-      // Закрытие по клику вне модалки
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.remove();
-      });
-      
+function openTrainer(file, title){
+    window.open(file, '_blank');
+}   
       document.body.appendChild(modal);
     }
 
