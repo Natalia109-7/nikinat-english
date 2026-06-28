@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Фразовые глаголы · Natalie English</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #e8dff5;
+    --peach: #fce4d6;
+    --mint: #d4f1e8;
+    --rose: #f7d6e0;
+    --cream: #fdf6f0;
+    --deep: #5a4a7a;
+    --soft: #8b7ba8;
+    --text: #3d3554;
+    --text-light: #8b7ba8;
+    --success: #6ba889;
+    --danger: #c97b84;
+    --warning: #d4a574;
+    --shadow: 0 10px 40px rgba(138,107,175,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--lavender) 50%, var(--peach) 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    overflow-x: hidden;
+    padding: 20px;
+  }
+
+  /* Плавающие декоративные круги */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: -1;
+    pointer-events: none;
+    animation: float 20s ease-in-out infinite;
+  }
+  .blob1 { width: 400px; height: 400px; background: var(--rose); top: -100px; left: -100px; }
+  .blob2 { width: 500px; height: 500px; background: var(--mint); bottom: -150px; right: -150px; animation-delay: -10s; }
+  .blob3 { width: 300px; height: 300px; background: var(--lavender); top: 50%; left: 50%; animation-delay: -5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, -50px) scale(1.1); }
+    66% { transform: translate(-30px, 40px) scale(0.95); }
+  }
+
+  /* Верхняя навигация */
+  .top-nav {
+    max-width: 1000px;
+    margin: 0 auto 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(253,246,240,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: var(--shadow);
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--deep);
+    letter-spacing: 1px;
+  }
+  .logo span { color: var(--soft); font-style: italic; }
+
+  .back-btn {
+    padding: 10px 22px;
+    background: linear-gradient(135deg, var(--deep), var(--soft));
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+    transition: all 0.3s;
+  }
+  .back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(90,74,122,0.35);
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    padding: 35px 20px;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+  }
+
+  header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5em;
+    font-weight: 500;
+    color: var(--deep);
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  header p {
+    color: var(--soft);
+    font-size: 1em;
+    font-style: italic;
+  }
+
+  /* Режимы */
+  .modes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .mode-btn {
+    padding: 12px 24px;
+    border: 1px solid rgba(232,223,245,0.8);
+    border-radius: 30px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95em;
+  }
+
+  .mode-btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, var(--lavender), var(--rose));
+    box-shadow: 0 8px 20px rgba(138,107,175,0.2);
+  }
+
+  .mode-btn.active {
+    background: linear-gradient(135deg, var(--deep), var(--soft));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(90,74,122,0.3);
+  }
+
+  /* Категории */
+  .categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+
+  .cat-btn {
+    padding: 9px 18px;
+    border: 1px solid rgba(232,223,245,0.8);
+    border-radius: 25px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.88em;
+  }
+
+  .cat-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--lavender), var(--rose));
+    box-shadow: 0 6px 15px rgba(138,107,175,0.2);
+  }
+
+  .cat-btn.active {
+    background: linear-gradient(135deg, var(--soft), var(--deep));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 6px 15px rgba(90,74,122,0.3);
+  }
+
+  /* Карточка */
+  .card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 35px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: rgba(232,223,245,0.5);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), var(--soft), var(--deep));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  .counter {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9em;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .sentence {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 20px 0;
+    line-height: 1.5;
+    color: var(--deep);
+    font-weight: 500;
+  }
+
+  .translation {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.95em;
+    font-style: italic;
+    margin-bottom: 15px;
+  }
+
+  .input-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .answer-input {
+    padding: 14px 22px;
+    border: 2px solid var(--lavender);
+    border-radius: 25px;
+    background: rgba(255,255,255,0.8);
+    font-size: 1.05em;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    width: 220px;
+    outline: none;
+    transition: all 0.3s ease;
+    color: var(--text);
+  }
+
+  .answer-input.wide {
+    width: 90%;
+    max-width: 700px;
+    text-align: left;
+    border-radius: 20px;
+  }
+
+  .answer-input:focus {
+    border-color: var(--soft);
+    box-shadow: 0 0 0 4px rgba(139,123,168,0.15);
+    background: white;
+  }
+
+  .answer-input.correct {
+    border-color: var(--success);
+    background: rgba(212,241,232,0.4);
+    color: var(--success);
+    font-weight: 500;
+  }
+
+  .answer-input.wrong {
+    border-color: var(--danger);
+    background: rgba(247,214,224,0.4);
+    color: var(--danger);
+    font-weight: 500;
+    animation: shake 0.4s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  .btn {
+    padding: 12px 26px;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.95em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--deep), var(--soft));
+    color: white;
+    box-shadow: 0 6px 18px rgba(90,74,122,0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(90,74,122,0.35);
+  }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.7);
+    color: var(--deep);
+    border: 1px solid var(--lavender);
+  }
+
+  .btn-secondary:hover {
+    background: linear-gradient(135deg, var(--lavender), var(--rose));
+    transform: translateY(-2px);
+  }
+
+  .feedback {
+    text-align: center;
+    min-height: 28px;
+    margin-top: 12px;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    line-height: 1.5;
+  }
+
+  .feedback.correct { color: var(--success); }
+  .feedback.wrong { color: var(--danger); }
+
+  .hint {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9em;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid var(--lavender);
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .stat { text-align: center; min-width: 90px; }
+
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9em;
+    font-weight: 600;
+    color: var(--deep);
+  }
+
+  .stat-label {
+    font-size: 0.82em;
+    color: var(--text-light);
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .btn-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+
+  /* Глоссарий */
+  .glossary-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    margin-top: 15px;
+  }
+
+  .glossary-table th {
+    text-align: left;
+    padding: 10px 15px;
+    color: var(--text-light);
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .glossary-table td {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(5px);
+    border-radius: 14px;
+    font-size: 0.95em;
+    border: 1px solid rgba(255,255,255,0.7);
+  }
+
+  .glossary-table tr td:first-child {
+    font-weight: 600;
+    color: var(--deep);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1em;
+  }
+
+  .glossary-table tr td:nth-child(2) {
+    color: var(--text);
+  }
+
+  .glossary-table tr td:last-child {
+    color: var(--text-light);
+    font-size: 0.9em;
+    font-style: italic;
+  }
+
+  /* Тест (соответствия) */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .match-item {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(232,223,245,0.8);
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95em;
+    text-align: center;
+    color: var(--text);
+  }
+
+  .match-item:hover {
+    background: rgba(255,255,255,0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(138,107,175,0.15);
+  }
+
+  .match-item.selected {
+    border-color: var(--deep);
+    background: linear-gradient(135deg, var(--lavender), var(--rose));
+    box-shadow: 0 6px 18px rgba(90,74,122,0.25);
+    color: var(--deep);
+    font-weight: 500;
+  }
+
+  .match-item.matched {
+    border-color: var(--success);
+    background: rgba(212,241,232,0.5);
+    color: var(--success);
+    cursor: default;
+    font-weight: 500;
+  }
+
+  .match-item.wrong-match {
+    border-color: var(--danger);
+    background: rgba(247,214,224,0.5);
+    animation: shake 0.4s ease;
+  }
+
+  .answer-box {
+    background: rgba(232,223,245,0.3);
+    border: 1px dashed var(--soft);
+    border-radius: 18px;
+    padding: 18px 22px;
+    margin: 15px 0;
+    color: var(--text);
+    font-size: 1em;
+    line-height: 1.5;
+  }
+
+  .answer-box strong {
+    color: var(--deep);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1em;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.7em; }
+    .sentence { font-size: 1.2em; }
+    .card { padding: 22px 18px; }
+    .match-grid { grid-template-columns: 1fr; }
+    .glossary-table td, .glossary-table th { padding: 10px 12px; font-size: 0.85em; }
+    .answer-input.wide { width: 100%; }
+    .top-nav { padding: 12px 18px; }
+    .logo { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="top-nav">
+  <div class="logo">Natalie <span>English</span></div>
+  <a href="../index.html" class="back-btn">← На главную</a>
+</div>
+
+<div class="container">
+  <header>
+    <h1>✨ Фразовые глаголы ✨</h1>
+    <p>Полный тренажёр по учебнику Ю.С. Гуриковой, В.Е. Дедяевой</p>
+  </header>
+
+  <div class="modes" id="modes">
+    <button class="mode-btn active" data-mode="fill">📝 Вставить предлог</button>
+    <button class="mode-btn" data-mode="translate">🌐 Перевод</button>
+    <button class="mode-btn" data-mode="match">🔗 Соответствия</button>
+    <button class="mode-btn" data-mode="glossary">📖 Глоссарий</button>
+  </div>
+
+  <div class="categories" id="categories"></div>
+
+  <div class="card" id="mainCard">
+    <!-- Динамический контент -->
+  </div>
+</div>
+
+<script>
+// ============ ДАННЫЕ ИЗ УЧЕБНИКА ============
+
+const fillExercises = {
+  BE: [
+    { s: "What are you ___? (Что ты замышляешь?)", t: "What are you up to?", a: ["up to"] },
+    { s: "Why is your cat jumping? — He is ___ a butterfly.", t: "Он гонится за бабочкой.", a: ["after", "onto"] },
+    { s: "What a sunny day! Are you ___ a picnic?", t: "Ты рад пойти на пикник?", a: ["up for"] },
+    { s: "It seemed that someone was ___ her.", t: "Казалось, что кто-то преследует её.", a: ["after", "onto"] },
+    { s: "I don't want to listen to your complaints! I am ___ them!", t: "Я сыт по горло ими!", a: ["fed up with"] },
+    { s: "We are ___ petrol. We can't go anywhere.", t: "У нас закончился бензин.", a: ["out of"] },
+    { s: "I don't understand what you are ___.", t: "Не понимаю, что ты имеешь в виду.", a: ["on about"] },
+    { s: "The tablet was ___ when I poured water on it.", t: "Планшет был включен/выключен.", a: ["on", "off"] },
+    { s: "Your behaviour is just not ___.", t: "Твоё поведение просто неприемлемо.", a: ["on"] },
+    { s: "She was ___ because she had lost her favourite scarf.", t: "Она была расстроена.", a: ["down", "cut up"] },
+    { s: "I didn't know that Paul was ___ chess.", t: "Я не знал, что Пол увлекается шахматами.", a: ["into"] },
+    { s: "Everyone was ___ it. I was the only one who didn't know.", t: "Все были в курсе.", a: ["in on"] },
+    { s: "Margaret couldn't come because she was ___ bronchitis.", t: "Маргарет заболела бронхитом.", a: ["down with"] },
+    { s: "Our expenses are 10 percent ___ but income is 10 percent down.", t: "Наши расходы выросли на 10%.", a: ["up"] },
+    { s: "Ally is ___ to attract his attention but he is not interested.", t: "Элли пытается привлечь его внимание.", a: ["out to"] },
+    { s: "He isn't sleeping. He has been ___ since 5 a.m.", t: "Он не спит. Он бодрствует с 5 утра.", a: ["up"] },
+    { s: "She is just ___ to be a teacher.", t: "Она просто создана быть учителем.", a: ["cut out"] },
+    { s: "Are you ___ a good party?", t: "Ты рад хорошей вечеринке?", a: ["up for"] },
+    { s: "Eve is ___ at work. She needs help.", t: "Ив завалена работой.", a: ["snowed under"] },
+    { s: "The police is ___ a robber.", t: "Полиция преследует грабителя.", a: ["after", "onto"] }
+  ],
+  BREAK: [
+    { s: "Just in case the car breaks ___ on the highway.", t: "На случай, если машина сломается.", a: ["down"] },
+    { s: "Alice ate too much chocolate and broke ___ a rash.", t: "У Алисы началась сыпь.", a: ["out in"] },
+    { s: "They had got married one month before the war broke ___.", t: "Перед войной.", a: ["out"] },
+    { s: "Mary Jane and Peter Parker broke ___ in the middle of the film.", t: "Расстались.", a: ["up"] },
+    { s: "The school breaks ___ in two months.", t: "Школа закрывается на каникулы.", a: ["up"] },
+    { s: "The firefighters broke ___ the wall of fire.", t: "Прорвались сквозь стену огня.", a: ["through"] },
+    { s: "A dangerous criminal broke ___ prison yesterday.", t: "Сбежал из тюрьмы.", a: ["out of"] },
+    { s: "He broke ___ from the football team to play for the other city.", t: "Ушёл из команды.", a: ["away"] },
+    { s: "Break ___ a piece of bread for me please.", t: "Отломи мне кусочек хлеба.", a: ["off"] },
+    { s: "They had to break ___ their savings to pay off the fine.", t: "Тратить сбережения.", a: ["into"] },
+    { s: "The audience broke ___ applause when the performance had finished.", t: "Разразились аплодисментами.", a: ["into"] },
+    { s: "Talks over retirement benefits broke ___.", t: "Переговоры были прерваны.", a: ["down"] },
+    { s: "The toy fell down and broke ___ pieces.", t: "Разбился на кусочки.", a: ["into"] },
+    { s: "The burglars broke ___ the window.", t: "Вломились через окно.", a: ["in", "through"] },
+    { s: "This pair of boots took weeks to break ___.", t: "Разнашивать обувь.", a: ["in"] },
+    { s: "We are assuming that the criminals will break ___ the border.", t: "Пересекут границу.", a: ["through", "for"] },
+    { s: "Mrs. Jackson heard they were discussing her son and broke ___ to ask.", t: "Ворвалась в разговор.", a: ["in"] },
+    { s: "I didn't want to waste this money but I had to break ___ it.", t: "Тратить деньги.", a: ["into"] },
+    { s: "The university breaks ___ after the examination session.", t: "Закрывается на каникулы.", a: ["up"] },
+    { s: "The footballer broke ___ the line and tackled the man.", t: "Прорвался через линию.", a: ["through"] }
+  ],
+  COME: [
+    { s: "Would you like to come ___?", t: "Присоединиться/пойти вместе.", a: ["over", "along"] },
+    { s: "The bride came ___ a chicken pox the day before her wedding.", t: "Заболела ветрянкой.", a: ["down with"] },
+    { s: "When he met my parents he came ___ as an irritable person.", t: "Произвёл впечатление раздражительного.", a: ["across"] },
+    { s: "He is not a native Englishman. He comes ___ India.", t: "Он родом из Индии.", a: ["from"] },
+    { s: "It would be nice if you could come ___ one day.", t: "Зайти в гости.", a: ["round", "over", "by"] },
+    { s: "When I was trying to close the window, the handle came ___.", t: "Ручка отвалилась.", a: ["off"] },
+    { s: "The website that we were doing together came ___ great!", t: "Удался/выгорел.", a: ["off"] },
+    { s: "When she came ___, she saw her sister with ammonium chloride.", t: "В себя/очнулась.", a: ["to", "round"] },
+    { s: "You look dazzling! Come ___. What favour do you need?", t: "Перестань.", a: ["off it"] },
+    { s: "We are preparing a surprise for him. We hope it will come ___.", t: "Пройдёт удачно.", a: ["off"] },
+    { s: "You wouldn't believe who I came ___ in the supermarket!", t: "Случайно наткнулся.", a: ["across"] },
+    { s: "If you come ___ difficulties, let me know.", t: "Столкнёшься с трудностями.", a: ["up against"] },
+    { s: "The professor came ___ her, saying her research was not profound.", t: "Накинулся/раскритиковал.", a: ["down on"] },
+    { s: "What the problem comes ___ to is whether the consumer will pay more.", t: "Сводится к вопросу.", a: ["down to"] },
+    { s: "What goes on in the dark must come ___ in the light.", t: "Выйдет наружу.", a: ["out"] },
+    { s: "How did you come ___ this Prada dress?", t: "Приобрела/где купила.", a: ["by"] },
+    { s: "His car was broken because he had hit the lamp post. How did this come ___?", t: "Как это произошло?", a: ["about"] },
+    { s: "Put on a coat. I don't want you to come ___ a flu.", t: "Заболеть гриппом.", a: ["down with"] },
+    { s: "Don't lie to me, the truth will all the same come ___.", t: "Выйдет наружу.", a: ["out"] },
+    { s: "He pulled the door too much and the knob came ___.", t: "Отвалилась.", a: ["off"] }
+  ],
+  GET: [
+    { s: "When I first met her, I didn't like her, but now we get ___ each other very well.", t: "Мы отлично ладим.", a: ["on with", "along with"] },
+    { s: "Internet connection is bad, I can't get ___ to you on Skype.", t: "Не могу дозвониться.", a: ["through"] },
+    { s: "He was trying to get this difficult concept ___ to us.", t: "Донести/объяснить.", a: ["across"] },
+    { s: "Why are they whispering? What are they getting ___?", t: "Что они имеют в виду?", a: ["at"] },
+    { s: "What are you getting ___? Why can't you tell me everything?", t: "Что ты замышляешь?", a: ["up to"] },
+    { s: "The lady didn't want to let me in, but I got ___ her.", t: "Уговорил/обошёл.", a: ["around", "round"] },
+    { s: "William had such a shock after an accident that he still can't get ___ it.", t: "Пережить/оправиться.", a: ["over"] },
+    { s: "Be ready tomorrow at 5 a.m. We have to get ___ very early.", t: "Отправиться в путь.", a: ["off"] },
+    { s: "Stop chatting! Let's get ___ work at last!", t: "Взяться за работу.", a: ["down to", "through with"] },
+    { s: "Don't distract me! I am getting ___ the report.", t: "Отставать с работой.", a: ["behind with"] }
+  ],
+  GIVE: [
+    { s: "He gave ___ smoking because he had problems with lungs.", t: "Бросил курить.", a: ["up"] },
+    { s: "This factory gives ___ too much smoke.", t: "Выделяет/источает.", a: ["off"] },
+    { s: "I was following the main road, he was to give me ___.", t: "Уступить дорогу.", a: ["way"] },
+    { s: "He couldn't live with these pangs of remorse and he gave ___.", t: "Сдался полиции.", a: ["himself up"] },
+    { s: "Alice, could you help the teacher and give the tests ___ to the students?", t: "Раздать.", a: ["out"] },
+    { s: "I will not give ___ you, even if you don't want my support.", t: "Поставить крест.", a: ["up on"] },
+    { s: "The audience gave ___ the main actor.", t: "Аплодировали.", a: ["it up to"] },
+    { s: "Don't give ___ tomorrow morning that you want to sleep.", t: "Не жалуйся.", a: ["out"] },
+    { s: "Dear students, you will have to give the works ___ at 10 p.m. sharp!", t: "Сдать работы.", a: ["in"] },
+    { s: "The bridge central support gave ___ and the car fell.", t: "Обрушился.", a: ["way"] },
+    { s: "I gave all my energy ___ to organise this holiday.", t: "Посвятил энергию.", a: ["up"] },
+    { s: "I had asked you not to tell anyone but you gave everything ___.", t: "Проболтался.", a: ["away"] },
+    { s: "The window gave ___ the sea and I could hear the waves.", t: "Выходит на море.", a: ["onto"] },
+    { s: "You have to give ___ eating so much sugar.", t: "Бросить привычку.", a: ["up"] },
+    { s: "The boy gave his friend ___ to the headmistress.", t: "Сдал/выдал.", a: ["up to"] },
+    { s: "Please, give your singing ___. I can't concentrate!", t: "Перестань петь.", a: ["over"] },
+    { s: "These flowers give ___ a strange smell.", t: "Источают запах.", a: ["off"] },
+    { s: "Emily couldn't solve the problem, gave ___ and asked her father.", t: "Сдалась.", a: ["in"] },
+    { s: "Your shoes give ___ terrible smell!", t: "Издают запах.", a: ["off"] },
+    { s: "A librarian gave the books ___ to the students.", t: "Раздала книги.", a: ["out"] }
+  ],
+  GO: [
+    { s: "Many small shops go ___ because they cannot compete.", t: "Разоряются.", a: ["under"] },
+    { s: "The agent had to go ___ the client's conditions.", t: "Согласиться/пойти на условия.", a: ["along with"] },
+    { s: "I can't come today because I suddenly went ___ flu.", t: "Заболел гриппом.", a: ["down with"] },
+    { s: "Andrew decided to go ___ football to lose some weight.", t: "Увлекаться/заниматься.", a: ["in for"] },
+    { s: "After a short break, we went ___ working again.", t: "Продолжили работать.", a: ["on"] },
+    { s: "I need to go ___ my notes again before the exam.", t: "Просмотреть/повторить.", a: ["over"] },
+    { s: "Look at these shoes! They will perfectly go ___ my dress!", t: "Подходить/гармонировать.", a: ["with"] },
+    { s: "Let's go ___ it today and forget about this nightmare.", t: "Сделать, несмотря на нежелание.", a: ["through with"] },
+    { s: "Mrs. Roberts had to go ___ lunch today.", t: "Обойтись без обеда.", a: ["without"] },
+    { s: "We had to use candles as the lights had gone ___ some minutes before.", t: "Погасли.", a: ["out"] },
+    { s: "I will tell you without going ___ details.", t: "Не вдаваясь в подробности.", a: ["into"] },
+    { s: "The secretary will definitely go ___ them.", t: "Просмотрит документы.", a: ["through"] },
+    { s: "Success and hard work go ___.", t: "Идут рука об руку.", a: ["together"] },
+    { s: "What is going ___?", t: "Что происходит?", a: ["on"] },
+    { s: "Don't leave yoghurt on the table. It will go ___.", t: "Испортится/прокиснет.", a: ["off"] },
+    { s: "I go ___ red.", t: "Выбираю красный.", a: ["for"] },
+    { s: "How should we go ___ telling her the bad news?", t: "Приступить к.", a: ["about"] },
+    { s: "Jack lost his job but he went ___ this period with calm.", t: "Пережил период.", a: ["through"] },
+    { s: "She went ___ to the other bank to ask for credit.", t: "Ушла/отправилась.", a: ["off"] },
+    { s: "I go ___ picnic!", t: "Я за пикник!", a: ["for"] }
+  ],
+  LOOK: [
+    { s: "I am looking ___ our next vacations, just can't wait!", t: "Жду с нетерпением.", a: ["forward to"] },
+    { s: "While hiking in the desert, you need to look ___ snakes.", t: "Быть настороже.", a: ["out for"] },
+    { s: "If you don't know this plant, I can look it ___ in the book.", t: "Посмотреть в книге.", a: ["up"] },
+    { s: "While Mr. Thomson was looking ___ the documents, he noticed strange figures.", t: "Просматривал документы.", a: ["through"] },
+    { s: "I can look ___ your children if you want a romantic dinner.", t: "Присмотреть за детьми.", a: ["after"] },
+    { s: "I am looking ___ a pharmacy.", t: "Ищу аптеку.", a: ["for"] },
+    { s: "He looks ___ the other students. I think he is arrogant.", t: "Смотрит свысока.", a: ["down on"] },
+    { s: "I would be happy if the windows looked ___ the lake.", t: "Выходили окнами на озеро.", a: ["out on"] },
+    { s: "I am looking ___ hearing from you.", t: "С нетерпением жду ответа.", a: ["forward to"] },
+    { s: "Why are you looking ___ me? I feel embarrassed.", t: "Смотришь на меня.", a: ["at"] },
+    { s: "Don't look ___. Live in the present moment.", t: "Не заглядывай в будущее.", a: ["ahead"] },
+    { s: "She came in a funny dress and the girls looked her ___.", t: "Осмотрели с ног до головы.", a: ["up and down"] },
+    { s: "Tomorrow, look ___ for the horse named 'Flesh'.", t: "Высматривай.", a: ["out"] },
+    { s: "They are looking ___ minimize their expenses.", t: "Надеются/планируют.", a: ["to"] },
+    { s: "Things are going to look ___ for them.", t: "Дела пойдут на лад.", a: ["up"] },
+    { s: "Don't look ___ me just because I am younger!", t: "Не смотри свысока.", a: ["down on"] },
+    { s: "The boy is looking ___ his father. He admires him.", t: "Уважает/поклоняется.", a: ["up to"] },
+    { s: "The teacher just looked ___ the dictation but found six mistakes.", t: "Просмотрел.", a: ["through"] },
+    { s: "I didn't take part at the meeting, I was looking ___ it.", t: "Наблюдал со стороны.", a: ["on"] },
+    { s: "I need to find someone to look ___ my dog when I go on vacation.", t: "Присмотреть за собакой.", a: ["after"] }
+  ],
+  MAKE: [
+    { s: "It took them ages to make ___ after the quarrel.", t: "Помириться.", a: ["up"] },
+    { s: "You have a terrible handwriting. I can't make ___ what you have written!", t: "Разобрать.", a: ["out"] },
+    { s: "The film was so stupid that I made ___ the exit in the middle.", t: "Направился к выходу.", a: ["for"] },
+    { s: "Bad weather and a lot of work make ___ a bad mood.", t: "Способствуют/приводят к.", a: ["for"] },
+    { s: "The fog was so bad that I couldn't make ___ the tree.", t: "Различить.", a: ["out"] },
+    { s: "The robbers made ___ at least ten thousand dollars.", t: "Прихватили.", a: ["off with"] },
+    { s: "He brought her roses to make ___ his mistake.", t: "Загладить вину.", a: ["up for"] },
+    { s: "Rachel made ___ an excuse because she didn't want to go out.", t: "Придумала отговорку.", a: ["up"] },
+    { s: "We were terribly hungry so we made ___ the nearest cafe.", t: "Направились к кафе.", a: ["for"] },
+    { s: "He broke the window with a ball and made ___.", t: "Удрал.", a: ["off"] },
+    { s: "They will not only do your hair but also make you ___.", t: "Накрасить.", a: ["up"] },
+    { s: "You can't make ___ a person, you can only accept him as he is.", t: "Переделать.", a: ["over"] },
+    { s: "He made ___ that he was sleeping because he didn't want to talk.", t: "Притворился.", a: ["out"] },
+    { s: "I want to make ___ because I miss her.", t: "Помириться.", a: ["up"] },
+    { s: "The poor made ___ my purse and I didn't even notice.", t: "Прихватили.", a: ["off with"] },
+    { s: "I would like to make this room ___. I don't like these green colours.", t: "Переделать.", a: ["over"] },
+    { s: "So it's not true?! You made everything ___!", t: "Ты всё выдумал!", a: ["up"] },
+    { s: "How can I make ___ everything that I have done to you?", t: "Загладить вину.", a: ["up for"] },
+    { s: "They made ___ when they saw the police.", t: "Удрали.", a: ["off"] },
+    { s: "Could you make ___ my dress? It seems too tight now.", t: "Переделать.", a: ["over"] }
+  ],
+  PUT: [
+    { s: "They spent all day yesterday putting a new gas cooker ___.", t: "Устанавливать.", a: ["in"] },
+    { s: "I hate putting ___ a tent.", t: "Ставить палатку.", a: ["up"] },
+    { s: "The idea of putting watch ___ and ___ to save electricity.", t: "Переводить часы.", a: ["back", "forward"] },
+    { s: "The light in the kitchen is blinking. Put it ___, please.", t: "Починить/исправить.", a: ["out"] },
+    { s: "I don't know how she puts ___ him. He is such a bore!", t: "Терпит.", a: ["up with"] },
+    { s: "When the fire was put ___, there was nothing left of the farmhouse.", t: "Потушен.", a: ["out"] },
+    { s: "The artillery is not mine. I must put ___ it.", t: "Сделать официальный запрос.", a: ["in for"] },
+    { s: "I have to put ___ our meeting because the contract is not ready.", t: "Отложить.", a: ["off"] },
+    { s: "This lecture is a way to put ___ the idea of danger of drugs.", t: "Донести идею.", a: ["across"] },
+    { s: "Why are you always putting me ___ with your stupid comments?", t: "Смущать/раздражать.", a: ["down"] },
+    { s: "I don't have an evening dress to put ___ for such an event.", t: "Надеть.", a: ["on"] },
+    { s: "We can put you ___. — I'd rather stay in the hotel because I don't want to put you ___.", t: "Приютить / причинять неудобство.", a: ["up", "out"] },
+    { s: "One minute, I will put you ___ to Mr. Ford.", t: "Соединить по телефону.", a: ["through"] },
+    { s: "When you finish with the squeezer, put it ___. It puts me ___.", t: "Убрать на место / раздражает.", a: ["away", "out"] },
+    { s: "It's the first of April. Don't let anyone put you ___.", t: "Одурачить.", a: ["on"] },
+    { s: "When horses break a leg, the owner has to put the horse ___.", t: "Усыпить.", a: ["down"] },
+    { s: "If you want to travel, you always have to put a little money ___.", t: "Откладывать/копить.", a: ["by"] },
+    { s: "I can't put ___ arrogant people!", t: "Терпеть.", a: ["up with"] },
+    { s: "Put ___ your cigarette please. You can't smoke in the cinema.", t: "Потуши.", a: ["out"] },
+    { s: "Never put ___ till tomorrow what you can do today.", t: "Откладывать.", a: ["off"] }
+  ],
+  TAKE: [
+    { s: "The new computer stopped working! I will take it ___ to the shop.", t: "Вернуть в магазин.", a: ["back"] },
+    { s: "We were taken ___ when we saw a giraffe in the centre of the city!", t: "Поражены.", a: ["aback"] },
+    { s: "She speaks just like me. It seems she is taking ___ me.", t: "Пародирует.", a: ["off"] },
+    { s: "When he starts a new activity he is so taken ___ it, that he can't stop.", t: "Поглощён.", a: ["up with"] },
+    { s: "She takes ___ her mother. The same gait, voice, habits!", t: "Похожа на маму.", a: ["after"] },
+    { s: "He took ___ alcohol and was fired from job.", t: "Пристрастился.", a: ["to"] },
+    { s: "He has been working 12 hours a day. This work took ___ him.", t: "Изматывает.", a: ["it out of"] },
+    { s: "If you want to know how to protect yourself, try taking ___ boxing.", t: "Увлечься.", a: ["up"] },
+    { s: "I made a terrible wine spot. But my mom took the spot ___.", t: "Вывела пятно.", a: ["out"] },
+    { s: "They offered higher salary. So I am going to take ___ their offer.", t: "Принять предложение.", a: ["up on"] },
+    { s: "They didn't have enough money to buy a car, so they took ___ a credit.", t: "Взяли кредит.", a: ["out"] },
+    { s: "The plane took ___ with a thirty minutes delay.", t: "Взлетел.", a: ["off"] },
+    { s: "I used to tell that he was stingy. I take it ___.", t: "Беру слова обратно.", a: ["back"] },
+    { s: "You cannot judge a person without taking ___ his case.", t: "Вникнуть в детали.", a: ["in"] },
+    { s: "The original Rolex cannot be so cheap. You were taken ___.", t: "Обманули.", a: ["in"] },
+    { s: "The teacher took Mrs. Williams ___ to talk about her child.", t: "Отвёл в сторону.", a: ["aside"] },
+    { s: "It was too hot and Ted took ___ the jacket.", t: "Снял.", a: ["off"] },
+    { s: "I wonder if it's possible to take this dress ___. It's too loose.", t: "Ушить.", a: ["in"] },
+    { s: "We need to take this big wardrobe ___ in order to move.", t: "Разобрать на части.", a: ["apart"] },
+    { s: "Are you taking me ___ a fool?", t: "Принимаете за дурака?", a: ["for"] }
+  ],
+  TURN: [
+    { s: "I was waiting for him all the evening but he never turned ___.", t: "Не появился.", a: ["up"] },
+    { s: "If you have any problems, you can always turn ___ me.", t: "Обратиться за помощью.", a: ["to"] },
+    { s: "I expected the film to be boring but it turned ___ to be very interesting.", t: "Оказался.", a: ["out"] },
+    { s: "All the football players turned ___ the goal keeper when he missed.", t: "Ополчились против.", a: ["against"] },
+    { s: "He needs to find someone to turn his business ___ to.", t: "Передать ведение дел.", a: ["over to"] },
+    { s: "Turn ___ this fan, it makes too much noise.", t: "Выключи.", a: ["off"] },
+    { s: "I dream of going out with this actor. He turns me ___.", t: "Заводит.", a: ["on"] },
+    { s: "Sorry, it's late, time to turn ___. I will go to my room.", t: "Идти спать.", a: ["in"] },
+    { s: "They know how to turn the situation ___ and make weak points strong.", t: "Сделать выгодным.", a: ["around"] },
+    { s: "They were turned ___ from the restaurant because of clothes.", t: "Не пустили.", a: ["away"] },
+    { s: "Turn the radiator a bit ___. It's very cold today.", t: "Сделать жарче.", a: ["up"] },
+    { s: "Why did you turn ___ Liz? She didn't do anything bad.", t: "Ополчился против.", a: ["against"] },
+    { s: "If you kiss a frog, it can turn ___ a prince.", t: "Превратиться.", a: ["into"] },
+    { s: "I know I can always turn ___ him. He is always ready to help.", t: "Обратиться.", a: ["to"] },
+    { s: "Turn the radio ___. You can hear me singing!", t: "Включи/сделай громче.", a: ["on", "up"] },
+    { s: "In spring snow turns ___ mud.", t: "Превращается.", a: ["into"] },
+    { s: "Kids, it's 9 p.m.! Time to turn ___.", t: "Ложиться спать.", a: ["in"] },
+    { s: "Milly wanted to go to barbecue but had to turn ___ because of work.", t: "Отклонить.", a: ["down"] },
+    { s: "Could you turn the sound ___? I don't hear anything.", t: "Сделать громче.", a: ["up"] },
+    { s: "This music turns me ___. I want to dance all night.", t: "Заводит.", a: ["on"] }
+  ]
+};
+
+const translateExercises = {
+  BE: [
+    { ru: "Что это вы замышляете?", en: "What are you up to?", keys: ["up to"] },
+    { ru: "Я завалена работой в этом месяце.", en: "I am snowed under at work this month.", keys: ["snowed under"] },
+    { ru: "Полиция преследует преступника.", en: "The police are onto a criminal.", keys: ["onto"] },
+    { ru: "Пойдём в парк! Я в настроении гулять!", en: "Let's go to the park! I am up for a walk!", keys: ["up for"] },
+    { ru: "Она в депрессии.", en: "She is down.", keys: ["down"] },
+    { ru: "Этот проект связан с проблемами города.", en: "This project is to do with urban problems.", keys: ["to do with"] },
+    { ru: "Многие дети слегли с гриппом.", en: "A lot of children are down with flu.", keys: ["down with"] },
+    { ru: "У нас закончилась бумага.", en: "We are out of paper.", keys: ["out of"] },
+    { ru: "Что ты имеешь в виду?", en: "What are you on about?", keys: ["on about"] },
+    { ru: "Твоё поведение неприемлемо.", en: "Your behaviour is not on.", keys: ["not on"] },
+    { ru: "Майк увлекается фехтованием.", en: "Mike is into fencing.", keys: ["into"] },
+    { ru: "Дети не спят.", en: "The children are up.", keys: ["up"] },
+    { ru: "Я сыт по горло его несправедливостью.", en: "I am fed up with his injustice.", keys: ["fed up with"] },
+    { ru: "Николь создана, чтобы быть менеджером. Она отлично управляет людьми.", en: "Nicol is cut out to be a manager. She manages people very well.", keys: ["cut out"] },
+    { ru: "Мы хотим устроить сюрприз для Алекса. Ты с нами?", en: "We want to make a surprise for Alex. Are you in on it?", keys: ["in on"] }
+  ],
+  BREAK: [
+    { ru: "Переговоры были прерваны. Соглашение не было достигнуто.", en: "The negotiations were broken down. The agreement was not reached.", keys: ["broken down", "broke down"] },
+    { ru: "Несколько членов партии отделились и сформировали свою собственную группу.", en: "Several members of the party broke away and formed their own group.", keys: ["broke away"] },
+    { ru: "Машина сломалась примерно в двух километрах от города. Нам пришлось идти пешком.", en: "The car broke down approximately two kilometres away from the city. We had to go on foot.", keys: ["broke down"] },
+    { ru: "Она расплакалась после такого стресса и не могла работать.", en: "She broke down in tears after such a stress and she couldn't work.", keys: ["broke down"] },
+    { ru: "Грабители пробрались через окно и украли деньги и украшения.", en: "The burglars broke in through the window and stole money and jewellery.", keys: ["broke in"] },
+    { ru: "Как всегда, она встряла среди разговора.", en: "She broke in in the middle of the conversation as she always does.", keys: ["broke in"] },
+    { ru: "Если ты будешь есть столько шоколада, тебя высыпет!", en: "If you eat so much chocolate, you will break out in a rash.", keys: ["break out"] },
+    { ru: "Этот телевизор постоянно ломается, давай купим новый.", en: "This TV is constantly breaking down! Let's buy a new one.", keys: ["breaking down"] },
+    { ru: "Скоро школа закрывается на каникулы.", en: "The school will soon break up for vacations.", keys: ["break up"] },
+    { ru: "Студенты пробрались в кабинет профессора и украли тесты.", en: "The students broke into the professor's study and stole the tests.", keys: ["broke into"] }
+  ],
+  COME: [
+    { ru: "Мерида родом из Шотландии.", en: "Merida comes from Scotland.", keys: ["comes from"] },
+    { ru: "Он свалился с ветрянкой прямо перед путешествием.", en: "He came down with chicken pox just before the trip.", keys: ["came down with"] },
+    { ru: "Он очень смешной и показался всем смешным.", en: "He was in a hurry and came across as funny.", keys: ["came across"] },
+    { ru: "Вопрос сводится к возможности сделать проект лучше, но сдать позже.", en: "The question comes down to a possibility to make the project better but hand in later.", keys: ["comes down to"] },
+    { ru: "У меня столько планов! Надеюсь, дело выгорит!", en: "I have so many plans. I hope it will come off!", keys: ["come off"] },
+    { ru: "У меня на пальто оторвались три пуговицы.", en: "Three buttons came off my coat.", keys: ["came off"] },
+    { ru: "Приходи! Мы тебе всегда рады.", en: "Come by (come over)! We are always happy to see you.", keys: ["come by", "come over"] },
+    { ru: "Пациент быстро пришёл в себя.", en: "The patient came to (came round) fast.", keys: ["came to", "came round"] },
+    { ru: "Завтра выходит книга моего брата.", en: "A book of my brother comes out tomorrow.", keys: ["comes out"] },
+    { ru: "Правда всплывает рано или поздно.", en: "The truth will come out sooner or later.", keys: ["come out"] }
+  ],
+  GET: [
+    { ru: "Через месяц полиция вышла на убийцу.", en: "The police got on to the murderer after a month.", keys: ["got on to"] },
+    { ru: "Ты мне не смог дозвониться?", en: "Couldn't you get through to me?", keys: ["get through"] },
+    { ru: "Ты что-то замышляешь?", en: "Are you getting up to something?", keys: ["getting up to"] },
+    { ru: "Это не сойдёт тебе с рук!", en: "You will not get away with it!", keys: ["get away with"] },
+    { ru: "Я тебе отомщу!", en: "I will get back at you!", keys: ["get back at"] },
+    { ru: "Во сколько мы отправляемся в путь?", en: "What time are we getting off?", keys: ["getting off"] },
+    { ru: "Он отделался синяком.", en: "He got off with a bruise.", keys: ["got off"] },
+    { ru: "Грабителям удалось сбежать.", en: "The robbers managed to get away.", keys: ["get away"] },
+    { ru: "Ты можешь помочь мне найти выход из ситуации.", en: "You can help me to get around (to get round).", keys: ["get around", "get round"] },
+    { ru: "Мэри не хотела идти с нами на вечеринку, но мне удалось уговорить её.", en: "Mary didn't want to go to the party with us but I got her round.", keys: ["got her round", "got round"] }
+  ],
+  GIVE: [
+    { ru: "Он бросил курить.", en: "He gave up smoking.", keys: ["gave up"] },
+    { ru: "Преступник сдался сам и сдал всех своих сообщников.", en: "The criminal gave himself up and all his accomplices to the police.", keys: ["gave himself up"] },
+    { ru: "Студенты сдали тесты, и учитель раздал новые копии.", en: "The students gave the tests in and the teacher gave new copies out.", keys: ["gave", "in", "out"] },
+    { ru: "Не сдавайся.", en: "Don't give in.", keys: ["give in"] },
+    { ru: "Окна отеля выходят на оживлённую улицу.", en: "The windows of the hotel give onto a busy street.", keys: ["give onto"] },
+    { ru: "Ты всегда должен пропускать пешеходов.", en: "You always have to give way to passengers.", keys: ["give way"] },
+    { ru: "Он посвятил всего себя детям.", en: "He gave himself up to children.", keys: ["gave himself up"] },
+    { ru: "Они ударили по двери ногой, и она подалась.", en: "They kicked the door and it gave way.", keys: ["gave way"] },
+    { ru: "Не спеши ставить крест на близком человеке.", en: "Don't hurry to give up on your close one.", keys: ["give up on"] },
+    { ru: "Они постоянно жалуются на холодную погоду.", en: "They are constantly giving out about the cold weather.", keys: ["giving out"] }
+  ],
+  GO: [
+    { ru: "Я бы хотел заняться атлетикой.", en: "I would like to go in for athletics.", keys: ["go in for"] },
+    { ru: "Его отец прошёл через многое.", en: "His father went through a lot.", keys: ["went through"] },
+    { ru: "Безработица и преступность идут бок о бок.", en: "Unemployment and criminality go together.", keys: ["go together"] },
+    { ru: "Линдси не заметила, как стемнело, и продолжала заниматься до полуночи.", en: "Lindsay didn't notice how it got dark and went on studying till midnight.", keys: ["went on"] },
+    { ru: "Нам пришлось обходиться без горячей воды пять дней из-за ремонтных работ.", en: "We had to go without hot water for five days because of the repairs.", keys: ["go without"] },
+    { ru: "На станции играет громкая музыка. Что там происходит?", en: "There is loud music at the station. What is going on there?", keys: ["going on"] },
+    { ru: "Я выбросил рыбу, потому что она протухла.", en: "I threw the fish away as it went off.", keys: ["went off"] },
+    { ru: "Я всегда просматриваю лекции перед экзаменом.", en: "I always go over the lectures before an exam.", keys: ["go over"] },
+    { ru: "Эти обои не подходят к нашему старому дивану.", en: "These wallpapers don't go with our old sofa.", keys: ["go with"] },
+    { ru: "К сожалению, наш сосед разорился.", en: "Unfortunately, our neighbour went under.", keys: ["went under"] }
+  ],
+  LOOK: [
+    { ru: "Просмотри, пожалуйста, моё заявление.", en: "Look through my written request, please.", keys: ["look through"] },
+    { ru: "Я с нетерпением жду, когда отправлюсь в кругосветное путешествие.", en: "I am looking forward to circumnavigating the world.", keys: ["looking forward to"] },
+    { ru: "Он взглянул на меня и продолжил просматривать документы.", en: "He looked at me and went on looking through the documents.", keys: ["looked at", "looking through"] },
+    { ru: "Окна нашей квартиры выходят на детский сад.", en: "The windows of our flat look out on a kindergarten.", keys: ["look out on"] },
+    { ru: "Я не знаю перевод этого слова, надо его посмотреть.", en: "I don't know the translation of this word. I have to look it up.", keys: ["look it up"] },
+    { ru: "Он всегда смотрел на неё свысока. Сегодня, когда она вошла в кабинет, он холодно смерил её взглядом.", en: "He always looked down on her. Today, when she came into the room, he looked her coldly up and down.", keys: ["looked down on", "looked", "up and down"] },
+    { ru: "Смотри, не будет ли где бара. Я не могу больше вести машину, надо выпить кофе.", en: "Look out for the bar. I can't drive anymore, I would drink some coffee.", keys: ["look out for"] },
+    { ru: "Я очень уважаю своего дедушку.", en: "I look up to my granddad.", keys: ["look up to"] },
+    { ru: "Я не участвовал в митинге, я просто смотрел.", en: "I didn't take part in the meeting, I was only looking on.", keys: ["looking on"] },
+    { ru: "Я с нетерпением жду, когда увижу братьев.", en: "I am looking forward to seeing my brothers.", keys: ["looking forward to"] },
+    { ru: "Ей нравится присматривать за детьми, поэтому она решила стать няней.", en: "She likes looking after children, so she decided to be a babysitter.", keys: ["looking after"] },
+    { ru: "Уже сейчас надо думать о том, в какой университет пойдёт наш сын.", en: "We should look ahead what university our son will go to.", keys: ["look ahead"] },
+    { ru: "Эрик ужасный сноб. Он всегда смотрит на всех свысока.", en: "Eric is a terrible snob. He always looks down on everyone.", keys: ["looks down on"] },
+    { ru: "У меня не было времени читать новости, я просто просмотрел газету.", en: "I didn't have time to read the news, I just looked through the newspaper.", keys: ["looked through"] },
+    { ru: "После кризиса экономика наконец-то поднимается.", en: "After the crisis, the economy is finally looking up.", keys: ["looking up"] }
+  ],
+  MAKE: [
+    { ru: "Том придумал причину, чтобы не приходить на вечеринку.", en: "Tom made up an excuse not to go to the party.", keys: ["made up"] },
+    { ru: "Этот кандидат говорит очень нечётко. Я не могу разобрать слова.", en: "This candidate is speaking very indistinctly. I can't make out his words.", keys: ["make out"] },
+    { ru: "Это было чудесное путешествие. Захватывающий дух пейзаж компенсировал ужасную дорогу.", en: "It was a wonderful trip. Breathtaking view made up for a terrible road.", keys: ["made up for"] },
+    { ru: "Мы зарегистрировались в отеле и сразу направились на пляж.", en: "We checked in and made for the beach at once.", keys: ["made for"] },
+    { ru: "Она выдумала историю о том, что метро сломалось. Но я уверен, что она опять просала.", en: "She made up a story about a broken underground. But I am sure that she has overslept again.", keys: ["made up"] },
+    { ru: "Ты можешь разобрать, что это за белая точка на горизонте?", en: "Can you make out what this white spot on the horizon is?", keys: ["make out"] },
+    { ru: "Гарри забыл про её день рождения вчера. Поэтому он купил ей шоколадные конфеты и подарок, чтобы загладить вину.", en: "Harry forgot about her birthday yesterday. That's why he bought her chocolates and a gift to make it up.", keys: ["make it up"] },
+    { ru: "Не красься, в парке будут водные горки.", en: "Don't make your face up, there will be water slides in the park.", keys: ["make", "up"] },
+    { ru: "Ты можешь разобрать слова этой песни?", en: "Can you make out the lyrics of this song?", keys: ["make out"] },
+    { ru: "Мальчики прихватили конфеты в магазине и удрали.", en: "The boys made off with the candies.", keys: ["made off with"] },
+    { ru: "Футболист притворился, что его толкнули.", en: "The football player made out that he was pushed.", keys: ["made out"] },
+    { ru: "Чтение книг и просмотр фильмов способствуют пополнению словарного запаса.", en: "Reading and watching films makes for vocabulary enrichment.", keys: ["makes for"] },
+    { ru: "Сёстры помирились и снова играют вместе.", en: "The sisters made up and are playing together again.", keys: ["made up"] },
+    { ru: "Вам придётся переделать отчёт.", en: "You will have to make the report over.", keys: ["make", "over"] },
+    { ru: "Они вышли из дома и направились к озеру.", en: "They left the house and made for the lake.", keys: ["made for"] }
+  ],
+  PUT: [
+    { ru: "Алиса хорошо умеет доносить идеи до публики.", en: "Alice is good at putting the ideas across to the public.", keys: ["putting", "across"] },
+    { ru: "Мы очень быстро установили палатку, чтобы спрятаться от дождя.", en: "We put up the tent very fast to hide from the rain.", keys: ["put up"] },
+    { ru: "Мы можем отложить собрание на один час?", en: "Could we possibly put the meeting off for 1 hour?", keys: ["put", "off"] },
+    { ru: "Как ты терпишь своего босса?", en: "How do you put up with your boss?", keys: ["put up with"] },
+    { ru: "Я купил новую кофеварку, но теперь мне надо её установить.", en: "I bought a new coffee-machine. Now I should put it in.", keys: ["put it in"] },
+    { ru: "Что ты надел на голову? Ты выставишь меня посмешищем на людях!", en: "What have you put on your head? You will put me down in public!", keys: ["put on", "put me down"] },
+    { ru: "Потуши свет. Я хочу спать.", en: "Put out the light. I want to sleep.", keys: ["put out"] },
+    { ru: "Студенты не пришли на лекцию вчера. Учитель был раздосадован.", en: "The students didn't come to the lecture yesterday. The teacher was put out.", keys: ["put out"] },
+    { ru: "Я не хочу причинять вам неудобство, но если вы говорите, что можете меня приютить, я остановлюсь у вас с радостью.", en: "I don't want to put you out, but if you say that you can put me up, I will be glad to stay at your place.", keys: ["put you out", "put me up"] },
+    { ru: "Пожарные быстро потушили огонь.", en: "The firefighters put out the fire fast.", keys: ["put out"] },
+    { ru: "Не забудь перевести часы на час вперёд.", en: "Don't forget to put your watch forward.", keys: ["put", "forward"] },
+    { ru: "Вы не могли бы соединить меня с отделом кадров?", en: "Could you put me through to the Human Resources Office?", keys: ["put me through"] },
+    { ru: "Деда Мороза не существует. Ваши родители просто дурачат тебя.", en: "Santa Claus (Father Frost) doesn't exist. Your parents are putting you on.", keys: ["putting you on"] },
+    { ru: "Я не пойду с тобой в дорогой ресторан. Я откладываю деньги на плату за обучение.", en: "I won't go with you to an expensive restaurant. I am putting money by for my tuition fee.", keys: ["putting money by"] },
+    { ru: "Положи эту шоколадку на место. Тебя же высыпет!", en: "Put this chocolate away. You will have a rash!", keys: ["put", "away"] }
+  ],
+  TAKE: [
+    { ru: "Твой внук во всём похож на тебя.", en: "Your grandson takes after you in everything.", keys: ["takes after"] },
+    { ru: "Я был поражён, когда увидел новый небоскрёб.", en: "I was taken aback when I saw a new skyscraper.", keys: ["taken aback"] },
+    { ru: "Он пристрастился к азартным играм.", en: "He took to gambling.", keys: ["took to"] },
+    { ru: "Надо ушить эту юбку. Она слишком широкая.", en: "This skirt needs to be taken in. It's too loose.", keys: ["taken in"] },
+    { ru: "За кого вы меня принимаете? Я не подпишу контракт, пока не вникну в детали. И не позволю вам одурачить меня.", en: "Are you taking me for a fool? I won't sign the contract until I have taken in it. I won't let you take me in.", keys: ["taking me for", "taken in", "take me in"] },
+    { ru: "Я ошибся. Беру свои слова обратно.", en: "I was mistaken. I take it back.", keys: ["take it back"] },
+    { ru: "Я решил принять их предложение. Цена за эту машину невысокая.", en: "I decided to take up on their offer. The price is not high for this car.", keys: ["take up on"] },
+    { ru: "Самолёт взлетел на рассвете.", en: "The plane took off at the dawn.", keys: ["took off"] },
+    { ru: "Директор отвёл меня в сторону и сообщил о повышении.", en: "The manager took me aside and told me about my promotion.", keys: ["took me aside"] },
+    { ru: "На моей новой куртке не работает молния. Придётся её сдать в магазин.", en: "The zipper of my new jacket doesn't work. I will have to take it back.", keys: ["take it back"] },
+    { ru: "Я был поглощён работой и не услышал, когда ты пришёл.", en: "I was taken up with job and didn't hear when you came.", keys: ["taken up with"] },
+    { ru: "Мы взяли 500 фунтов в кредит.", en: "We took out a 500 pounds credit.", keys: ["took out"] },
+    { ru: "Он снова одурачил меня.", en: "He took me in again.", keys: ["took me in"] },
+    { ru: "Этот актёр иногда пародирует политиков.", en: "This actor sometimes takes off politicians.", keys: ["takes off"] },
+    { ru: "За кого вы меня принимаете?", en: "Who are you taking me for?", keys: ["taking me for"] }
+  ],
+  TURN: [
+    { ru: "Оказалось, что он не появился, потому что поезд сломался.", en: "It turned out that he hadn't turn up because the train had broken down.", keys: ["turned out", "turn up"] },
+    { ru: "Она превратилась в красивую молодую девушку.", en: "She turned into a young beautiful girl.", keys: ["turned into"] },
+    { ru: "Прикрути музыку. Она мне мешает.", en: "Turn the music down, it disturbs me.", keys: ["turn", "down"] },
+    { ru: "Обратись за помощью к другу.", en: "Turn to a friend for help.", keys: ["turn to"] },
+    { ru: "Мне завтра рано вставать, так что пойду на боковую.", en: "I have to get up early tomorrow, so I'll go to turn in.", keys: ["turn in"] },
+    { ru: "Они купили компанию в надежде превратить её в прибыльную.", en: "They bought the company hoping to turn it around.", keys: ["turn it around"] },
+    { ru: "Начальник отклонил их предложение, потому что не хотел сокращать многих работников.", en: "The boss turned their proposal down because he didn't want to make a lot of people redundant.", keys: ["turned", "down"] },
+    { ru: "Он передал ведение дел Филлипу в сентябре.", en: "He turned his business over to Phillip in September.", keys: ["turned", "over to"] },
+    { ru: "Я не понимаю, почему ты ополчился на меня.", en: "I don't understand why you have turned against me.", keys: ["turned against"] },
+    { ru: "Сделай свет ярче, иначе фотографии выйдут тёмными.", en: "Turn the light up or the photos will come out dark.", keys: ["turn", "up"] }
+  ]
+};
+
+const matchExercises = {
+  BE: [
+    { l: "be up", r: "бодрствовать, не спать" },
+    { l: "be in on", r: "участвовать, быть в курсе" },
+    { l: "be snowed under", r: "быть заваленным работой" },
+    { l: "be up to", r: "затевать, замышлять" },
+    { l: "be down", r: "грустить, быть в депрессии" },
+    { l: "be out to", r: "пытаться" },
+    { l: "be onto", r: "преследовать" },
+    { l: "be on about", r: "иметь в виду" },
+    { l: "be to do with", r: "быть связанным с" },
+    { l: "be not on", r: "быть неприемлемым" }
+  ],
+  BREAK: [
+    { l: "break up", r: "закрываться на каникулы" },
+    { l: "break off", r: "отломить часть" },
+    { l: "break into", r: "начать что-либо делать" },
+    { l: "break down", r: "начать плакать" },
+    { l: "break through", r: "совершить прорыв" },
+    { l: "break out", r: "развязать войну" },
+    { l: "break in", r: "разнашивать (обувь)" },
+    { l: "break for", r: "идти/бежать куда-либо" },
+    { l: "break away", r: "уйти из организации" },
+    { l: "break out of", r: "сбежать" }
+  ],
+  COME: [
+    { l: "come across", r: "случайно наткнуться" },
+    { l: "come to/round", r: "прийти в себя, очнуться" },
+    { l: "come up", r: "появиться, всплыть" },
+    { l: "come off", r: "отвалиться, оторваться" },
+    { l: "come down with", r: "заболеть, слечь" },
+    { l: "come from", r: "быть родом" },
+    { l: "come round", r: "заглянуть в гости" },
+    { l: "come off it", r: "перестань (недоверие)" },
+    { l: "come by", r: "купить, приобрести" },
+    { l: "come about", r: "случиться, произойти" }
+  ],
+  GET: [
+    { l: "get through", r: "дозвониться" },
+    { l: "get over", r: "пережить, преодолеть" },
+    { l: "get off", r: "отделаться" },
+    { l: "get together", r: "собраться с кем-то" },
+    { l: "get by", r: "жить на скромные средства" },
+    { l: "get behind", r: "отставать" },
+    { l: "get away", r: "сбежать, уехать" },
+    { l: "get at", r: "иметь в виду" },
+    { l: "get on well with", r: "ладить с кем-либо" },
+    { l: "get around/round", r: "найти выход из ситуации" }
+  ],
+  GIVE: [
+    { l: "give way", r: "ломаться, рушиться" },
+    { l: "give out", r: "раздавать" },
+    { l: "give away", r: "проболтаться" },
+    { l: "give onto", r: "выходить на (о дверях, окнах)" },
+    { l: "give it up to", r: "аплодировать" },
+    { l: "give up to", r: "сдать сообщников" },
+    { l: "give off", r: "выделять запах, энергию" },
+    { l: "give over", r: "передать ответственность" },
+    { l: "give up on", r: "разочароваться, поставить крест" },
+    { l: "give oneself up to", r: "посвятить себя" }
+  ],
+  GO: [
+    { l: "go through with", r: "сделать, несмотря на нежелание" },
+    { l: "go under", r: "прогореть, обанкротиться" },
+    { l: "go on", r: "продолжать" },
+    { l: "go in for", r: "увлекаться, заниматься" },
+    { l: "go down with", r: "слечь, заболеть" },
+    { l: "go into", r: "вдаваться в подробности" },
+    { l: "go along with", r: "неохотно согласиться" },
+    { l: "go off", r: "протухнуть, испортиться" },
+    { l: "go for", r: "выбирать" },
+    { l: "go with", r: "сочетаться, подходить" }
+  ],
+  LOOK: [
+    { l: "look up", r: "смотреть в словаре" },
+    { l: "look to", r: "надеяться, ждать" },
+    { l: "look on", r: "наблюдать без участия" },
+    { l: "look through", r: "просматривать" },
+    { l: "look forward to", r: "с нетерпением ждать" },
+    { l: "look out for", r: "выискивать, быть начеку" },
+    { l: "look out on", r: "выходить окнами на" },
+    { l: "look after", r: "присматривать за кем-либо" },
+    { l: "look for", r: "искать" },
+    { l: "look up to", r: "относиться с уважением" }
+  ],
+  MAKE: [
+    { l: "make up", r: "сочинять, придумывать" },
+    { l: "make it up for", r: "компенсировать, загладить вину" },
+    { l: "make over", r: "переделывать" },
+    { l: "make out", r: "притворяться" },
+    { l: "make off", r: "удрать" },
+    { l: "make for somewhere", r: "направляться" },
+    { l: "make off with", r: "прихватить" },
+    { l: "make for something", r: "способствовать, помогать" },
+    { l: "make (smth) out", r: "разбирать, различать" },
+    { l: "make (one's face) up", r: "наносить косметику" }
+  ],
+  PUT: [
+    { l: "put up with", r: "терпеть, выносить" },
+    { l: "put on", r: "надевать" },
+    { l: "put through", r: "соединить (по телефону)" },
+    { l: "put away", r: "положить на место" },
+    { l: "put out", r: "отключить/потушить" },
+    { l: "put off", r: "откладывать" },
+    { l: "put down", r: "унижать, критиковать" },
+    { l: "put by", r: "откладывать, копить" },
+    { l: "put in", r: "устанавливать" },
+    { l: "put across", r: "объяснить просто (идею)" }
+  ],
+  TAKE: [
+    { l: "take up", r: "начать заниматься спортом" },
+    { l: "take off", r: "взлететь (о самолёте)" },
+    { l: "take in", r: "понять, вникнуть" },
+    { l: "take for", r: "принимать за кого-либо" },
+    { l: "take aback", r: "поразить, удивить" },
+    { l: "take aside", r: "отвести в сторону" },
+    { l: "take (it) out of", r: "измотать физически" },
+    { l: "take after", r: "походить на кого-либо" },
+    { l: "take to", r: "пристраститься" },
+    { l: "take apart", r: "разбирать на детали" }
+  ],
+  TURN: [
+    { l: "turn around", r: "сделать успешным невыгодное дело" },
+    { l: "turn into", r: "превращаться, становиться" },
+    { l: "turn off", r: "выключить" },
+    { l: "turn away", r: "не пустить кого-либо" },
+    { l: "turn to", r: "обратиться за помощью" },
+    { l: "turn over to", r: "передать ведение дел" },
+    { l: "turn against", r: "ополчиться на кого-либо" },
+    { l: "turn out", r: "оказаться" },
+    { l: "turn in", r: "идти спать" },
+    { l: "turn down", r: "отклонить предложение" }
+  ]
+};
+
+const glossary = {
+  BE: [
+    { phr: "be after", meaning: "метить, надеяться получить", ex: "Anna is after this dress." },
+    { phr: "be cut out for/to be", meaning: "быть созданным для чего-либо", ex: "She is cut out to be a teacher." },
+    { phr: "be cut up", meaning: "быть расстроенным", ex: "She was cut up about the rainy weather." },
+    { phr: "be down", meaning: "грустить, быть в депрессии", ex: "Linda has been down since she broke up with Tom." },
+    { phr: "be down with", meaning: "слечь, заболеть", ex: "The whole family is down with flu." },
+    { phr: "be fed up (with)", meaning: "быть сытым по горло", ex: "I am fed up with your behaviour!" },
+    { phr: "be in on", meaning: "участвовать, быть в курсе", ex: "Is she in on our secret?" },
+    { phr: "be into", meaning: "увлекаться", ex: "Jim is into rock music." },
+    { phr: "be not on", meaning: "быть неприемлемым", ex: "The things he is saying are just not on." },
+    { phr: "be on", meaning: "работать (о технике)", ex: "The microwave was on." },
+    { phr: "be on about", meaning: "иметь в виду", ex: "I can't understand what he was on about." },
+    { phr: "be onto", meaning: "преследовать", ex: "Police were onto him." },
+    { phr: "be out of", meaning: "не иметь чего-либо, закончилось", ex: "We are out of sugar." },
+    { phr: "be out to", meaning: "пытаться", ex: "She is out to get him sacked." },
+    { phr: "be snowed under", meaning: "быть заваленным работой", ex: "She is completely snowed under." },
+    { phr: "be to do with", meaning: "быть связанным", ex: "This project is to do with environmental problems." },
+    { phr: "be up", meaning: "бодрствовать, не спать", ex: "Are you up? Let's go for a walk!" },
+    { phr: "be up", meaning: "подниматься, расти", ex: "The profits are up by 10 percent." },
+    { phr: "be up for", meaning: "быть в настроении", ex: "Are you up for our hike?" },
+    { phr: "be up to", meaning: "замышлять, затевать", ex: "What are you up to?" }
+  ],
+  BREAK: [
+    { phr: "break away", meaning: "уйти из организации", ex: "Some members broke away to form a rival party." },
+    { phr: "break down", meaning: "сломаться", ex: "The car broke down." },
+    { phr: "break down", meaning: "прервать переговоры", ex: "The negotiations broke down." },
+    { phr: "break down (in tears)", meaning: "начать плакать", ex: "The child broke down in tears." },
+    { phr: "break for", meaning: "бежать куда-либо", ex: "The dog broke for the door." },
+    { phr: "break in", meaning: "вломиться, ворваться", ex: "The robbers broke in." },
+    { phr: "break in", meaning: "прерывать разговор", ex: "Don't break in when adults are speaking." },
+    { phr: "break in", meaning: "разнашивать (обувь)", ex: "The shoes are too tight. Hope they will break in fast." },
+    { phr: "break into", meaning: "начать что-либо делать", ex: "He broke into a run." },
+    { phr: "break into", meaning: "тратить сбережения", ex: "I had to break into my savings." },
+    { phr: "break off", meaning: "отломить кусочек", ex: "The boy broke off a piece of chocolate." },
+    { phr: "break out", meaning: "развязать войну", ex: "They are worried that the war would break out." },
+    { phr: "break out in", meaning: "сильно потеть, высыпать", ex: "She broke out in a rash." },
+    { phr: "break out of", meaning: "сбежать", ex: "Nobody has ever broken out of this prison." },
+    { phr: "break through", meaning: "совершить прорыв", ex: "Scientists have broken through." },
+    { phr: "break up", meaning: "ломать, разрушать", ex: "Divorce breaks many families up." },
+    { phr: "break up", meaning: "закрываться на каникулы", ex: "When do we break up for the summer holidays?" }
+  ],
+  COME: [
+    { phr: "come about", meaning: "случиться, произойти", ex: "How did this come about?" },
+    { phr: "come across", meaning: "случайно наткнуться", ex: "Jack came across an interesting book." },
+    { phr: "come across", meaning: "казаться (впечатление)", ex: "He came across as shy." },
+    { phr: "come along", meaning: "присоединиться", ex: "May I come along on your hiking trip?" },
+    { phr: "come by", meaning: "купить, приобрести", ex: "Where did you come by this pendant?" },
+    { phr: "come by", meaning: "зайти, заскочить", ex: "I will come by after school." },
+    { phr: "come down on", meaning: "раскритиковать, наброситься", ex: "The boss came down on her." },
+    { phr: "come down to", meaning: "сводиться к чему-либо", ex: "The campaign comes down to the question of money." },
+    { phr: "come down with", meaning: "заболеть, слечь", ex: "The child might come down with malaria." },
+    { phr: "come from", meaning: "быть родом из", ex: "He comes from Austria." },
+    { phr: "come off", meaning: "удаваться, выгореть", ex: "I hope it will come off all right." },
+    { phr: "come off", meaning: "отвалиться, оторваться", ex: "The heel of my shoe came off." },
+    { phr: "come over", meaning: "прийти, приехать", ex: "Is your family coming over from France?" },
+    { phr: "come off it", meaning: "перестань (недоверие)", ex: "Come off it, tell the truth!" },
+    { phr: "come out", meaning: "выйти наружу (о правде)", ex: "The truth has finally come out." },
+    { phr: "come out", meaning: "выйти в печать", ex: "The new issue came out today." },
+    { phr: "come round", meaning: "заглянуть в гости", ex: "Come round when you have time." },
+    { phr: "come to/round", meaning: "прийти в себя, очнуться", ex: "He came round 30 minutes after." },
+    { phr: "come up", meaning: "появиться, всплыть", ex: "Some business has come up." },
+    { phr: "come up against", meaning: "натолкнуться на проблемы", ex: "Every time I come against him, I lose." }
+  ],
+  GET: [
+    { phr: "get across (to)", meaning: "чётко изложить, убедить", ex: "How can I get this topic across?" },
+    { phr: "get along with", meaning: "ладить", ex: "Bobby gets along with other children." },
+    { phr: "get on (well) with", meaning: "ладить (синоним)", ex: "Steve gets on well with his colleagues." },
+    { phr: "get at", meaning: "критиковать, ругать", ex: "She is always getting at her husband." },
+    { phr: "get at", meaning: "иметь в виду", ex: "I don't understand what you are getting at." },
+    { phr: "get around/round", meaning: "найти выход из ситуации", ex: "I got round asking their Granny for help." },
+    { phr: "get around", meaning: "убедить, уговорить", ex: "I managed to get around her." },
+    { phr: "get away", meaning: "сбежать, вырваться", ex: "It's wonderful to get away from the city." },
+    { phr: "get away with", meaning: "сойти с рук", ex: "We can get away with doing work in a slipshod way?" },
+    { phr: "get back at", meaning: "отомстить", ex: "I will get back at you for putting me down." },
+    { phr: "get behind with", meaning: "отставать", ex: "I got behind with my work." },
+    { phr: "get by", meaning: "перебиваться, выживать", ex: "He gets by only with his friend's help." },
+    { phr: "get by", meaning: "справиться с чем-либо", ex: "The test was very difficult. I didn't get by." },
+    { phr: "get down to", meaning: "взяться, приняться", ex: "Let's get down to business." },
+    { phr: "get off", meaning: "отделаться", ex: "He got off with a fine." },
+    { phr: "get off", meaning: "отправиться в путь", ex: "They got off at the dawn." },
+    { phr: "get on", meaning: "преуспевать", ex: "How are you getting on?" },
+    { phr: "get on to", meaning: "выйти на след", ex: "It took long to get on to the leader." },
+    { phr: "get over", meaning: "оправиться, пережить", ex: "She couldn't get over the death of her husband." },
+    { phr: "get together", meaning: "собраться", ex: "We should get together one day." },
+    { phr: "get through", meaning: "дозвониться", ex: "I can't get through to you." },
+    { phr: "get through with", meaning: "отделаться, справиться", ex: "Let's get through with it." },
+    { phr: "get up to", meaning: "замышлять, затевать", ex: "What are the kids getting up to?" }
+  ],
+  GIVE: [
+    { phr: "give away", meaning: "проболтаться", ex: "She had given everything away about the surprise." },
+    { phr: "give in", meaning: "сдаться, бросить", ex: "The student gave in." },
+    { phr: "give in", meaning: "сдавать работу", ex: "I had already given the work in." },
+    { phr: "give off", meaning: "выделять (газ, тепло, запах)", ex: "Your car gives off too much exhausts." },
+    { phr: "give onto", meaning: "выходить на (о дверях, окнах)", ex: "The door gave onto a little garden." },
+    { phr: "give out", meaning: "раздавать", ex: "The monitor was giving the papers out." },
+    { phr: "give out", meaning: "жаловаться", ex: "The English always give out about the weather." },
+    { phr: "give over", meaning: "перестать делать", ex: "I told them to give over." },
+    { phr: "give over", meaning: "передать ответственность", ex: "Mr. Black had to give his post over." },
+    { phr: "give up", meaning: "бросить привычку", ex: "I have given up eating chocolate." },
+    { phr: "give up", meaning: "посвящать, вкладывать", ex: "I gave up all my free time to this project." },
+    { phr: "give it up to", meaning: "аплодировать", ex: "Please give it up to our next guest." },
+    { phr: "give up on", meaning: "разочароваться, поставить крест", ex: "I gave up on him when he started drinking." },
+    { phr: "give up to", meaning: "сдать (сообщников)", ex: "The smuggler gave all his accomplices up." },
+    { phr: "give way", meaning: "уступить дорогу", ex: "You have to give way at this junction." },
+    { phr: "give way", meaning: "ломаться, разрушаться", ex: "The dam gave way." },
+    { phr: "give oneself up", meaning: "сдаться (полиции)", ex: "He gave himself up." },
+    { phr: "give oneself up to", meaning: "посвятить себя", ex: "The princess gave herself up to charity." }
+  ],
+  GO: [
+    { phr: "go along with", meaning: "согласиться, пойти на что-либо", ex: "I went along with the decision." },
+    { phr: "go about", meaning: "приступить, начать иметь дело", ex: "I would go about it quite differently." },
+    { phr: "go down with", meaning: "слечь, заболеть", ex: "She went down with a virus." },
+    { phr: "go for", meaning: "быть за, предпочитать", ex: "I'll go for fish." },
+    { phr: "go for", meaning: "выбирать", ex: "She goes for tall men." },
+    { phr: "go in for", meaning: "увлекаться, заниматься", ex: "Do you go in for sports?" },
+    { phr: "go into", meaning: "вдаваться в подробности", ex: "Let's not go into details." },
+    { phr: "go off", meaning: "уйти с целью", ex: "She went off to the other shop." },
+    { phr: "go off", meaning: "скиснуть, испортиться", ex: "Don't drink this milk. It has gone off." },
+    { phr: "go on", meaning: "продолжать", ex: "Don't stop! Go on reading." },
+    { phr: "go on", meaning: "случаться, происходить", ex: "What's going on?" },
+    { phr: "go over", meaning: "посмотреть, повторить", ex: "I always go over the material before the exam." },
+    { phr: "go out", meaning: "потухнуть", ex: "The lights went out." },
+    { phr: "go together", meaning: "сочетаться", ex: "Running nose and cough often go together." },
+    { phr: "go through", meaning: "пережить (трудный период)", ex: "She had to go through a lot." },
+    { phr: "go through", meaning: "просмотреть", ex: "He went through a lot of books." },
+    { phr: "go through with", meaning: "сделать, несмотря на нежелание", ex: "Let's go through with the last papers." },
+    { phr: "go with", meaning: "подходить, гармонировать", ex: "This silk blouse doesn't go with the woollen skirt." },
+    { phr: "go without", meaning: "обойтись без чего-либо", ex: "I will have to go without a telephone." },
+    { phr: "go under", meaning: "прогореть, обанкротиться", ex: "His little shop went under." }
+  ],
+  LOOK: [
+    { phr: "look after", meaning: "присматривать, ухаживать", ex: "Iris asked her sister to look after the kids." },
+    { phr: "look ahead", meaning: "думать о будущем", ex: "Let's look ahead." },
+    { phr: "look at", meaning: "взглянуть, посмотреть", ex: "What are you looking at?" },
+    { phr: "look down on", meaning: "смотреть свысока", ex: "People look down on me." },
+    { phr: "look for", meaning: "искать", ex: "We are looking for an apartment." },
+    { phr: "look forward to", meaning: "с нетерпением ждать", ex: "I am looking forward to hearing from you." },
+    { phr: "look on", meaning: "наблюдать без участия", ex: "The children just looked on." },
+    { phr: "look out for", meaning: "быть настороже, выискивать", ex: "Look out for the sign 'Wildwoods'." },
+    { phr: "look out on", meaning: "выходить окнами", ex: "Our house looks out on a little garden." },
+    { phr: "look through", meaning: "просматривать", ex: "He just looked through it." },
+    { phr: "look to", meaning: "надеяться, ожидать", ex: "The company is looking to increase its sales." },
+    { phr: "look up", meaning: "смотреть в словаре", ex: "Look it up in the dictionary." },
+    { phr: "look up", meaning: "улучшаться (о бизнесе)", ex: "The economy is finally looking up." },
+    { phr: "look smb. up and down", meaning: "смерить взглядом", ex: "The policeman looked the man up and down." },
+    { phr: "look up to", meaning: "уважать, почитать", ex: "He is looking up to his elder brother." }
+  ],
+  MAKE: [
+    { phr: "make for", meaning: "направляться", ex: "We made for home when it started to rain." },
+    { phr: "make for", meaning: "способствовать, помогать", ex: "Healthy food makes for a good figure." },
+    { phr: "make (it) up for", meaning: "заглаживать вину", ex: "He didn't know how to make it up for his behaviour." },
+    { phr: "make off", meaning: "смыть удочки, удирать", ex: "They made off when heard the owners." },
+    { phr: "make off with", meaning: "прихватить, прикарманить", ex: "The housekeeper made off with my golden watch." },
+    { phr: "make out", meaning: "притворяться", ex: "The child made out that he was ill." },
+    { phr: "make out", meaning: "различать, разбирать", ex: "I couldn't make out what they were talking about." },
+    { phr: "make over", meaning: "переделывать", ex: "She helps clients make their homes over." },
+    { phr: "make up", meaning: "выдумывать, придумывать", ex: "He is very good at making up stories." },
+    { phr: "make up", meaning: "краситься", ex: "She went to her room to make her face up." },
+    { phr: "make up (with)", meaning: "помириться", ex: "After quarrels, they always make up very fast." }
+  ],
+  PUT: [
+    { phr: "put across", meaning: "объяснить просто, донести идею", ex: "The CEO put his idea across." },
+    { phr: "put away", meaning: "убрать, положить на место", ex: "Alice put her book away." },
+    { phr: "put back", meaning: "перевести время назад", ex: "Did you put your watch one hour back?" },
+    { phr: "put by", meaning: "откладывать, копить", ex: "My son puts a little money by every month." },
+    { phr: "put down", meaning: "унижать, критиковать", ex: "You can't put down everybody." },
+    { phr: "put down", meaning: "усыплять (домашнее животное)", ex: "His dog was seriously ill and he had to put it down." },
+    { phr: "put forward", meaning: "перевести часы вперёд", ex: "We usually put watch forward in summer." },
+    { phr: "put in", meaning: "устанавливать (технику)", ex: "They wanted to put in a new washing machine." },
+    { phr: "put in for", meaning: "сделать официальный запрос", ex: "He put in for a transfer." },
+    { phr: "put off", meaning: "откладывать", ex: "Never put off till tomorrow." },
+    { phr: "put on", meaning: "надевать", ex: "Put on a hat! It's freezing!" },
+    { phr: "put on", meaning: "дурачить, разыгрывать", ex: "I am sure he is putting you on." },
+    { phr: "put out", meaning: "тушить огонь", ex: "Put the fire out after the barbecue." },
+    { phr: "put out", meaning: "причинять неудобство", ex: "I didn't want to put your family out." },
+    { phr: "put out", meaning: "раздражать", ex: "His behaviour puts me out." },
+    { phr: "put through", meaning: "соединить (по телефону)", ex: "Could you put me through to Mr. Lesley?" },
+    { phr: "put up", meaning: "устанавливать что-либо", ex: "Young scouters are learning how to put a tent up." },
+    { phr: "put up", meaning: "приютить кого-либо", ex: "Could your brother put me up in Moscow?" },
+    { phr: "put up with", meaning: "терпеть, выносить", ex: "You'll have to put up with your husband's jealousy." }
+  ],
+  TAKE: [
+    { phr: "take aback", meaning: "удивить, поразить", ex: "The news took him aback." },
+    { phr: "take after", meaning: "походить на кого-либо", ex: "Your children take after you." },
+    { phr: "take apart", meaning: "разбирать (на детали)", ex: "Tony took the toy apart." },
+    { phr: "take aside", meaning: "отвести в сторону", ex: "Luke took me aside." },
+    { phr: "take back", meaning: "вернуть что-либо", ex: "The jeans were too short, so he took them back." },
+    { phr: "take back", meaning: "взять слова обратно", ex: "I take it back." },
+    { phr: "take for", meaning: "принимать за кого-либо", ex: "Are you taking me for a fool?" },
+    { phr: "take in", meaning: "понять, вникнуть", ex: "I didn't take in much of what the lecturer said." },
+    { phr: "take in", meaning: "обманывать, одурачить", ex: "Anyone can take you in." },
+    { phr: "take in", meaning: "удавлять (одежду)", ex: "I had to take the dress in." },
+    { phr: "take off", meaning: "снимать одежду", ex: "Take your shoes off!" },
+    { phr: "take off", meaning: "взлететь (о самолёте)", ex: "The plane took off." },
+    { phr: "take off", meaning: "пародировать", ex: "She is very good at taking famous people off." },
+    { phr: "take out", meaning: "вывести пятна", ex: "Mrs. Lightwood couldn't take a spot out." },
+    { phr: "take out", meaning: "брать деньги/кредит", ex: "Jack and April took out a mortgage." },
+    { phr: "take (it) out of", meaning: "измотать физически", ex: "Two hours training took it out of her." },
+    { phr: "take to", meaning: "пристраститься", ex: "Once you take to travelling, you cannot stop." },
+    { phr: "take up", meaning: "начать заниматься спортом/хобби", ex: "Mason took up playing the guitar." },
+    { phr: "(be) taken up with", meaning: "быть поглощённым чем-либо", ex: "She is so taken up with music." },
+    { phr: "take up on", meaning: "принимать предложение", ex: "I am not sure whether to take him up on it." }
+  ],
+  TURN: [
+    { phr: "turn against", meaning: "перестать испытывать симпатию", ex: "The public turned against the new government." },
+    { phr: "turn around", meaning: "сделать успешным невыгодное дело", ex: "They are going to turn the company around." },
+    { phr: "turn away", meaning: "не пустить кого-либо", ex: "The bouncer turned him away." },
+    { phr: "turn down", meaning: "отклонить предложение", ex: "Michael turned the proposal down." },
+    { phr: "turn down", meaning: "прикрутить, сделать тише", ex: "Could you turn the music down?" },
+    { phr: "turn in", meaning: "идти спать", ex: "I was very tired and turned in early." },
+    { phr: "turn into", meaning: "превращаться, становиться", ex: "The ugly duckling turned into a beautiful swan." },
+    { phr: "turn off", meaning: "выключить", ex: "I turned the computer off." },
+    { phr: "turn on", meaning: "включить", ex: "Turn on the light." },
+    { phr: "turn on", meaning: "волновать, заводить", ex: "This music turns me on." },
+    { phr: "turn out", meaning: "оказаться", ex: "He turned out to be a rascal." },
+    { phr: "turn over to", meaning: "передать ведение дел", ex: "He decided to turn the business over to his son." },
+    { phr: "turn to", meaning: "обратиться за помощью", ex: "She had no one to turn to." },
+    { phr: "turn up", meaning: "появиться, прийти", ex: "He didn't turn up at the party." },
+    { phr: "turn up", meaning: "сделать громче", ex: "Turn the music up and let's dance." }
+  ]
+};
+
+// ============ ЛОГИКА ПРИЛОЖЕНИЯ ============
+
+let currentMode = 'fill';
+let currentCategory = 'BE';
+let currentQuestions = [];
+let currentIndex = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let matchState = { selected: null, matchedPairs: 0, totalPairs: 0 };
+
+const modesEl = document.getElementById('modes');
+const categoriesEl = document.getElementById('categories');
+const mainCard = document.getElementById('mainCard');
+
+Object.keys(fillExercises).forEach(cat => {
+  const btn = document.createElement('button');
+  btn.className = 'cat-btn' + (cat === currentCategory ? ' active' : '');
+  btn.textContent = cat;
+  btn.onclick = (e) => { selectCategory(cat, e); };
+  categoriesEl.appendChild(btn);
+});
+
+modesEl.addEventListener('click', (e) => {
+  if (e.target.classList.contains('mode-btn')) {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentMode = e.target.dataset.mode;
+    loadMode();
+  }
+});
+
+function selectCategory(cat, e) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  loadMode();
+}
+
+function loadMode() {
+  if (currentMode === 'fill') loadFill();
+  else if (currentMode === 'translate') loadTranslate();
+  else if (currentMode === 'match') loadMatch();
+  else if (currentMode === 'glossary') loadGlossary();
+}
+
+function loadFill() {
+  currentQuestions = [...fillExercises[currentCategory]].sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  showFillQuestion();
+}
+
+function showFillQuestion() {
+  if (currentIndex >= currentQuestions.length) { showFillFinal(); return; }
+  const q = currentQuestions[currentIndex];
+  mainCard.innerHTML = `
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: ${(currentIndex / currentQuestions.length) * 100}%"></div>
+    </div>
+    <div class="counter">Вопрос ${currentIndex + 1} из ${currentQuestions.length}</div>
+    <div class="sentence">${q.s}</div>
+    <div class="translation">${q.t}</div>
+    <div class="input-wrapper">
+      <input type="text" class="answer-input" id="answerInput" placeholder="предлог" autocomplete="off">
+      <button class="btn btn-primary" id="checkBtn">Проверить</button>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div class="hint" id="hint"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="hintBtn">💡 Подсказка</button>
+      <button class="btn btn-secondary" id="skipBtn">Пропустить →</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-value" id="correctCount">0</div><div class="stat-label">Верно</div></div>
+      <div class="stat"><div class="stat-value" id="wrongCount">0</div><div class="stat-label">Ошибок</div></div>
+      <div class="stat"><div class="stat-value" id="percentCount">0%</div><div class="stat-label">Точность</div></div>
+    </div>
+  `;
+  document.getElementById('checkBtn').onclick = checkFillAnswer;
+  document.getElementById('answerInput').onkeydown = (e) => { if (e.key === 'Enter') checkFillAnswer(); };
+  document.getElementById('hintBtn').onclick = () => {
+    document.getElementById('hint').textContent = '💡 Ответ: ' + q.a.join(' / ');
+  };
+  document.getElementById('skipBtn').onclick = () => {
+    document.getElementById('feedback').innerHTML = `Пропущено. Ответ: <b>${q.a[0]}</b>`;
+    document.getElementById('feedback').className = 'feedback wrong';
+    wrongCount++;
+    updateStats();
+    setTimeout(() => { currentIndex++; showFillQuestion(); }, 1500);
+  };
+  document.getElementById('answerInput').focus();
+}
+
+function checkFillAnswer() {
+  const input = document.getElementById('answerInput');
+  const userAnswer = input.value.trim().toLowerCase();
+  if (!userAnswer) return;
+  const q = currentQuestions[currentIndex];
+  const correct = q.a.map(a => a.toLowerCase());
+  if (correct.includes(userAnswer)) {
+    input.classList.add('correct');
+    document.getElementById('feedback').textContent = '✨ Верно! Отлично!';
+    document.getElementById('feedback').className = 'feedback correct';
+    correctCount++;
+    setTimeout(() => { currentIndex++; showFillQuestion(); }, 1200);
+  } else {
+    input.classList.add('wrong');
+    document.getElementById('feedback').innerHTML = `Не совсем... Правильный ответ: <b>${q.a[0]}</b>`;
+    document.getElementById('feedback').className = 'feedback wrong';
+    wrongCount++;
+    setTimeout(() => { currentIndex++; showFillQuestion(); }, 2200);
+  }
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('correctCount').textContent = correctCount;
+  document.getElementById('wrongCount').textContent = wrongCount;
+  const total = correctCount + wrongCount;
+  const percent = total ? Math.round((correctCount / total) * 100) : 0;
+  document.getElementById('percentCount').textContent = percent + '%';
+}
+
+function showFillFinal() {
+  const total = correctCount + wrongCount;
+  const percent = total ? Math.round((correctCount / total) * 100) : 0;
+  mainCard.innerHTML = `
+    <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+    <div class="counter">Готово!</div>
+    <div class="sentence">🎉 Категория <b>${currentCategory}</b> пройдена!<br>Результат: ${correctCount} из ${total} (${percent}%)</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="loadFill()">🔄 Пройти ещё раз</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-value">${correctCount}</div><div class="stat-label">Верно</div></div>
+      <div class="stat"><div class="stat-value">${wrongCount}</div><div class="stat-label">Ошибок</div></div>
+      <div class="stat"><div class="stat-value">${percent}%</div><div class="stat-label">Точность</div></div>
+    </div>
+  `;
+}
+
+function loadTranslate() {
+  currentQuestions = [...translateExercises[currentCategory]].sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  showTranslateQuestion();
+}
+
+function showTranslateQuestion() {
+  if (currentIndex >= currentQuestions.length) { showTranslateFinal(); return; }
+  const q = currentQuestions[currentIndex];
+  mainCard.innerHTML = `
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: ${(currentIndex / currentQuestions.length) * 100}%"></div>
+    </div>
+    <div class="counter">🌐 Перевод ${currentIndex + 1} из ${currentQuestions.length}</div>
+    <div class="sentence" style="font-size: 1.2em;">Переведите на английский:</div>
+    <div class="translation" style="font-size: 1.15em; font-style: normal; color: var(--text); font-weight: 500; margin: 20px 0;">
+      «${q.ru}»
+    </div>
+    <div class="input-wrapper">
+      <input type="text" class="answer-input wide" id="answerInput" placeholder="Введите перевод на английском..." autocomplete="off">
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="checkBtn">✓ Проверить</button>
+      <button class="btn btn-secondary" id="showAnswerBtn">👁 Показать ответ</button>
+      <button class="btn btn-secondary" id="skipBtn">Пропустить →</button>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-value" id="correctCount">0</div><div class="stat-label">Верно</div></div>
+      <div class="stat"><div class="stat-value" id="wrongCount">0</div><div class="stat-label">Ошибок</div></div>
+      <div class="stat"><div class="stat-value" id="percentCount">0%</div><div class="stat-label">Точность</div></div>
+    </div>
+  `;
+  const input = document.getElementById('answerInput');
+  input.focus();
+  input.onkeydown = (e) => { if (e.key === 'Enter') checkTranslateAnswer(); };
+  document.getElementById('checkBtn').onclick = checkTranslateAnswer;
+  document.getElementById('showAnswerBtn').onclick = () => showTranslateAnswer();
+  document.getElementById('skipBtn').onclick = () => {
+    wrongCount++;
+    updateStats();
+    currentIndex++;
+    showTranslateQuestion();
+  };
+}
+
+function normalize(str) {
+  return str.toLowerCase().replace(/[^\w\s']/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function checkTranslateAnswer() {
+  const input = document.getElementById('answerInput');
+  const userAnswer = input.value.trim();
+  if (!userAnswer) return;
+  const q = currentQuestions[currentIndex];
+  const userNorm = normalize(userAnswer);
+  const correctNorm = normalize(q.en);
+  const feedback = document.getElementById('feedback');
+  const keysFound = q.keys.every(key => userNorm.includes(normalize(key)));
+
+  if (userNorm === correctNorm) {
+    input.classList.add('correct');
+    feedback.innerHTML = `✨ Идеально! <br><small style="color:var(--text-light)">${q.en}</small>`;
+    feedback.className = 'feedback correct';
+    correctCount++;
+    setTimeout(() => { currentIndex++; showTranslateQuestion(); }, 2000);
+  } else if (keysFound && userNorm.length > correctNorm.length * 0.5) {
+    input.classList.add('correct');
+    feedback.innerHTML = `👍 Хорошо! Ключевой глагол на месте.<br><small style="color:var(--text-light)">Эталон: <b>${q.en}</b></small>`;
+    feedback.className = 'feedback correct';
+    correctCount++;
+    setTimeout(() => { currentIndex++; showTranslateQuestion(); }, 2500);
+  } else {
+    input.classList.add('wrong');
+    feedback.innerHTML = `✗ Не совсем...<br><small style="color:var(--text-light)">Правильный ответ: <b>${q.en}</b></small>`;
+    feedback.className = 'feedback wrong';
+    wrongCount++;
+    setTimeout(() => { currentIndex++; showTranslateQuestion(); }, 3000);
+  }
+  updateStats();
+}
+
+function showTranslateAnswer() {
+  const q = currentQuestions[currentIndex];
+  const feedback = document.getElementById('feedback');
+  feedback.innerHTML = `<div class="answer-box"><strong>Ответ:</strong> ${q.en}</div>`;
+  feedback.className = 'feedback';
+}
+
+function showTranslateFinal() {
+  const total = correctCount + wrongCount;
+  const percent = total ? Math.round((correctCount / total) * 100) : 0;
+  mainCard.innerHTML = `
+    <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+    <div class="counter">Готово!</div>
+    <div class="sentence">🎉 Категория <b>${currentCategory}</b> пройдена!<br>Результат: ${correctCount} из ${total} (${percent}%)</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="loadTranslate()">🔄 Пройти ещё раз</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-value">${correctCount}</div><div class="stat-label">Верно</div></div>
+      <div class="stat"><div class="stat-value">${wrongCount}</div><div class="stat-label">Ошибок</div></div>
+      <div class="stat"><div class="stat-value">${percent}%</div><div class="stat-label">Точность</div></div>
+    </div>
+  `;
+}
+
+function loadMatch() {
+  const data = [...matchExercises[currentCategory]].sort(() => Math.random() - 0.5);
+  matchState = { selected: null, matchedPairs: 0, totalPairs: data.length, data: data };
+  const leftItems = data.map((d, i) => `<div class="match-item" data-type="l" data-idx="${i}">${d.l}</div>`).join('');
+  const shuffledRight = [...data].sort(() => Math.random() - 0.5).map((d) => {
+    const origIdx = data.indexOf(d);
+    return `<div class="match-item" data-type="r" data-idx="${origIdx}">${d.r}</div>`;
+  }).join('');
+
+  mainCard.innerHTML = `
+    <div class="counter">Соедините фразовый глагол с его значением</div>
+    <div class="match-grid">
+      <div>${leftItems}</div>
+      <div>${shuffledRight}</div>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-value" id="matchedCount">0</div><div class="stat-label">Найдено пар</div></div>
+      <div class="stat"><div class="stat-value">${data.length}</div><div class="stat-label">Всего пар</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="loadMatch()">🔄 Заново</button>
+    </div>
+  `;
+  document.querySelectorAll('.match-item').forEach(item => {
+    item.onclick = () => handleMatchClick(item);
+  });
+}
+
+function handleMatchClick(item) {
+  if (item.classList.contains('matched')) return;
+  if (!matchState.selected) {
+    document.querySelectorAll('.match-item.selected').forEach(el => el.classList.remove('selected'));
+    item.classList.add('selected');
+    matchState.selected = item;
+    return;
+  }
+  if (matchState.selected === item) {
+    item.classList.remove('selected');
+    matchState.selected = null;
+    return;
+  }
+  if (matchState.selected.dataset.type === item.dataset.type) {
+    document.querySelectorAll('.match-item.selected').forEach(el => el.classList.remove('selected'));
+    item.classList.add('selected');
+    matchState.selected = item;
+    return;
+  }
+  const idx1 = matchState.selected.dataset.idx;
+  const idx2 = item.dataset.idx;
+  if (idx1 === idx2) {
+    matchState.selected.classList.remove('selected');
+    matchState.selected.classList.add('matched');
+    item.classList.add('matched');
+    matchState.matchedPairs++;
+    document.getElementById('matchedCount').textContent = matchState.matchedPairs;
+    if (matchState.matchedPairs === matchState.totalPairs) {
+      document.getElementById('feedback').textContent = '🎉 Отлично! Все пары найдены!';
+      document.getElementById('feedback').className = 'feedback correct';
+    }
+  } else {
+    item.classList.add('wrong-match');
+    matchState.selected.classList.add('wrong-match');
+    const prev = matchState.selected;
+    setTimeout(() => {
+      item.classList.remove('wrong-match');
+      prev.classList.remove('wrong-match');
+    }, 600);
+  }
+  matchState.selected = null;
+}
+
+function loadGlossary() {
+  const data = glossary[currentCategory];
+  const rows = data.map(d => `
+    <tr>
+      <td>${d.phr}</td>
+      <td>${d.meaning}</td>
+      <td>${d.ex}</td>
+    </tr>
+  `).join('');
+  mainCard.innerHTML = `
+    <div class="counter">📖 Глоссарий: ${currentCategory} (${data.length} выражений)</div>
+    <div style="overflow-x: auto;">
+      <table class="glossary-table">
+        <thead>
+          <tr>
+            <th>Фразовый глагол</th>
+            <th>Значение</th>
+            <th>Пример</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+loadMode();
+</script>
+
+</body>
+</html>
