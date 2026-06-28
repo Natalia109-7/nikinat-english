@@ -538,7 +538,7 @@
 
 <div class="container">
   <header>
-    <h1>✨ Фразовые глаголы ✨</h1>
+    <h1>Фразовые глаголы </h1>
     <p>Полный тренажёр по учебнику Ю.С. Гуриковой, В.Е. Дедяевой</p>
   </header>
 
@@ -1414,7 +1414,7 @@ function checkFillAnswer() {
   const correct = q.a.map(a => a.toLowerCase());
   if (correct.includes(userAnswer)) {
     input.classList.add('correct');
-    document.getElementById('feedback').textContent = '✨ Верно! Отлично!';
+    document.getElementById('feedback').textContent = ' Верно! Отлично!';
     document.getElementById('feedback').className = 'feedback correct';
     correctCount++;
     setTimeout(() => { currentIndex++; showFillQuestion(); }, 1200);
@@ -1442,7 +1442,7 @@ function showFillFinal() {
   mainCard.innerHTML = `
     <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
     <div class="counter">Готово!</div>
-    <div class="sentence">🎉 Категория <b>${currentCategory}</b> пройдена!<br>Результат: ${correctCount} из ${total} (${percent}%)</div>
+    <div class="sentence"> Категория <b>${currentCategory}</b> пройдена!<br>Результат: ${correctCount} из ${total} (${percent}%)</div>
     <div class="btn-row">
       <button class="btn btn-primary" onclick="loadFill()">🔄 Пройти ещё раз</button>
     </div>
