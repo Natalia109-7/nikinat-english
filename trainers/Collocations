@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Challenge · Natalie English</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lavender: #e8dff5;
+            --peach: #fce4d6;
+            --mint: #d4f1e8;
+            --rose: #f7d6e0;
+            --cream: #fdf6f0;
+            --deep: #5a4a7a;
+            --soft: #8b7ba8;
+            --text: #3d3554;
+            --text-light: #8b7ba8;
+            --success: #6ba889;
+            --danger: #c97b84;
+            --warning: #d4a574;
+            --shadow: 0 10px 40px rgba(138,107,175,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--lavender) 50%, var(--peach) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Плавающие декоративные круги */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -1;
+            animation: float 20s infinite ease-in-out;
+        }
+        .blob1 { width: 400px; height: 400px; background: var(--rose); top: -100px; left: -100px; }
+        .blob2 { width: 500px; height: 500px; background: var(--mint); bottom: -150px; right: -150px; animation-delay: -10s; }
+        .blob3 { width: 300px; height: 300px; background: var(--lavender); top: 50%; left: 50%; animation-delay: -5s; }
+
+        @keyframes float {
+            0%,100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(50px,-50px) scale(1.1); }
+            66% { transform: translate(-30px,40px) scale(0.95); }
+        }
+
+        /* Верхняя навигация */
+        .top-nav {
+            max-width: 800px;
+            margin: 0 auto 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: rgba(253,246,240,0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--deep);
+            letter-spacing: 1px;
+        }
+        .logo span { color: var(--soft); font-style: italic; }
+
+        .back-btn {
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--deep), var(--soft));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(90,74,122,0.35);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8em;
+            font-weight: 500;
+            color: var(--deep);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            color: var(--soft);
+            font-size: 1.05em;
+            font-style: italic;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 16px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: var(--shadow);
+            min-width: 120px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(138,107,175,0.25);
+        }
+
+        .stat-label {
+            font-size: 0.75em;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--deep);
+        }
+
+        .card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            transition: all 0.4s;
+            animation: slideUp 0.6s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(138,107,175,0.25);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            display: none;
+            object-fit: cover;
+            box-shadow: var(--shadow);
+        }
+        .question-image.active { display: block; }
+
+        .question-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8em;
+            font-weight: 500;
+            color: var(--deep);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .hint {
+            color: var(--text-light);
+            font-size: 0.95em;
+            margin-bottom: 25px;
+            font-style: italic;
+            padding: 12px 18px;
+            background: rgba(232,223,245,0.3);
+            border-left: 3px solid var(--soft);
+            border-radius: 10px;
+        }
+
+        .input-area { margin-bottom: 25px; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 1.05em;
+            font-family: 'Montserrat', sans-serif;
+            border: 2px solid var(--lavender);
+            border-radius: 18px;
+            background: rgba(255,255,255,0.8);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--soft);
+            box-shadow: 0 0 0 4px rgba(139,123,168,0.15);
+        }
+        input[type="text"].correct {
+            border-color: var(--success);
+            background: rgba(212,241,232,0.4);
+            color: var(--success);
+            font-weight: 500;
+        }
+        input[type="text"].incorrect {
+            border-color: var(--danger);
+            background: rgba(247,214,224,0.4);
+            color: var(--danger);
+            font-weight: 500;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 0.95em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--deep), var(--soft));
+            color: white;
+            box-shadow: 0 6px 18px rgba(90,74,122,0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(90,74,122,0.35);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.7);
+            color: var(--deep);
+            border: 1px solid var(--lavender);
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--lavender), var(--rose));
+            transform: translateY(-2px);
+        }
+
+        .btn-image {
+            background: linear-gradient(135deg, var(--warning), var(--peach));
+            color: var(--deep);
+            font-weight: 500;
+        }
+        .btn-image:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212,165,116,0.3);
+        }
+
+        .feedback {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 18px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            display: block;
+            background: rgba(212,241,232,0.6);
+            border-left: 4px solid var(--success);
+            color: #2d6a5a;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background: rgba(247,214,224,0.6);
+            border-left: 4px solid var(--danger);
+            color: #8b3a4a;
+        }
+
+        .correct-answer {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.3em;
+            margin-top: 10px;
+            color: var(--deep);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(232,223,245,0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--soft), var(--deep));
+            transition: width 0.5s;
+            border-radius: 4px;
+        }
+
+        .category-selector { margin-bottom: 25px; }
+
+        select {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            border: 2px solid var(--lavender);
+            border-radius: 18px;
+            background: rgba(255,255,255,0.8);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        select:focus {
+            outline: none;
+            border-color: var(--soft);
+        }
+
+        #fileInput { display: none; }
+
+        .image-preview {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 1.2em;
+            line-height: 1;
+            transition: all 0.3s;
+        }
+        .remove-image:hover {
+            transform: scale(1.1);
+        }
+
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2em; }
+            .card { padding: 25px; }
+            .question-text { font-size: 1.4em; }
+            .top-nav { padding: 12px 18px; }
+            .logo { font-size: 18px; }
+            .stat-box { padding: 12px 18px; min-width: 90px; }
+            .stat-value { font-size: 1.4em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="top-nav">
+    <div class="logo">Natalie <span>English</span></div>
+    <a href="../index.html" class="back-btn">← На главную</a>
+</div>
+
+<div class="container">
+    <header>
+        <h1>🧠 Translation Challenge</h1>
+        <p>Перевод-вызов: введите английскую коллокацию</p>
+    </header>
+
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-label">Правильно</div>
+            <div class="stat-value" id="correctCount">0</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Неправильно</div>
+            <div class="stat-value" id="incorrectCount">0</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Всего вопросов</div>
+            <div class="stat-value" id="totalCount">0</div>
+        </div>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <div class="card">
+        <div class="category-selector">
+            <select id="categorySelect">
+                <option value="all">Все темы</option>
+                <option value="family">Family (Семья)</option>
+                <option value="relationships">Relationships (Отношения)</option>
+                <option value="appearance">Appearance (Внешность)</option>
+                <option value="feelings">Feelings (Чувства)</option>
+                <option value="work">Work (Работа)</option>
+                <option value="business">Business (Бизнес)</option>
+                <option value="travel">Travel (Путешествия)</option>
+                <option value="food">Food (Еда)</option>
+                <option value="health">Health (Здоровье)</option>
+                <option value="other">Другое</option>
+            </select>
+        </div>
+
+        <img id="questionImage" class="question-image" alt="Question image">
+
+        <div class="question-text" id="questionText">
+            Загрузка вопроса...
+        </div>
+
+        <div class="hint" id="questionHint"></div>
+
+        <div class="input-area">
+            <input type="text" id="answerInput" placeholder="Введите английскую коллокацию..." autocomplete="off">
+        </div>
+
+        <div class="buttons">
+            <button class="btn-primary" onclick="checkAnswer()">Проверить</button>
+            <button class="btn-secondary" onclick="nextQuestion()">Пропустить →</button>
+            <button class="btn-image" onclick="document.getElementById('fileInput').click()">📷 Добавить картинку</button>
+            <input type="file" id="fileInput" accept="image/*" onchange="handleImageUpload(event)">
+        </div>
+
+        <div class="feedback" id="feedback">
+            <div id="feedbackText"></div>
+            <div class="correct-answer" id="correctAnswer"></div>
+        </div>
+    </div>
+
+    <div class="bottom-buttons">
+        <button class="btn-secondary" onclick="shuffleQuestions()">🔀 Перемешать вопросы</button>
+        <button class="btn-secondary" onclick="resetStats()">🔄 Сбросить статистику</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { ru: "Любящая семья", en: ["loving family", "close-knit family"], category: "family", hint: "Семья с хорошими отношениями" },
+        { ru: "Горький развод", en: ["bitter divorce"], category: "family", hint: "Развод с плохими чувствами между супругами" },
+        { ru: "Беззаботное детство", en: ["carefree childhood"], category: "family", hint: "Детство без забот" },
+        { ru: "Расстроенная семья", en: ["dysfunctional family", "broken home"], category: "family", hint: "Семья с плохими отношениями" },
+        { ru: "Тяжелое детство", en: ["troubled childhood"], category: "family", hint: "Детство с проблемами" },
+        { ru: "Быть на хороших отношениях", en: ["be on good terms"], category: "family", hint: "Иметь вежливые отношения без конфликтов" },
+        { ru: "Единственная опека", en: ["sole custody"], category: "family", hint: "Опека только одного родителя" },
+        { ru: "Совместная опека", en: ["joint custody"], category: "family", hint: "Разделенная ответственность за детей" },
+        { ru: "Алименты", en: ["child support"], category: "family", hint: "Регулярные платежи на детей" },
+        { ru: "Родить ребенка", en: ["give birth", "have a baby"], category: "family", hint: "Произвести на свет ребенка" },
+        { ru: "Влюбиться", en: ["fall in love"], category: "relationships", hint: "Испытать романтические чувства" },
+        { ru: "Любовь с первого взгляда", en: ["love at first sight"], category: "relationships", hint: "Мгновенная влюбленность" },
+        { ru: "Сильная химия", en: ["strong chemistry"], category: "relationships", hint: "Сильная совместимость между партнерами" },
+        { ru: "Родственная душа", en: ["soul mate"], category: "relationships", hint: "Человек, предназначенный судьбой" },
+        { ru: "Взаимные чувства", en: ["mutual feelings", "feelings are mutual"], category: "relationships", hint: "Чувства обоюдные" },
+        { ru: "Невзаимная любовь", en: ["unrequited love"], category: "relationships", hint: "Любовь без ответа" },
+        { ru: "Детская любовь", en: ["childhood sweetheart"], category: "relationships", hint: "Любовь с детства" },
+        { ru: "Сделать предложение", en: ["propose to someone"], category: "relationships", hint: "Попросить руки и сердца" },
+        { ru: "Счастливы в браке", en: ["happily married"], category: "relationships", hint: "Счастливый брак" },
+        { ru: "Иметь интрижку", en: ["have an affair"], category: "relationships", hint: "Изменять супругу/супруге" },
+        { ru: "Изменять", en: ["cheat on someone"], category: "relationships", hint: "Быть неверным" },
+        { ru: "Абсолютно gorgeous", en: ["absolutely gorgeous"], category: "appearance", hint: "Невероятно красивая" },
+        { ru: "Черные как смоль волосы", en: ["jet-black hair"], category: "appearance", hint: "Совершенно черные волосы" },
+        { ru: "Сияющий цвет лица", en: ["radiant complexion"], category: "appearance", hint: "Здоровая, энергичная кожа" },
+        { ru: "Фигура песочные часы", en: ["hourglass figure"], category: "appearance", hint: "Фигура с тонкой талией" },
+        { ru: "Стройная талия", en: ["slender waist"], category: "appearance", hint: "Тонкая талия" },
+        { ru: "Поразительное сходство", en: ["striking resemblance"], category: "appearance", hint: "Очень похож на кого-то" },
+        { ru: "Неопрятные волосы", en: ["unkempt hair"], category: "appearance", hint: "Неряшливые, неухоженные волосы" },
+        { ru: "Красноватый цвет лица", en: ["ruddy complexion"], category: "appearance", hint: "Красная кожа" },
+        { ru: "Глубоко посаженные глаза", en: ["deep-set eyes"], category: "appearance", hint: "Глаза, посаженные глубоко" },
+        { ru: "Густые брови", en: ["bushy eyebrows"], category: "appearance", hint: "Большие брови с большим количеством волос" },
+        { ru: "Атлетическое телосложение", en: ["athletic build"], category: "appearance", hint: "Тело с мышцами" },
+        { ru: "Широкие плечи", en: ["broad shoulders"], category: "appearance", hint: "Широкие плечи" },
+        { ru: "Американские горки эмоций", en: ["roller coaster of emotions"], category: "feelings", hint: "Много разных эмоций подряд" },
+        { ru: "Безумно взволнован", en: ["ridiculously excited"], category: "feelings", hint: "Очень сильно взволнован" },
+        { ru: "Безмерно счастлив", en: ["blissfully happy"], category: "feelings", hint: "Абсолютно счастлив" },
+        { ru: "Сильно обеспокоен", en: ["worried sick"], category: "feelings", hint: "Очень сильно волнуется" },
+        { ru: "Кипеть от злости", en: ["seething with anger"], category: "feelings", hint: "Готов взорваться от злости" },
+        { ru: "Видимо разочарован", en: ["visibly disappointed"], category: "feelings", hint: "Очевидно разочарован" },
+        { ru: "Скрывать эмоции", en: ["bottle up emotions"], category: "feelings", hint: "Держать эмоции внутри" },
+        { ru: "Потерять самообладание", en: ["lose your temper"], category: "feelings", hint: "Потерять контроль и показать злость" },
+        { ru: "Эмоциональный крах", en: ["emotional wreck"], category: "feelings", hint: "Человек очень расстроен и сбит с толку" },
+        { ru: "Переполнен эмоциями", en: ["overwhelmed with emotion"], category: "feelings", hint: "Эмоции настолько сильны, что трудно думать" },
+        { ru: "Невыразимо благодарен", en: ["immensely grateful"], category: "feelings", hint: "Очень благодарен" },
+        { ru: "Начать карьеру", en: ["start your career", "begin your career"], category: "work", hint: "Начать профессиональный путь" },
+        { ru: "Стажировка", en: ["do an internship"], category: "work", hint: "Временная работа для получения опыта" },
+        { ru: "Работа начального уровня", en: ["entry-level job"], category: "work", hint: "Работа, не требующая опыта" },
+        { ru: "Минимальная зарплата", en: ["minimum wage"], category: "work", hint: "Минимальная оплата по закону" },
+        { ru: "Командный игрок", en: ["team player"], category: "work", hint: "Хорошо сотрудничает с коллегами" },
+        { ru: "Получить повышение", en: ["get a promotion"], category: "work", hint: "Увеличение ответственности" },
+        { ru: "Получить прибавку", en: ["get a raise"], category: "work", hint: "Увеличение зарплаты" },
+        { ru: "Быть уволенным", en: ["get fired", "be dismissed"], category: "work", hint: "Потерять работу" },
+        { ru: "Большая нагрузка", en: ["heavy workload"], category: "work", hint: "Много работы" },
+        { ru: "Работать сверхурочно", en: ["work overtime"], category: "work", hint: "Работать дополнительные часы" },
+        { ru: "Требовательная работа", en: ["demanding job"], category: "work", hint: "Интенсивная работа с большой ответственностью" },
+        { ru: "Уволиться", en: ["quit your job"], category: "work", hint: "Добровольно оставить работу" },
+        { ru: "Конкурентная зарплата", en: ["competitive salary"], category: "work", hint: "Зарплата выше средней" },
+        { ru: "Щедрые льготы", en: ["generous benefits"], category: "work", hint: "Дополнительные преимущества" },
+        { ru: "Сменить карьеру", en: ["career change"], category: "work", hint: "Изменить профессиональную сферу" },
+        { ru: "Искать работу", en: ["job seeker"], category: "work", hint: "Человек, ищущий работу" },
+        { ru: "Работа для заработка", en: ["menial job", "earn a living"], category: "work", hint: "Работа для выживания" },
+        { ru: "Работа мечты", en: ["dream job"], category: "work", hint: "Идеальная работа" },
+        { ru: "Открыть бизнес", en: ["set up a company", "go into business"], category: "business", hint: "Создать компанию" },
+        { ru: "Исследование рынка", en: ["market research"], category: "business", hint: "Изучение рынка" },
+        { ru: "Работать в убыток", en: ["operate at a loss"], category: "business", hint: "Бизнес теряет деньги" },
+        { ru: "Выйти в ноль", en: ["break even"], category: "business", hint: "Доходы равны расходам" },
+        { ru: "Завоевать долю рынка", en: ["gain market share"], category: "business", hint: "Привлечь значительное число клиентов" },
+        { ru: "Обанкротиться", en: ["go bankrupt", "go under"], category: "business", hint: "Потерять все деньги" },
+        { ru: "Получать прибыль", en: ["make a profit"], category: "business", hint: "Доходы больше расходов" },
+        { ru: "Нанять персонал", en: ["hire staff", "take on employees"], category: "business", hint: "Нанять работников" },
+        { ru: "Заключить сделку", en: ["make a deal"], category: "business", hint: "Договориться" },
+        { ru: "Подписать контракт", en: ["sign a contract"], category: "business", hint: "Поставить подпись на контракте" },
+        { ru: "Обслуживание клиентов", en: ["customer service"], category: "business", hint: "Помощь клиентам" },
+        { ru: "Компания-конкурент", en: ["rival company"], category: "business", hint: "Конкурирующая компания" },
+        { ru: "Вести бизнес", en: ["run a business"], category: "business", hint: "Управлять бизнесом" },
+        { ru: "Бизнес пошел в гору", en: ["business is booming", "take off"], category: "business", hint: "Бизнес стал успешным" },
+        { ru: "Забронировать рейс", en: ["book a flight"], category: "travel", hint: "Купить билет на самолет" },
+        { ru: "Забронировать отель", en: ["make a hotel reservation"], category: "travel", hint: "Забронировать номер" },
+        { ru: "Рейс переполнен", en: ["overbooked flight"], category: "travel", hint: "Больше пассажиров, чем мест" },
+        { ru: "Пересадочный рейс", en: ["connecting flight"], category: "travel", hint: "Следующий рейс" },
+        { ru: "Остановка между рейсами", en: ["layover"], category: "travel", hint: "Время ожидания между рейсами" },
+        { ru: "Ручная кладь", en: ["carry-on bag"], category: "travel", hint: "Сумка, которую берете в самолет" },
+        { ru: "Сдаваемый багаж", en: ["checked luggage"], category: "travel", hint: "Багаж в грузовом отсеке" },
+        { ru: "Посадочный талон", en: ["boarding pass"], category: "travel", hint: "Билет для входа в самолет" },
+        { ru: "Место у окна", en: ["window seat"], category: "travel", hint: "Место рядом с окном" },
+        { ru: "Место у прохода", en: ["aisle seat"], category: "travel", hint: "Место рядом с проходом" },
+        { ru: "Тряский рейс", en: ["bumpy flight"], category: "travel", hint: "Рейс с турбулентностью" },
+        { ru: "Дешевый отель", en: ["seedy hotel"], category: "travel", hint: "Небезопасный или неудобный отель" },
+        { ru: "Тусклая комната", en: ["dingy room"], category: "travel", hint: "Грязная и темная комната" },
+        { ru: "Вредная еда", en: ["junk food"], category: "food", hint: "Непитательная еда" },
+        { ru: "Сесть на диету", en: ["go on a diet"], category: "food", hint: "Есть меньше и здоровее" },
+        { ru: "Пищевые добавки", en: ["food additives"], category: "food", hint: "Химические вещества в еде" },
+        { ru: "Сбалансированная диета", en: ["balanced diet"], category: "food", hint: "Здоровое питание" },
+        { ru: "Питательная еда", en: ["nourishing meals"], category: "food", hint: "Здоровая и питательная еда" },
+        { ru: "Органическая еда", en: ["organic food"], category: "food", hint: "Натуральная еда" },
+        { ru: "Свежие продукты", en: ["fresh produce"], category: "food", hint: "Свежие фрукты и овощи" },
+        { ru: "Быстрый перекус", en: ["quick snack"], category: "food", hint: "Что-то маленькое и быстрое" },
+        { ru: "Есть в меру", en: ["eat in moderation"], category: "food", hint: "Не переедать" },
+        { ru: "Размер порции", en: ["portion size"], category: "food", hint: "Количество еды" },
+        { ru: "Домашняя еда", en: ["home-cooked meal"], category: "food", hint: "Еда, приготовленная дома" },
+        { ru: "Сытное рагу", en: ["hearty stew"], category: "food", hint: "Густой суп с ингредиентами" },
+        { ru: "Здоровый аппетит", en: ["healthy appetite"], category: "food", hint: "Способность много есть" },
+        { ru: "Вторая порция", en: ["second helping"], category: "food", hint: "Добавка" },
+        { ru: "Отравление едой", en: ["food poisoning"], category: "food", hint: "Заболевание от загрязненной еды" },
+        { ru: "Легкая еда", en: ["light meals"], category: "food", hint: "Маленькие порции" },
+        { ru: "Испортить аппетит", en: ["spoil your appetite"], category: "food", hint: "Перекусить перед едой" },
+        { ru: "Продолжительность жизни", en: ["life expectancy"], category: "health", hint: "Сколько ожидается жить" },
+        { ru: "Бросить курить", en: ["quit smoking"], category: "health", hint: "Перестать курить" },
+        { ru: "Снизить стресс", en: ["reduce stress"], category: "health", hint: "Уменьшить стресс" },
+        { ru: "Получить прививку", en: ["get vaccinations", "get immunizations"], category: "health", hint: "Вакцинироваться" },
+        { ru: "Медицинская страховка", en: ["health insurance"], category: "health", hint: "Страховка на случай болезни" },
+        { ru: "Получить травму", en: ["sustain injuries", "suffer injuries"], category: "health", hint: "Пострадать" },
+        { ru: "Серьезные травмы", en: ["serious injuries"], category: "health", hint: "Тяжелые повреждения" },
+        { ru: "Незначительные травмы", en: ["minor injuries"], category: "health", hint: "Легкие повреждения" },
+        { ru: "Сломать кость", en: ["break a bone", "fracture a bone"], category: "health", hint: "Перелом" },
+        { ru: "Наложить швы", en: ["give stitches"], category: "health", hint: "Зашить рану" },
+        { ru: "Облегчить боль", en: ["relieve the pain"], category: "health", hint: "Уменьшить боль" },
+        { ru: "Хроническое заболевание", en: ["chronic condition"], category: "health", hint: "Долговременное состояние" },
+        { ru: "Облегчить симптомы", en: ["alleviate the symptoms"], category: "health", hint: "Уменьшить симптомы" },
+        { ru: "Простуда", en: ["catch a cold"], category: "health", hint: "Заболеть простудой" },
+        { ru: "Смертельно болен", en: ["terminally ill"], category: "health", hint: "Неизлечимо болен" },
+        { ru: "Сделать фотографию", en: ["take a picture"], category: "other", hint: "Сфотографировать" },
+        { ru: "Быстрый душ", en: ["quick shower"], category: "other", hint: "Недолгий душ" },
+        { ru: "Принять душ", en: ["take a shower", "take a bath"], category: "other", hint: "Помыться" },
+        { ru: "Уделить внимание", en: ["pay attention"], category: "other", hint: "Быть внимательным" },
+        { ru: "Сделать усилие", en: ["make an effort", "make a concerted effort"], category: "other", hint: "Постараться" },
+        { ru: "Принять решение", en: ["make a decision"], category: "other", hint: "Решить" },
+        { ru: "Сделать ошибку", en: ["make a mistake"], category: "other", hint: "Ошибиться" },
+        { ru: "Играть роль", en: ["play a role", "play a part"], category: "other", hint: "Иметь влияние" },
+        { ru: "Прийти к выводу", en: ["draw conclusions"], category: "other", hint: "Сделать вывод" },
+        { ru: "Задать вопрос", en: ["raise questions"], category: "other", hint: "Поднять вопросы" },
+        { ru: "Провести исследование", en: ["carry out a study", "do research"], category: "other", hint: "Исследовать" },
+        { ru: "Собрать доказательства", en: ["gather evidence"], category: "other", hint: "Собрать улики" },
+        { ru: "Нарушить закон", en: ["break the law"], category: "other", hint: "Совершить преступление" },
+        { ru: "Совершить преступление", en: ["commit a crime"], category: "other", hint: "Сделать что-то незаконное" },
+        { ru: "Предъявить обвинение", en: ["charge with a crime"], category: "other", hint: "Формально обвинить" },
+        { ru: "Предстать перед судом", en: ["stand trial"], category: "other", hint: "Быть осужденным" },
+        { ru: "Вынести приговор", en: ["reach a verdict"], category: "other", hint: "Принять решение" },
+        { ru: "Тяжелое наказание", en: ["harsh sentence"], category: "other", hint: "Строгий приговор" },
+        { ru: "Легкое наказание", en: ["light sentence"], category: "other", hint: "Мягкий приговор" },
+        { ru: "Смертная казнь", en: ["death penalty"], category: "other", hint: "Высшая мера наказания" },
+        { ru: "Объявить войну", en: ["declare war"], category: "other", hint: "Официально начать войну" },
+        { ru: "Развернуть войска", en: ["deploy troops"], category: "other", hint: "Отправить военных" },
+        { ru: "Открыть огонь", en: ["open fire"], category: "other", hint: "Начать стрелять" },
+        { ru: "Гражданские жертвы", en: ["civilian casualties"], category: "other", hint: "Невиновные пострадавшие" },
+        { ru: "Прекратить огонь", en: ["ceasefire", "truce"], category: "other", hint: "Перемирие" },
+        { ru: "Восстановить мир", en: ["restore peace"], category: "other", hint: "Вернуть мир" },
+        { ru: "Установить прочный мир", en: ["establish lasting peace"], category: "other", hint: "Создать долговременный мир" }
+    ];
+
+    let currentQuestion = 0;
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let currentImage = null;
+    let shuffledQuestions = [...questions];
+
+    function init() {
+        shuffleArray(shuffledQuestions);
+        loadQuestion();
+        updateStats();
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function filterQuestions() {
+        const category = document.getElementById('categorySelect').value;
+        if (category === 'all') return shuffledQuestions;
+        return shuffledQuestions.filter(q => q.category === category);
+    }
+
+    function loadQuestion() {
+        const filtered = filterQuestions();
+        if (filtered.length === 0) {
+            document.getElementById('questionText').textContent = "Нет вопросов в этой категории";
+            return;
+        }
+        const q = filtered[currentQuestion % filtered.length];
+        document.getElementById('questionText').textContent = q.ru;
+        document.getElementById('questionHint').textContent = q.hint || '';
+        document.getElementById('answerInput').value = '';
+        document.getElementById('answerInput').className = '';
+        document.getElementById('feedback').className = 'feedback';
+        if (currentImage) {
+            document.getElementById('questionImage').src = currentImage;
+            document.getElementById('questionImage').classList.add('active');
+        } else {
+            document.getElementById('questionImage').classList.remove('active');
+        }
+        document.getElementById('totalCount').textContent = filtered.length;
+        updateProgress();
+    }
+
+    function checkAnswer() {
+        const filtered = filterQuestions();
+        if (filtered.length === 0) return;
+        const q = filtered[currentQuestion % filtered.length];
+        const userAnswer = document.getElementById('answerInput').value.trim().toLowerCase();
+        const feedback = document.getElementById('feedback');
+        const feedbackText = document.getElementById('feedbackText');
+        const correctAnswer = document.getElementById('correctAnswer');
+        const input = document.getElementById('answerInput');
+        if (!userAnswer) { alert('Введите ответ!'); return; }
+        const isCorrect = q.en.some(ans => ans.toLowerCase() === userAnswer);
+        if (isCorrect) {
+            correctCount++;
+            input.className = 'correct';
+            feedback.className = 'feedback correct';
+            feedbackText.textContent = '✅ Правильно! Отличная работа!';
+        } else {
+            incorrectCount++;
+            input.className = 'incorrect';
+            feedback.className = 'feedback incorrect';
+            feedbackText.textContent = '❌ Неправильно. Правильный ответ:';
+        }
+        correctAnswer.textContent = q.en.join(' / ');
+        updateStats();
+        setTimeout(() => nextQuestion(), 2500);
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        currentImage = null;
+        loadQuestion();
+    }
+
+    function updateStats() {
+        document.getElementById('correctCount').textContent = correctCount;
+        document.getElementById('incorrectCount').textContent = incorrectCount;
+    }
+
+    function updateProgress() {
+        const filtered = filterQuestions();
+        const progress = ((currentQuestion % filtered.length) / filtered.length) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+    }
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentImage = e.target.result;
+                const img = document.getElementById('questionImage');
+                img.src = currentImage;
+                img.classList.add('active');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function shuffleQuestions() {
+        shuffleArray(shuffledQuestions);
+        currentQuestion = 0;
+        currentImage = null;
+        loadQuestion();
+    }
+
+    function resetStats() {
+        correctCount = 0;
+        incorrectCount = 0;
+        currentQuestion = 0;
+        currentImage = null;
+        updateStats();
+        loadQuestion();
+    }
+
+    document.getElementById('answerInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') checkAnswer();
+    });
+
+    document.getElementById('categorySelect').addEventListener('change', function() {
+        currentQuestion = 0;
+        currentImage = null;
+        loadQuestion();
+    });
+
+    init();
+</script>
+</body>
+</html>
