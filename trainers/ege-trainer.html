@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЕГЭ Тренажёр · Natalie English</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lavender: #e8dff5;
+  --peach: #fce4d6;
+  --mint: #d4f1e8;
+  --rose: #f7d6e0;
+  --cream: #fdf6f0;
+  --deep: #5a4a7a;
+  --soft: #8b7ba8;
+  --text: #3d3554;
+  --text-light: #8b7ba8;
+  --success: #6ba889;
+  --danger: #c97b84;
+  --warning: #d4a574;
+  --shadow: 0 10px 40px rgba(138,107,175,0.15);
+  --radius: 24px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+
+body {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--lavender) 50%, var(--peach) 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Плавающие декоративные круги */
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  animation: float 20s infinite ease-in-out;
+}
+.blob1 { width: 400px; height: 400px; background: var(--rose); top: -100px; left: -100px; }
+.blob2 { width: 500px; height: 500px; background: var(--mint); bottom: -150px; right: -150px; animation-delay: -10s; }
+.blob3 { width: 300px; height: 300px; background: var(--lavender); top: 50%; left: 50%; animation-delay: -5s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -50px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+/* Верхняя навигация */
+.top-nav {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: rgba(253,246,240,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--deep);
+  letter-spacing: 1px;
+}
+.logo span { color: var(--soft); font-style: italic; }
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+.nav-links a:hover {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  color: var(--deep);
+}
+
+.back-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white !important;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+  transition: all 0.3s;
+}
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(90,74,122,0.35);
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+header {
+  background: linear-gradient(135deg, var(--lavender) 0%, var(--rose) 50%, var(--peach) 100%);
+  backdrop-filter: blur(10px);
+  padding: 3rem 0;
+  border-radius: var(--radius);
+  margin: 20px auto;
+  max-width: 1200px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveBackground 20s linear infinite;
+  opacity: 0.3;
+}
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: var(--deep);
+  letter-spacing: 0.5px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--soft);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.btn {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  padding: 13px 28px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+  font-weight: 500;
+  font-size: 0.95em;
+  letter-spacing: 0.3px;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(90,74,122,0.35);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger), #b56870);
+  box-shadow: 0 6px 18px rgba(201,123,132,0.3);
+}
+.btn-danger:hover {
+  background: linear-gradient(135deg, #b56870, var(--danger));
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--success), #5a9678);
+  box-shadow: 0 6px 18px rgba(107,168,137,0.3);
+}
+.btn-success:hover {
+  background: linear-gradient(135deg, #5a9678, var(--success));
+}
+
+.btn-record {
+  background: linear-gradient(135deg, var(--rose), var(--soft));
+  box-shadow: 0 6px 18px rgba(247,214,224,0.4);
+}
+.btn-record.recording {
+  background: linear-gradient(135deg, var(--danger), #b56870);
+  animation: pulse 1.5s infinite;
+}
+
+.btn-play {
+  background: linear-gradient(135deg, var(--mint), var(--success));
+}
+.btn-play:disabled {
+  background: var(--lavender);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,123,132,0.7); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(201,123,132,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,123,132,0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes tickAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); color: var(--soft); }
+  100% { transform: scale(1); }
+}
+.tick { animation: tickAnimation 0.3s ease; }
+
+/* ============================================ */
+/* FLOATING TIMER */
+/* ============================================ */
+.floating-timer {
+  position: fixed;
+  right: 20px;
+  top: 100px;
+  width: 240px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.8);
+  z-index: 9999;
+  padding: 18px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: move;
+  user-select: none;
+}
+.floating-timer:hover {
+  box-shadow: 0 15px 45px rgba(138,107,175,0.25);
+  transform: translateY(-3px);
+}
+.floating-timer.hidden {
+  transform: translateX(300px);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+.floating-timer:not(.hidden) { visibility: visible; }
+.floating-timer.slide-in { animation: slideInRight 0.5s ease forwards; }
+.floating-timer.warning {
+  border-color: var(--warning);
+  box-shadow: 0 10px 35px rgba(212,165,116,0.3);
+}
+.floating-timer.urgent {
+  border-color: var(--danger);
+  box-shadow: 0 10px 35px rgba(201,123,132,0.4);
+  animation: pulse 1s infinite;
+}
+
+.floating-timer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--lavender);
+  cursor: move;
+}
+.floating-timer-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--deep);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+}
+.floating-timer-phase {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.floating-timer-display { text-align: center; margin: 12px 0; }
+.floating-timer-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--deep);
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+.floating-timer-label {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.floating-timer-progress {
+  width: 100%;
+  height: 6px;
+  background: rgba(232,223,245,0.5);
+  border-radius: 3px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+.floating-timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--lavender), var(--soft), var(--deep));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.floating-timer-bar.warning { background: linear-gradient(90deg, var(--warning), #c99560); }
+.floating-timer-bar.urgent { background: linear-gradient(90deg, var(--danger), #b56870); }
+
+.floating-timer-controls {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.floating-timer-controls .btn {
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  border-radius: 20px;
+}
+
+.floating-timer-recording {
+  background: linear-gradient(135deg, rgba(247,214,224,0.3) 0%, rgba(232,223,245,0.3) 100%);
+  border-radius: 16px;
+  padding: 12px;
+  margin-top: 12px;
+  display: none;
+  border: 1px solid rgba(247,214,224,0.5);
+}
+.floating-timer-recording.active { display: block; animation: fadeInUp 0.3s ease; }
+
+.recording-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.recording-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--danger);
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+.recording-text {
+  font-size: 0.75rem;
+  color: var(--text);
+  font-weight: 500;
+}
+.recording-controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.recording-controls .btn {
+  padding: 7px 12px;
+  font-size: 0.75rem;
+  flex: 1;
+  min-width: 80px;
+  border-radius: 18px;
+}
+
+.floating-timer-speed {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--lavender);
+}
+.speed-btn {
+  padding: 5px 12px;
+  background: rgba(232,223,245,0.4);
+  border: 1px solid transparent;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.speed-btn:hover { background: var(--lavender); color: var(--deep); }
+.speed-btn.active {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+}
+
+.floating-timer-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+  padding: 5px;
+  z-index: 10;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.floating-timer-close:hover {
+  color: var(--danger);
+  background: rgba(201,123,132,0.1);
+  transform: rotate(90deg);
+}
+
+/* Task Section */
+#tasks { padding: 2rem 0; }
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  text-align: center;
+  color: var(--deep);
+  margin-bottom: 1.5rem;
+  font-size: 2.2em;
+  font-weight: 500;
+}
+
+.task-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.task-tab {
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(232,223,245,0.8);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  color: var(--text);
+  font-size: 0.9em;
+}
+.task-tab:hover {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(138,107,175,0.2);
+}
+.task-tab.active {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.3);
+}
+
+.task-content {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  min-height: 400px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.8);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.5s ease;
+}
+
+.variant-selector {
+  margin-bottom: 25px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(232,223,245,0.6);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.variant-selector label {
+  font-weight: 500;
+  color: var(--deep);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2em;
+}
+.variant-selector select {
+  padding: 12px 18px;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: 2px solid var(--lavender);
+  background: rgba(255,255,255,0.8);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  flex: 1;
+  min-width: 200px;
+}
+.variant-selector select:focus {
+  outline: none;
+  border-color: var(--soft);
+  box-shadow: 0 0 0 4px rgba(139,123,168,0.15);
+}
+
+.task-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin: 1.5rem 0;
+  max-height: 400px;
+  object-fit: contain;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+.task-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px rgba(138,107,175,0.2);
+}
+
+.recording-status {
+  padding: 14px;
+  border-radius: 16px;
+  margin: 15px 0;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-weight: 500;
+}
+.recording-status.recording {
+  background: linear-gradient(135deg, rgba(247,214,224,0.6) 0%, rgba(252,228,214,0.6) 100%);
+  color: var(--danger);
+  border: 1px solid rgba(247,214,224,0.8);
+}
+.recording-status.stopped {
+  background: linear-gradient(135deg, rgba(212,241,232,0.6) 0%, rgba(232,223,245,0.6) 100%);
+  color: var(--success);
+  border: 1px solid rgba(212,241,232,0.8);
+}
+
+footer {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.8);
+  text-align: center;
+  padding: 2.5rem 0;
+  margin-top: 3rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: 0 -10px 40px rgba(138,107,175,0.1);
+}
+footer p {
+  color: var(--text);
+  margin-bottom: 10px;
+}
+footer .credit {
+  color: var(--text-light);
+  font-style: italic;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+.hidden { display: none !important; }
+
+/* Admin Panel */
+#adminPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(90,74,122,0.85);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  overflow-y: auto;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+#adminPanel.show { display: block; }
+
+.admin-content {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(90,74,122,0.3);
+  animation: slideInUp 0.4s ease;
+  border: 1px solid rgba(255,255,255,0.8);
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  font-weight: 500;
+}
+
+.admin-content input,
+.admin-content textarea,
+.admin-content select {
+  width: 100%;
+  padding: 13px 18px;
+  margin: 10px 0;
+  border: 2px solid var(--lavender);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  background: rgba(255,255,255,0.8);
+  color: var(--text);
+}
+.admin-content input:focus,
+.admin-content textarea:focus,
+.admin-content select:focus {
+  outline: none;
+  border-color: var(--soft);
+  box-shadow: 0 0 0 4px rgba(139,123,168,0.15);
+}
+.admin-content textarea {
+  min-height: 150px;
+  font-family: 'Montserrat', sans-serif;
+  resize: vertical;
+}
+
+.admin-section {
+  margin-bottom: 25px;
+  padding: 22px;
+  background: rgba(253,246,240,0.6);
+  border-radius: 20px;
+  border: 1px solid rgba(232,223,245,0.5);
+}
+.admin-section h3 {
+  margin-bottom: 15px;
+  color: var(--deep);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--deep);
+  font-size: 0.95em;
+}
+
+.admin-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 28px;
+  border-radius: 20px;
+  color: white;
+  z-index: 20000;
+  animation: slideInRight 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  font-weight: 500;
+}
+.notification.success {
+  background: linear-gradient(135deg, var(--success), #5a9678);
+}
+.notification.error {
+  background: linear-gradient(135deg, var(--danger), #b56870);
+}
+
+/* Task Info Box */
+.task-info {
+  background: linear-gradient(135deg, rgba(232,223,245,0.4) 0%, rgba(247,214,224,0.4) 100%);
+  padding: 22px;
+  border-radius: 20px;
+  margin: 20px 0;
+  border-left: 4px solid var(--soft);
+  transition: all 0.3s ease;
+}
+.task-info:hover {
+  transform: translateX(5px);
+  box-shadow: 0 6px 20px rgba(138,107,175,0.15);
+}
+.task-info h4 {
+  color: var(--deep);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3em;
+}
+.task-info ul { list-style: none; padding-left: 5px; }
+.task-info li {
+  color: var(--text);
+  margin: 8px 0;
+  position: relative;
+  padding-left: 28px;
+}
+.task-info li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+/* Text content styling */
+.text-block {
+  background: rgba(255,255,255,0.8);
+  padding: 2rem;
+  border-radius: 20px;
+  margin: 1.5rem 0;
+  line-height: 1.8;
+  box-shadow: 0 4px 20px rgba(138,107,175,0.08);
+  border: 1px solid rgba(232,223,245,0.5);
+  color: var(--text);
+}
+
+.task-heading {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 1.5em;
+}
+
+.task-label {
+  color: var(--soft);
+  font-style: italic;
+  margin-bottom: 15px;
+}
+.task-label strong {
+  color: var(--deep);
+  font-style: normal;
+}
+
+.audio-player {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-radius: 20px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .floating-timer {
+    right: 10px;
+    width: calc(100% - 20px);
+    max-width: 300px;
+    top: 70px;
+  }
+  .floating-timer-time { font-size: 2rem; }
+  .nav-links { gap: 8px; }
+  .nav-links a { padding: 6px 10px; font-size: 12px; }
+  .hero h1 { font-size: 2rem; }
+  .task-content { padding: 1.5rem; }
+  .top-nav { padding: 12px 18px; }
+  .logo { font-size: 18px; }
+  .section-title { font-size: 1.6em; }
+}
+</style>
+</head>
+<body>
+
+<!-- Плавающие декоративные круги -->
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<!-- Верхняя навигация -->
+<div class="top-nav">
+  <div class="logo">Natalie <span>English</span></div>
+  <div class="nav-links">
+    <a href="#tasks">Задания</a>
+    <a href="../index.html" class="back-btn">← На главную</a>
+  </div>
+</div>
+
+<header>
+  <div class="hero">
+    <h1>🎓 Устная часть ЕГЭ</h1>
+    <p>Разрешите доступ к микрофону для полноценной работы</p>
+    <a href="#tasks" class="btn">Начать тренировку</a>
+  </div>
+</header>
+
+<!-- FLOATING TIMER -->
+<div class="floating-timer hidden" id="floating-timer">
+  <button class="floating-timer-close" onclick="hideFloatingTimer()">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="floating-timer-header" id="timerHeader">
+    <div class="floating-timer-title">
+      <i class="fas fa-clock"></i>
+      <span id="floating-timer-task-name">Задание</span>
+    </div>
+    <div class="floating-timer-phase" id="floating-timer-phase">Подготовка</div>
+  </div>
+  <div class="floating-timer-display">
+    <div class="floating-timer-time" id="floating-timer-time">02:30</div>
+    <div class="floating-timer-label" id="floating-timer-label">Осталось</div>
+  </div>
+  <div class="floating-timer-progress">
+    <div class="floating-timer-bar" id="floating-timer-bar" style="width: 100%"></div>
+  </div>
+  <div class="floating-timer-controls">
+    <button class="btn" id="floating-timer-start" onclick="startFloatingTimer(true)">
+      <i class="fas fa-play"></i>
+    </button>
+    <button class="btn" id="floating-timer-pause" onclick="pauseFloatingTimer()" disabled>
+      <i class="fas fa-pause"></i>
+    </button>
+    <button class="btn btn-danger" id="floating-timer-skip" onclick="skipPreparation()">
+      <i class="fas fa-forward"></i>
+    </button>
+  </div>
+  <div class="floating-timer-recording" id="floating-recording-panel">
+    <div class="recording-indicator">
+      <div class="recording-dot"></div>
+      <span class="recording-text">Запись</span>
+    </div>
+    <div class="recording-controls">
+      <button class="btn btn-play" id="floating-play-record" onclick="playStudentRecordFromWidget()">
+        <i class="fas fa-play"></i>
+      </button>
+      <button class="btn btn-record" id="floating-stop-record" onclick="stopStudentRecord()">
+        <i class="fas fa-stop"></i>
+      </button>
+    </div>
+  </div>
+  <div class="floating-timer-speed">
+    <button class="speed-btn" onclick="setPlaybackSpeed(0.5)">0.5x</button>
+    <button class="speed-btn active" onclick="setPlaybackSpeed(1)">1x</button>
+    <button class="speed-btn" onclick="setPlaybackSpeed(1.5)">1.5x</button>
+    <button class="speed-btn" onclick="setPlaybackSpeed(2)">2x</button>
+  </div>
+</div>
+
+<section id="tasks">
+  <div class="container">
+    <h2 class="section-title">Задания ЕГЭ</h2>
+    
+    <div class="task-tabs">
+      <button class="task-tab active" data-task="1">Задание 1</button>
+      <button class="task-tab" data-task="2">Задание 2</button>
+      <button class="task-tab" data-task="3">Задание 3</button>
+      <button class="task-tab" data-task="4">Задание 4</button>
+    </div>
+
+    <div class="variant-selector">
+      <label for="variantSelect">Выберите вариант:</label>
+      <select id="variantSelect"></select>
+    </div>
+
+    <div class="task-content" id="taskContent"></div>
+
+    <div id="recordingControls" class="hidden">
+      <div class="recording-status" id="recordingStatus">Готов к записи</div>
+      <audio id="audioPlayback" controls class="hidden"></audio>
+      <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-record" id="startRecording">🎤 Запись</button>
+        <button class="btn btn-danger" id="stopRecording">⏹ Стоп</button>
+        <button class="btn btn-play" id="playRecording" disabled>▶ Прослушать</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Наталья Николаева · English with love</p>
+    <p class="credit">Сдать ЕГЭ на высокий балл — это реально ✨</p>
+    <button class="btn" id="adminBtn" style="background: linear-gradient(135deg, var(--lavender), var(--rose)); color: var(--deep);">🔐 Админ Панель</button>
+  </div>
+</footer>
+
+<!-- Admin Panel -->
+<div id="adminPanel">
+  <div class="admin-content">
+    <h2 style="margin-bottom: 20px;">🔐 Вход для админа</h2>
+    <div id="adminLoginSection">
+      <div class="form-group">
+        <label>Введите пароль:</label>
+        <input type="password" id="adminPassword" placeholder="Пароль">
+      </div>
+      <div class="admin-controls">
+        <button class="btn btn-success" id="adminLogin">Войти</button>
+        <button class="btn btn-danger" id="adminClose">Отмена</button>
+      </div>
+    </div>
+    <div id="adminEditSection" class="hidden">
+      <h2 style="margin-bottom: 20px;">✏️ Редактирование</h2>
+      <div class="admin-section">
+        <div class="form-group">
+          <label>Выберите задание:</label>
+          <select id="adminTaskSelect">
+            <option value="1">Задание 1 (Чтение)</option>
+            <option value="2">Задание 2 (Вопросы)</option>
+            <option value="3">Задание 3 (Аудирование)</option>
+            <option value="4">Задание 4 (Монолог)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Выберите вариант:</label>
+          <select id="adminVariantSelect"></select>
+        </div>
+        <button class="btn" id="loadForEdit">Загрузить</button>
+      </div>
+      <div id="editForm" class="hidden">
+        <div class="admin-section">
+          <h3>Редактирование данных</h3>
+          <div id="editFields"></div>
+        </div>
+        <div class="admin-controls">
+          <button class="btn btn-success" id="saveChanges">💾 Сохранить</button>
+          <button class="btn btn-danger" id="resetToDefault">🔄 Сбросить</button>
+          <button class="btn" id="closeAdmin">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="notification" class="notification hidden"></div>
+
+<script>
+// ============================================
+// DEFAULT DATA - ALL 20 VARIANTS COMPLETE
+// ============================================
+const defaultData = {
+task1: [
+{ variant: 1, topic: "Going green", text: "Going green is more than just a modern trend. It should become a habit, a lifestyle or a way of life. It may be difficult to start it as it forces us to make important changes in our activities, but you don't have to do it at once. Begin by making little changes here and there, and soon you'll find yourself having a satisfying desire to change even more. Everyone seems to have got their start on being eco-friendly—from individuals to companies. More and more businesses are using wind or solar energy to power their daily activities. Still some people don't understand that our ways have a large impact on the environment—be it positive or negative. We have to change our lifestyle to be more eco-friendly. Less use of paper products means less trees to cut down. Switching from commercial to homemade and natural cleaning products reduces the use of harmful materials. In fact, the first step to changing bad habits is through accepting that you have them." },
+{ variant: 2, topic: "Snow leopard", text: "The snow leopard is one of the world's most beautiful cats. Snow leopards are thinly spread across 12 countries in central and south Asia, from southern Russia down to Mongolia, China, and India. They are usually at home in mountain landscapes at heights of over 3,000 metres. But habitat loss, poaching, and climate change are now threatening their survival. The snow leopard has a spotted coat, thick enough to protect it from the cold. This animal's wide, fur-covered feet help to distribute its weight over soft snow. Snow leopards are not social creatures. They are perfect hunters, able to kill animals for food up to three times their own weight. Snow leopards are top hunters in their environment, and they hunt for mountain sheep and goats. Without the snow leopard, the ecological balance would be destroyed." },
+{ variant: 3, topic: "Plastic pollution", text: "As the world's population grows, so does the amount of rubbish that people generate. The large quantity of plastic products has resulted in increasing levels of plastic pollution in every part of the world. Plastic pollution occurs when plastic accumulates in an area and begins to negatively affect the natural environment. Plastic pollution creates problems for plants, wildlife, and even the human population. This often includes killing plant life and posing dangers to local animals. Certainly, plastic is an extremely useful material. In fact, it's grown to become one of the most commonly used materials by man. But again, it is made from toxic compounds known to cause illnesses. So, when shopping, carry a paper or cloth bag. Also, avoid bringing plastic bags at home and buying items with too much packaging." },
+{ variant: 4, topic: "Railway museum", text: "This museum complex is Russia's main railway museum and is among the world's largest railway museums. It opened on October 30, 2017. The museum complex is spread over a vast area. It has two buildings—an old building and an eye-catching modern building. The buildings are connected with a bridge to make a single structure. Museum tours include visiting a collection of rare and legendary steam trains, locomotives, electric locomotives, railcars and other rolling stock. Historical artifacts rub shoulders with current operating models, interactive machines and temporary exhibition halls, building an unusual and engaging museum space." },
+{ variant: 5, topic: "Filimonovo toys", text: "Filimonovo toys are a type of Russian pottery craft produced in Odoyevsky District of Tula region, Russia. The toy gets its name from the village of its origin, Filimonovo, and are made by hand from the local clay that fires into a pure white ceramic. The artists paint the figures with special dyes with motifs of brightly coloured stripes and spots. Filimonovo toys are often clay whistles in the forms of women, horsemen, and different animals such as bears, cattle, and roosters. Clay toys, especially clay whistles, were very popular in Russia. Scientists believe that initially such whistles were made for protection from evil spirits." },
+{ variant: 6, topic: "Ural Mountains", text: "The Ural Mountains of Russia form the traditional boundary between Europe and Asia. The Urals are about 2,500 kilometres long. They extend from the Kara Sea in the north to the Ural River in the south. The highest peak is Mount Narodnaya. The northern slopes of the Urals are mostly covered with forests. Common trees include oak, linden, elm, fir and pine. Treeless land called tundra is found in the far north, especially at high elevations. Arctic foxes, reindeer, brown bears, lynx and elk are among the animals of the range. A couple of centuries ago, the fauna was richer than it is today." },
+{ variant: 7, topic: "Breathing exercises", text: "When it comes to deep-breathing exercises for kids, the key is to make these exercises fun and easy to remember. The following breathing exercises use imagery that appeals to children, and language they will have no trouble understanding. The first one is called 'Blow out the candles'. Have a child blow out the candles on a make-believe birthday cake, drawing a deep breath in through the mouth, and blowing it out strongly through the mouth as well. Another effective exercise is snake breath. Tell a child to pretend he or she is a snake and hiss, inhaling deeply through the nose, and blowing out through the mouth with a soft and low hissing sound." },
+{ variant: 8, topic: "Australia", text: "Australia is the only country in the world that covers an entire continent. It is one of the largest countries on Earth. Although it is rich in natural resources and has a lot of fertile land, more than one-third of Australia is desert. Most Australian cities and farms are located in the southwest and southeast, where the climate is more comfortable. There are dense tropical rainforests in the northeast. They are the richest in plant and animal species. Subtropical rainforests are found near the mid-eastern coast. The famous outback contains the country's largest deserts, where there are high temperatures, little water, and almost no vegetation." },
+{ variant: 9, topic: "Fashion industry", text: "The fashion industry is considered to be one of the fastest-growing industries today, yet it has faced some significant challenges throughout its history. It's not a secret that fashion industry takes its negative toll on the environment. Clothes production cannot cope with limited water consumption, and its carbon footprint increases daily. People buy tons of cheap garments which end up in landfills in less than a month. The situation might get worse if consumers don't change their habits in the coming years. There are some healthy fashion trends that may help to make fashion sustainable." },
+{ variant: 10, topic: "Mars", text: "Mars is our neighbour, the fourth planet outward from the Sun. Its rusty-red surface has earned Mars the nickname 'The Red Planet'. Mars is a little smaller than Earth, with a day that's very similar in length to ours. It is just a bit longer, at 24 hours and 37 minutes. However, a year on Mars is much longer, lasting for almost two Earth years, or 687 Earth days. At around half the size of Earth, Mars is a rocky world with a thin atmosphere. This means the days are very hot, but the nights are freezing cold. Exploration missions have found evidence of ancient water on Mars." },
+{ variant: 11, topic: "Bees communication", text: "Bees are incredibly important insects that play a vital role in our world. There are over 20,000 different bee species, all with different shapes, sizes, and colours. Unlike humans, who use words, bees communicate through a combination of movement, scent, and touch. One of the most famous bee dances is the 'waggle dance'. When a bee finds a good source of nectar, it returns to the hive and performs a special dance in the shape of a figure eight. The direction of the waggle tells other bees the direction of the food source relative to the position of the sun." },
+{ variant: 12, topic: "Ice hockey", text: "Ice hockey has a long history. It started on frozen lakes and rivers of Canadian winters in the 19th century. Now the games are played at high-tech arenas before 20,000 fans and are shown on TV. Though the rules and equipment have changed through the sport's 128-year history, the spirit of the game remains the same. Hockey has always been a sport of speed and grace mixed with a certain amount of violence. That combination has proven irresistible to fans for over a century. A crowd of 5,000 reportedly watched the first ever Stanley Cup competition in 1893." },
+{ variant: 13, topic: "Texting vs talking", text: "With the rise in recent technology we seem to be rapidly losing the art of conversation. Talking on the phone used to be the means of communication for most people, but over the last 20 years texting or instant messaging has developed into one of the most popular ways of keeping in touch with friends and family. Recent studies have shown that people are more likely to text than actually talk. Texting is great for quick short messages and meaningless banter. But it is very difficult to have a deep and meaningful text conversation. Firstly, you cannot hear the intonation when someone is texting you." },
+{ variant: 14, topic: "Fast fashion", text: "The fashion industry is considered to be one of the fastest-growing industries today, yet it has faced some significant challenges throughout its history. It's not a secret that fashion industry takes its negative toll on the environment. Clothes production cannot cope with limited water consumption, and its carbon footprint increases daily. People buy tons of cheap garments which end up in landfills in less than a month. The situation might get worse if consumers don't change their habits in the coming years. There are some healthy fashion trends that may help to make fashion sustainable." },
+{ variant: 15, topic: "Polar bears", text: "A polar bear walks along a rocky shore, looking for food. The bear would usually be on the sea ice hunting for seals, pouncing when the seal comes up to breathe. But the ice has started to melt earlier and re-form later than it was in the past. Without the sea ice, the polar bear must scavenge for other, less nutritious food. These changes in polar sea ice are a result of climate change. But this isn't just affecting polar bears—climate change affects everyone. Changes in Earth's climate are caused by how much of the Sun's energy is absorbed by the atmosphere." },
+{ variant: 16, topic: "Global warming", text: "Even though you might think that global warming is not a burning issue, there are many dangers. The gradual heating of Earth's surface, oceans and atmosphere is something that is happening in real life in many places. The consequences and effects of global warming are measurable and visible. Scientists report that ice is melting in both polar ice caps and mountain glaciers. Lakes around the world are warming rapidly changing animals' migration patterns and plants' blooming dates. The most immediate and obvious consequence of global warming is the increase in temperatures around the world." },
+{ variant: 17, topic: "Football history", text: "Football (or soccer as the game is called in some parts of the world) has a long history. Football in its current form arose in England in the middle of the 19th century. But alternative versions of the game existed much earlier and are a part of the football history. The first known examples of a team game involving a ball, which was made out of a rock, occurred in ancient cultures over 3,000 years ago in pre-Columbian America. In some ritual occasions, the ball would symbolize the sun and the captain of the losing team would be sacrificed to the gods." },
+{ variant: 18, topic: "Arctic foxes", text: "Arctic foxes live on the land and sea ice within the Arctic Circle. Winter in the Arctic is unlike winter in most parts of the world. From October to February, the sun never rises to shine warmth and light. Luckily, these small foxes have some useful adaptations for living in the icy Arctic. Their long, fluffy tails act like a blanket, keeping the fox warm when it wraps the tail around its body to sleep. Their feet also have a layer of thick fur, like built-in snow boots. This helps muffle an arctic fox's footsteps, making it harder for prey to hear them." },
+{ variant: 19, topic: "Isle of Man", text: "If you're not familiar with the Isle of Man, it's a green and pleasant island nation in the middle of the Irish Sea. At only about thirty miles long, it has an incredible choice of things to do and see—especially if you're a fan of beautiful landscapes. A day trip around the Island can have you take in diverse and stunning landscapes and fascinating historical sites. For such a calm and peaceful island, it has a long history of conquest, kings, and ancient peoples. If you head all the way north, you'll get to the Point of Ayre. There you'll find a picturesque lighthouse on a long and open rocky beach." },
+{ variant: 20, topic: "Hot air balloons", text: "The first human carrying flight technology was the hot air balloon. While unmanned balloons have been around in some form for thousands of years, the first flight with people on board was in 1782. The large balloon on top is called an 'envelope'. It holds hot air created by a heat source known as a burner. The burner creates an open flame by burning a mix of propane and air. Hot air balloons are capable of floating because the hot air inside the envelope has a lower density than the colder air outside. The top of the balloon usually has a vent which allows the pilot to control the speed of ascent or descent." }
+],
+task2: [
+{ variant: 1, scenario: "Sports camp", image: "https://lh3.googleusercontent.com/d/1bQRKhAPb-PLiN3JzTBLqu2hAGdP53iz-VHd0Vi6YSnQ", questions: ["sports facilities", "duration of a camp session", "range of activities", "age limitations"] },
+{ variant: 2, scenario: "Zoo visit", image: "https://lh3.googleusercontent.com/d/1tP7bqYot9FpN9-MRKSFxYPua8s2A-Y5pyw7BFe5RBFU", questions: ["working hours", "feeding times", "ticket price", "discounts for children"] },
+{ variant: 3, scenario: "Funfair", image: "https://lh3.googleusercontent.com/d/1Pz6wcwAp36Uh7hE7Kb-cU_YE88m1RGH07pUfFylAqVM", questions: ["location", "variety of entertainments", "parking facilities", "discounts for group visits"] },
+{ variant: 4, scenario: "Dressmaker", image: "https://lh3.googleusercontent.com/d/1ZaaduqeUD_SQQZpVUeI3g1SPKjlpjG2LDaOdCu1v77E", questions: ["clothing materials available", "advance payment fee", "period of completion", "discounts for multiple orders"] },
+{ variant: 5, scenario: "Nutritionist", image: "https://lh3.googleusercontent.com/d/1W793v_dGnGFKWiIIDkvOIuDLaqPpcHef4Mk9IWgmhq4", questions: ["working hours", "necessary forms to fill in", "number of sessions", "average time of an individual consultation"] },
+{ variant: 6, scenario: "Quest game", image: "https://lh3.googleusercontent.com/d/1brlnNJIztf2MN_JBf7MLVLWc-CJkED0lEdv0S8o2YY4", questions: ["programmes available", "payment options", "possibility to bring food", "discounts for a birthday person"] },
+{ variant: 7, scenario: "Post office", image: "https://lh3.googleusercontent.com/d/1CraUnAEPymTPHbMaQK6QvgduKvVcxx-Phoc-xgzvl04", questions: ["working hours", "prices of stamps", "postboxes nearby", "average time of delivery"] },
+{ variant: 8, scenario: "Tour booking", image: "https://lh3.googleusercontent.com/d/1LxOvzL9TLYGJIpOjo1gs9PfADpVJ0q0E_qzwI_FTfWk", questions: ["possible dates", "duration", "payment options", "group discounts"] },
+{ variant: 9, scenario: "Gift shop", image: "https://lh3.googleusercontent.com/d/15YVU5Xu3-AZpbpghZOwsQ6N7Y9Tzydvt6HhWPhN_7WM", questions: ["opening hours", "kinds of gifts", "payment methods", "special offers"] },
+{ variant: 10, scenario: "Language camp", image: "https://lh3.googleusercontent.com/d/1eCUT5R_eTbp8FKrseszL_5ppWHKkpo5B6jQsA13TWf4", questions: ["camp's location", "dates of camp sessions", "accommodation", "languages taught"] },
+{ variant: 11, scenario: "Music festival", image: "https://lh3.googleusercontent.com/d/1Xg_C-JSuGd7leIJ6GtujaHaZhwHf71mPqDjSqK_0lq0", questions: ["bands performing", "dates of the festival", "price for one person", "safety measures"] },
+{ variant: 12, scenario: "Gym", image: "https://lh3.googleusercontent.com/d/1Z_qZMg6EToS7Wkqw4-6PHJKc64Uk7l3DiupqKl6PesQ", questions: ["equipment available", "special clothes needed", "public transport to get there", "membership fee"] },
+{ variant: 13, scenario: "Medical check-up", image: "https://lh3.googleusercontent.com/d/1thtA5PQuoxtVT9y8EXOKa0cUkLamuzGcMaYG8UiQ55A", questions: ["specialists available", "waiting time for medical tests", "making an appointment online", "full check-up price"] },
+{ variant: 14, scenario: "Music festival 2", image: "https://lh3.googleusercontent.com/d/1pBBtJnyS106nnP3MWoGc9Psd16Pl_5V3Q14IVMCpIs4", questions: ["location", "ways to get there", "group discounts", "accommodation nearby"] },
+{ variant: 15, scenario: "Art workshop", image: "https://lh3.googleusercontent.com/d/1_1zZU07TdGJEKI2BCRtSuAknATHaDTCH-MaKVei_Lw0", questions: ["location", "price for one", "skills needed", "age limitations"] },
+{ variant: 16, scenario: "Rollerblading", image: "https://lh3.googleusercontent.com/d/1zeq8TCebd2ixVUr0eqkAbMLzcOzi4rIjiRelr5C4ytE", questions: ["skills needed", "equipment rental", "price per hour", "instructor's help"] },
+{ variant: 17, scenario: "Yoga classes", image: "https://lh3.googleusercontent.com/d/1NCptD9obmDeD2FHewwqMjyqASn2xXikzZU3eriDORVM", questions: ["tuition fee", "duration of one class", "special clothes", "evening classes"] },
+{ variant: 18, scenario: "Volunteers", image: "https://lh3.googleusercontent.com/d/16rJu9HHdJMDrgVYDf8UFCkGmREqP0nDM_dC-7awMxnk", questions: ["age limitations", "schedule of work", "tasks to do", "skills needed"] },
+{ variant: 19, scenario: "Botanical garden", image: "https://lh3.googleusercontent.com/d/1PpYU4onkNmcerVrhHQlGrDG8UxuSAyk382fFnLlwUyY", questions: ["opening hours", "the best time of year to visit it", "admission fee", "group discounts"] },
+{ variant: 20, scenario: "Robot vacuum", image: "https://lh3.googleusercontent.com/d/1OagkMtjlO7Iv34WwrbunZ5F3xTakakB-XRYWpJrQlhE", questions: ["colour options", "number of features", "maximum working time", "cost of delivery"] }
+],
+task3: [
+{ variant: 1, audio: "https://dl.dropboxusercontent.com/scl/fi/yj5s2qiotbqz7e3555ypf/1.mp3?rlkey=yxic5vos393d5qfwchd59qm12&dl=1" },
+{ variant: 2, audio: "https://dl.dropboxusercontent.com/scl/fi/yoz1dmfglr79kjvep310t/2.mp3?rlkey=xqx6j7yikvyok656f4vmdzrzt&dl=1" },
+{ variant: 3, audio: "https://dl.dropboxusercontent.com/scl/fi/twgu33qv2v4x6441r85rs/3.mp3?rlkey=ksg5bgnut9gvuyjaapvbigq48&dl=1" },
+{ variant: 4, audio: "https://dl.dropboxusercontent.com/scl/fi/x66c1j5qmctfly9p45m0m/4.mp3?rlkey=3o6t81eht4f3z8chc21wl3kma&dl=1" },
+{ variant: 5, audio: "https://dl.dropboxusercontent.com/scl/fi/70xnym5twqryi2a97rrms/5.mp3?rlkey=pqubpaybh4kzz8h791ntrb4ed&dl=1" },
+{ variant: 6, audio: "https://dl.dropboxusercontent.com/scl/fi/l8lbnl0mvuyicf78440nu/6.mp3?rlkey=bj3pfgk2109e1hc3d5oc8n9gn&dl=1" },
+{ variant: 7, audio: "https://dl.dropboxusercontent.com/scl/fi/ljtl6r825zjqofpigl1ck/7.mp3?rlkey=shthx3a89anqn4kf9jw7gnq3s&dl=1" },
+{ variant: 8, audio: "https://dl.dropboxusercontent.com/scl/fi/03fkvx8azgvhkctnpmhl0/8.mp3?rlkey=avfv8rlxfyb1vnc6g9z4lveum&dl=1" },
+{ variant: 9, audio: "https://dl.dropboxusercontent.com/scl/fi/sc2eiagtkzcbkv368g91a/9.mp3?rlkey=0vo61rrlpa3ec7m2hr4fjge3u&dl=1" },
+{ variant: 10, audio: "https://dl.dropboxusercontent.com/scl/fi/v9irwpyqoazz8y5gayz7z/10.mp3?rlkey=l29a67fikholfds9czclvd26t&dl=1" },
+{ variant: 11, audio: "https://dl.dropboxusercontent.com/scl/fi/k16bx2qkvw7loj94nff4y/11.mp3?rlkey=74ssfetgekq851lzll7v0c6fc&dl=1" },
+{ variant: 12, audio: "https://dl.dropboxusercontent.com/scl/fi/lmwy6lmv9vywwabulse64/12.mp3?rlkey=72pbj2ksr48ktjvoitt59lv2d&dl=1" },
+{ variant: 13, audio: "https://dl.dropboxusercontent.com/scl/fi/7136kj6syoxybl98fz9o2/13.mp3?rlkey=qdjtc9vef7h2jyzl2vlyb92xr&dl=1" },
+{ variant: 14, audio: "https://dl.dropboxusercontent.com/scl/fi/knliq5nqk1vnbgpf7as8y/14.mp3?rlkey=lyhwtzx8fxccwjey8qzdxq1kl&dl=1" },
+{ variant: 15, audio: "https://dl.dropboxusercontent.com/scl/fi/afjdq3d48dl2k91qvlx7c/15.mp3?rlkey=oeamzi37v15o8a9xbocr278y3&dl=1" },
+{ variant: 16, audio: "https://dl.dropboxusercontent.com/scl/fi/4dcs9qrsm3m62h93kwajk/16.mp3?rlkey=pnq1afkih2byq29c3w7fl5f3y&dl=1" },
+{ variant: 17, audio: "https://dl.dropboxusercontent.com/scl/fi/4dcs9qrsm3m62h93kwajk/16.mp3?rlkey=pnq1afkih2byq29c3w7fl5f3y&dl=1" },
+{ variant: 18, audio: "https://dl.dropboxusercontent.com/scl/fi/nc5dsqbpzxwnoddzo5ha8/18.mp3?rlkey=m54rbhahyn0ayjq0puaeh7zio&dl=1" },
+{ variant: 19, audio: "https://dl.dropboxusercontent.com/scl/fi/xjdped4g9fb1lag5req5f/19.mp3?rlkey=hlby5cxb6eyq7f11ubim15ar9&dl=1" },
+{ variant: 20, audio: "https://dl.dropboxusercontent.com/scl/fi/x4b22h48t4bxi913cixed/20.mp3?rlkey=ccdl5u729go03bycsn3o6g6qt&dl=1" }
+],
+task4: [
+{ variant: 1, project: "Beverages", image: "https://lh3.googleusercontent.com/d/18FXO8BvgosNbU5k0YfmoChVWY42dXqO3G67EbDSHFfM", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of beverages; mention the disadvantages (1–2) of the two types of beverages; express your opinion on the subject of the project — say which type of beverages presented in the pictures you prefer and why." },
+{ variant: 2, project: "Communication", image: "https://lh3.googleusercontent.com/d/1qWUo7SrRiqExWTEEBivumTkXCOS1uLnSfsJTywSYZ9M", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of communicating with people; mention the disadvantages (1–2) of the two ways of communicating with people; express your opinion on the subject of the project — say which way of communicating with people presented in the pictures you prefer and why." },
+{ variant: 3, project: "Reducing stress", image: "https://lh3.googleusercontent.com/d/1ziXUdFOStXwYeBR1mtKnxEWrl0K3T9HxBj51llXdLwk", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of reducing stress; mention the disadvantages (1–2) of the two ways of reducing stress; express your opinion on the subject of the project — say which way of reducing stress presented in the pictures you'd prefer to use and why." },
+{ variant: 4, project: "My morning routine", image: "https://lh3.googleusercontent.com/d/1Yw6eGoh6YABLQgWdJ3cKskHmtRILi-FNc14iA0snIoE", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of waking up; mention the disadvantages (1–2) of the two ways of waking up; express your opinion on the subject of the project — say which way of waking up presented in the pictures you preferred as a child and why." },
+{ variant: 5, project: "Postcards", image: "https://lh3.googleusercontent.com/d/12I7iliCSiYDKOay5rleLUDeALg1YQ4p92PaoN6IPEwI", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of postcards; mention the disadvantages (1–2) of the two types of postcards; express your opinion on the subject of the project — say which type of postcards presented in the pictures you preferred as a child and why." },
+{ variant: 6, project: "Playing games", image: "https://lh3.googleusercontent.com/d/1oBVOwY5TdMJO9CgIqX7vVmX-IwIbFCxC9aFhCtmD_do", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of games; mention the disadvantages (1–2) of the two types of games; express your opinion on the subject of the project — say which type of games presented in the pictures you prefer and why." },
+{ variant: 7, project: "Getting to school", image: "https://lh3.googleusercontent.com/d/1aslHZVhvj2Q5ZIhXP_QiVWd2x5k2tSG2XFFiFRrfWHY", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of getting to school; mention the disadvantages (1–2) of the two ways of getting to school; express your opinion on the subject of the project — say which way of getting to school presented in the pictures you'd prefer and why." },
+{ variant: 8, project: "Winter holidays", image: "https://lh3.googleusercontent.com/d/152p3Dsf7USeYTozqRauzEkw3bcdobVF_bnJqVYykuss", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of spending winter holidays; mention the disadvantages (1–2) of the two ways of spending winter holidays; express your opinion on the subject of the project — say which way of spending winter holidays presented in the pictures you preferred as a child and why." },
+{ variant: 9, project: "Family meals", image: "https://lh3.googleusercontent.com/d/1XmbYzdRCNSSt0EzeSYmMCE0hvSkXJoCWVi--GJLiznY", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of family meals; mention the disadvantages (1–2) of the two types of family meals; express your opinion on the subject of the project — say which type of the family meals presented in the pictures you'd prefer and why." },
+{ variant: 10, project: "Taking notes", image: "https://lh3.googleusercontent.com/d/1lcPpE28FZL8af9cm2ux6iVWKIA6yvZHJZLfPJfWkeIg", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of taking notes; mention the disadvantages (1–2) of the two ways of taking notes; express your opinion on the subject of the project — say which way of taking notes presented in the pictures you prefer to use while studying and why." },
+{ variant: 11, project: "Spending time with friends", image: "https://lh3.googleusercontent.com/d/1QTJWC5lTAZK5N4F-RGe53BxCm95nYMPbvZwkETGSGWQ", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of spending time with friends; mention the disadvantages (1–2) of the two ways of spending time with friends; express your opinion on the subject of the project — say which of the ways of spending time with friends presented in the pictures you'd prefer and why." },
+{ variant: 12, project: "Capturing Nature", image: "https://lh3.googleusercontent.com/d/1_hVAaVwdHtgSqrzwhDeg4X72Hcz-XYbej5V7EBo8rP4", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of images of nature; mention the disadvantages (1–2) of the two types of images of nature; express your opinion on the subject of the project — say which of these types of pictures of nature you'd prefer to have and why." },
+{ variant: 13, project: "A club to join", image: "https://lh3.googleusercontent.com/d/1zx8QoqdN5bH21S8eUkOm0lyEgYQWpRz_WWgNNBhXYss", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of clubs; mention the disadvantages (1–2) of the two types of clubs; express your opinion on the subject of the project — say which type of clubs you'd prefer to join and why." },
+{ variant: 14, project: "The best way to travel", image: "https://lh3.googleusercontent.com/d/1ivAYz_WvnBll2hizp2dmNxeKieo-9i9rWkPbIqY4iTc", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of travelling; mention the disadvantages (1–2) of the two types of travelling; express your opinion on the subject of the project — say which way of travelling you'd prefer and why." },
+{ variant: 15, project: "A family weekend", image: "https://lh3.googleusercontent.com/d/1E6DNpqyliWmpd4kFwOarq-LgZ9DnUj1YF7dmi1jGyIk", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of spending a weekend; mention the disadvantages (1–2) of the two ways of spending a weekend; express your opinion on the subject of the project — say which way of spending a family weekend you prefer and why." },
+{ variant: 16, project: "Toys for kids", image: "https://lh3.googleusercontent.com/d/1Zm0xD1iWBsiMZVa5JgGaXRWghwBLPz8vu6DdJ8FJP3U", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of toys for kids; mention the disadvantages (1–2) of the two types of toys for kids; express your opinion on the subject of the project — say which type of toys you preferred as a kid and why." },
+{ variant: 17, project: "Keeping young", image: "https://lh3.googleusercontent.com/d/1xJblhCZwmzpw41wCP9_9X13Ofi4zdbri8hxhtVVC17E", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of keeping young for the elderly people; mention the disadvantages (1–2) of the two ways of keeping young for the elderly people; express your opinion on the subject of the project — say which way of keeping young your elderly relatives prefer and why." },
+{ variant: 18, project: "Birthday celebrations", image: "https://lh3.googleusercontent.com/d/19xsCHcU8XFEFTqywvZmzA_GeR0p3MHIFUFpDr5QAYf8", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two kinds of birthday celebrations; mention the disadvantages (1–2) of the two kinds of birthday celebrations; express your opinion on the subject of the project — say which way of celebrating your birthday you preferred as a child and why." },
+{ variant: 19, project: "Keeping fit", image: "https://lh3.googleusercontent.com/d/1WHm0EhxJjKorAJD06BeQPLX5fOtzyHrABDMYOYPZ_FE", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two ways of keeping fit; mention the disadvantages (1–2) of the two ways of keeping fit; express your opinion on the subject of the project — say which way of keeping fit you prefer and why." },
+{ variant: 20, project: "Food choices", image: "https://lh3.googleusercontent.com/d/1DHXSv5HMIO34xzQ4FxMGYT0TK6hzC0mABWcbC8Yux3U", prompt: "explain the choice of the illustrations for the project by briefly describing them and noting the differences; mention the advantages (1–2) of the two types of food; mention the disadvantages (1–2) of the two types of food; express your opinion on the subject of the project — say which type of food you prefer and why." }
+]
+};
+
+// ============================================
+// APP STATE
+// ============================================
+let currentTask = 1;
+let currentVariant = 1;
+let timerInterval = null;
+let timeLeft = 150;
+let isRecording = false;
+let mediaRecorder = null;
+let audioChunks = [];
+let recordedAudioUrl = null;
+let egeData = null;
+let currentStream = null;
+let currentPlaybackSpeed = 1;
+
+let floatingTimer = {
+  taskId: null,
+  remaining: 0,
+  isPrep: true,
+  interval: null,
+  total: 0,
+  isRunning: false
+};
+
+// ============================================
+// DRAGGABLE TIMER
+// ============================================
+let isDragging = false;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
+function makeTimerDraggable() {
+  const timer = document.getElementById('floating-timer');
+  const header = document.getElementById('timerHeader');
+  if (!timer || !header) return;
+  
+  header.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    dragOffsetX = e.clientX - timer.getBoundingClientRect().left;
+    dragOffsetY = e.clientY - timer.getBoundingClientRect().top;
+    timer.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+  
+  document.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    const x = e.clientX - dragOffsetX;
+    const y = e.clientY - dragOffsetY;
+    const maxX = window.innerWidth - timer.offsetWidth - 20;
+    const maxY = window.innerHeight - timer.offsetHeight - 20;
+    timer.style.left = Math.max(20, Math.min(x, maxX)) + 'px';
+    timer.style.top = Math.max(20, Math.min(y, maxY)) + 'px';
+    timer.style.right = 'auto';
+  });
+  
+  document.addEventListener('mouseup', function() {
+    if (isDragging) {
+      isDragging = false;
+      timer.style.cursor = 'move';
+    }
+  });
+  
+  header.addEventListener('touchstart', function(e) {
+    isDragging = true;
+    const touch = e.touches[0];
+    dragOffsetX = touch.clientX - timer.getBoundingClientRect().left;
+    dragOffsetY = touch.clientY - timer.getBoundingClientRect().top;
+    e.preventDefault();
+  }, { passive: false });
+  
+  document.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    const x = touch.clientX - dragOffsetX;
+    const y = touch.clientY - dragOffsetY;
+    const maxX = window.innerWidth - timer.offsetWidth - 20;
+    const maxY = window.innerHeight - timer.offsetHeight - 20;
+    timer.style.left = Math.max(20, Math.min(x, maxX)) + 'px';
+    timer.style.top = Math.max(20, Math.min(y, maxY)) + 'px';
+    timer.style.right = 'auto';
+    e.preventDefault();
+  }, { passive: false });
+  
+  document.addEventListener('touchend', function() { isDragging = false; });
+}
+
+// ============================================
+// DATA MANAGEMENT
+// ============================================
+function loadData() {
+  const saved = localStorage.getItem('egeTrainerData');
+  if (saved) {
+    try {
+      egeData = JSON.parse(saved);
+      showNotification('Данные загружены из памяти', 'success');
+    } catch (e) {
+      egeData = JSON.parse(JSON.stringify(defaultData));
+      showNotification('Использованы данные по умолчанию', 'error');
+    }
+  } else {
+    egeData = JSON.parse(JSON.stringify(defaultData));
+  }
+}
+
+function saveData() {
+  localStorage.setItem('egeTrainerData', JSON.stringify(egeData));
+  showNotification('✅ Изменения сохранены!', 'success');
+}
+
+function resetData() {
+  if (confirm('Вы уверены? Все изменения будут потеряны!')) {
+    egeData = JSON.parse(JSON.stringify(defaultData));
+    localStorage.removeItem('egeTrainerData');
+    showNotification('🔄 Данные сброшены к исходным', 'success');
+    loadTask(currentTask, currentVariant);
+  }
+}
+
+// ============================================
+// INITIALIZATION
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+  loadData();
+  initVariantSelector();
+  loadTask(currentTask, currentVariant);
+  setupEventListeners();
+  setupAdminPanel();
+  initAudioContext();
+  makeTimerDraggable();
+});
+
+function initVariantSelector() {
+  const select = document.getElementById('variantSelect');
+  if (!select) return;
+  select.innerHTML = '';
+  for (let i = 1; i <= 20; i++) {
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = 'Вариант ' + i;
+    select.appendChild(option);
+  }
+  select.addEventListener('change', function(e) {
+    currentVariant = parseInt(e.target.value);
+    loadTask(currentTask, currentVariant);
+  });
+}
+
+function setupEventListeners() {
+  const tabs = document.querySelectorAll('.task-tab');
+  for (let i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener('click', function(e) {
+      for (let j = 0; j < tabs.length; j++) tabs[j].classList.remove('active');
+      e.target.classList.add('active');
+      currentTask = parseInt(e.target.dataset.task);
+      loadTask(currentTask, currentVariant);
+    });
+  }
+  
+  const startRecBtn = document.getElementById('startRecording');
+  const stopRecBtn = document.getElementById('stopRecording');
+  const playRecBtn = document.getElementById('playRecording');
+  if (startRecBtn) startRecBtn.addEventListener('click', startRecording);
+  if (stopRecBtn) stopRecBtn.addEventListener('click', stopRecording);
+  if (playRecBtn) playRecBtn.addEventListener('click', playRecording);
+  
+  const adminBtn = document.getElementById('adminBtn');
+  if (adminBtn) adminBtn.addEventListener('click', function() {
+    document.getElementById('adminPanel').classList.add('show');
+    document.getElementById('adminLoginSection').classList.remove('hidden');
+    document.getElementById('adminEditSection').classList.add('hidden');
+  });
+}
+
+// ============================================
+// NOTIFICATION
+// ============================================
+function showNotification(message, type) {
+  if (type === undefined) type = 'success';
+  const notif = document.getElementById('notification');
+  if (!notif) return;
+  notif.textContent = message;
+  notif.className = 'notification ' + type;
+  notif.classList.remove('hidden');
+  setTimeout(function() { notif.classList.add('hidden'); }, 3000);
+}
+
+// ============================================
+// TASK LOADING
+// ============================================
+function loadTask(taskNum, variantNum) {
+  const content = document.getElementById('taskContent');
+  const recordingControls = document.getElementById('recordingControls');
+  if (!content) return;
+  
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  hideFloatingTimer();
+  
+  if (taskNum === 1) timeLeft = 90;
+  else if (taskNum === 2) timeLeft = 90;
+  else if (taskNum === 3) timeLeft = 30;
+  else if (taskNum === 4) timeLeft = 150;
+  
+  switch(taskNum) {
+    case 1: loadTask1(content, variantNum); if (recordingControls) recordingControls.classList.remove('hidden'); break;
+    case 2: loadTask2(content, variantNum); if (recordingControls) recordingControls.classList.remove('hidden'); break;
+    case 3: loadTask3(content, variantNum); if (recordingControls) recordingControls.classList.remove('hidden'); break;
+    case 4: loadTask4(content, variantNum); if (recordingControls) recordingControls.classList.remove('hidden'); break;
+    default: content.innerHTML = '<p>Задание не найдено</p>';
+  }
+  
+  setTimeout(function() { showFloatingTimer(taskNum); }, 100);
+}
+
+function loadTask1(content, variantNum) {
+  const data = egeData.task1.find(function(t) { return t.variant === variantNum; });
+  if (!data) { content.innerHTML = '<p>Данные не найдены</p>'; return; }
+  content.innerHTML = '<h3 class="task-heading">Задание 1 — Чтение текста вслух</h3>' +
+    '<p class="task-label"><strong>Тема:</strong> ' + data.topic + '</p>' +
+    '<div class="text-block">' + data.text + '</div>' +
+    '<div class="task-info"><h4><i class="fas fa-clock"></i> Время на выполнение:</h4><ul>' +
+    '<li>Подготовка: 1 мин 30 сек</li><li>Ответ: 1 мин 30 сек</li></ul></div>';
+}
+
+function loadTask2(content, variantNum) {
+  const data = egeData.task2.find(function(t) { return t.variant === variantNum; });
+  if (!data) { content.innerHTML = '<p>Данные не найдены</p>'; return; }
+  let questionsHtml = '';
+  for (let i = 0; i < data.questions.length; i++) questionsHtml += '<li>' + data.questions[i] + '</li>';
+  content.innerHTML = '<h3 class="task-heading">Задание 2 — Запрос информации</h3>' +
+    '<p class="task-label"><strong>Сценарий:</strong> ' + data.scenario + '</p>' +
+    '<img src="' + data.image + '" alt="Task 2 Image" class="task-image" onerror="this.src=\'https://via.placeholder.com/600x400?text=Image+Not+Found\'">' +
+    '<div class="text-block"><h4 style="color: var(--deep); margin-bottom: 15px; font-family: \'Cormorant Garamond\', serif; font-size: 1.3em;">Задайте 4 прямых вопроса по следующим пунктам:</h4>' +
+    '<ol style="margin-left: 20px; margin-top: 10px; color: var(--text);">' + questionsHtml + '</ol></div>' +
+    '<div class="task-info"><h4><i class="fas fa-clock"></i> Время на выполнение:</h4><ul>' +
+    '<li>Подготовка: 1 мин 30 сек</li><li>Ответ: 20 сек на каждый вопрос</li></ul></div>';
+}
+
+function loadTask3(content, variantNum) {
+  const data = egeData.task3.find(function(t) { return t.variant === variantNum; });
+  if (data && data.audio) {
+    content.innerHTML = '<h3 class="task-heading">Задание 3 — Аудирование</h3>' +
+      '<p class="task-label"><strong>Вариант:</strong> ' + variantNum + '</p>' +
+      '<audio controls class="audio-player"><source src="' + data.audio + '" type="audio/mpeg">Ваш браузер не поддерживает аудио элемент.</audio>' +
+      '<p style="color: var(--text-light); font-style: italic; text-align: center;"><em>Прослушайте аудиофайл и выполните задание</em></p>' +
+      '<div class="task-info"><h4><i class="fas fa-clock"></i> Время на выполнение:</h4><ul>' +
+      '<li>Подготовка: 30 сек</li><li>Ответ: 5 мин (300 сек)</li></ul></div>';
+  } else {
+    content.innerHTML = '<h3 class="task-heading">Задание 3 — Аудирование</h3><p>Аудиофайл для варианта ' + variantNum + ' недоступен</p>';
+  }
+}
+
+function loadTask4(content, variantNum) {
+  const data = egeData.task4.find(function(t) { return t.variant === variantNum; });
+  if (!data) { content.innerHTML = '<p>Данные не найдены</p>'; return; }
+  content.innerHTML = '<h3 class="task-heading">Задание 4 — Монолог с фото</h3>' +
+    '<p class="task-label"><strong>Проект:</strong> ' + data.project + '</p>' +
+    '<img src="' + data.image + '" alt="Task 4 Image" class="task-image" onerror="this.src=\'https://via.placeholder.com/600x400?text=Image+Not+Found\'">' +
+    '<div class="text-block"><h4 style="color: var(--deep); margin-bottom: 15px; font-family: \'Cormorant Garamond\', serif; font-size: 1.3em;">В течение 2.5 минут будьте готовы:</h4>' +
+    '<ul style="color: var(--text); line-height: 1.8;"><li>' + data.prompt + '</li></ul></div>' +
+    '<div class="task-info"><h4><i class="fas fa-clock"></i> Время на выполнение:</h4><ul>' +
+    '<li>Подготовка: 2 мин 30 сек</li><li>Ответ: 3 мин (12-15 предложений)</li></ul></div>';
+}
+
+// ============================================
+// FLOATING TIMER
+// ============================================
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+}
+
+function getTaskTimes(taskId) {
+  if (taskId === 4) return { prep: 150, response: 180 };
+  else if (taskId === 3) return { prep: 30, response: 300 };
+  else if (taskId === 2) return { prep: 90, response: 80 };
+  else return { prep: 90, response: 90 };
+}
+
+function showFloatingTimer(taskId) {
+  const timer = document.getElementById('floating-timer');
+  if (!timer) return;
+  floatingTimer.taskId = taskId;
+  const times = getTaskTimes(taskId);
+  floatingTimer.remaining = times.prep;
+  floatingTimer.isPrep = true;
+  floatingTimer.total = times.prep;
+  floatingTimer.isRunning = false;
+  
+  document.getElementById('floating-timer-task-name').textContent = 'Задание ' + taskId;
+  document.getElementById('floating-timer-time').textContent = formatTime(floatingTimer.remaining);
+  document.getElementById('floating-timer-phase').textContent = 'Подготовка';
+  document.getElementById('floating-timer-label').textContent = 'Осталось';
+  document.getElementById('floating-timer-bar').style.width = '100%';
+  document.getElementById('floating-timer-bar').className = 'floating-timer-bar';
+  document.getElementById('floating-timer-start').disabled = false;
+  document.getElementById('floating-timer-start').innerHTML = '<i class="fas fa-play"></i>';
+  document.getElementById('floating-timer-pause').disabled = true;
+  document.getElementById('floating-recording-panel').classList.remove('active');
+  
+  timer.classList.remove('hidden');
+  timer.classList.add('slide-in');
+}
+
+function hideFloatingTimer() {
+  const timer = document.getElementById('floating-timer');
+  if (!timer) return;
+  timer.classList.add('hidden');
+  timer.classList.remove('slide-in');
+  if (floatingTimer.interval) { clearInterval(floatingTimer.interval); floatingTimer.interval = null; }
+  if (isRecording) stopStudentRecord();
+}
+
+function startFloatingTimer(isPrep) {
+  if (isPrep === undefined) isPrep = true;
+  const times = getTaskTimes(floatingTimer.taskId);
+  const totalTime = isPrep ? times.prep : times.response;
+  if (floatingTimer.interval) clearInterval(floatingTimer.interval);
+  
+  floatingTimer.isPrep = isPrep;
+  floatingTimer.remaining = totalTime;
+  floatingTimer.total = totalTime;
+  floatingTimer.isRunning = true;
+  
+  const phaseEl = document.getElementById('floating-timer-phase');
+  const startBtn = document.getElementById('floating-timer-start');
+  const pauseBtn = document.getElementById('floating-timer-pause');
+  const barEl = document.getElementById('floating-timer-bar');
+  const timerEl = document.getElementById('floating-timer-time');
+  
+  phaseEl.textContent = isPrep ? 'Подготовка' : 'Ответ';
+  barEl.style.width = '100%';
+  barEl.className = 'floating-timer-bar';
+  startBtn.disabled = true;
+  startBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+  pauseBtn.disabled = false;
+  
+  let warningPlayed = false;
+  if (!isPrep) setTimeout(function() { startStudentRecord(floatingTimer.taskId); }, 500);
+  
+  floatingTimer.interval = setInterval(function() {
+    floatingTimer.remaining--;
+    timerEl.textContent = formatTime(floatingTimer.remaining);
+    timerEl.classList.remove('tick');
+    void timerEl.offsetWidth;
+    timerEl.classList.add('tick');
+    
+    const progress = (floatingTimer.remaining / floatingTimer.total) * 100;
+    barEl.style.width = progress + '%';
+    barEl.className = 'floating-timer-bar';
+    
+    if (floatingTimer.remaining <= 10) {
+      barEl.classList.add('urgent');
+      document.getElementById('floating-timer').classList.add('urgent');
+      document.getElementById('floating-timer').classList.remove('warning');
+    } else if (floatingTimer.remaining <= 30) {
+      barEl.classList.add('warning');
+      document.getElementById('floating-timer').classList.add('warning');
+      document.getElementById('floating-timer').classList.remove('urgent');
+      if (!warningPlayed) { playWarningSound(); warningPlayed = true; }
+    }
+    
+    if (floatingTimer.remaining <= 0) {
+      clearInterval(floatingTimer.interval);
+      timerEl.textContent = "00:00";
+      if (floatingTimer.isPrep) {
+        if (confirm('⏰ Время подготовки истекло!\nНачать отсчет времени на ответ?')) startFloatingTimer(false);
+        else resetFloatingTimer();
+      } else {
+        alert('⏰ Время на ответ вышло!');
+        stopStudentRecord();
+        resetFloatingTimer();
+      }
+    }
+  }, 1000);
+}
+
+function pauseFloatingTimer() {
+  if (floatingTimer.interval) {
+    clearInterval(floatingTimer.interval);
+    floatingTimer.interval = null;
+    floatingTimer.isRunning = false;
+    const startBtn = document.getElementById('floating-timer-start');
+    const pauseBtn = document.getElementById('floating-timer-pause');
+    startBtn.disabled = false;
+    startBtn.innerHTML = '<i class="fas fa-play"></i>';
+    pauseBtn.disabled = true;
+  }
+}
+
+function resetFloatingTimer() {
+  if (floatingTimer.interval) { clearInterval(floatingTimer.interval); floatingTimer.interval = null; }
+  const times = getTaskTimes(floatingTimer.taskId);
+  floatingTimer.remaining = times.prep;
+  floatingTimer.isPrep = true;
+  floatingTimer.total = times.prep;
+  floatingTimer.isRunning = false;
+  
+  const timerEl = document.getElementById('floating-timer-time');
+  const phaseEl = document.getElementById('floating-timer-phase');
+  const barEl = document.getElementById('floating-timer-bar');
+  const startBtn = document.getElementById('floating-timer-start');
+  const pauseBtn = document.getElementById('floating-timer-pause');
+  const timer = document.getElementById('floating-timer');
+  
+  timerEl.textContent = formatTime(floatingTimer.remaining);
+  phaseEl.textContent = 'Подготовка';
+  barEl.style.width = '100%';
+  barEl.className = 'floating-timer-bar';
+  timer.classList.remove('warning', 'urgent');
+  startBtn.disabled = false;
+  startBtn.innerHTML = '<i class="fas fa-play"></i>';
+  pauseBtn.disabled = true;
+}
+
+function skipPreparation() {
+  if (floatingTimer.isPrep) {
+    if (confirm('Пропустить подготовку и начать запись ответа?')) startFloatingTimer(false);
+  }
+}
+
+function setPlaybackSpeed(speed) {
+  currentPlaybackSpeed = speed;
+  const buttons = document.querySelectorAll('.speed-btn');
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove('active');
+    if (buttons[i].textContent.indexOf(speed.toString()) !== -1) buttons[i].classList.add('active');
+  }
+}
+
+// ============================================
+// RECORDING
+// ============================================
+async function startStudentRecord(taskId) {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true, sampleRate: 44100 }
+    });
+    currentStream = stream;
+    mediaRecorder = new MediaRecorder(stream, {
+      mimeType: MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4'
+    });
+    audioChunks = [];
+    
+    mediaRecorder.ondataavailable = function(event) {
+      if (event.data.size > 0) audioChunks.push(event.data);
+    };
+    
+    mediaRecorder.onstop = function() {
+      const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+      recordedAudioUrl = URL.createObjectURL(audioBlob);
+      const audioElement = document.getElementById('audioPlayback');
+      if (audioElement) {
+        audioElement.src = recordedAudioUrl;
+        audioElement.style.display = 'block';
+        audioElement.classList.remove('hidden');
+      }
+      document.getElementById('floating-recording-panel').classList.remove('active');
+      const status = document.getElementById('recordingStatus');
+      if (status) {
+        status.textContent = "✓ Запись готова!";
+        status.style.background = "linear-gradient(135deg, rgba(212,241,232,0.6), rgba(232,223,245,0.6))";
+        status.style.color = "var(--success)";
+      }
+      const playBtn = document.getElementById('playRecording');
+      if (playBtn) playBtn.disabled = false;
+      const floatingPlayBtn = document.getElementById('floating-play-record');
+      if (floatingPlayBtn) floatingPlayBtn.disabled = false;
+      if (currentStream) { currentStream.getTracks().forEach(function(track) { track.stop(); }); currentStream = null; }
+    };
+    
+    mediaRecorder.start();
+    isRecording = true;
+    document.getElementById('floating-recording-panel').classList.add('active');
+    const recBtn = document.getElementById('startRecording');
+    if (recBtn) { recBtn.classList.add('recording'); recBtn.innerHTML = '<i class="fas fa-stop"></i> Остановить'; }
+    const status = document.getElementById('recordingStatus');
+    if (status) { status.textContent = "🔴 Идет запись ответа"; status.className = "recording-status recording"; }
+  } catch (err) { alert('Ошибка: ' + err.message); }
+}
+
+function stopStudentRecord() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+  isRecording = false;
+  document.getElementById('floating-recording-panel').classList.remove('active');
+  const recBtn = document.getElementById('startRecording');
+  if (recBtn) { recBtn.classList.remove('recording'); recBtn.innerHTML = '<i class="fas fa-microphone"></i> Запись'; }
+  const status = document.getElementById('recordingStatus');
+  if (status) { status.textContent = "✅ Запись завершена"; status.className = "recording-status stopped"; }
+  if (currentStream) { currentStream.getTracks().forEach(function(track) { track.stop(); }); currentStream = null; }
+}
+
+async function startRecording() { await startStudentRecord(currentTask); }
+function stopRecording() { stopStudentRecord(); }
+
+function playRecording() {
+  const audio = document.getElementById('audioPlayback');
+  if (audio && audio.src) audio.play();
+  else alert('Сначала запишите ответ');
+}
+
+function playStudentRecordFromWidget() {
+  if (recordedAudioUrl) {
+    const audio = new Audio(recordedAudioUrl);
+    audio.playbackRate = currentPlaybackSpeed;
+    audio.play();
+  } else alert('Сначала запишите голос!');
+}
+
+// ============================================
+// AUDIO WARNING
+// ============================================
+let audioContext = null;
+
+function initAudioContext() {
+  try { audioContext = new (window.AudioContext || window.webkitAudioContext)(); }
+  catch(e) { console.log('Web Audio API не поддерживается'); }
+}
+
+function playWarningSound() {
+  if (!audioContext) return;
+  try {
+    const now = audioContext.currentTime;
+    const oscillator1 = audioContext.createOscillator();
+    const oscillator2 = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    oscillator1.connect(gainNode);
+    oscillator2.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    oscillator1.frequency.value = 523.25;
+    oscillator2.frequency.value = 659.25;
+    gainNode.gain.setValueAtTime(0.3, now);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 1.5);
+    oscillator1.start(now);
+    oscillator2.start(now);
+    oscillator1.stop(now + 1.5);
+    oscillator2.stop(now + 1.5);
+  } catch(e) { console.log('Не удалось воспроизвести звук'); }
+}
+
+// ============================================
+// ADMIN PANEL
+// ============================================
+function setupAdminPanel() {
+  const loginBtn = document.getElementById('adminLogin');
+  const closeBtn = document.getElementById('adminClose');
+  const loadBtn = document.getElementById('loadForEdit');
+  const saveBtn = document.getElementById('saveChanges');
+  const resetBtn = document.getElementById('resetToDefault');
+  const closeAdminBtn = document.getElementById('closeAdmin');
+  
+  if (loginBtn) loginBtn.addEventListener('click', function() {
+    const password = document.getElementById('adminPassword').value;
+    if (password === '01051') {
+      document.getElementById('adminLoginSection').classList.add('hidden');
+      document.getElementById('adminEditSection').classList.remove('hidden');
+      initAdminVariantSelector();
+      showNotification('🔓 Доступ разрешён!', 'success');
+    } else showNotification('❌ Неверный пароль!', 'error');
+  });
+  
+  if (closeBtn) closeBtn.addEventListener('click', function() {
+    document.getElementById('adminPanel').classList.remove('show');
+    document.getElementById('adminPassword').value = '';
+  });
+  
+  if (loadBtn) loadBtn.addEventListener('click', loadForEdit);
+  if (saveBtn) saveBtn.addEventListener('click', saveChanges);
+  if (resetBtn) resetBtn.addEventListener('click', resetData);
+  if (closeAdminBtn) closeAdminBtn.addEventListener('click', function() {
+    document.getElementById('adminPanel').classList.remove('show');
+  });
+}
+
+function initAdminVariantSelector() {
+  const select = document.getElementById('adminVariantSelect');
+  if (!select) return;
+  select.innerHTML = '';
+  for (let i = 1; i <= 20; i++) {
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = 'Вариант ' + i;
+    select.appendChild(option);
+  }
+}
+
+function loadForEdit() {
+  const taskNum = parseInt(document.getElementById('adminTaskSelect').value);
+  const variantNum = parseInt(document.getElementById('adminVariantSelect').value);
+  const editFields = document.getElementById('editFields');
+  let data;
+  let html = '';
+  
+  if (taskNum === 1) {
+    data = egeData.task1.find(function(t) { return t.variant === variantNum; });
+    html = '<div class="form-group"><label>Тема:</label><input type="text" id="editTopic" value="' + data.topic + '"></div>' +
+      '<div class="form-group"><label>Текст:</label><textarea id="editText">' + data.text + '</textarea></div>';
+  } else if (taskNum === 2) {
+    data = egeData.task2.find(function(t) { return t.variant === variantNum; });
+    html = '<div class="form-group"><label>Сценарий:</label><input type="text" id="editScenario" value="' + data.scenario + '"></div>' +
+      '<div class="form-group"><label>Ссылка на изображение:</label><input type="text" id="editImage" value="' + data.image + '"></div>' +
+      '<div class="form-group"><label>Вопросы (через запятую):</label><textarea id="editQuestions">' + data.questions.join(', ') + '</textarea></div>';
+  } else if (taskNum === 3) {
+    data = egeData.task3.find(function(t) { return t.variant === variantNum; });
+    html = '<div class="form-group"><label>Ссылка на аудио:</label><input type="text" id="editAudio" value="' + (data ? data.audio : '') + '"></div>';
+  } else if (taskNum === 4) {
+    data = egeData.task4.find(function(t) { return t.variant === variantNum; });
+    html = '<div class="form-group"><label>Проект:</label><input type="text" id="editProject" value="' + data.project + '"></div>' +
+      '<div class="form-group"><label>Ссылка на изображение:</label><input type="text" id="editImage" value="' + data.image + '"></div>' +
+      '<div class="form-group"><label>Задание (prompt):</label><textarea id="editPrompt">' + data.prompt + '</textarea></div>';
+  }
+  
+  editFields.innerHTML = html;
+  document.getElementById('editForm').classList.remove('hidden');
+}
+
+function saveChanges() {
+  const taskNum = parseInt(document.getElementById('adminTaskSelect').value);
+  const variantNum = parseInt(document.getElementById('adminVariantSelect').value);
+  let data;
+  
+  if (taskNum === 1) {
+    data = egeData.task1.find(function(t) { return t.variant === variantNum; });
+    data.topic = document.getElementById('editTopic').value;
+    data.text = document.getElementById('editText').value;
+  } else if (taskNum === 2) {
+    data = egeData.task2.find(function(t) { return t.variant === variantNum; });
+    data.scenario = document.getElementById('editScenario').value;
+    data.image = document.getElementById('editImage').value;
+    data.questions = document.getElementById('editQuestions').value.split(',').map(function(q) { return q.trim(); });
+  } else if (taskNum === 3) {
+    let dataArr = egeData.task3;
+    let idx = dataArr.findIndex(function(t) { return t.variant === variantNum; });
+    if (idx === -1) dataArr.push({ variant: variantNum, audio: document.getElementById('editAudio').value });
+    else dataArr[idx].audio = document.getElementById('editAudio').value;
+  } else if (taskNum === 4) {
+    data = egeData.task4.find(function(t) { return t.variant === variantNum; });
+    data.project = document.getElementById('editProject').value;
+    data.image = document.getElementById('editImage').value;
+    data.prompt = document.getElementById('editPrompt').value;
+  }
+  
+  saveData();
+  loadTask(currentTask, currentVariant);
+}
+
+document.addEventListener('click', function() {
+  if (!audioContext) initAudioContext();
+}, { once: true });
+</script>
+</body>
+</html>
