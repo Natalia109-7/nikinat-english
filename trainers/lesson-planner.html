@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESL Lesson Planner - Natalie English</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5e6e8 0%, #f9e4e4 50%, #f0e6f0 100%);
+            min-height: 100vh;
+            color: #5a4a6a;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #6a5a7a;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #8a7a9a;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 25px;
+            border: 2px solid #e8d8e8;
+            background: white;
+            color: #6a5a7a;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn:hover {
+            background: #f0e8f0;
+            transform: translateY(-2px);
+        }
+        
+        .tab-btn.active {
+            background: #7a6a8a;
+            color: white;
+            border-color: #7a6a8a;
+        }
+        
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            min-height: 400px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: #6a5a7a;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        
+        label {
+            display: block;
+            margin: 15px 0 8px;
+            font-weight: 600;
+            color: #5a4a6a;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e8d8e8;
+            border-radius: 10px;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #9a8aa8;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #7a6a8a, #9a8aa8);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .result {
+            margin-top: 25px;
+            padding: 25px;
+            background: #f8f4f8;
+            border-left: 4px solid #9a8aa8;
+            border-radius: 10px;
+        }
+        
+        .result h3 {
+            color: #6a5a7a;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .question {
+            background: white;
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border-left: 3px solid #b8a8c8;
+            line-height: 1.6;
+        }
+        
+        .tip {
+            background: #fff4e4;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 12px 0;
+            border-left: 4px solid #f5c878;
+            line-height: 1.6;
+        }
+        
+        .tip strong {
+            color: #6a5a7a;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            .tab-btn {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ESL Lesson Planner</h1>
+            <p class="subtitle">На основе книги Larry Pitts «500 Grammar Based Conversation Questions»</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('plan')">План урока</button>
+            <button class="tab-btn" onclick="showTab('rules')">Правила</button>
+            <button class="tab-btn" onclick="showTab('questions')">Вопросы</button>
+            <button class="tab-btn" onclick="showTab('tips')">Советы</button>
+        </div>
+
+        <!-- Lesson Plan Tab -->
+        <div id="plan" class="tab-content active">
+            <h2>📋 Спланировать урок</h2>
+            <label for="students">Количество студентов:</label>
+            <input type="number" id="students" value="12" min="1" max="50">
+            
+            <label for="numQuestions">Количество вопросов:</label>
+            <input type="number" id="numQuestions" value="10" min="1" max="20">
+            
+            <button class="btn" onclick="calculatePlan()">Рассчитать план</button>
+            
+            <div id="planResult"></div>
+        </div>
+
+        <!-- Rules Tab -->
+        <div id="rules" class="tab-content">
+            <h2>📖 Грамматические правила</h2>
+            <label for="ruleSelect">Выберите тему:</label>
+            <select id="ruleSelect" onchange="showRule()">
+                <option value="">— Выберите тему —</option>
+            </select>
+            <div id="ruleResult"></div>
+        </div>
+
+        <!-- Questions Tab -->
+        <div id="questions" class="tab-content">
+            <h2>🎲 Генератор вопросов</h2>
+            <label for="topicSelect">Тема:</label>
+            <select id="topicSelect" onchange="generateQuestions()">
+                <option value="">— Выберите тему —</option>
+            </select>
+            
+            <label for="numQ">Количество вопросов:</label>
+            <input type="number" id="numQ" value="5" min="1" max="20" onchange="generateQuestions()">
+            
+            <button class="btn" onclick="generateQuestions()">Сгенерировать вопросы</button>
+            
+            <div id="questionsResult"></div>
+        </div>
+
+        <!-- Tips Tab -->
+        <div id="tips" class="tab-content">
+            <h2>💡 Методика Ларри Питтса</h2>
+            <div class="tip"><strong>⏱️ Тайминг:</strong> 1–3 минуты на вопрос. В среднем 20 минут на 10 вопросов.</div>
+            <div class="tip"><strong>👥 Группы:</strong> Идеально — 3 студента. Пары (2) для разговорчивых. По 4 для стеснительных. Пятеро — слишком много!</div>
+            <div class="tip"><strong>❌ Ошибки:</strong> Это нормально! Радуйтесь ошибкам — значит, студенты пробуют новое. Главное — не переходить на родной язык.</div>
+            <div class="tip"><strong>🗣️ Поток речи:</strong> Позвольте разговору течь. Если студенты увлеклись одним вопросом — это отлично, это живой диалог.</div>
+            <div class="tip"><strong>👀 Роль учителя:</strong> Не вмешивайтесь! Мониторьте и делайте заметки. Разбирайте ошибки в конце урока анонимно.</div>
+            <div class="tip"><strong>📊 Показ вопросов:</strong> Показывайте по 5 вопросов за раз — студенты отвечают полнее и тратят больше времени.</div>
+        </div>
+    </div>
+
+    <script>
+        // Database of grammar topics and questions
+        const grammarDB = {
+            "Adverbs of Frequency": {
+                rule: "Ставятся после глагола 'be' и вспомогательных глаголов, но перед основным. Примеры: always, never, often, sometimes, usually, seldom.",
+                questions: [
+                    "How often do you read? What types of books do you like to read?",
+                    "How often do you go out to eat on weekends?",
+                    "How often do you watch TV in the evening? What shows do you like?",
+                    "How often do you eat meat for dinner?",
+                    "How often do you stay up later than you should?",
+                    "How often do you go for walks? Where do you go?",
+                    "How often do you eat fast food for lunch?",
+                    "How often do you sing? What types of music do you sing?",
+                    "How often do you listen to classical music?",
+                    "How often do you go to the movies alone?",
+                    "How often do you go to the beach in summer?",
+                    "How often do you text?",
+                    "How often do you check your email?",
+                    "How often do you check social media platforms like Facebook?",
+                    "How often do you ride a bike to work or school?",
+                    "How often do you ask your friends for help?",
+                    "How often do you skip breakfast?"
+                ]
+            },
+            "As... as (Equatives)": {
+                rule: "Используются для сравнения: 'as... as' (такие же), 'not as... as' (не такие же). Можно с прилагательными, наречиями и квантификаторами.",
+                questions: [
+                    "Are your parents as supportive as your friends?",
+                    "Are the Rolling Stones as well known as the Beatles?",
+                    "Are puzzles as fun as crosswords?",
+                    "Is modern art as beautiful as classical art?",
+                    "Is watching a play as fun as watching a movie?",
+                    "Are cats as fun as dogs?",
+                    "What's as thrilling as a roller coaster ride?",
+                    "What's as delicious as fresh baked cookies?",
+                    "Who is as important as the president of the United States?",
+                    "What travel destinations are as popular as Rome?"
+                ]
+            },
+            "Be going to": {
+                rule: "Формируется: be + going to + verb. Используется для планов/намерений и предсказаний, основанных на доказательствах.",
+                questions: [
+                    "What are you going to do after class?",
+                    "Where are you going to go on your next vacation?",
+                    "What are you going to do this weekend?",
+                    "How are you going to improve yourself or your life in the next three years?",
+                    "Where are you going to eat dinner tonight?",
+                    "When are you going to retire?",
+                    "What's going to be your next big purchase? When are you going to buy it?",
+                    "What show or movie are you going to watch tonight?",
+                    "What are you going to use English for in the future?",
+                    "What's going to be your next big career change?",
+                    "Who are you going to meet this weekend?",
+                    "When are you going to get up tomorrow?",
+                    "What electronic device are you going to buy next?",
+                    "Are you going to play any games today? What are you going to play?",
+                    "What piece of clothing are you going to buy next?",
+                    "What housework are you going to do this week?",
+                    "What are you going to cook this week?"
+                ]
+            },
+            "Comparatives": {
+                rule: "Используются для сравнения двух вещей. Для односложных прилагательных: adjective -er + than. Для многосложных: more + adjective + than.",
+                questions: [
+                    "Is it better to have many friends or just a few close friends?",
+                    "Compare two recent movies. Which one is more entertaining?",
+                    "Which cell phone OS do you think is better? Why?",
+                    "Which is more important, money or happiness?",
+                    "Compare two types of foreign food. Which is more delicious? Which is cheaper?",
+                    "Which is more enjoyable, going to a theme park or going to a museum? Why?",
+                    "Who is more influential, politicians or celebrities?",
+                    "Which is more relaxing, reading a book or watching TV? Why?",
+                    "Do you think that corruption or poverty is a bigger problem? Why?",
+                    "Compare two countries. Which one is a better vacation spot?",
+                    "Is it better to have more free time or more money? Why?",
+                    "Which is more important, friends or family? Why?",
+                    "Is it better to live in the country or in a city? Why?",
+                    "Compare two musicians. Who do you think is more talented?",
+                    "Which is more exciting, playing a video game or playing a sport? Why?",
+                    "Which is more comfortable, a couch or a recliner?",
+                    "Which is a better place to have a vacation, mountains or a beach? Why?"
+                ]
+            },
+            "First Conditional (Real Future)": {
+                rule: "If + Present Simple, will + verb. Используется для реальных возможностей в будущем.",
+                questions: [
+                    "What will you do if someone talks loudly in a movie theater while you're watching a movie?",
+                    "What will you do if you drop your phone in the toilet?",
+                    "If you go out for dinner this evening, what will you eat?",
+                    "What will you do if the power goes out in your home tonight?",
+                    "What will you do if you forget an important birthday?",
+                    "If your friend asks you to go out tomorrow evening, what will you say?",
+                    "What will you do if you crack the screen on your phone?",
+                    "What will you do if you get a raise at work or graduate from university?",
+                    "If it rains this weekend, what will you do?",
+                    "Who will you eat with if you go out to dinner this week?",
+                    "Where will go if you get an unexpected day off?",
+                    "If you meet a celebrity you admire, what will you do?",
+                    "What will countries do if the sea level keeps rising?",
+                    "What will happen if there is another financial crisis?",
+                    "If you need relationship advice, who do you call?",
+                    "What will happen if the European Union splits up?",
+                    "If humans start mining asteroids, what will happen?"
+                ]
+            },
+            "Zero Conditional (Real Present)": {
+                rule: "If + Present Simple, Present Simple. Используется для фактов и вещей, которые происходят всегда одинаково.",
+                questions: [
+                    "What do you do if you're bored?",
+                    "Where do you go if you want to buy clothes?",
+                    "Who do you talk to if you have a problem?",
+                    "Where do you go if you want to read a book?",
+                    "How long does it take you to ask for help if you don't know how to do something?",
+                    "If you can't get a jar open, what do you do?",
+                    "If you go out to eat, what type of food do you eat?",
+                    "If a friend asks you for money, what do you tell them?",
+                    "If you call your parents, how long do you talk?",
+                    "If you go to the movies, do you buy popcorn and drinks? Why or why not?",
+                    "Who do you call if you're lonely?",
+                    "What do you do if you're stressed?",
+                    "If you're in a bad mood, what do you do?",
+                    "If you have a cold, what medicine do you take?",
+                    "If you want to celebrate a special occasion, where do you go or what do you do?",
+                    "Who do you talk to if you need a second opinion on something?",
+                    "What do you do if it's really hot outside?"
+                ]
+            },
+            "Third Conditional (Unreal Past)": {
+                rule: "If + Past Perfect, would have + V3. Используется для воображаемых ситуаций в прошлом.",
+                questions: [
+                    "If you had played more sports, would you have become a professional athlete?",
+                    "Did you grow up in the countryside or the city? If you had grown up in the countryside/city, would you have been more or less successful?",
+                    "If you had been born in a different country, how would your life have been different?",
+                    "If you had studied harder, would your life be any different?",
+                    "If your country's team had won the last world cup, what would you have done?",
+                    "What would you have done if you had won the last lottery?",
+                    "Where would you have moved if you hadn't moved here?",
+                    "What would you have done if you had gotten lost during your last vacation?",
+                    "What type of music would you have sung if you had been a famous singer?",
+                    "What piece of knowledge would have changed your life if you had known it?",
+                    "If you had been born a different gender, would your personality be different?",
+                    "If you had been born 100 years ago, would your life be better or worse?",
+                    "If your parents had been rich, how would your life be different now?",
+                    "If you hadn't been born in your country, what country would to want to be from?",
+                    "What language would you have studied if you hadn't studied English?",
+                    "What would be different if you had gotten different friends?",
+                    "Talk about a small decision that changed your life. What would have happened if you had made a different decision?"
+                ]
+            },
+            "Second Conditional (Unreal Present)": {
+                rule: "If + Past Simple, would + verb. Используется для воображаемых/нереальных ситуаций в настоящем или будущем.",
+                questions: [
+                    "What would you do if you were elected the leader of your country?",
+                    "What would you tell yourself if you could go back in time and talk to your younger self?",
+                    "If you could create a superhero, what would their power and name be?",
+                    "What would you do if you were the second richest person in the world?",
+                    "Who would you marry if you could marry anyone in the world?",
+                    "If you could take one thing from the past and bring it to the present, what would it be?",
+                    "If you were able to change places with one person for one day, who would the person be? What would you do?",
+                    "If you could choose to live forever, would you?",
+                    "If you were an animal, what animal would you be?",
+                    "If you had only one week to live, what would you do?",
+                    "What year would you travel to if you had a time machine?",
+                    "If you could meet any three people from any time or place who would you meet?",
+                    "What spell would you want to know if you were a wizard?",
+                    "If you could have any animal as a pet, what animal would you want?",
+                    "If you were famous, what would you be famous for?",
+                    "If you could be a master at one skill, what would you be a master of?",
+                    "What would you want if you could eat anything right now?"
+                ]
+            },
+            "For, Since": {
+                rule: "For используется для указания продолжительности. Since — для указания начальной точки действия.",
+                questions: [
+                    "What's your most prized possession? How long have you had it?",
+                    "Do you play a sport? How long have you played it?",
+                    "How long have you been a fan of your favorite singer or group?",
+                    "What's the longest time you've slept?",
+                    "How long have you had your watch?",
+                    "What's the longest amount of time you've spent alone?",
+                    "How long have you had your phone?",
+                    "How long have you been awake today?",
+                    "How long has your country been a country?",
+                    "How long have you been a student here?",
+                    "What's one of your hobbies? How long have you been doing it?",
+                    "What piece of clothing have you had the longest? How long have you had it?",
+                    "How long have you had your shoes?",
+                    "How long has the leader of your country been in power?",
+                    "How long have you had your TV?",
+                    "Who is your favorite sports team? How long have you been a fan?",
+                    "What's your favorite restaurant? How long has it been open? How long have you been going to it?"
+                ]
+            },
+            "Gerunds": {
+                rule: "Герундий — это глагол с окончанием -ing, который функционирует как существительное. Используется после определённых глаголов (enjoy, avoid, consider и др.).",
+                questions: [
+                    "What's something you avoid doing?",
+                    "Is there something you're considering doing? What is it?",
+                    "What are some activities you dislike?",
+                    "What type of exercise do you hate?",
+                    "What kinds of activities does your job or studies involve?",
+                    "What housework do you not mind doing?",
+                    "Is there anything you keep doing even though you know you shouldn't?",
+                    "What are some high school activities you miss doing?",
+                    "What activities do you recommend to stay healthy?",
+                    "What's an activity you practice every week?",
+                    "Do you think that playing games is a worthwhile activity? Why or why not?",
+                    "What do you enjoy doing on the weekend?",
+                    "What do you delay doing until the last minute?",
+                    "What are some habits you dislike?",
+                    "What's something you keep thinking about doing but haven't?",
+                    "What do you plan on doing after class?",
+                    "What do you always complain about doing?"
+                ]
+            },
+            "Infinitives": {
+                rule: "Инфинитив (to + verb) используется после определённых глаголов (want, hope, plan, decide и др.).",
+                questions: [
+                    "What's some work you choose to do even though you don't have to do it?",
+                    "What's something you hope to do in the future?",
+                    "What's something you always forget to do?",
+                    "What do you want to do after class?",
+                    "What do you tend to do when you're sad?",
+                    "What's something you tried to do but failed at?",
+                    "Is there anything you refuse to eat?",
+                    "Where do you plan to go on your next vacation?",
+                    "Have you ever vowed to do something?",
+                    "Is there anything you're striving to do?",
+                    "Where are some places you want to go on vacation?",
+                    "Do you ever pretend to work? Why?",
+                    "What do you tend to do when it's raining?",
+                    "What's something you're yearning to do?",
+                    "What do you want to do this weekend?",
+                    "What are some crazy things you've tried to do?",
+                    "What's the next big project you plan to do?",
+                    "What are some things you're glad you agreed to do?"
+                ]
+            },
+            "Imperatives": {
+                rule: "Повелительное наклонение используется для инструкций, советов, приказов и предложений. Образуется с помощью базовой формы глагола.",
+                questions: [
+                    "Tell me how to make some kind of delicious food.",
+                    "What should someone do if there is an earthquake?",
+                    "How do I get to a good restaurant near here?",
+                    "What are your best tips for a happy marriage?",
+                    "Tell me step by step how to make a lot of money.",
+                    "What should I do if I see someone who is cut very badly?",
+                    "What's a card game from your country? How do I play it?",
+                    "How does a person find the perfect man or woman?",
+                    "What are your best tips to live a happy life?",
+                    "How do I get to the nearest bus stop?",
+                    "Can you give some tips for surviving a flood?",
+                    "What should I do if there is a flood?",
+                    "Tell me some tips for a hobby you have.",
+                    "What should I do if I'm in a car accident?",
+                    "Tell me how to plan a great vacation.",
+                    "Can you tell me how to do a traditional dance from your country?",
+                    "What should someone do to escape a burning building?"
+                ]
+            },
+            "Modals of Advice": {
+                rule: "Should, ought to, had better используются для советов. Had better — самый сильный, подразумевает негативные последствия при невыполнении.",
+                questions: [
+                    "Where should I go on my next vacation?",
+                    "What should a person look for when dating?",
+                    "Should a husband and wife share household chores? Why or why not?",
+                    "What are some things a person ought to do to get a good job?",
+                    "What are two things a person ought to do to have a happy life?",
+                    "What are some things a person had better or had better not do during a job interview?",
+                    "What are some things I'd better not do if I want to live a long time?",
+                    "Who are some musicians or bands I ought to listen to?",
+                    "Where should I go to buy electronics?",
+                    "Should the work week be four days instead of five? Why or why not?",
+                    "What's something every person should do before they die?",
+                    "What are two things a person ought to do if they visit your country?",
+                    "Are there any things a tourist had better not do if they visit your country?",
+                    "How old should a person be before they can buy cigarettes? How about alcohol?",
+                    "What are some things parents had better teach their children?",
+                    "What's something that isn't a law but should be?",
+                    "What's one thing everyone ought to study?",
+                    "What are some things I'd better do when traveling abroad?"
+                ]
+            },
+            "Modals of Necessity": {
+                rule: "Must, have to, have got to выражают необходимость. Must — самый сильный, have to — самый распространённый.",
+                questions: [
+                    "What are some things you have to do when you get home?",
+                    "What are some things you must do or must not do when you go to the airport?",
+                    "What do students have to do if they want to improve their English?",
+                    "What are some unusual or harsh laws in your country?",
+                    "Which types of workers have to work the hardest?",
+                    "What are some things you must or must not do at your job or university?",
+                    "Is there anywhere you have to go after class?",
+                    "What does a person have to do to become successful?",
+                    "What are some things you have to do but don't want to?",
+                    "What must a person do to be happy?",
+                    "Who is someone you must listen to?",
+                    "What are some interesting customs in your country that people have to follow?",
+                    "Where must you go even though you don't want to?",
+                    "How many hours of sleep do you have to get to function normally?",
+                    "Is there anything that you have to eat at least once a week?",
+                    "What are two things your parents said you must do?",
+                    "What are some things all humans have to work together to accomplish?"
+                ]
+            },
+            "Modals of Possibility": {
+                rule: "May, might, could — возможность. Must — уверенность. Can't — невозможность.",
+                questions: [
+                    "What are some things you may do this evening?",
+                    "What are three good things that may happen soon in your life?",
+                    "Is there anything you can't do even though you want to?",
+                    "What movie might win the Academy Award for best picture this year?",
+                    "Is there anything that could make you change your major or quit your job?",
+                    "Where might you be living in 5 years?",
+                    "What are two things that could make you much happier?",
+                    "What are some goals you might accomplish in the future?",
+                    "In what ways do you think your country may improve in the future?",
+                    "What are three things all humans must learn to do better?",
+                    "What are some problems the world might face in the future?",
+                    "What are some things that could improve the economy in your country?"
+                ]
+            },
+            "Count/Noncount Nouns": {
+                rule: "Count nouns можно посчитать (имеют множественное число). Noncount nouns нельзя посчитать (не имеют множественного числа).",
+                questions: [
+                    "How much water do you drink in a day?",
+                    "What kinds of food do you eat regularly?",
+                    "What did you order last time you went to a restaurant?",
+                    "Do you eat any special foods on New Year's Day? If so, what do you eat?",
+                    "What are some of your favorite types of vegetables?",
+                    "What's your favorite type of meat? Why is it better than other types?",
+                    "What would you like to grow if you had a garden?",
+                    "What types of ingredients go into your favorite dish?",
+                    "What are some unhealthy foods that you love?",
+                    "What spices do you use most when you cook?",
+                    "What do you usually order when you go to your favorite fast food restaurant?",
+                    "What do you eat when you go to watch a movie?",
+                    "Do you prefer eating utensils made from wood, metal, or plastic?",
+                    "What's your favorite fruit? How much do you usually eat in one sitting?",
+                    "What drink do you like to have with meals?",
+                    "What kind of condiments do you use a lot? What types of food do you put them on?",
+                    "What do you eat when it's cold outside?"
+                ]
+            },
+            "Present Passive": {
+                rule: "Образуется: am/is/are + Past Participle. Используется, когда исполнитель не важен или неизвестен.",
+                questions: [
+                    "Where are the best suits made?",
+                    "Who are the best cell phones made by?",
+                    "Where are the worst cars made?",
+                    "Where is most of the world's oil extracted?",
+                    "What is the process to make a great wine?",
+                    "Where are the best football players born?",
+                    "Where are most technical advances made?",
+                    "Where are the best watches made?",
+                    "Who are the best TVs made by?",
+                    "What do you know the process for making? What are the steps for making it?",
+                    "In what country is football played most?",
+                    "Who are the best films directed by?",
+                    "Where are most computers made?",
+                    "Who are the best shoes made by?",
+                    "Who are the best cars made by?",
+                    "What sports are played most in your country?",
+                    "Where is the best tea grown?",
+                    "Where are the best games created?"
+                ]
+            },
+            "Past Passive": {
+                rule: "Образуется: was/were + Past Participle. Используется для описания действий в прошлом, когда исполнитель не важен.",
+                questions: [
+                    "Who were your clothes made by?",
+                    "Have you ever had anything stolen from you?",
+                    "Who was your phone made by?",
+                    "Who were your shoes made by?",
+                    "Where were you born? Were you raised there, too?",
+                    "What's your favorite book? Who was it written by?",
+                    "What's your favorite song? Who was it sung by?",
+                    "What's your favorite movie? Who was it directed by?",
+                    "Talk about when you were given bad service at a restaurant.",
+                    "Where were you first exposed to English?",
+                    "Who was your favorite game made by?",
+                    "Who were the best plays written by?",
+                    "Who were the greatest symphonies composed by?",
+                    "In what country were the greatest works of art created?",
+                    "What's the greatest invention? Who was it invented by? Where was it invented?",
+                    "What's the most important building in your country's history? Who was it built by? When was it built?",
+                    "What is the most mysterious monument from your country's history? What do you think it was used for? When was it made?"
+                ]
+            },
+            "Past Continuous": {
+                rule: "Was/were + verb-ing. Используется для действий, продолжавшихся в определённый момент в прошлом.",
+                questions: [
+                    "What were you doing yesterday at 3pm?",
+                    "What were your friends doing Saturday evening?",
+                    "What were you doing right before class?",
+                    "Who were you talking to yesterday afternoon?",
+                    "What were you eating the last time you spilled food on your clothes?",
+                    "What were you doing Friday night at 9pm?",
+                    "What were you doing last New Year's Eve at 11:30pm?",
+                    "Were you watching a movie last Sunday at 8pm?",
+                    "Who were you texting before class?",
+                    "What were you doing yesterday at nine in the morning?",
+                    "What TV show were you watching Monday night?",
+                    "What were you doing the last time you got a phone call?",
+                    "Were you working hard last night? What were you doing?",
+                    "What were you doing last Christmas morning at 10am?",
+                    "What were you doing the last time you got caught in the rain?",
+                    "What were you doing while you were eating dinner last night?",
+                    "What were you doing the last time someone told you to stop being childish?"
+                ]
+            },
+            "Present Perfect": {
+                rule: "Have/has + Past Participle. Используется для опыта, действий, начавшихся в прошлом и продолжающихся сейчас.",
+                questions: [
+                    "Where are some places you've been on vacation?",
+                    "What are some strange types of food you've eaten?",
+                    "How many times have you been to a theme park? Which ones have you been to?",
+                    "What different countries have you traveled to?",
+                    "What are some good restaurants you've eaten at?",
+                    "What's something you've done that you're very proud of?",
+                    "What interesting hobbies have you tried?",
+                    "What are some wild things (e.g. bungee jumping) you've tried?",
+                    "What's something you've started but haven't finished yet?",
+                    "Have you tried Thai or Turkish food? What other international cuisine have you tried?",
+                    "What are some hobbies you've tried?",
+                    "Have you broken any bones? Which ones have you broken? What happened?",
+                    "Where are some interesting places you've been in your country?",
+                    "What animals have you ridden?",
+                    "Have you ever been camping? Where have you camped?",
+                    "Have you ever gone fishing? What types of fish have you caught?",
+                    "Who have you met that is famous or slightly famous?"
+                ]
+            },
+            "Present Perfect Continuous": {
+                rule: "Have/has been + verb-ing. Используется для действий, начавшихся в прошлом и продолжающихся до сих пор.",
+                questions: [
+                    "What's a project you've been working on for a while?",
+                    "Have you been eating healthy or unhealthy food recently?",
+                    "What have you been doing to improve yourself this year?",
+                    "What music have you been listening to recently?",
+                    "Who have you been hanging out with a lot this month and last month?",
+                    "Where have you been going a lot this month?",
+                    "How long have you been attending this school?",
+                    "Have you been exercising this month and last month?",
+                    "What have you been doing in your spare time this week?",
+                    "What sports teams have you been following recently?",
+                    "Have you been trying anything new recently?",
+                    "Who have you been talking with the last few days?",
+                    "Where have you been going a lot in the past couple of weeks?",
+                    "Have you been getting enough sleep?",
+                    "What game have you been playing a lot recently?",
+                    "Are there any news stories you've been following?",
+                    "What have you been thinking about buying?"
+                ]
+            },
+            "Quantifiers": {
+                rule: "Слова, указывающие на количество: many/much, a lot of, some, any, few, little и др.",
+                questions: [
+                    "How much fruit do you eat in a week?",
+                    "How many times do you go to the movies in a month?",
+                    "How many phone calls have you made this week?",
+                    "How much of a pizza do you eat during one meal?",
+                    "How many games have you downloaded on your phone?",
+                    "Do any members of your family smoke? How many cigarettes do they smoke in a day?",
+                    "How many songs do you have on your phone?",
+                    "How many DVDs do you have at home? How about VHS tapes?",
+                    "How many vinyl records do you have at home?",
+                    "How much time do you spend on your phone every day?",
+                    "How much water do you drink in a day?",
+                    "How much money do you spend on going out to eat every week?",
+                    "How much soda do you drink in a week?",
+                    "How many pets have you owned?",
+                    "How many hours do you spend playing games every week?",
+                    "How much money do you spend on vacations every year?",
+                    "How much foreign food do you eat?"
+                ]
+            },
+            "Reported Speech": {
+                rule: "Используется для передачи чужих слов. При переходе от прямой речи к косвенной времена обычно сдвигаются в прошлое.",
+                questions: [
+                    "What's some advice your parents told you?",
+                    "What did one of your teachers always tell you to do?",
+                    "What was the last question someone asked you?",
+                    "What's something strange someone said to you recently?",
+                    "What was the last time someone asked you to do something? What did they ask?",
+                    "What did you parents always tell you to do?",
+                    "What was a great piece of advice that someone gave to you?",
+                    "When was the last time someone asked you for money? What did they say?",
+                    "What's something you always tell people about yourself?",
+                    "Has anyone told you an interesting piece of news recently? What did they tell you?",
+                    "What did the last homeless person you met say to you?",
+                    "What's some advice you gave a friend recently?",
+                    "What was a surprising question that someone asked you?",
+                    "What's a memorable quote from someone you look up to?",
+                    "What did your parents always tell you not to do?",
+                    "What do you say to telemarketers when they call?",
+                    "What was the last thing you said to your friend?"
+                ]
+            },
+            "Simple Past": {
+                rule: "Используется для завершённых действий в прошлом. Правильные глаголы: verb + ed. Неправильные — нужно запоминать.",
+                questions: [
+                    "What did you do yesterday?",
+                    "Where did you go on your last vacation?",
+                    "What was the last restaurant you went to? How was it?",
+                    "What did you do last weekend?",
+                    "What did you eat for lunch yesterday?",
+                    "What was the last movie you saw? How was it?",
+                    "Who did you hang out with last? What did you do together?",
+                    "Talk about the last time you were surprised by something.",
+                    "What was the last game you played?",
+                    "When was the last time you rode a bicycle?",
+                    "Were you a well behaved child? Explain.",
+                    "What was a funny movie you watched recently?",
+                    "Talk about a time you were lost.",
+                    "Where did you grow up? What was it like?",
+                    "What was the last book you read?",
+                    "What did you do this morning?",
+                    "Tell me about the last time you were really excited."
+                ]
+            },
+            "Simple Present": {
+                rule: "Используется для фактов, привычек и регулярных действий. Для he/she/it добавляется -s.",
+                questions: [
+                    "What do you do to get rid of stress?",
+                    "What do you eat or drink when it is really hot outside?",
+                    "What TV shows do you watch regularly?",
+                    "Where do you usually eat lunch?",
+                    "What do you do if you are bored?",
+                    "Who do you hang out with most?",
+                    "What app do you use the most?",
+                    "When do you usually wake up?",
+                    "Who do you talk to when you have problems?",
+                    "Do you prefer meat or fresh vegetables?",
+                    "When you're on vacation, do you relax or try to do many things?",
+                    "What do you do if you need to learn about something?",
+                    "Do you like to try new things? Why or why not?",
+                    "What are some hobbies you have?",
+                    "When do you buy a new phone? (i.e. when a new phone comes out, your phone breaks, etc.)",
+                    "What do you do to help yourself fall asleep?",
+                    "Do you dance when no one is watching? When do you dance?"
+                ]
+            },
+            "Superlatives": {
+                rule: "Используются для сравнения одного объекта со всеми остальными в группе. The + adjective -est или the most + adjective.",
+                questions: [
+                    "What's the largest structure you've ever seen?",
+                    "What's the most delicious meal you've ever eaten?",
+                    "What's the most amazing hotel you've stayed at?",
+                    "Who is your best friend? Why are they your best friend?",
+                    "What's the worst recent movie?",
+                    "What's the most exciting thing you've ever done?",
+                    "What's the most popular tourist attraction in your country?",
+                    "What's the saddest book you've ever read?",
+                    "What's the most inspirational book you've ever read?",
+                    "Where is the best place to go to think?",
+                    "When was the most exciting period of your life?",
+                    "Who is the happiest person you know?",
+                    "What's the most addictive game you've ever played?",
+                    "Where is the worst place in your country to live? How about the best place to live?",
+                    "What's the greatest TV series you've watched?",
+                    "What's the weirdest movie you have ever seen?",
+                    "What's the strangest restaurant or bar you've been to?"
+                ]
+            },
+            "Tag Questions": {
+                rule: "Короткие вопросы в конце предложения для подтверждения информации или поиска согласия.",
+                questions: [
+                    "You have a job, don't you?",
+                    "You've been abroad, haven't you?",
+                    "You haven't been to Disney World, have you?",
+                    "You can speak three languages, can't you?",
+                    "You're not going to work this weekend, are you?",
+                    "You'll go on vacation soon, won't you?",
+                    "You don't like pizza, do you?",
+                    "You haven't been to Mongolia, have you?",
+                    "You play a lot of mobile games, don't you?",
+                    "You got enough sleep last night, didn't you?",
+                    "You're going to see a movie this weekend, aren't you?",
+                    "You're not tired today, are you?",
+                    "Your birthday isn't this month, is it?",
+                    "You don't like cats, do you?",
+                    "You've eaten insects before, haven't you?",
+                    "You play football, don't you?",
+                    "You can't play basketball, can you?"
+                ]
+            },
+            "Used to / Would": {
+                rule: "Используются для описания прошлых привычек. Used to — для состояний и действий. Would — только для повторяющихся действий.",
+                questions: [
+                    "What would you do for fun when you were a child?",
+                    "What games did you use to play when you were young?",
+                    "Who would help you with your homework when you were in junior high school?",
+                    "Did you use to get into a lot of trouble when you were a kid? Why or why not?",
+                    "Whose house would you go to when you were in elementary school?",
+                    "What snacks did you use to eat all the time but now dislike?",
+                    "What restaurant would your family go to a lot when you were a child? Do they still go there?",
+                    "Are there any embarrassing fashion trends you used follow?",
+                    "Who did you use to play with in elementary school?",
+                    "What would you usually do after school finished when you were younger?",
+                    "Did you use to build forts when you were a child?",
+                    "Where would you hangout when you were a teenager?",
+                    "What used to be your favorite toy?",
+                    "What extracurricular activities did you use to do?",
+                    "How would you get home from elementary school?",
+                    "What are some things people used to do in your country but don't now?",
+                    "What game did you use to play a lot when you were younger?"
+                ]
+            },
+            "Will": {
+                rule: "Will + verb для будущего времени. Используется для предсказаний, обещаний, спонтанных решений и предложений.",
+                questions: [
+                    "What will your life be like in 5 years?",
+                    "How will communication change in the future?",
+                    "What do you think the world will look like in 50 years?",
+                    "Will you ever go sky diving? Why or why not?",
+                    "How will entertainment change in the future?",
+                    "What will transportation look like in the future?",
+                    "What will you do when you retire?",
+                    "Will robots become part of daily life in the future? Why or why not?",
+                    "Will the future be better or worse than the present? Why or why not?",
+                    "What will video games be like in 7 years?",
+                    "What will happen to privacy in the future?",
+                    "Will alternative energy technologies solve the world's energy problems? Why or why not?",
+                    "Where will humans explore next?",
+                    "What will have the biggest impact on you in the near future?",
+                    "Will humans ever colonize another solar system? Why or why not?",
+                    "What company will change society the most? Will it be a good change or bad change?",
+                    "Will the borders of countries be more open or more closed in the future?",
+                    "What will happen if the world's population keeps increasing at its current rate?"
+                ]
+            },
+            "Would rather / Prefer": {
+                rule: "Выражают предпочтения. Prefer + V-ing / to + V. Would rather + bare infinitive (без to).",
+                questions: [
+                    "Would you rather be very beautiful/handsome and poor, or very ugly and rich? Why?",
+                    "Would you rather be great at painting or programming? Why?",
+                    "Do you prefer to eat at home or eat at a restaurant? Why?",
+                    "Would you rather go to the beach or go to the mountains while on vacation? Why?",
+                    "Do you prefer living in a city or living in the countryside? Why?",
+                    "Which do you prefer, watching TV or reading books? Why?",
+                    "Would you rather go to a museum or go to a club? Why?",
+                    "Do you prefer hotels or hostels? Why?",
+                    "Would you rather own a cat or a dog? Why?",
+                    "Would you rather sail around the world or go into space? Why?",
+                    "Which do you prefer, outdoor work or house work? Why?",
+                    "Would you prefer to be very intelligent or very clever? Why?",
+                    "Would you rather own a sports team or a popular restaurant? Why?",
+                    "Do you prefer going out to parties or enjoying quiet nights at home? Why?",
+                    "Do you prefer traveling in a tour group or traveling alone? Why?",
+                    "Would you rather go someplace you know is good or a new place that might be good? Why?",
+                    "Would you rather save the lives of five people you don't know or save the life of one person you do know?"
+                ]
+            }
+        };
+
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Initialize content for the tab
+            if (tabName === 'questions') {
+                initializeQuestions();
+            } else if (tabName === 'rules') {
+                initializeRules();
+            }
+        }
+
+        // Initialize Questions Tab
+        function initializeQuestions() {
+            const topicSelect = document.getElementById('topicSelect');
+            
+            // Clear existing options except the first one
+            topicSelect.innerHTML = '<option value="">— Выберите тему —</option>';
+            
+            // Add all topics
+            const topics = Object.keys(grammarDB);
+            topics.forEach(topic => {
+                const option = document.createElement('option');
+                option.value = topic;
+                option.textContent = topic;
+                topicSelect.appendChild(option);
+            });
+            
+            // Set first topic as default and generate questions
+            if (topics.length > 0) {
+                topicSelect.value = topics[0];
+                generateQuestions();
+            }
+        }
+
+        // Initialize Rules Tab
+        function initializeRules() {
+            const ruleSelect = document.getElementById('ruleSelect');
+            
+            // Clear existing options except the first one
+            ruleSelect.innerHTML = '<option value="">— Выберите тему —</option>';
+            
+            // Add all topics
+            const topics = Object.keys(grammarDB);
+            topics.forEach(topic => {
+                const option = document.createElement('option');
+                option.value = topic;
+                option.textContent = topic;
+                ruleSelect.appendChild(option);
+            });
+            
+            // Set first topic as default and show rule
+            if (topics.length > 0) {
+                ruleSelect.value = topics[0];
+                showRule();
+            }
+        }
+
+        // Generate Questions
+        function generateQuestions() {
+            const topic = document.getElementById('topicSelect').value;
+            const numQ = parseInt(document.getElementById('numQ').value) || 5;
+            
+            if (!topic || !grammarDB[topic]) {
+                document.getElementById('questionsResult').innerHTML = 
+                    '<div class="result"><h3>⚠️ Выберите тему</h3><p>Пожалуйста, выберите тему из списка выше.</p></div>';
+                return;
+            }
+            
+            const questions = grammarDB[topic].questions;
+            
+            // Shuffle and select questions
+            const shuffled = [...questions].sort(() => Math.random() - 0.5);
+            const selected = shuffled.slice(0, Math.min(numQ, questions.length));
+            
+            // Display questions
+            let html = `<div class="result"><h3>🎲 Вопросы: ${topic}</h3>`;
+            selected.forEach((q, index) => {
+                html += `<div class="question">${index + 1}. ${q}</div>`;
+            });
+            html += '</div>';
+            
+            document.getElementById('questionsResult').innerHTML = html;
+        }
+
+        // Show Rule
+        function showRule() {
+            const topic = document.getElementById('ruleSelect').value;
+            
+            if (!topic || !grammarDB[topic]) {
+                document.getElementById('ruleResult').innerHTML = '';
+                return;
+            }
+            
+            const html = `
+                <div class="result">
+                    <h3>📖 ${topic}</h3>
+                    <p>${grammarDB[topic].rule}</p>
+                </div>
+            `;
+            
+            document.getElementById('ruleResult').innerHTML = html;
+        }
+
+        // Calculate Lesson Plan
+        function calculatePlan() {
+            const students = parseInt(document.getElementById('students').value) || 12;
+            const numQuestions = parseInt(document.getElementById('numQuestions').value) || 10;
+            
+            // Calculate groups
+            const groupsOf3 = Math.floor(students / 3);
+            const remainder = students % 3;
+            
+            let groupsText;
+            if (remainder === 0) {
+                groupsText = `${groupsOf3} групп(ы) по 3 человека — идеальный размер`;
+            } else if (remainder === 1) {
+                groupsText = `${groupsOf3 - 1} групп(ы) по 3 + 1 группа из 4 (для стеснительных)`;
+            } else {
+                groupsText = `${groupsOf3} групп(ы) по 3 + 1 пара из 2 (максимизирует время говорения)`;
+            }
+            
+            // Calculate time
+            const minTime = numQuestions * 1;
+            const maxTime = numQuestions * 3;
+            const avgTime = numQuestions * 2;
+            
+            const html = `
+                <div class="result">
+                    <h3>📋 План урока</h3>
+                    <p><strong>👥 Группы:</strong> ${groupsText}</p>
+                    <p><strong>⏳ Время:</strong> ${minTime}–${maxTime} мин (в среднем ${avgTime} мин)</p>
+                    <p><strong>📊 Показ вопросов:</strong> по 5 штук за раз (по методике Питтса)</p>
+                    <p><strong>📝 Задача учителя:</strong> мониторить, делать заметки, разобрать ошибки в конце</p>
+                </div>
+            `;
+            
+            document.getElementById('planResult').innerHTML = html;
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            // Set default values
+            document.getElementById('students').value = 12;
+            document.getElementById('numQuestions').value = 10;
+            document.getElementById('numQ').value = 5;
+            
+            // Calculate initial plan
+            calculatePlan();
+        };
+    </script>
+</body>
+</html>
