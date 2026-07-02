@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Английский в сфере ИТ · Natalie English</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lavender: #e8dff5;
+  --peach: #fce4d6;
+  --mint: #d4f1e8;
+  --rose: #f7d6e0;
+  --cream: #fdf6f0;
+  --deep: #5a4a7a;
+  --soft: #8b7ba8;
+  --text: #3d3554;
+  --text-light: #8b7ba8;
+  --success: #6ba889;
+  --danger: #c97b84;
+  --warning: #d4a574;
+  --shadow: 0 10px 40px rgba(138,107,175,0.15);
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--lavender) 50%, var(--peach) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--text);
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  animation: float 20s infinite ease-in-out;
+}
+.blob1 { width: 400px; height: 400px; background: var(--rose); top: -100px; left: -100px; }
+.blob2 { width: 500px; height: 500px; background: var(--mint); bottom: -150px; right: -150px; animation-delay: -10s; }
+.blob3 { width: 300px; height: 300px; background: var(--lavender); top: 50%; left: 50%; animation-delay: -5s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -50px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+.top-nav {
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: rgba(253,246,240,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--deep);
+  letter-spacing: 1px;
+}
+.logo span { color: var(--soft); font-style: italic; }
+
+.back-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+  transition: all 0.3s;
+}
+.back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.8);
+  overflow: hidden;
+}
+
+header {
+  background: linear-gradient(135deg, var(--lavender) 0%, var(--rose) 50%, var(--peach) 100%);
+  color: var(--deep);
+  padding: 40px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4em;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+header p {
+  color: var(--soft);
+  font-size: 1em;
+  font-style: italic;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(253,246,240,0.6);
+  padding: 18px;
+  border-bottom: 1px solid rgba(232,223,245,0.5);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stat-item {
+  text-align: center;
+  margin: 5px 10px;
+  padding: 10px 15px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 18px;
+  border: 1px solid rgba(232,223,245,0.6);
+  transition: all 0.3s;
+}
+.stat-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(138,107,175,0.15); }
+
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2em;
+  font-weight: 600;
+  color: var(--deep);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75em;
+  color: var(--text-light);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  background: rgba(253,246,240,0.5);
+  padding: 12px;
+  gap: 8px;
+  justify-content: center;
+  border-bottom: 1px solid rgba(232,223,245,0.5);
+}
+
+nav button {
+  flex: 1;
+  min-width: 120px;
+  padding: 13px 18px;
+  background: rgba(255,255,255,0.6);
+  color: var(--text);
+  border: 1px solid rgba(232,223,245,0.8);
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+  letter-spacing: 0.3px;
+}
+
+nav button:hover {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(138,107,175,0.2);
+}
+
+nav button.active {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.3);
+}
+
+main { padding: 35px; min-height: 500px; }
+
+.section { display: none; animation: fadeIn 0.5s ease; }
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  margin-bottom: 22px;
+  font-size: 1.9em;
+  font-weight: 500;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--lavender);
+  letter-spacing: 0.5px;
+}
+
+h3 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  margin: 18px 0 12px;
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.flashcard {
+  background: linear-gradient(135deg, rgba(232,223,245,0.8), rgba(247,214,224,0.6));
+  color: var(--deep);
+  padding: 45px;
+  border-radius: 25px;
+  text-align: center;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  margin-bottom: 20px;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 8px 30px rgba(138,107,175,0.15);
+}
+.flashcard:hover { box-shadow: 0 15px 45px rgba(138,107,175,0.25); }
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard .front, .flashcard .back { backface-visibility: hidden; }
+.flashcard .back {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 45px;
+  background: linear-gradient(135deg, rgba(212,241,232,0.8), rgba(252,228,214,0.6));
+}
+
+.term-word {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2em;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--deep);
+}
+
+.term-transcription {
+  font-style: italic;
+  color: var(--soft);
+  margin-bottom: 15px;
+  font-size: 1em;
+}
+
+.term-translation {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7em;
+  color: var(--deep);
+  font-weight: 500;
+}
+
+.card-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-controls button {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9em;
+  transition: all 0.3s;
+  letter-spacing: 0.3px;
+}
+
+.btn-prev { background: rgba(139,123,168,0.3); color: var(--deep); }
+.btn-next { background: linear-gradient(135deg, var(--success), #5a9678); color: white; }
+.btn-flip { background: linear-gradient(135deg, var(--warning), #c99560); color: white; }
+.btn-shuffle { background: linear-gradient(135deg, var(--soft), var(--deep)); color: white; }
+.btn-speak { background: linear-gradient(135deg, var(--rose), var(--soft)); color: white; }
+
+.card-controls button:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(138,107,175,0.2); }
+
+.unit-selector {
+  margin-bottom: 20px;
+  padding: 13px 18px;
+  width: 100%;
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+  border: 2px solid var(--lavender);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.8);
+  color: var(--text);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.unit-selector:focus { outline: none; border-color: var(--soft); box-shadow: 0 0 0 4px rgba(139,123,168,0.15); }
+
+.question-box {
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(252,228,214,0.3));
+  padding: 28px;
+  border-radius: 22px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--soft);
+  box-shadow: 0 4px 15px rgba(138,107,175,0.08);
+}
+
+.question-text {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.options { display: flex; flex-direction: column; gap: 10px; }
+
+.option {
+  padding: 14px 20px;
+  background: rgba(255,255,255,0.8);
+  border: 2px solid var(--lavender);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.option:hover {
+  border-color: var(--soft);
+  background: linear-gradient(135deg, rgba(232,223,245,0.5), rgba(247,214,224,0.3));
+  transform: translateX(5px);
+}
+
+.option.correct {
+  background: linear-gradient(135deg, rgba(212,241,232,0.8), rgba(107,168,137,0.3));
+  border-color: var(--success);
+  color: var(--success);
+  font-weight: 600;
+}
+
+.option.wrong {
+  background: linear-gradient(135deg, rgba(247,214,224,0.8), rgba(201,123,132,0.3));
+  border-color: var(--danger);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.option.disabled { pointer-events: none; opacity: 0.8; }
+
+.feedback {
+  margin-top: 15px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-weight: 500;
+}
+
+.feedback.correct {
+  background: linear-gradient(135deg, rgba(212,241,232,0.7), rgba(107,168,137,0.3));
+  color: var(--success);
+  border-left: 4px solid var(--success);
+}
+
+.feedback.wrong {
+  background: linear-gradient(135deg, rgba(247,214,224,0.7), rgba(201,123,132,0.3));
+  color: var(--danger);
+  border-left: 4px solid var(--danger);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(232,223,245,0.5);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success), var(--soft), var(--deep));
+  transition: width 0.5s ease;
+  border-radius: 5px;
+}
+
+.translation-exercise {
+  background: linear-gradient(135deg, rgba(252,228,214,0.5), rgba(247,214,224,0.4));
+  padding: 28px;
+  border-radius: 22px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--warning);
+}
+
+.source-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4em;
+  margin-bottom: 18px;
+  font-weight: 500;
+  color: var(--deep);
+}
+
+.user-answer {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--lavender);
+  border-radius: 20px;
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 12px;
+  background: rgba(255,255,255,0.8);
+  color: var(--text);
+  transition: all 0.3s;
+}
+.user-answer:focus { outline: none; border-color: var(--soft); box-shadow: 0 0 0 4px rgba(139,123,168,0.15); }
+
+.correct-answer {
+  background: linear-gradient(135deg, rgba(212,241,232,0.7), rgba(232,223,245,0.5));
+  color: var(--success);
+  padding: 14px 18px;
+  border-radius: 16px;
+  margin-top: 12px;
+  display: none;
+  border-left: 4px solid var(--success);
+}
+
+.quiz-question {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  color: var(--deep);
+  padding: 32px;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.8);
+}
+
+.quiz-question .question-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  padding: 13px 28px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+  margin: 5px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(90,74,122,0.35);
+}
+
+.result-box {
+  background: linear-gradient(135deg, var(--mint), var(--lavender));
+  color: var(--deep);
+  padding: 35px;
+  border-radius: 25px;
+  text-align: center;
+  margin-top: 20px;
+  border: 1px solid rgba(255,255,255,0.8);
+}
+
+.result-box h3 {
+  color: var(--deep);
+  font-size: 1.9em;
+  margin-bottom: 15px;
+}
+
+.dictation-box {
+  background: linear-gradient(135deg, var(--peach), var(--rose));
+  color: var(--deep);
+  padding: 45px;
+  border-radius: 25px;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.8);
+}
+
+.dictation-box .play-btn {
+  font-size: 3.5em;
+  background: rgba(255,255,255,0.4);
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  margin: 20px auto;
+  display: block;
+  transition: all 0.3s;
+}
+
+.dictation-box .play-btn:hover {
+  background: rgba(255,255,255,0.6);
+  transform: scale(1.08);
+}
+
+.dictation-input {
+  width: 100%;
+  max-width: 500px;
+  padding: 16px 22px;
+  font-size: 1.2em;
+  border: 2px solid rgba(255,255,255,0.8);
+  border-radius: 25px;
+  text-align: center;
+  margin: 18px auto;
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  background: rgba(255,255,255,0.7);
+  color: var(--deep);
+}
+.dictation-input:focus { outline: none; border-color: var(--deep); }
+
+.dictation-hint {
+  font-size: 0.95em;
+  color: var(--soft);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+.hangman-container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.hangman-svg {
+  background: rgba(255,255,255,0.7);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(232,223,245,0.6);
+}
+
+.hangman-word {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.3em;
+  letter-spacing: 10px;
+  text-align: center;
+  margin: 20px 0;
+  color: var(--deep);
+  font-weight: 600;
+}
+
+.hangman-keyboard {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 6px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.hangman-key {
+  padding: 13px;
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  color: var(--deep);
+  border: 1px solid rgba(232,223,245,0.8);
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.2s;
+}
+
+.hangman-key:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  transform: scale(1.08);
+}
+
+.hangman-key:disabled { opacity: 0.7; cursor: not-allowed; }
+.hangman-key.correct { background: linear-gradient(135deg, var(--success), #5a9678); color: white; }
+.hangman-key.wrong { background: linear-gradient(135deg, var(--danger), #b56870); color: white; }
+
+.hangman-info {
+  text-align: center;
+  font-size: 1.05em;
+  margin: 12px 0;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.hangman-hint {
+  background: linear-gradient(135deg, rgba(252,228,214,0.5), rgba(247,214,224,0.4));
+  padding: 16px 20px;
+  border-radius: 18px;
+  text-align: center;
+  margin: 15px 0;
+  border-left: 5px solid var(--warning);
+  color: var(--deep);
+}
+
+.export-box {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  color: var(--deep);
+  padding: 32px;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.8);
+}
+
+.export-box h3 { color: var(--deep); margin-bottom: 15px; }
+
+.export-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.export-option {
+  background: rgba(255,255,255,0.4);
+  padding: 22px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  backdrop-filter: blur(10px);
+}
+
+.export-option:hover {
+  background: rgba(255,255,255,0.6);
+  border-color: var(--deep);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(138,107,175,0.2);
+}
+
+.export-option h4 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  font-weight: 600;
+}
+
+.export-option p { font-size: 0.9em; color: var(--soft); }
+
+.history-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  margin-top: 20px;
+  background: transparent;
+}
+
+.history-table th, .history-table td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(232,223,245,0.5);
+}
+
+.history-table th {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  color: var(--deep);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 1px;
+}
+
+.history-table tbody tr {
+  background: rgba(255,255,255,0.7);
+  transition: all 0.3s;
+}
+
+.history-table tbody tr:hover {
+  background: rgba(255,255,255,0.9);
+  transform: translateX(5px);
+}
+
+.history-table tbody td:first-child { border-radius: 14px 0 0 14px; }
+.history-table tbody td:last-child { border-radius: 0 14px 14px 0; }
+
+#card-counter {
+  text-align: center;
+  margin-top: 15px;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .term-word { font-size: 1.6em; }
+  .hangman-keyboard { grid-template-columns: repeat(7, 1fr); }
+  .hangman-word { font-size: 1.6em; letter-spacing: 5px; }
+  main { padding: 20px; }
+  header h1 { font-size: 1.8em; }
+  .top-nav { padding: 12px 18px; }
+  .logo { font-size: 18px; }
+  nav button { min-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="top-nav">
+  <div class="logo">Natalie <span>English</span></div>
+  <a href="../index.html" class="back-btn">← На главную</a>
+</div>
+
+<div class="container">
+  <header>
+    <h1>🖥️ Английский в сфере ИТ</h1>
+    <p>Тренажёр по учебному пособию В.А. Радовель (2017)</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat-item"><div class="stat-value" id="stat-learned">0</div><div class="stat-label">Изучено терминов</div></div>
+    <div class="stat-item"><div class="stat-value" id="stat-tests">0</div><div class="stat-label">Тестов пройдено</div></div>
+    <div class="stat-item"><div class="stat-value" id="stat-score">0%</div><div class="stat-label">Точность</div></div>
+    <div class="stat-item"><div class="stat-value" id="stat-dictation">0</div><div class="stat-label">Диктант ✓</div></div>
+    <div class="stat-item"><div class="stat-value" id="stat-hangman">0</div><div class="stat-label">Виселица ✓</div></div>
+  </div>
+
+  <nav>
+    <button class="active" data-section="home">🏠 Главная</button>
+    <button data-section="flashcards">📇 Термины</button>
+    <button data-section="tests">✅ Тесты</button>
+    <button data-section="translation">🔄 Перевод</button>
+    <button data-section="dictation">🎧 Диктант</button>
+    <button data-section="hangman">🎭 Виселица</button>
+    <button data-section="quiz">🎯 Викторина</button>
+    <button data-section="export">📊 Экспорт</button>
+  </nav>
+
+  <main>
+    <!-- Главная -->
+    <section id="home" class="section active">
+      <h2>Добро пожаловать!</h2>
+      <p style="font-size:1.1em; line-height:1.7; margin-bottom:20px; color:var(--text);">
+        Этот тренажёр создан по материалам учебного пособия
+        <strong>«Английский язык в сфере информационных технологий»</strong>
+        (В.А. Радовель, 2017). Он включает все 14 юнитов и 8 режимов работы.
+      </p>
+      <h3>🎮 Режимы работы:</h3>
+      <ul style="line-height:1.8; padding-left:20px; color:var(--text);">
+        <li><strong>📇 Термины</strong> — карточки с английскими терминами, транскрипцией, переводом и <b>озвучкой</b></li>
+        <li><strong>✅ Тесты</strong> — задания с выбором ответа по каждому юниту</li>
+        <li><strong>🔄 Перевод</strong> — упражнения на перевод фраз с русского на английский</li>
+        <li><strong>🎧 Диктант</strong> — слушайте английское слово и пишите его на слух</li>
+        <li><strong>🎭 Виселица</strong> — угадывайте ИТ-термины по буквам</li>
+        <li><strong>🎯 Викторина</strong> — вопросы на проверку знаний</li>
+        <li><strong>📊 Экспорт</strong> — сохраните прогресс в CSV для анализа</li>
+      </ul>
+      <p style="margin-top:25px; font-style:italic; color:var(--text-light);">
+        💡 Совет: включите звук 🔊 и начните с изучения терминов, затем переходите к диктанту и виселице.
+      </p>
+    </section>
+
+    <!-- Термины -->
+    <section id="flashcards" class="section">
+      <h2>📇 Карточки терминов</h2>
+      <select class="unit-selector" id="unit-selector">
+        <option value="all">Все юниты</option>
+      </select>
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="front">
+          <div class="term-word" id="term-word">—</div>
+          <div class="term-transcription" id="term-transcription">—</div>
+          <div style="opacity:0.8; font-size:0.9em; color:var(--soft);">Кликните, чтобы увидеть перевод</div>
+        </div>
+        <div class="back">
+          <div class="term-translation" id="term-translation">—</div>
+        </div>
+      </div>
+      <div class="card-controls">
+        <button class="btn-prev" onclick="prevCard()">← Назад</button>
+        <button class="btn-speak" onclick="speakTerm()">🔊 Озвучить</button>
+        <button class="btn-flip" onclick="flipCard()">Перевернуть</button>
+        <button class="btn-next" onclick="nextCard()">Далее →</button>
+        <button class="btn-shuffle" onclick="shuffleCards()">🔀 Перемешать</button>
+      </div>
+      <p id="card-counter">0 / 0</p>
+    </section>
+
+    <!-- Тесты -->
+    <section id="tests" class="section">
+      <h2>✅ Тесты</h2>
+      <select class="unit-selector" id="test-unit-selector">
+        <option value="all">Все юниты (случайный выбор)</option>
+      </select>
+      <div class="progress-bar"><div class="progress-fill" id="test-progress" style="width:0%"></div></div>
+      <div id="test-container"></div>
+      <div id="test-result" style="display:none;"></div>
+    </section>
+
+    <!-- Перевод -->
+    <section id="translation" class="section">
+      <h2>🔄 Упражнения на перевод</h2>
+      <p style="margin-bottom:20px; color:var(--text-light);">Переведите фразу на английский язык. Нажмите «Показать ответ» для проверки.</p>
+      <div id="translation-container"></div>
+      <button class="btn-primary" onclick="loadTranslation()">Следующее упражнение →</button>
+    </section>
+
+    <!-- Диктант -->
+    <section id="dictation" class="section">
+      <h2>🎧 Диктант</h2>
+      <p style="margin-bottom:20px; color:var(--text-light);">Слушайте английское слово и напишите его. Можно прослушать несколько раз.</p>
+      <select class="unit-selector" id="dictation-unit-selector">
+        <option value="all">Все юниты</option>
+      </select>
+      <div id="dictation-container"></div>
+    </section>
+
+    <!-- Виселица -->
+    <section id="hangman" class="section">
+      <h2>🎭 Виселица</h2>
+      <p style="margin-bottom:20px; color:var(--text-light);">Угадайте ИТ-термин по буквам. Подсказка — перевод на русский.</p>
+      <div id="hangman-container"></div>
+    </section>
+
+    <!-- Викторина -->
+    <section id="quiz" class="section">
+      <h2>🎯 Викторина</h2>
+      <div id="quiz-container"></div>
+      <div id="quiz-result" style="display:none;"></div>
+    </section>
+
+    <!-- Экспорт -->
+    <section id="export" class="section">
+      <h2>📊 Экспорт результатов</h2>
+      <div class="export-box">
+        <h3>Сохраните свой прогресс</h3>
+        <p>Выберите, что хотите экспортировать в формате CSV (откроется в Excel):</p>
+        <div class="export-options">
+          <div class="export-option" onclick="exportVocabulary()">
+            <h4>📚 Все термины</h4>
+            <p>Полный словарь курса (EN, транскрипция, RU, юнит)</p>
+          </div>
+          <div class="export-option" onclick="exportLearned()">
+            <h4>✅ Изученные термины</h4>
+            <p>Только те, что вы уже просмотрели</p>
+          </div>
+          <div class="export-option" onclick="exportHistory()">
+            <h4>📈 История активности</h4>
+            <p>Все тесты, диктанты и виселицы с результатами</p>
+          </div>
+          <div class="export-option" onclick="exportStats()">
+            <h4>🎯 Сводная статистика</h4>
+            <p>Общая сводка по всем режимам</p>
+          </div>
+        </div>
+      </div>
+      <h3>📜 История активности</h3>
+      <div id="history-display"></div>
+      <button class="btn-primary" onclick="clearHistory()" style="background:linear-gradient(135deg, var(--danger), #b56870); margin-top:15px;">🗑️ Очистить историю</button>
+    </section>
+  </main>
+</div>
+
+<script>
+/* ============ ДАННЫЕ ИЗ УЧЕБНИКА ============ */
+const vocabulary = {
+  1: [
+    {en:"computer literacy", tr:"[kəm'pjutə'lɪtərəsi]", ru:"компьютерная грамотность"},
+    {en:"problem-solving device", tr:"", ru:"устройство для решения задач"},
+    {en:"to be aware of", tr:"", ru:"понимать, сознавать"},
+    {en:"opportunity", tr:"[ˌɒpə'tjuːnɪti]", ru:"возможность"},
+    {en:"basics", tr:"['beɪsɪks]", ru:"основы"},
+    {en:"application", tr:"[ˌæplɪ'keɪʃən]", ru:"применение, использование"},
+    {en:"to restate", tr:"[,riː'steɪt]", ru:"пересматривать, переосмысливать"},
+    {en:"significant", tr:"[sɪg'nɪfɪkənt]", ru:"значительный"},
+    {en:"achievements", tr:"[ə'tʃiːvmənts]", ru:"достижения"},
+    {en:"computing", tr:"[kəm'pjuːtɪŋ]", ru:"вычисление; работа на компьютере"},
+    {en:"to embrace", tr:"[ɪm'breɪs]", ru:"охватывать"},
+    {en:"dimension", tr:"[dɪ'menʃən]", ru:"измерение"},
+    {en:"instruction", tr:"[ɪn'strʌkʃən]", ru:"команда, инструкция"},
+    {en:"to process", tr:"[prəʊ'ses]", ru:"обрабатывать"},
+    {en:"data processing system", tr:"", ru:"система обработки данных"},
+    {en:"intricate", tr:"['ɪntrɪkət]", ru:"сложный, запутанный"},
+    {en:"electronic circuit", tr:"", ru:"электронная цепь"},
+    {en:"to store numbers", tr:"", ru:"запоминать числа"},
+    {en:"to manipulate", tr:"[mə'nɪpjuleɪt]", ru:"управлять; преобразовывать"},
+    {en:"to input", tr:"", ru:"вводить информацию"},
+    {en:"to turn on", tr:"", ru:"включать"},
+    {en:"to turn off", tr:"", ru:"выключать"},
+    {en:"addition", tr:"[ə'dɪʃən]", ru:"сложение"},
+    {en:"subtraction", tr:"[səb'trækʃən]", ru:"вычитание"},
+    {en:"division", tr:"[dɪ'vɪʒən]", ru:"деление"},
+    {en:"multiplication", tr:"[,mʌltɪplɪ'keɪʃən]", ru:"умножение"},
+    {en:"exponentiation", tr:"", ru:"возведение в степень"},
+    {en:"user", tr:"['juːzə]", ru:"пользователь"},
+    {en:"input device", tr:"", ru:"устройство ввода"},
+    {en:"disk drive", tr:"", ru:"дисковое ЗУ"},
+    {en:"tape drive", tr:"", ru:"ЗУ на магнитной ленте"},
+    {en:"cathode-ray tube", tr:"", ru:"электронно-лучевая трубка"},
+    {en:"instantaneously", tr:"", ru:"мгновенно"}
+  ],
+  2: [
+    {en:"applied physics", tr:"", ru:"прикладная физика"},
+    {en:"generation", tr:"[,dʒenə'reɪʃən]", ru:"создание, формирование"},
+    {en:"scientific research", tr:"", ru:"научные исследования"},
+    {en:"manipulation", tr:"[mə,nɪpjʊ'leɪʃən]", ru:"управление, обработка"},
+    {en:"to replace vacuum tubes", tr:"", ru:"заменять электронные лампы"},
+    {en:"semiconductor", tr:"[,semɪkən'dʌktə]", ru:"полупроводник"},
+    {en:"reduced weight", tr:"", ru:"уменьшенный вес"},
+    {en:"power consumption", tr:"", ru:"потребление электроэнергии"},
+    {en:"to carry out", tr:"", ru:"выполнять, осуществлять"},
+    {en:"solid body", tr:"", ru:"твёрдое тело"},
+    {en:"to respond", tr:"[rɪ'spɒnd]", ru:"отвечать, реагировать"},
+    {en:"integrated circuit", tr:"", ru:"интегральная схема"},
+    {en:"batch processing", tr:"", ru:"пакетная обработка"},
+    {en:"to assemble", tr:"[ə'sembl]", ru:"собирать, монтировать"},
+    {en:"to increase reliability", tr:"", ru:"увеличивать надёжность"},
+    {en:"performance", tr:"[pə'fɔːməns]", ru:"производительность"},
+    {en:"to predict", tr:"[prɪ'dɪkt]", ru:"прогнозировать"},
+    {en:"capability", tr:"[,keɪpə'bɪlɪti]", ru:"способность, возможность"},
+    {en:"packing density", tr:"", ru:"плотность упаковки"},
+    {en:"small-scale IC", tr:"", ru:"малая ИС"},
+    {en:"medium-scale IC", tr:"", ru:"средняя ИС"},
+    {en:"large-scale IC", tr:"", ru:"большая ИС"},
+    {en:"very-large-scale IC", tr:"", ru:"сверхбольшая ИС"},
+    {en:"transmission line", tr:"", ru:"линия передачи"},
+    {en:"waveguide", tr:"['weɪvgaɪd]", ru:"волновод"},
+    {en:"to emerge", tr:"[ɪ'mɜːdʒ]", ru:"появляться, возникать"}
+  ],
+  3: [
+    {en:"calculating device", tr:"", ru:"вычислительное устройство"},
+    {en:"multiple", tr:"['mʌltɪpl]", ru:"кратный"},
+    {en:"abacus", tr:"['æbəkəs]", ru:"счёты"},
+    {en:"slide rule", tr:"", ru:"логарифмическая линейка"},
+    {en:"logarithm table", tr:"", ru:"логарифмическая таблица"},
+    {en:"calculus", tr:"['kælkjʊləs]", ru:"исчисление"},
+    {en:"general-purpose", tr:"", ru:"универсальный"},
+    {en:"data processing", tr:"", ru:"обработка данных"},
+    {en:"means of coding", tr:"", ru:"средства кодирования"},
+    {en:"to punch the holes", tr:"", ru:"пробивать отверстия"},
+    {en:"punched card", tr:"", ru:"перфокарта"},
+    {en:"to perform", tr:"[pə'fɔːm]", ru:"выполнять, производить"},
+    {en:"unit of data", tr:"", ru:"единица информации"},
+    {en:"keyboard terminals", tr:"", ru:"клавишные терминалы"},
+    {en:"analog computer", tr:"", ru:"аналоговый компьютер"},
+    {en:"digital computer", tr:"", ru:"цифровой компьютер"},
+    {en:"to figure out", tr:"", ru:"вычислять"},
+    {en:"memory", tr:"", ru:"запоминающее устройство"},
+    {en:"stored program computer", tr:"", ru:"компьютер с программой в памяти"},
+    {en:"binary code", tr:"", ru:"двоичный код"},
+    {en:"vacuum tube", tr:"", ru:"электронная лампа"},
+    {en:"to amplify", tr:"['æmplɪfaɪ]", ru:"усиливать"}
+  ],
+  4: [
+    {en:"data processing", tr:"", ru:"обработка информации"},
+    {en:"to convert", tr:"[kən'vɜːt]", ru:"преобразовывать"},
+    {en:"to accomplish", tr:"[ə'kʌmplɪʃ]", ru:"завершать; осуществлять"},
+    {en:"to house", tr:"[haʊz]", ru:"помещать, размещать"},
+    {en:"to improve", tr:"[ɪm'pruːv]", ru:"улучшать"},
+    {en:"to control", tr:"[kən'trəʊl]", ru:"управлять, регулировать"},
+    {en:"to store", tr:"[stɔː]", ru:"хранить, запоминать"},
+    {en:"storage", tr:"['stɔːrɪdʒ]", ru:"запоминающее устройство"},
+    {en:"resource", tr:"[rɪ'sɔːs]", ru:"ресурс"},
+    {en:"facility", tr:"[fə'sɪlɪti]", ru:"устройство, средство"},
+    {en:"equipment", tr:"[ɪ'kwɪpmənt]", ru:"оборудование"},
+    {en:"available", tr:"[ə'veɪləbl]", ru:"доступный"},
+    {en:"display", tr:"[dɪs'pleɪ]", ru:"дисплей"},
+    {en:"sequence", tr:"['siːkwəns]", ru:"последовательность"},
+    {en:"data storage hierarchy", tr:"", ru:"иерархия запоминания данных"},
+    {en:"to enter", tr:"['entə]", ru:"входить; вводить"},
+    {en:"meaningful", tr:"['miːnɪŋfʊl]", ru:"имеющий смысл"},
+    {en:"item", tr:"['aɪtəm]", ru:"элемент"},
+    {en:"record", tr:"['rekɔːd]", ru:"запись"},
+    {en:"file", tr:"[faɪl]", ru:"файл"},
+    {en:"data base", tr:"", ru:"база данных"},
+    {en:"accuracy", tr:"['ækjʊrəsi]", ru:"точность"},
+    {en:"to eliminate", tr:"[ɪ'lɪmɪneɪt]", ru:"устранять"},
+    {en:"error-prone", tr:"", ru:"подверженный ошибкам"},
+    {en:"invalid data", tr:"", ru:"неверные данные"},
+    {en:"communications networks", tr:"", ru:"сети передачи данных"},
+    {en:"instant response", tr:"", ru:"мгновенный ответ"},
+    {en:"access", tr:"['ækses]", ru:"доступ"},
+    {en:"to retrieve", tr:"[rɪ'triːv]", ru:"извлекать"},
+    {en:"cost-effective", tr:"", ru:"экономичный"},
+    {en:"challenge", tr:"['tʃælɪndʒ]", ru:"трудность, препятствие"}
+  ],
+  5: [
+    {en:"architecture", tr:"[,ɑːkɪ'tektʃə]", ru:"архитектура, структура"},
+    {en:"architect", tr:"['ɑːkɪtekt]", ru:"разработчик архитектуры"},
+    {en:"unit", tr:"['juːnɪt]", ru:"устройство, модуль, блок"},
+    {en:"accessory equipment", tr:"", ru:"вспомогательные устройства"},
+    {en:"analyst", tr:"['ænəlɪst]", ru:"аналитик"},
+    {en:"manufacturer", tr:"[,mænjʊ'fæktʃərə]", ru:"изготовитель"},
+    {en:"to simulate", tr:"['sɪmjuleɪt]", ru:"моделировать"},
+    {en:"voltage", tr:"['vəʊltɪdʒ]", ru:"напряжение"},
+    {en:"pressure", tr:"['preʃə]", ru:"давление"},
+    {en:"digital computer", tr:"", ru:"цифровой компьютер"},
+    {en:"hybrid computer", tr:"", ru:"аналого-цифровой"},
+    {en:"discrete", tr:"[dɪs'kriːt]", ru:"дискретный"},
+    {en:"continuous quantity", tr:"", ru:"непрерывная величина"},
+    {en:"to rely", tr:"[rɪ'laɪ]", ru:"основываться, полагаться"},
+    {en:"to install", tr:"[ɪn'stɔːl]", ru:"устанавливать"},
+    {en:"household appliances", tr:"", ru:"домашние приборы"},
+    {en:"hardware", tr:"['hɑːdweə]", ru:"аппаратное обеспечение"},
+    {en:"software", tr:"['sɒftweə]", ru:"программное обеспечение"},
+    {en:"firmware", tr:"['fɜːmweə]", ru:"встроенное ПО"},
+    {en:"procedure", tr:"[prə'siːdʒə]", ru:"процедура"},
+    {en:"to associate", tr:"[ə'səʊʃɪeɪt]", ru:"соединять, связывать"},
+    {en:"to execute", tr:"['eksɪkjuːt]", ru:"выполнять"},
+    {en:"payroll", tr:"['peɪrəʊl]", ru:"платёжная ведомость"},
+    {en:"inventory control", tr:"", ru:"инвентаризация"},
+    {en:"to protect", tr:"[prə'tekt]", ru:"защищать"},
+    {en:"read-only memory", tr:"", ru:"постоянное ЗУ"},
+    {en:"to substitute", tr:"['sʌbstɪtjuːt]", ru:"заменять"},
+    {en:"performance", tr:"", ru:"производительность"}
+  ],
+  6: [
+    {en:"operation", tr:"[,ɒpə'reɪʃən]", ru:"операция; работа"},
+    {en:"to relate", tr:"[rɪ'leɪt]", ru:"связывать"},
+    {en:"to insert", tr:"[ɪn'sɜːt]", ru:"вставлять"},
+    {en:"arithmetic-logical unit", tr:"", ru:"арифметико-логическое устройство"},
+    {en:"to remove", tr:"[rɪ'muːv]", ru:"удалять"},
+    {en:"control unit", tr:"", ru:"блок управления"},
+    {en:"to feed", tr:"[fiːd]", ru:"подавать; вводить"},
+    {en:"to interpret", tr:"[ɪn'tɜːprɪt]", ru:"интерпретировать"},
+    {en:"to issue commands", tr:"", ru:"выдавать команды"},
+    {en:"pulse", tr:"[pʌls]", ru:"импульс"},
+    {en:"flip-flop", tr:"", ru:"триггер"},
+    {en:"circuit", tr:"['sɜːkɪt]", ru:"цепь, схема"},
+    {en:"to employ", tr:"[ɪm'plɔɪ]", ru:"использовать"},
+    {en:"logic gates", tr:"", ru:"логические элементы"},
+    {en:"feasible", tr:"['fiːzəbl]", ru:"возможный"},
+    {en:"to convey", tr:"[kən'veɪ]", ru:"передавать"},
+    {en:"correct operand", tr:"", ru:"нужный операнд"},
+    {en:"to proceed", tr:"[prə'siːd]", ru:"продолжать(ся)"}
+  ],
+  7: [
+    {en:"primary storage", tr:"", ru:"первичное ЗУ"},
+    {en:"secondary storage", tr:"", ru:"вторичное ЗУ"},
+    {en:"main storage", tr:"", ru:"основная память"},
+    {en:"internal storage", tr:"", ru:"внутренняя память"},
+    {en:"intermediate results", tr:"", ru:"промежуточные результаты"},
+    {en:"to retain", tr:"[rɪ'teɪn]", ru:"сохранять"},
+    {en:"to locate", tr:"[ləʊ'keɪt]", ru:"размещать"},
+    {en:"binary digit", tr:"", ru:"двоичный знак"},
+    {en:"adjacent", tr:"[ə'dʒeɪsənt]", ru:"смежный"},
+    {en:"strings of characters", tr:"", ru:"последовательность символов"},
+    {en:"consecutive", tr:"[kən'sekjʊtɪv]", ru:"последовательный"},
+    {en:"medium", tr:"['miːdiəm]", ru:"носитель; среда"},
+    {en:"capacity", tr:"[kə'pæsɪti]", ru:"ёмкость"},
+    {en:"data access time", tr:"", ru:"время доступа к данным"},
+    {en:"to transfer", tr:"[træns'fɜː]", ru:"передавать"},
+    {en:"archival storage", tr:"", ru:"архивное ЗУ"},
+    {en:"to rotate", tr:"[rəʊ'teɪt]", ru:"вращать"},
+    {en:"solid-state device", tr:"", ru:"твёрдотельный прибор"},
+    {en:"magnetic core", tr:"", ru:"магнитный сердечник"},
+    {en:"random-access memory", tr:"", ru:"оперативное ЗУ"},
+    {en:"tape device", tr:"", ru:"ЗУ на магнитной ленте"},
+    {en:"magnetic disk storage", tr:"", ru:"ЗУ на магнитном диске"},
+    {en:"floppy disk", tr:"", ru:"гибкий диск"}
+  ],
+  8: [
+    {en:"central processing unit", tr:"", ru:"центральный процессор"},
+    {en:"interchangeably", tr:"", ru:"взаимозаменяемо"},
+    {en:"precisely", tr:"[prɪ'saɪsli]", ru:"точно"},
+    {en:"internal memory", tr:"", ru:"внутренняя память"},
+    {en:"activity", tr:"[æk'tɪvɪti]", ru:"деятельность"},
+    {en:"to issue", tr:"['ɪʃuː]", ru:"посылать; выдавать"},
+    {en:"response", tr:"[rɪ'spɒns]", ru:"ответ, отклик"},
+    {en:"level", tr:"['levəl]", ru:"уровень"},
+    {en:"input-output port", tr:"", ru:"порт ввода-вывода"},
+    {en:"control unit", tr:"", ru:"устройство управления"},
+    {en:"arithmetic-logic unit", tr:"", ru:"арифметико-логическое устройство"},
+    {en:"switch", tr:"[swɪtʃ]", ru:"переключатель"},
+    {en:"step-by-step operations", tr:"", ru:"пошаговые операции"},
+    {en:"to select", tr:"[sɪ'lekt]", ru:"выбирать"},
+    {en:"to load", tr:"[ləʊd]", ru:"загружать"},
+    {en:"to manage", tr:"['mænɪdʒ]", ru:"управлять"},
+    {en:"to obtain", tr:"[əb'teɪn]", ru:"получать"},
+    {en:"flow", tr:"[fləʊ]", ru:"поток"},
+    {en:"counter", tr:"['kaʊntə]", ru:"счётчик"},
+    {en:"register", tr:"['redʒɪstə]", ru:"регистр"},
+    {en:"instruction register", tr:"", ru:"регистр команд"},
+    {en:"decoder", tr:"[,diː'kəʊdə]", ru:"дешифратор"},
+    {en:"to accumulate", tr:"[ə'kjuːmjʊleɪt]", ru:"накапливать"},
+    {en:"accumulator", tr:"", ru:"сумматор"},
+    {en:"to compare", tr:"[kəm'peə]", ru:"сравнивать"},
+    {en:"comparer", tr:"", ru:"устройство сравнения"},
+    {en:"content", tr:"['kɒntent]", ru:"содержимое"},
+    {en:"to involve", tr:"[ɪn'vɒlv]", ru:"включать"},
+    {en:"core", tr:"[kɔː]", ru:"ядро, суть"},
+    {en:"adder", tr:"['ædə]", ru:"сумматор"}
+  ],
+  9: [
+    {en:"environment", tr:"[ɪn'vaɪrənmənt]", ru:"среда, окружение"},
+    {en:"external environment", tr:"", ru:"внешняя среда"},
+    {en:"human-related", tr:"", ru:"связанный с человеком"},
+    {en:"remote terminal", tr:"", ru:"удалённый терминал"},
+    {en:"input-output interface", tr:"", ru:"интерфейс ввода-вывода"},
+    {en:"to scan", tr:"[skæn]", ru:"сканировать"},
+    {en:"scanner", tr:"['skænə]", ru:"сканер"},
+    {en:"bar-code scanner", tr:"", ru:"считыватель штрих-кода"},
+    {en:"card reader", tr:"", ru:"устройство считывания карт"},
+    {en:"line printer", tr:"", ru:"построчный принтер"},
+    {en:"page printer", tr:"", ru:"принтер с постраничной печатью"},
+    {en:"character printer", tr:"", ru:"посимвольный принтер"},
+    {en:"optical character reader", tr:"", ru:"оптическое считывающее устройство"},
+    {en:"visual display", tr:"", ru:"визуальный индикатор"},
+    {en:"digitizer", tr:"", ru:"аналого-цифровой преобразователь"},
+    {en:"plotter", tr:"['plɒtə]", ru:"графопостроитель"},
+    {en:"keyboard", tr:"['kiːbɔːd]", ru:"клавиатура"},
+    {en:"manipulator", tr:"", ru:"манипулятор"},
+    {en:"trackball", tr:"", ru:"трекбол"},
+    {en:"touch panel", tr:"", ru:"сенсорная панель"},
+    {en:"sound card", tr:"", ru:"звуковая карта"},
+    {en:"to enable", tr:"[ɪn'eɪbl]", ru:"разрешать"},
+    {en:"dot-matrix printer", tr:"", ru:"точечно-матричный принтер"},
+    {en:"ink-jet printer", tr:"", ru:"струйный принтер"},
+    {en:"laser-beam printer", tr:"", ru:"лазерный принтер"},
+    {en:"letter-quality printer", tr:"", ru:"принтер типографского качества"},
+    {en:"to identify", tr:"[aɪ'dentɪfaɪ]", ru:"идентифицировать"},
+    {en:"approach", tr:"[ə'prəʊtʃ]", ru:"подход, метод"}
+  ],
+  10: [
+    {en:"personal computers", tr:"", ru:"персональные компьютеры"},
+    {en:"competitive operating system", tr:"", ru:"конкурирующая ОС"},
+    {en:"to enter the fray", tr:"", ru:"вступать в борьбу"},
+    {en:"computer of choice", tr:"", ru:"лучший компьютер"},
+    {en:"to survive onslaught", tr:"", ru:"выдерживать конкуренцию"},
+    {en:"word size", tr:"", ru:"разрядность слова"},
+    {en:"soft-copy output", tr:"", ru:"вывод на экран"},
+    {en:"hard-copy output", tr:"", ru:"вывод на печать"},
+    {en:"online storage", tr:"", ru:"неавтономное хранение"},
+    {en:"offline storage", tr:"", ru:"автономное хранение"},
+    {en:"stand-alone", tr:"", ru:"автономный"},
+    {en:"to plug in", tr:"", ru:"подключать"},
+    {en:"leisure activities", tr:"", ru:"досуговая деятельность"},
+    {en:"word processing", tr:"", ru:"обработка текста"},
+    {en:"security", tr:"[sɪ'kjʊərɪti]", ru:"безопасность"},
+    {en:"maintenance", tr:"['meɪntənəns]", ru:"эксплуатация"},
+    {en:"to delete", tr:"[dɪ'liːt]", ru:"удалять"},
+    {en:"accountant", tr:"[ə'kaʊntənt]", ru:"бухгалтер"},
+    {en:"income tax", tr:"", ru:"подоходный налог"},
+    {en:"stock market forecasting", tr:"", ru:"биржевые прогнозы"},
+    {en:"worksheet", tr:"['wɜːkʃiːt]", ru:"электронная таблица"},
+    {en:"scheduling", tr:"", ru:"составление расписания"},
+    {en:"computer-assisted instructions", tr:"", ru:"компьютерное обучение"},
+    {en:"record-keeping", tr:"", ru:"ведение записей"},
+    {en:"grading", tr:"", ru:"оценивание"}
+  ],
+  11: [
+    {en:"equation", tr:"[ɪ'kweɪʒən]", ru:"уравнение"},
+    {en:"list of instructions", tr:"", ru:"перечень команд"},
+    {en:"to guard", tr:"[gɑːd]", ru:"защищать"},
+    {en:"appropriate sequence", tr:"", ru:"необходимая последовательность"},
+    {en:"program logic", tr:"", ru:"логика программы"},
+    {en:"flowchart", tr:"['fləʊtʃɑːt]", ru:"блок-схема"},
+    {en:"flowcharting", tr:"", ru:"построение блок-схемы"},
+    {en:"pictorial representation", tr:"", ru:"наглядное представление"},
+    {en:"predefined symbols", tr:"", ru:"заранее заданные символы"},
+    {en:"template", tr:"['emplət]", ru:"шаблон"},
+    {en:"pseudocode", tr:"['sjuːdəʊkəʊd]", ru:"псевдокод"},
+    {en:"top-down approach", tr:"", ru:"принцип нисходящей разработки"},
+    {en:"looping logic", tr:"", ru:"логика цикла"},
+    {en:"programming language", tr:"", ru:"язык программирования"},
+    {en:"coded form", tr:"", ru:"кодированный вид"},
+    {en:"to convey", tr:"", ru:"передавать"},
+    {en:"machine-oriented language", tr:"", ru:"машинно-ориентированный язык"},
+    {en:"business-oriented language", tr:"", ru:"язык для бизнес-задач"},
+    {en:"problem-oriented language", tr:"", ru:"проблемно-ориентированный язык"},
+    {en:"data handling", tr:"", ru:"обработка данных"},
+    {en:"field-name length", tr:"", ru:"длина имени поля"},
+    {en:"versatile", tr:"['vɜːsətaɪl]", ru:"многофункциональный"},
+    {en:"mathematical relationship", tr:"", ru:"математическая связь"}
+  ],
+  12: [
+    {en:"new media", tr:"", ru:"новые медиа"},
+    {en:"amalgamation", tr:"[ə,mælgə'meɪʃən]", ru:"слияние"},
+    {en:"on-demand access", tr:"", ru:"доступ по требованию"},
+    {en:"user feedback", tr:"", ru:"обратная связь"},
+    {en:"creative participation", tr:"", ru:"творческое участие"},
+    {en:"community", tr:"[kə'mjuːnɪti]", ru:"сообщество"},
+    {en:"manipulated", tr:"", ru:"управляемый"},
+    {en:"networkable", tr:"", ru:"сетевой"},
+    {en:"compressible", tr:"", ru:"сжимаемый"},
+    {en:"interactive", tr:"[,ɪntər'æktɪv]", ru:"интерактивный"},
+    {en:"impartial", tr:"[ɪm'pɑːʃəl]", ru:"беспристрастный"},
+    {en:"cyberculture", tr:"", ru:"киберкультура"},
+    {en:"distribution platform", tr:"", ru:"платформа распространения"},
+    {en:"globalization", tr:"[,gləʊbəlaɪ'zeɪʃən]", ru:"глобализация"},
+    {en:"virtual reality", tr:"", ru:"виртуальная реальность"},
+    {en:"automated calculation", tr:"", ru:"автоматизированное вычисление"},
+    {en:"programmable machine", tr:"", ru:"программируемая машина"},
+    {en:"stored-program architecture", tr:"", ru:"архитектура с хранимой программой"},
+    {en:"embedded computer", tr:"", ru:"встроенный компьютер"},
+    {en:"mainframe", tr:"['meɪnfreɪm]", ru:"большая ЭВМ"},
+    {en:"operating system", tr:"", ru:"операционная система"},
+    {en:"software development", tr:"", ru:"разработка ПО"}
+  ],
+  13: [
+    {en:"notebook", tr:"", ru:"ноутбук"},
+    {en:"laptop", tr:"", ru:"лэптоп"},
+    {en:"display", tr:"[dɪs'pleɪ]", ru:"дисплей"},
+    {en:"pointing device", tr:"", ru:"устройство указания"},
+    {en:"touchpad", tr:"", ru:"сенсорная панель"},
+    {en:"pointing stick", tr:"", ru:"указательная ручка"},
+    {en:"mains electricity", tr:"", ru:"электросеть"},
+    {en:"AC adapter", tr:"", ru:"адаптер переменного тока"},
+    {en:"rechargeable battery", tr:"", ru:"аккумулятор"},
+    {en:"power management settings", tr:"", ru:"настройки управления питанием"},
+    {en:"flip form factor", tr:"", ru:"раскладная конструкция"},
+    {en:"swivel", tr:"['swɪvəl]", ru:"поворачивать"},
+    {en:"monochrome", tr:"['mɒnəkrəʊm]", ru:"монохромный"},
+    {en:"handwriting recognition", tr:"", ru:"распознавание рукописного текста"},
+    {en:"full-size laptop", tr:"", ru:"полноразмерный ноутбук"},
+    {en:"netbook", tr:"", ru:"нетбук"},
+    {en:"ultra-thin laptop", tr:"", ru:"ультратонкий ноутбук"},
+    {en:"tablet PC", tr:"", ru:"планшетный ПК"},
+    {en:"rugged laptops", tr:"", ru:"защищённые ноутбуки"},
+    {en:"desktop replacement", tr:"", ru:"замена настольного ПК"},
+    {en:"subnotebook", tr:"", ru:"субноутбук"},
+    {en:"ultraportable", tr:"", ru:"ультрапортативный"},
+    {en:"cloud computing", tr:"", ru:"облачные вычисления"},
+    {en:"stylus", tr:"['staɪləs]", ru:"стилус"},
+    {en:"touchscreen", tr:"", ru:"сенсорный экран"},
+    {en:"convertible", tr:"[kən'vɜːtəbl]", ru:"трансформер"},
+    {en:"hybrid", tr:"['haɪbrɪd]", ru:"гибрид"},
+    {en:"swivel hinge", tr:"", ru:"поворотный шарнир"},
+    {en:"detachable keyboard", tr:"", ru:"съёмная клавиатура"}
+  ],
+  14: [
+    {en:"mobile phone", tr:"", ru:"мобильный телефон"},
+    {en:"cellular phone", tr:"", ru:"сотовый телефон"},
+    {en:"full duplex", tr:"", ru:"полнодуплексный"},
+    {en:"cell sites", tr:"", ru:"базовые станции"},
+    {en:"cordless telephone", tr:"", ru:"беспроводной телефон"},
+    {en:"base station", tr:"", ru:"базовая станция"},
+    {en:"handoff", tr:"", ru:"передача вызова"},
+    {en:"text messages", tr:"", ru:"текстовые сообщения"},
+    {en:"Bluetooth", tr:"", ru:"Bluetooth"},
+    {en:"infrared", tr:"['ɪnfrəred]", ru:"инфракрасный"},
+    {en:"MMS messaging", tr:"", ru:"MMS-сообщения"},
+    {en:"feature phones", tr:"", ru:"кнопочные телефоны"},
+    {en:"smartphones", tr:"", ru:"смартфоны"},
+    {en:"radiophone", tr:"", ru:"радиотелефон"},
+    {en:"car phone system", tr:"", ru:"автомобильная телефонная система"},
+    {en:"international roaming", tr:"", ru:"международный роуминг"},
+    {en:"keypad", tr:"['kiːpæd]", ru:"клавиатура телефона"},
+    {en:"SIM card", tr:"", ru:"SIM-карта"},
+    {en:"IMEI", tr:"", ru:"IMEI"},
+    {en:"PDA functionality", tr:"", ru:"функции КПК"},
+    {en:"microblogging", tr:"", ru:"микроблоггинг"},
+    {en:"tweet", tr:"[twiːt]", ru:"твит"},
+    {en:"followers", tr:"", ru:"подписчики"},
+    {en:"portable media player", tr:"", ru:"портативный медиаплеер"},
+    {en:"multi-touch screen", tr:"", ru:"мультисенсорный экран"},
+    {en:"visual voicemail", tr:"", ru:"визуальная голосовая почта"}
+  ]
+};
+
+// Тесты
+const tests = {
+  1: [
+    {q:"The basic function of a computer is _____ information.", opts:["to switch","to keep","to process"], correct:2},
+    {q:"Information is given into the computer in the form of _____.", opts:["ideas","characters","rules"], correct:1},
+    {q:"The data needed for solving problems are kept in the _____.", opts:["memory","input device","output device"], correct:0},
+    {q:"A computer can carry out arithmetic-logical operations _____.", opts:["quickly","instantaneously","during some minutes"], correct:1},
+    {q:"Computers have become _____ in homes and offices.", opts:["commonwealth","commonplace","common room"], correct:1},
+    {q:"Space _____ uses computers widely.", opts:["information","production","exploration"], correct:2},
+    {q:"Air traffic control depends on computer-_____ information.", opts:["generated","instructed","combined"], correct:0}
+  ],
+  2: [
+    {q:"Transistors have many _____ over vacuum tubes.", opts:["patterns","advantages","scales"], correct:1},
+    {q:"They _____ very little power.", opts:["consume","generate","embrace"], correct:0},
+    {q:"The transistor consists of a small piece of a _____ with three electrodes.", opts:["diode","conductor","semiconductor"], correct:2},
+    {q:"Modern _____ began in the early 20th century with the invention of electronic tubes.", opts:["miniaturization","electronics","microelectronics"], correct:1},
+    {q:"One of the transistor advantages was lower power _____ in comparison with vacuum tubes.", opts:["consumption","reception","transmission"], correct:0},
+    {q:"Microelectronics greatly extended man's intellectual _____.", opts:["subsystems","capabilities","dimensions"], correct:1}
+  ],
+  3: [
+    {q:"British scientists invented a _____ way of multiplying and dividing.", opts:["mechanical","electrical","optical"], correct:0},
+    {q:"A new branch of mathematics, _____, was invented in England and Germany independently.", opts:["mechanics","arithmetics","calculus"], correct:2},
+    {q:"A young American clerk invented a means of coding _____ by punched cards.", opts:["letters","data","numbers"], correct:1},
+    {q:"Soon punched cards were replaced by _____ terminals.", opts:["printer","scanner","keyboard"], correct:2},
+    {q:"Mark I was the first _____ computer that could solve mathematical problems.", opts:["analog","digital","mechanical"], correct:1},
+    {q:"J. von Neumann simplified his computer by storing information in a _____ code.", opts:["analytical","numerical","binary"], correct:2},
+    {q:"Vacuum tubes could control and _____ electric signals.", opts:["calculate","amplify","generate"], correct:1},
+    {q:"The first-generation computers were _____ and often burned out.", opts:["uncomfortable","uncommunicative","unreliable"], correct:2},
+    {q:"Computers of the second generation used _____, which reduced computational time greatly.", opts:["transistors","integrated circuits","vacuum tubes"], correct:0},
+    {q:"Due to _____ the development of the fourth-generation computers became possible.", opts:["microelectronics","miniaturization","microminiaturization"], correct:2}
+  ],
+  4: [
+    {q:"Computer data _____ system frees humans from routine error-prone tasks.", opts:["counting","computing","processing"], correct:2},
+    {q:"Computers can store vast amount of information to organize it and _____ it.", opts:["to travel","to retrieve","to respond"], correct:1},
+    {q:"The entered data can be transmitted by _____ networks.", opts:["communications","conversions","procession"], correct:0},
+    {q:"The possibility of _____ is reduced if data were correctly put into the data processing system.", opts:["character","access","error"], correct:2},
+    {q:"Computer data processing systems can _____ at a fraction of a second.", opts:["receive","respond","retrieve"], correct:1},
+    {q:"Computer systems are vulnerable to the entry of _____ data.", opts:["invalid","invariable","invisible"], correct:0},
+    {q:"The amount of data stored on magnetic disks is constantly _____.", opts:["decreasing","increasing","eliminating"], correct:1}
+  ],
+  5: [
+    {q:"Computers and their _____ equipment are designed by a computer system architect.", opts:["engineering","accessory","specific"], correct:1},
+    {q:"Digital computers use numbers instead of analogous physical _____.", opts:["symbols","equipment","quantities"], correct:2},
+    {q:"Systems _____ are usually stored in read-only memory.", opts:["hardware","software","firmware"], correct:1},
+    {q:"In modern electronic computers the _____ is the device that acts as a switch.", opts:["integrated circuit","diode","transistor"], correct:2},
+    {q:"A number of actions that convert data into useful information is defined as _____.", opts:["data","processing","data processing"], correct:2},
+    {q:"Computers can store, organize, and retrieve great amounts of information, far beyond the _____ of humans.", opts:["capacities","capabilities","accuracy"], correct:1},
+    {q:"The development of third-generation computers became possible due to the invention of _____.", opts:["integrated circuits","electronic tubes","transistors"], correct:0}
+  ],
+  6: [
+    {q:"The method of _____ all functional categories to one another represents the functional organization of a computer.", opts:["showing","relating","performing"], correct:1},
+    {q:"Instructions and data are fed through the _____ equipment to the memory.", opts:["output","memory","input","control"], correct:2},
+    {q:"The main units of the computer communicate with each other _____ a machine language.", opts:["in spite of","because of","by means of"], correct:2},
+    {q:"The input also _____ the information into the pulse — no-pulse combinations understandable to the computer.", opts:["converts","removes","accomplishes"], correct:0},
+    {q:"The four _____ are used to perform basic operations in a computer.", opts:["basics","circuits","equipment"], correct:1},
+    {q:"A computer can solve very complex numerical _____.", opts:["communication","computations","instructions"], correct:1},
+    {q:"Numbers and instructions forming the program are _____ in the memory.", opts:["solved","stored","simulated"], correct:1},
+    {q:"The control unit serves for _____ orders.", opts:["reading","interpreting","inputting"], correct:1},
+    {q:"The function of memory is to store _____ the original input data _____ the partial results.", opts:["not only... but also","either... or","no sooner... than"], correct:0},
+    {q:"The _____ includes the control and arithmetic-logic units.", opts:["flip-flop","digital computer","central processor"], correct:2}
+  ],
+  7: [
+    {q:"The time required for the computer to locate and transfer data in the storage device is called the data _____ time.", opts:["sequence","access","value"], correct:1},
+    {q:"_____ memories have no moving parts.", opts:["electronic","mechanical","electromechanical"], correct:0},
+    {q:"Magnetic _____ were the main elements used for primary memory in digital computers for many years.", opts:["cores","tapes","disks"], correct:0},
+    {q:"_____ is more commonly used for memory at present.", opts:["bipolar semiconductor","MOS","field-effect transistor"], correct:1},
+    {q:"Magnetic disks constitute the _____ storage media.", opts:["internal","primary","secondary"], correct:2},
+    {q:"Data are stored in _____ codes in primary as well as in secondary storage.", opts:["digital","binary","numerical"], correct:1},
+    {q:"Data access time is _____ in electronic memories than those in electromechanical memories.", opts:["longer","much longer","shorter"], correct:2}
+  ],
+  8: [
+    {q:"Programs and data to be processed must be in the _____ memory.", opts:["internal","external","secondary"], correct:0},
+    {q:"The control unit _____ instructions from the program.", opts:["sends","changes","obtains"], correct:2},
+    {q:"The results of arithmetic operations are returned to the _____ for transferring to main storage.", opts:["decoder","counter","accumulator"], correct:2},
+    {q:"The instruction to be _____ in control unit is read out from primary storage into the storage register.", opts:["calculated","executed","read out"], correct:1},
+    {q:"The _____ performs logical comparisons of the contents of the storage register and the _____.", opts:["adder","accumulator","comparer"], correct:2},
+    {q:"CPU is designed to _____ and to _____ basic instructions for the computer.", opts:["control","consist","carry out"], correct:0},
+    {q:"CU and ALU consist of electronic circuits with millions of _____.", opts:["sensors","servers","switches"], correct:2}
+  ],
+  9: [
+    {q:"Input-output devices allow the computer to _____ with its external environment.", opts:["compute","command","communicate"], correct:2},
+    {q:"An I/O interface is a special _____ that converts input data to the internal codes.", opts:["register","processor","plotter"], correct:1},
+    {q:"Data are entered from a _____ in a manner similar to typing.", opts:["keyboard","digitizer","printer"], correct:0},
+    {q:"A remote banking terminal is an example of a _____ input environment.", opts:["human-dependent","human-independent","human-related"], correct:2},
+    {q:"Input _____ match the physical or electrical characteristics of input devices to the requirements of the computer system.", opts:["interconnections","interfaces","intercommunication"], correct:1},
+    {q:"They _____ data into the binary codes.", opts:["transmit","translate","transform"], correct:2}
+  ],
+  10: [
+    {q:"A personal computer is a small relatively inexpensive device designed for an individual _____.", opts:["person","producer","user"], correct:2},
+    {q:"One of the first and most popular personal computers was _____ in 1977.", opts:["interpreted","introduced","integrated"], correct:1},
+    {q:"All personal computers are based on _____ technology, its CPU being called MPU.", opts:["microscopy","microprocessor","microelement"], correct:1},
+    {q:"Very soon a microcomputer was _____ from a calculator into a PC for everyone.", opts:["transformed","transferred","transported"], correct:0},
+    {q:"Input in PC is usually performed by means of a _____.", opts:["mouse","scanner","keyboard"], correct:2},
+    {q:"A personal computer uses _____ disks as input and output media.", opts:["hard","fixed","floppy"], correct:2},
+    {q:"Personal computers have a lot of _____, scientific, engineering, educational being among them.", opts:["multiplication","applications","investigation"], correct:1},
+    {q:"Personal computers have a great _____ upon pupils, educators, accountants, stock brokers, and who not.", opts:["influence","information","environment"], correct:0},
+    {q:"A word processing program called application _____ enables you to modify any document in a manner you wish.", opts:["hardware","software","firmware"], correct:1},
+    {q:"Using a display you can _____ mistakes, _____ words and replace sentences.", opts:["delete","dial","correct"], correct:2}
+  ],
+  11: [
+    {q:"The most common _____ for planning the program logic are flowcharting and pseudocode.", opts:["technologies","technics","techniques"], correct:2},
+    {q:"_____ was designed for dealing with the complicated mathematical calculations of scientists and engineers.", opts:["COBOL","FORTRAN","PL/I"], correct:1},
+    {q:"_____ is the foundation of any programming languages.", opts:["a set of rules","a group of numbers","a lot of instructions"], correct:0},
+    {q:"I/O _____ match the physical and electrical characteristics of input-output devices.", opts:["interchanges","interfaces","interpretations"], correct:1},
+    {q:"Letter-quality, dot-matrix, and ink-jet printers are all _____ printers.", opts:["line","page","character"], correct:2},
+    {q:"The most common device used to transfer information from the user to the computer is the _____.", opts:["keyboard","printer","modem"], correct:0},
+    {q:"Input-output units link the computer to its external _____.", opts:["requirement","development","environment"], correct:2},
+    {q:"I/O devices can be classified according to their speed, visual displays being _____ devices.", opts:["high-speed","medium-speed","low-speed"], correct:1}
+  ],
+  12: [
+    {q:"It is interactive relationship with the media consumer that _____ new media from traditional media.", opts:["disconnects","discharges","distinguishes","disintegrates"], correct:2},
+    {q:"New media provides the possibility of increasing the speed of interactive _____.", opts:["consideration","computation","consumption","communication"], correct:3},
+    {q:"The development of new media has _____ communication between people all over the world and the Internet.", opts:["included","increased","installed","investigate"], correct:1},
+    {q:"Ch. Babbage's idea of a fully _____ mechanical device seemed to be the basis for building today's computer.", opts:["processing","predominant","provided","programmable"], correct:3},
+    {q:"A device that has input and output represented in the form of physical quantities is a _____ computer.", opts:["digital","analog","hybrid","modern"], correct:1},
+    {q:"The discovery of _____ made computers smaller, cheaper, faster, and more reliable.", opts:["integrated circuits","transistors","vacuum tubes","capacitors"], correct:0},
+    {q:"Mobile phones, microwave ovens, cars are examples of _____ computers.", opts:["desktop","mainframe","embedded","analog"], correct:2},
+    {q:"The motherboard is connected to a _____ that provides electricity to the entire computer.", opts:["sound card","power supply","hard disk","floppy drive"], correct:1},
+    {q:"The CPU coordinates the activities of various computer components and performs operations on the data _____ the instructions.", opts:["due to","according to","because of","in spite of"], correct:1},
+    {q:"Television programs, feature films, books, and magazines containing technologies that enable digital _____ may be considered new media.", opts:["invisibility","interactivity","immunity","invalidity"], correct:1}
+  ],
+  13: [
+    {q:"Due to their compact size and weight _____ offer some advantages in education.", opts:["notebooks","netbooks","desktops","ultraportables"], correct:1},
+    {q:"Users can install any _____ application or operating system in tablets.", opts:["capable","comparative","conventional","compatible"], correct:3},
+    {q:"_____ laptops are engineered to operate in tough conditions.", opts:["rugged","full-size","tablet","ultra-thin"], correct:0},
+    {q:"Using laptops students have _____ to more information, improving data analysis skills.", opts:["attach","account","access","attempt"], correct:2},
+    {q:"Netbooks are targeted at _____ computing users.", opts:["cloud","column","chain","chart"], correct:0},
+    {q:"Resembling modern laptops _____ have a base body with an attached keyboard.", opts:["slates","booklets","convertibles","hybrids"], correct:2},
+    {q:"Low power consumption is one of the beneficial _____ of laptops.", opts:["adjustments","advantages","arrangements","assumptions"], correct:1},
+    {q:"Laptops are subjected to more wear and physical damage than desktops _____ their portability.", opts:["according to","due to","instead of","because of"], correct:1},
+    {q:"The power supply can charge the battery and power the laptop _____.", opts:["similarly","simultaneously","specifically","separately"], correct:1}
+  ],
+  14: [
+    {q:"The mobile phone is a long-range, _____ electronic device used for mobile communication.", opts:["popular","pocketful","portable","political"], correct:2},
+    {q:"High-end mobile phones offering more advanced computing ability are often called _____.", opts:["feature phones","smartphones","iPod","Bluetooth"], correct:1},
+    {q:"As it is known, the original BlackBerry had a monochrome _____.", opts:["discard","discharge","discomfort","display"], correct:3},
+    {q:"Almost all iPods have five buttons and the later _____ have the buttons integrated into the click wheel.", opts:["generators","generations","gateways","gadgets"], correct:1},
+    {q:"It was Jack Dorsey who _____ the idea of an individual using an SMS service to communicate with a small group.", opts:["installed","introduced","instructed","inserted"], correct:1},
+    {q:"Twitter collects personally identifiable information about its _____ and shares it with third parties.", opts:["use","usage","users","useful"], correct:2},
+    {q:"Those cell phones that do not use a _____ have the data programmed in to their memory.", opts:["SIM card","operating system","SMS message","tweet"], correct:0},
+    {q:"An input mechanism, such as a _____ allows the user to interact with the phone.", opts:["keycap","keylock","keyslot","keypad"], correct:3},
+    {q:"The user interface for the iPod Touch is almost identical to that of the _____.", opts:["iPad","iTune","iPod Classic","iPhone"], correct:3},
+    {q:"_____ the standard voice function of a telephone, mobile phones have many additional services.", opts:["In spite of","In addition to","Instead of","Due to"], correct:1}
+  ]
+};
+
+// Перевод
+const translations = [
+  {ru:"обработка данных", en:"data processing"},
+  {ru:"центральный процессор", en:"central processing unit"},
+  {ru:"устройство ввода-вывода", en:"input-output device"},
+  {ru:"оперативная память", en:"random-access memory"},
+  {ru:"постоянное запоминающее устройство", en:"read-only memory"},
+  {ru:"арифметико-логическое устройство", en:"arithmetic-logic unit"},
+  {ru:"устройство управления", en:"control unit"},
+  {ru:"аппаратное обеспечение", en:"hardware"},
+  {ru:"программное обеспечение", en:"software"},
+  {ru:"встроенное программное обеспечение", en:"firmware"},
+  {ru:"интегральная схема", en:"integrated circuit"},
+  {ru:"электронная лампа", en:"vacuum tube"},
+  {ru:"полупроводник", en:"semiconductor"},
+  {ru:"двоичный код", en:"binary code"},
+  {ru:"база данных", en:"database"},
+  {ru:"операционная система", en:"operating system"},
+  {ru:"язык программирования", en:"programming language"},
+  {ru:"блок-схема", en:"flowchart"},
+  {ru:"персональный компьютер", en:"personal computer"},
+  {ru:"мобильный телефон", en:"mobile phone"},
+  {ru:"сенсорный экран", en:"touch screen"},
+  {ru:"переносной компьютер", en:"portable computer"},
+  {ru:"блок питания", en:"power supply"},
+  {ru:"материнская плата", en:"motherboard"},
+  {ru:"жёсткий диск", en:"hard disk"},
+  {ru:"гибкий диск", en:"floppy disk"},
+  {ru:"магнитная лента", en:"magnetic tape"},
+  {ru:"виртуальная реальность", en:"virtual reality"},
+  {ru:"всемирная паутина", en:"World-Wide Web"},
+  {ru:"облачные вычисления", en:"cloud computing"},
+  {ru:"смартфон", en:"smartphone"},
+  {ru:"ноутбук", en:"laptop"},
+  {ru:"клавиатура", en:"keyboard"},
+  {ru:"принтер", en:"printer"},
+  {ru:"сканер", en:"scanner"}
+];
+
+// Викторина
+const quizQuestions = [
+  {q:"Что означает «computer-literate person»?", a:"Человек, умеющий использовать компьютер как средство решения задач"},
+  {q:"Кто изобрёл транзистор?", a:"W. Shockley, J. Bardeen и W. Brattain в 1948 году"},
+  {q:"Что такое ENIAC?", a:"Electronic Numerical Integrator and Calculator — первый полностью электронный компьютер"},
+  {q:"Что такое микроэлектроника?", a:"Область электроники, связанная с созданием сверхмалых электронных компонентов и схем"},
+  {q:"Кто предложил идею хранимой программы?", a:"Джон фон Нейман"},
+  {q:"Какие пять основных функций выполняет компьютер?", a:"Ввод, хранение, обработка, управление, вывод"},
+  {q:"Что такое бит?", a:"Двоичный разряд — минимальная единица информации (0 или 1)"},
+  {q:"Что такое RAM?", a:"Random-Access Memory — оперативное запоминающее устройство"},
+  {q:"Что такое ROM?", a:"Read-Only Memory — постоянное запоминающее устройство"},
+  {q:"Из каких двух основных блоков состоит ЦП?", a:"Устройство управления (CU) и арифметико-логическое устройство (ALU)"},
+  {q:"Что такое модем?", a:"Устройство, преобразующее цифровые сигналы в аналоговые и обратно"},
+  {q:"Что такое WWW?", a:"World-Wide Web — Всемирная информационная сеть"},
+  {q:"Кто считается изобретателем первого практического мобильного телефона?", a:"Martin Cooper (Motorola) в 1973 году"},
+  {q:"Что такое процессор?", a:"Микропроцессор — центральная часть компьютера, выполняющая обработку данных"},
+  {q:"Какие четыре преимущества компьютерной обработки данных?", a:"Точность, удобство связи, ёмкость памяти, скорость"}
+];
+
+/* ============ СОСТОЯНИЕ ПРИЛОЖЕНИЯ ============ */
+let currentCard = 0;
+let currentCards = [];
+let currentTest = 0;
+let currentTestQuestions = [];
+let testScore = 0;
+let learnedTerms = new Set(JSON.parse(localStorage.getItem('learned') || '[]'));
+let testsCompleted = parseInt(localStorage.getItem('tests') || '0');
+let totalAnswers = parseInt(localStorage.getItem('total') || '0');
+let correctAnswers = parseInt(localStorage.getItem('correct') || '0');
+let dictationCorrect = parseInt(localStorage.getItem('dictation') || '0');
+let hangmanCorrect = parseInt(localStorage.getItem('hangman') || '0');
+let activityHistory = JSON.parse(localStorage.getItem('history') || '[]');
+
+const synth = window.speechSynthesis;
+let speechSupported = !!synth;
+
+/* ============ ИНИЦИАЛИЗАЦИЯ ============ */
+function init() {
+  updateStats();
+  populateUnitSelectors();
+  loadCards();
+  loadTest();
+  loadTranslation();
+  loadDictation();
+  loadHangman();
+  loadQuiz();
+  renderHistory();
+  setupNavigation();
+  
+  if (!speechSupported) {
+    console.warn('Web Speech API не поддерживается в этом браузере');
+  }
+}
+
+function setupNavigation() {
+  document.querySelectorAll('nav button').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('nav button').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+    });
+  });
+}
+
+function updateStats() {
+  document.getElementById('stat-learned').textContent = learnedTerms.size;
+  document.getElementById('stat-tests').textContent = testsCompleted;
+  var accuracy = totalAnswers > 0 ? Math.round((correctAnswers / totalAnswers) * 100) : 0;
+  document.getElementById('stat-score').textContent = accuracy + '%';
+  document.getElementById('stat-dictation').textContent = dictationCorrect;
+  document.getElementById('stat-hangman').textContent = hangmanCorrect;
+}
+
+function saveStats() {
+  localStorage.setItem('learned', JSON.stringify([...learnedTerms]));
+  localStorage.setItem('tests', testsCompleted);
+  localStorage.setItem('total', totalAnswers);
+  localStorage.setItem('correct', correctAnswers);
+  localStorage.setItem('dictation', dictationCorrect);
+  localStorage.setItem('hangman', hangmanCorrect);
+  localStorage.setItem('history', JSON.stringify(activityHistory));
+}
+
+function addHistory(type, details) {
+  activityHistory.unshift({
+    type: type,
+    details: details,
+    timestamp: new Date().toISOString()
+  });
+  if (activityHistory.length > 100) activityHistory = activityHistory.slice(0, 100);
+  saveStats();
+  renderHistory();
+}
+
+function populateUnitSelectors() {
+  var sel1 = document.getElementById('unit-selector');
+  var sel2 = document.getElementById('test-unit-selector');
+  var sel3 = document.getElementById('dictation-unit-selector');
+  for (var i = 1; i <= 14; i++) {
+    sel1.add(new Option('Юнит ' + i, i));
+    sel2.add(new Option('Юнит ' + i, i));
+    sel3.add(new Option('Юнит ' + i, i));
+  }
+  sel1.addEventListener('change', loadCards);
+  sel2.addEventListener('change', loadTest);
+  sel3.addEventListener('change', loadDictation);
+}
+
+/* ============ АУДИО ============ */
+function speak(text, rate) {
+  if (!rate) rate = 0.9;
+  if (!speechSupported) {
+    alert('Аудио не поддерживается в этом браузере. Попробуйте Chrome или Edge.');
+    return;
+  }
+  synth.cancel();
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  utter.rate = rate;
+  utter.pitch = 1;
+  var voices = synth.getVoices();
+  var enVoice = voices.find(function(v) { return v.lang.startsWith('en'); });
+  if (enVoice) utter.voice = enVoice;
+  synth.speak(utter);
+}
+
+function speakTerm() {
+  if (currentCards.length === 0) return;
+  speak(currentCards[currentCard].en);
+}
+
+/* ============ КАРТОЧКИ ============ */
+function loadCards() {
+  var unit = document.getElementById('unit-selector').value;
+  currentCards = [];
+  if (unit === 'all') {
+    for (var i = 1; i <= 14; i++) {
+      vocabulary[i].forEach(function(t) { currentCards.push(Object.assign({}, t, {unit: i})); });
+    }
+  } else {
+    vocabulary[parseInt(unit)].forEach(function(t) { currentCards.push(Object.assign({}, t, {unit: parseInt(unit)})); });
+  }
+  currentCard = 0;
+  showCard();
+}
+
+function showCard() {
+  if (currentCards.length === 0) return;
+  var card = currentCards[currentCard];
+  document.getElementById('term-word').textContent = card.en;
+  document.getElementById('term-transcription').textContent = card.tr || '';
+  document.getElementById('term-translation').textContent = card.ru;
+  document.getElementById('card-counter').textContent = (currentCard + 1) + ' / ' + currentCards.length + ' (Юнит ' + card.unit + ')';
+  document.getElementById('flashcard').classList.remove('flipped');
+  learnedTerms.add(card.en);
+  saveStats();
+  updateStats();
+}
+
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+function nextCard() {
+  currentCard = (currentCard + 1) % currentCards.length;
+  showCard();
+}
+
+function prevCard() {
+  currentCard = (currentCard - 1 + currentCards.length) % currentCards.length;
+  showCard();
+}
+
+function shuffleCards() {
+  for (var i = currentCards.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = currentCards[i];
+    currentCards[i] = currentCards[j];
+    currentCards[j] = temp;
+  }
+  currentCard = 0;
+  showCard();
+}
+
+/* ============ ТЕСТЫ ============ */
+function loadTest() {
+  var unit = document.getElementById('test-unit-selector').value;
+  currentTestQuestions = [];
+  if (unit === 'all') {
+    for (var i = 1; i <= 14; i++) {
+      tests[i].forEach(function(q) { currentTestQuestions.push(q); });
+    }
+    for (var i = currentTestQuestions.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = currentTestQuestions[i];
+      currentTestQuestions[i] = currentTestQuestions[j];
+      currentTestQuestions[j] = temp;
+    }
+    currentTestQuestions = currentTestQuestions.slice(0, 15);
+  } else {
+    currentTestQuestions = tests[parseInt(unit)].slice();
+  }
+  currentTest = 0;
+  testScore = 0;
+  document.getElementById('test-result').style.display = 'none';
+  showTestQuestion();
+}
+
+function showTestQuestion() {
+  var container = document.getElementById('test-container');
+  if (currentTest >= currentTestQuestions.length) {
+    finishTest();
+    return;
+  }
+  var q = currentTestQuestions[currentTest];
+  var progress = ((currentTest) / currentTestQuestions.length) * 100;
+  document.getElementById('test-progress').style.width = progress + '%';
+  
+  var html = '<div class="question-box">' +
+    '<div class="question-text">Вопрос ' + (currentTest + 1) + ' из ' + currentTestQuestions.length + '</div>' +
+    '<div class="question-text">' + q.q + '</div>' +
+    '<div class="options">';
+  q.opts.forEach(function(opt, i) {
+    html += '<div class="option" onclick="selectAnswer(' + i + ')">' + String.fromCharCode(97+i) + ') ' + opt + '</div>';
+  });
+  html += '</div><div class="feedback" id="feedback" style="display:none;"></div></div>';
+  container.innerHTML = html;
+}
+
+function selectAnswer(idx) {
+  var q = currentTestQuestions[currentTest];
+  var options = document.querySelectorAll('.option');
+  options.forEach(function(o) { o.classList.add('disabled'); });
+  options[q.correct].classList.add('correct');
+  totalAnswers++;
+  var feedback = document.getElementById('feedback');
+  feedback.style.display = 'block';
+  if (idx === q.correct) {
+    testScore++;
+    correctAnswers++;
+    feedback.className = 'feedback correct';
+    feedback.textContent = '✓ Правильно!';
+  } else {
+    options[idx].classList.add('wrong');
+    feedback.className = 'feedback wrong';
+    feedback.textContent = '✗ Неверно. Правильный ответ: ' + q.opts[q.correct];
+  }
+  saveStats();
+  updateStats();
+  setTimeout(function() {
+    currentTest++;
+    showTestQuestion();
+  }, 1800);
+}
+
+function finishTest() {
+  document.getElementById('test-progress').style.width = '100%';
+  document.getElementById('test-container').innerHTML = '';
+  testsCompleted++;
+  var percent = Math.round((testScore / currentTestQuestions.length) * 100);
+  addHistory('test', 'Результат: ' + testScore + '/' + currentTestQuestions.length + ' (' + percent + '%)');
+  saveStats();
+  updateStats();
+  var result = document.getElementById('test-result');
+  result.style.display = 'block';
+  var emoji = '🎉';
+  var msg = 'Отличный результат!';
+  if (percent < 50) { emoji = '📚'; msg = 'Стоит повторить материал.'; }
+  else if (percent < 80) { emoji = '👍'; msg = 'Хороший результат!'; }
+  result.innerHTML = '<div class="result-box">' +
+    '<h3>' + emoji + ' Тест завершён!</h3>' +
+    '<p style="font-size:1.3em; margin:15px 0;">Правильных ответов: ' + testScore + ' из ' + currentTestQuestions.length + ' (' + percent + '%)</p>' +
+    '<p>' + msg + '</p>' +
+    '<button class="btn-primary" onclick="loadTest()" style="margin-top:20px;">Пройти ещё раз</button>' +
+    '</div>';
+}
+
+/* ============ ПЕРЕВОД ============ */
+var currentTranslationIdx = 0;
+function loadTranslation() {
+  currentTranslationIdx = Math.floor(Math.random() * translations.length);
+  var t = translations[currentTranslationIdx];
+  var container = document.getElementById('translation-container');
+  container.innerHTML = '<div class="translation-exercise">' +
+    '<div class="source-text">🇷🇺 ' + t.ru + '</div>' +
+    '<input type="text" class="user-answer" id="user-translation" placeholder="Введите перевод на английском..." onkeypress="if(event.key===\'Enter\')checkTranslation()">' +
+    '<button class="btn-primary" onclick="checkTranslation()">Проверить</button>' +
+    '<div class="correct-answer" id="correct-answer">✓ Правильный ответ: <strong>' + t.en + '</strong></div>' +
+    '</div>';
+}
+
+function checkTranslation() {
+  var user = document.getElementById('user-translation').value.trim().toLowerCase();
+  var correct = translations[currentTranslationIdx].en.toLowerCase();
+  var answerDiv = document.getElementById('correct-answer');
+  answerDiv.style.display = 'block';
+  totalAnswers++;
+  if (user === correct) {
+    correctAnswers++;
+    answerDiv.style.background = 'linear-gradient(135deg, rgba(212,241,232,0.7), rgba(232,223,245,0.5))';
+    answerDiv.style.color = 'var(--success)';
+    answerDiv.innerHTML = '✓ Отлично! Правильно: <strong>' + translations[currentTranslationIdx].en + '</strong>';
+  } else {
+    answerDiv.innerHTML = 'Ваш ответ: <em>' + (user || '(пусто)') + '</em><br>✓ Правильный ответ: <strong>' + translations[currentTranslationIdx].en + '</strong>';
+  }
+  saveStats();
+  updateStats();
+}
+
+/* ============ ДИКТАНТ ============ */
+var currentDictation = null;
+var dictationAttempts = 0;
+var dictationPool = [];
+
+function loadDictation() {
+  var unit = document.getElementById('dictation-unit-selector').value;
+  dictationPool = [];
+  if (unit === 'all') {
+    for (var i = 1; i <= 14; i++) {
+      vocabulary[i].forEach(function(t) { dictationPool.push(t); });
+    }
+  } else {
+    vocabulary[parseInt(unit)].forEach(function(t) { dictationPool.push(t); });
+  }
+  dictationPool = dictationPool.filter(function(t) {
+    var word = t.en.replace(/to |the |a /g, '').trim();
+    return word.length >= 3 && !word.includes(' ');
+  });
+  nextDictation();
+}
+
+function nextDictation() {
+  if (dictationPool.length === 0) return;
+  var item = dictationPool[Math.floor(Math.random() * dictationPool.length)];
+  var wordToDictate = item.en.replace(/^(to |the |a )/i, '').trim();
+  currentDictation = { original: item.en, word: wordToDictate, ru: item.ru };
+  dictationAttempts = 0;
+  
+  var container = document.getElementById('dictation-container');
+  container.innerHTML = '<div class="dictation-box">' +
+    '<p style="font-size:1.1em; margin-bottom:10px;">Нажмите на динамик и напишите слово на английском</p>' +
+    '<button class="play-btn" onclick="playDictation()">🔊</button>' +
+    '<div class="dictation-hint">💡 Подсказка (перевод): <strong>' + currentDictation.ru + '</strong></div>' +
+    '<input type="text" class="dictation-input" id="dictation-input" placeholder="Ваш ответ..." onkeypress="if(event.key===\'Enter\')checkDictation()" autocomplete="off">' +
+    '<div>' +
+    '<button class="btn-primary" onclick="checkDictation()">Проверить</button>' +
+    '<button class="btn-primary" onclick="playDictation(0.7)">🐢 Медленнее</button>' +
+    '<button class="btn-primary" onclick="nextDictation()">Пропустить →</button>' +
+    '</div>' +
+    '<div id="dictation-feedback" style="margin-top:15px;"></div>' +
+    '</div>';
+  setTimeout(function() { playDictation(); }, 500);
+}
+
+function playDictation(rate) {
+  if (!rate) rate = 0.9;
+  if (currentDictation) speak(currentDictation.word, rate);
+}
+
+function checkDictation() {
+  var input = document.getElementById('dictation-input');
+  var user = input.value.trim().toLowerCase();
+  var correct = currentDictation.word.toLowerCase();
+  var feedback = document.getElementById('dictation-feedback');
+  dictationAttempts++;
+  
+  if (user === correct) {
+    dictationCorrect++;
+    totalAnswers++;
+    correctAnswers++;
+    feedback.innerHTML = '<div class="feedback correct">✓ Отлично! Правильно: <strong>' + currentDictation.word + '</strong> (' + currentDictation.ru + ')</div>';
+    addHistory('dictation', '✓ "' + currentDictation.word + '" — верно');
+    saveStats();
+    updateStats();
+    setTimeout(nextDictation, 2000);
+  } else {
+    totalAnswers++;
+    saveStats();
+    updateStats();
+    if (dictationAttempts >= 3) {
+      feedback.innerHTML = '<div class="feedback wrong">✗ Правильный ответ: <strong>' + currentDictation.word + '</strong><br>Ваш ответ: <em>' + (user || '(пусто)') + '</em></div>';
+      addHistory('dictation', '✗ "' + currentDictation.word + '" — ошибка (ответ: ' + user + ')');
+      setTimeout(nextDictation, 3000);
+    } else {
+      feedback.innerHTML = '<div class="feedback wrong">✗ Попробуйте ещё раз (попытка ' + dictationAttempts + '/3)</div>';
+      input.value = '';
+      input.focus();
+    }
+  }
+}
+
+/* ============ ВИСЕЛИЦА ============ */
+var hangmanWord = '';
+var hangmanTranslation = '';
+var hangmanGuessed = new Set();
+var hangmanErrors = 0;
+var HANGMAN_MAX_ERRORS = 7;
+
+function loadHangman() {
+  var pool = [];
+  for (var i = 1; i <= 14; i++) {
+    vocabulary[i].forEach(function(t) {
+      var word = t.en.replace(/^(to |the |a )/i, '').trim();
+      if (word.length >= 4 && word.length <= 15 && /^[a-zA-Z-]+$/.test(word)) {
+        pool.push({ word: word.toUpperCase(), ru: t.ru });
+      }
+    });
+  }
+  var pick = pool[Math.floor(Math.random() * pool.length)];
+  hangmanWord = pick.word;
+  hangmanTranslation = pick.ru;
+  hangmanGuessed = new Set();
+  hangmanErrors = 0;
+  renderHangman();
+}
+
+function renderHangman() {
+  var container = document.getElementById('hangman-container');
+  
+  var wordDisplay = hangmanWord.split('').map(function(ch) {
+    if (ch === '-' || ch === ' ') return ch;
+    return hangmanGuessed.has(ch) ? ch : '_';
+  }).join(' ');
+  
+  var svgParts = [
+    '<line x1="30" y1="180" x2="130" y2="180" stroke="#5a4a7a" stroke-width="3"/>',
+    '<line x1="50" y1="180" x2="50" y2="30" stroke="#5a4a7a" stroke-width="3"/>',
+    '<line x1="50" y1="30" x2="110" y2="30" stroke="#5a4a7a" stroke-width="3"/>',
+    '<line x1="110" y1="30" x2="110" y2="50" stroke="#5a4a7a" stroke-width="3"/>'
+  ];
+  var bodyParts = [
+    '<circle cx="110" cy="65" r="15" stroke="#c97b84" stroke-width="3" fill="none"/>',
+    '<line x1="110" y1="80" x2="110" y2="125" stroke="#c97b84" stroke-width="3"/>',
+    '<line x1="110" y1="95" x2="85" y2="115" stroke="#c97b84" stroke-width="3"/>',
+    '<line x1="110" y1="95" x2="135" y2="115" stroke="#c97b84" stroke-width="3"/>',
+    '<line x1="110" y1="125" x2="85" y2="155" stroke="#c97b84" stroke-width="3"/>',
+    '<line x1="110" y1="125" x2="135" y2="155" stroke="#c97b84" stroke-width="3"/>',
+    '<text x="105" y="70" font-size="10" fill="#c97b84">:(</text>'
+  ];
+  
+  var svgContent = svgParts.join('');
+  for (var i = 0; i < Math.min(hangmanErrors, bodyParts.length); i++) {
+    svgContent += bodyParts[i];
+  }
+  
+  var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var keyboard = '';
+  alphabet.split('').forEach(function(letter) {
+    var cls = 'hangman-key';
+    var disabled = '';
+    if (hangmanGuessed.has(letter)) {
+      if (hangmanWord.includes(letter)) cls += ' correct';
+      else cls += ' wrong';
+      disabled = 'disabled';
+    }
+    keyboard += '<button class="' + cls + '" ' + disabled + ' onclick="guessLetter(\'' + letter + '\')">' + letter + '</button>';
+  });
+  
+  var won = hangmanWord.split('').every(function(ch) { return ch === '-' || ch === ' ' || hangmanGuessed.has(ch); });
+  var lost = hangmanErrors >= HANGMAN_MAX_ERRORS;
+  
+  var statusHtml = '';
+  if (won) {
+    statusHtml = '<div class="result-box"><h3>🎉 Победа!</h3><p>Вы угадали слово: <strong>' + hangmanWord + '</strong></p><p style="margin-top:10px;">' + hangmanTranslation + '</p><button class="btn-primary" onclick="loadHangman()" style="margin-top:15px;">Новая игра</button></div>';
+  } else if (lost) {
+    statusHtml = '<div class="result-box" style="background:linear-gradient(135deg, var(--danger), #b56870); color:white;"><h3 style="color:white;">💀 Поражение</h3><p>Загаданное слово: <strong>' + hangmanWord + '</strong></p><p style="margin-top:10px;">' + hangmanTranslation + '</p><button class="btn-primary" onclick="loadHangman()" style="margin-top:15px;">Новая игра</button></div>';
+  }
+  
+  container.innerHTML = '<div class="hangman-container">' +
+    '<div>' +
+    '<svg class="hangman-svg" width="160" height="200" viewBox="0 0 160 200">' + svgContent + '</svg>' +
+    '<div class="hangman-info">Ошибок: ' + hangmanErrors + ' / ' + HANGMAN_MAX_ERRORS + '</div>' +
+    '</div>' +
+    '<div style="flex:1; min-width:300px;">' +
+    '<div class="hangman-hint">💡 Подсказка: <strong>' + hangmanTranslation + '</strong></div>' +
+    '<div class="hangman-word">' + wordDisplay + '</div>' +
+    (statusHtml || '<div class="hangman-keyboard">' + keyboard + '</div>') +
+    '</div>' +
+    '</div>';
+  
+  if (won && !hangmanWord._counted) {
+    hangmanCorrect++;
+    addHistory('hangman', '✓ Угадано: ' + hangmanWord);
+    hangmanWord._counted = true;
+    saveStats();
+    updateStats();
+  }
+  if (lost && !hangmanWord._countedLost) {
+    addHistory('hangman', '✗ Не угадано: ' + hangmanWord);
+    hangmanWord._countedLost = true;
+    saveStats();
+  }
+}
+
+function guessLetter(letter) {
+  if (hangmanGuessed.has(letter)) return;
+  hangmanGuessed.add(letter);
+  if (!hangmanWord.includes(letter)) {
+    hangmanErrors++;
+  }
+  renderHangman();
+}
+
+document.addEventListener('keydown', function(e) {
+  var hangmanSection = document.getElementById('hangman');
+  if (!hangmanSection.classList.contains('active')) return;
+  var letter = e.key.toUpperCase();
+  if (/^[A-Z]$/.test(letter) && !hangmanGuessed.has(letter)) {
+    var won = hangmanWord.split('').every(function(ch) { return ch === '-' || ch === ' ' || hangmanGuessed.has(ch); });
+    var lost = hangmanErrors >= HANGMAN_MAX_ERRORS;
+    if (!won && !lost) guessLetter(letter);
+  }
+});
+
+/* ============ ВИКТОРИНА ============ */
+var quizIdx = 0;
+var quizScore = 0;
+var shuffledQuiz = [];
+
+function loadQuiz() {
+  shuffledQuiz = quizQuestions.slice();
+  for (var i = shuffledQuiz.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = shuffledQuiz[i];
+    shuffledQuiz[i] = shuffledQuiz[j];
+    shuffledQuiz[j] = temp;
+  }
+  shuffledQuiz = shuffledQuiz.slice(0, 7);
+  quizIdx = 0;
+  quizScore = 0;
+  document.getElementById('quiz-result').style.display = 'none';
+  showQuizQuestion();
+}
+
+function showQuizQuestion() {
+  var container = document.getElementById('quiz-container');
+  if (quizIdx >= shuffledQuiz.length) {
+    finishQuiz();
+    return;
+  }
+  var q = shuffledQuiz[quizIdx];
+  container.innerHTML = '<div class="quiz-question">' +
+    '<div class="question-text">Вопрос ' + (quizIdx + 1) + ' из ' + shuffledQuiz.length + '</div>' +
+    '<div class="question-text" style="font-size:1.3em; margin-top:15px;">' + q.q + '</div>' +
+    '<button class="btn-primary" style="margin-top:20px; background:rgba(255,255,255,0.4);" onclick="showQuizAnswer()">Показать ответ</button>' +
+    '<div id="quiz-answer" style="display:none; margin-top:20px; padding:15px; background:rgba(255,255,255,0.3); border-radius:16px;">' +
+    '<strong>Ответ:</strong> ' + q.a +
+    '</div>' +
+    '<div id="quiz-buttons" style="display:none; margin-top:15px;">' +
+    '<button class="btn-primary" style="background:var(--success);" onclick="quizMark(true)">Знал ✓</button>' +
+    '<button class="btn-primary" style="background:var(--danger);" onclick="quizMark(false)">Не знал ✗</button>' +
+    '</div>' +
+    '</div>';
+}
+
+function showQuizAnswer() {
+  document.getElementById('quiz-answer').style.display = 'block';
+  document.getElementById('quiz-buttons').style.display = 'block';
+}
+
+function quizMark(knew) {
+  if (knew) quizScore++;
+  totalAnswers++;
+  if (knew) correctAnswers++;
+  saveStats();
+  updateStats();
+  quizIdx++;
+  showQuizQuestion();
+}
+
+function finishQuiz() {
+  document.getElementById('quiz-container').innerHTML = '';
+  var result = document.getElementById('quiz-result');
+  result.style.display = 'block';
+  var percent = Math.round((quizScore / shuffledQuiz.length) * 100);
+  addHistory('quiz', 'Результат: ' + quizScore + '/' + shuffledQuiz.length + ' (' + percent + '%)');
+  result.innerHTML = '<div class="result-box">' +
+    '<h3>🎯 Викторина завершена!</h3>' +
+    '<p style="font-size:1.3em; margin:15px 0;">Правильных ответов: ' + quizScore + ' из ' + shuffledQuiz.length + ' (' + percent + '%)</p>' +
+    '<button class="btn-primary" onclick="loadQuiz()" style="margin-top:20px;">Пройти ещё раз</button>' +
+    '</div>';
+}
+
+/* ============ ЭКСПОРТ В CSV ============ */
+function downloadCSV(filename, content) {
+  var BOM = '\uFEFF';
+  var blob = new Blob([BOM + content], { type: 'text/csv;charset=utf-8;' });
+  var url = URL.createObjectURL(blob);
+  var link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function escapeCSV(str) {
+  str = String(str);
+  if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+    return '"' + str.replace(/"/g, '""') + '"';
+  }
+  return str;
+}
+
+function exportVocabulary() {
+  var csv = 'Unit;English;Transcription;Russian\n';
+  for (var i = 1; i <= 14; i++) {
+    vocabulary[i].forEach(function(t) {
+      csv += [i, t.en, t.tr, t.ru].map(escapeCSV).join(';') + '\n';
+    });
+  }
+  downloadCSV('vocabulary_all_units.csv', csv);
+  addHistory('export', 'Экспорт: полный словарь');
+}
+
+function exportLearned() {
+  var csv = 'Unit;English;Transcription;Russian\n';
+  for (var i = 1; i <= 14; i++) {
+    vocabulary[i].forEach(function(t) {
+      if (learnedTerms.has(t.en)) {
+        csv += [i, t.en, t.tr, t.ru].map(escapeCSV).join(';') + '\n';
+      }
+    });
+  }
+  downloadCSV('learned_terms.csv', csv);
+  addHistory('export', 'Экспорт: изучено ' + learnedTerms.size + ' терминов');
+}
+
+function exportHistory() {
+  var csv = 'Date;Type;Details\n';
+  activityHistory.forEach(function(h) {
+    var date = new Date(h.timestamp).toLocaleString('ru-RU');
+    csv += [date, h.type, h.details].map(escapeCSV).join(';') + '\n';
+  });
+  downloadCSV('activity_history.csv', csv);
+}
+
+function exportStats() {
+  var accuracy = totalAnswers > 0 ? Math.round((correctAnswers / totalAnswers) * 100) : 0;
+  var csv = 'Metric;Value\n';
+  csv += 'Изучено терминов;' + learnedTerms.size + '\n';
+  csv += 'Пройдено тестов;' + testsCompleted + '\n';
+  csv += 'Всего ответов;' + totalAnswers + '\n';
+  csv += 'Правильных ответов;' + correctAnswers + '\n';
+  csv += 'Точность;' + accuracy + '%\n';
+  csv += 'Диктант (верно);' + dictationCorrect + '\n';
+  csv += 'Виселица (побед);' + hangmanCorrect + '\n';
+  downloadCSV('statistics_summary.csv', csv);
+  addHistory('export', 'Экспорт: сводная статистика');
+}
+
+function renderHistory() {
+  var display = document.getElementById('history-display');
+  if (!display) return;
+  if (activityHistory.length === 0) {
+    display.innerHTML = '<p style="color:var(--text-light); font-style:italic;">История пуста. Начните тренировку!</p>';
+    return;
+  }
+  var html = '<table class="history-table"><thead><tr><th>Дата</th><th>Тип</th><th>Детали</th></tr></thead><tbody>';
+  activityHistory.slice(0, 30).forEach(function(h) {
+    var date = new Date(h.timestamp).toLocaleString('ru-RU');
+    var typeIcon = {test:'✅', dictation:'🎧', hangman:'🎭', quiz:'🎯', export:'📊'}[h.type] || '•';
+    html += '<tr><td>' + date + '</td><td>' + typeIcon + ' ' + h.type + '</td><td>' + h.details + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  display.innerHTML = html;
+}
+
+function clearHistory() {
+  if (confirm('Очистить всю историю и статистику? Это действие нельзя отменить.')) {
+    activityHistory = [];
+    learnedTerms = new Set();
+    testsCompleted = 0;
+    totalAnswers = 0;
+    correctAnswers = 0;
+    dictationCorrect = 0;
+    hangmanCorrect = 0;
+    saveStats();
+    updateStats();
+    renderHistory();
+    alert('История очищена!');
+  }
+}
+
+if (synth) {
+  synth.onvoiceschanged = function() { synth.getVoices(); };
+}
+
+init();
+</script>
+</body>
+</html>
