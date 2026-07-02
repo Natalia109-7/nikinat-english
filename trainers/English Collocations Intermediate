@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Collocations · Natalie English</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lavender: #e8dff5;
+  --peach: #fce4d6;
+  --mint: #d4f1e8;
+  --rose: #f7d6e0;
+  --cream: #fdf6f0;
+  --deep: #5a4a7a;
+  --soft: #8b7ba8;
+  --text: #3d3554;
+  --text-light: #8b7ba8;
+  --success: #6ba889;
+  --danger: #c97b84;
+  --warning: #d4a574;
+  --shadow: 0 10px 40px rgba(138,107,175,0.15);
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--lavender) 50%, var(--peach) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 20px;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  animation: float 20s infinite ease-in-out;
+}
+.blob1 { width: 400px; height: 400px; background: var(--rose); top: -100px; left: -100px; }
+.blob2 { width: 500px; height: 500px; background: var(--mint); bottom: -150px; right: -150px; animation-delay: -10s; }
+.blob3 { width: 300px; height: 300px; background: var(--lavender); top: 50%; left: 50%; animation-delay: -5s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -50px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+.top-nav {
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: rgba(253,246,240,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--deep);
+  letter-spacing: 1px;
+}
+.logo span { color: var(--soft); font-style: italic; }
+
+.back-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+  transition: all 0.3s;
+  cursor: pointer;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+}
+.back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+header {
+  background: linear-gradient(135deg, var(--lavender) 0%, var(--rose) 50%, var(--peach) 100%);
+  color: var(--deep);
+  padding: 40px 30px;
+  text-align: center;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5em;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+header p {
+  color: var(--soft);
+  font-size: 1.05em;
+  font-style: italic;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.stat-item {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 18px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 45px rgba(138,107,175,0.2);
+}
+
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2em;
+  font-weight: 600;
+  color: var(--deep);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75em;
+  color: var(--text-light);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.content {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 35px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.8);
+  min-height: 500px;
+}
+
+.mode-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mode-btn {
+  flex: 1;
+  min-width: 150px;
+  padding: 13px 20px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(232,223,245,0.8);
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+  letter-spacing: 0.3px;
+}
+
+.mode-btn:hover {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(138,107,175,0.2);
+}
+
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.3);
+}
+
+#unitSelection h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  font-weight: 500;
+  text-align: center;
+}
+
+.unit-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.unit-btn {
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(252,228,214,0.4));
+  border: 1px solid rgba(232,223,245,0.8);
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text);
+}
+
+.unit-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(138,107,175,0.2);
+  border-color: var(--soft);
+}
+
+.unit-btn strong {
+  color: var(--deep);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.unit-btn small {
+  color: var(--text-light);
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.hidden { display: none !important; }
+
+.theory-section {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.theory-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8em;
+  font-weight: 500;
+  color: var(--deep);
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--lavender);
+}
+
+.collocation-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(252,228,214,0.3));
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 18px;
+  border-left: 4px solid var(--soft);
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(138,107,175,0.08);
+}
+
+.collocation-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 25px rgba(138,107,175,0.15);
+}
+
+.collocation-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: var(--deep);
+  margin-bottom: 8px;
+}
+
+.collocation-ru {
+  color: var(--text);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.collocation-example {
+  background: rgba(232,223,245,0.3);
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: var(--text-light);
+  font-size: 0.9em;
+  border-left: 3px solid var(--soft);
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+  box-shadow: 0 6px 18px rgba(90,74,122,0.25);
+}
+
+.nav-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(90,74,122,0.35);
+}
+
+.nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--lavender);
+  box-shadow: none;
+}
+
+.exercise-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8em;
+  font-weight: 500;
+  color: var(--deep);
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--lavender);
+}
+
+.question {
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(253,246,240,0.6));
+  padding: 22px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(232,223,245,0.5);
+  transition: all 0.3s;
+}
+
+.question:hover {
+  box-shadow: 0 8px 25px rgba(138,107,175,0.12);
+}
+
+.question-text {
+  color: var(--deep);
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.option {
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.7);
+  border: 2px solid var(--lavender);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.option:hover {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  border-color: var(--soft);
+  transform: translateX(5px);
+}
+
+.option.selected {
+  background: linear-gradient(135deg, var(--lavender), var(--soft));
+  color: var(--deep);
+  border-color: var(--soft);
+}
+
+.option.correct {
+  background: linear-gradient(135deg, rgba(212,241,232,0.8), rgba(107,168,137,0.3));
+  border-color: var(--success);
+  color: var(--success);
+  font-weight: 600;
+}
+
+.option.incorrect {
+  background: linear-gradient(135deg, rgba(247,214,224,0.8), rgba(201,123,132,0.3));
+  border-color: var(--danger);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.feedback {
+  padding: 12px 16px;
+  border-radius: 15px;
+  margin-top: 10px;
+  font-weight: 500;
+  display: none;
+}
+
+.feedback.show { display: block; animation: fadeIn 0.3s ease; }
+
+.feedback.correct {
+  background: linear-gradient(135deg, rgba(212,241,232,0.6), rgba(107,168,137,0.2));
+  color: var(--success);
+  border-left: 4px solid var(--success);
+}
+
+.feedback.incorrect {
+  background: linear-gradient(135deg, rgba(247,214,224,0.6), rgba(201,123,132,0.2));
+  color: var(--danger);
+  border-left: 4px solid var(--danger);
+}
+
+/* Flashcards */
+.flashcard {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(252,228,214,0.4));
+  border-radius: 25px;
+  padding: 50px 30px;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid rgba(232,223,245,0.8);
+  margin: 25px 0;
+  transition: all 0.4s;
+  box-shadow: 0 8px 30px rgba(138,107,175,0.15);
+  text-align: center;
+}
+
+.flashcard:hover {
+  transform: translateY(-5px) rotateX(3deg);
+  box-shadow: 0 15px 45px rgba(138,107,175,0.25);
+}
+
+.flashcard-front {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2em;
+  font-weight: 600;
+  color: var(--deep);
+  line-height: 1.3;
+}
+
+.flashcard-back {
+  font-size: 1.1em;
+  color: var(--text);
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.flashcard-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#cardCounter {
+  color: var(--text-light);
+  font-style: italic;
+  margin: 15px 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .content { padding: 20px; }
+  header h1 { font-size: 1.8em; }
+  .mode-btn { min-width: 100%; }
+  .flashcard-front { font-size: 1.6em; }
+  .flashcard { padding: 35px 20px; min-height: 220px; }
+  .top-nav { padding: 12px 18px; }
+  .logo { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="top-nav">
+  <div class="logo">Natalie <span>English</span></div>
+  <button class="back-btn" onclick="showModeSelector()">⬅️ Все юниты</button>
+</div>
+
+<div class="container">
+  <header>
+    <h1>English Collocations</h1>
+    <p>Intermediate · Полное руководство</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat-item"><div class="stat-value" id="statUnits">60</div><div class="stat-label">Юнитов</div></div>
+    <div class="stat-item"><div class="stat-value" id="statCollocations">180</div><div class="stat-label">Коллокаций</div></div>
+    <div class="stat-item"><div class="stat-value" id="statExercises">120</div><div class="stat-label">Упражнений</div></div>
+    <div class="stat-item"><div class="stat-value">100%</div><div class="stat-label">Прогресс</div></div>
+  </div>
+
+  <div class="content">
+    <div id="modeSelector" class="mode-selector hidden">
+      <button class="mode-btn active" onclick="showTheory()">📖 Теория</button>
+      <button class="mode-btn" onclick="showExercise()">✍️ Упражнения</button>
+      <button class="mode-btn" onclick="showFlashcards()">🃏 Карточки</button>
+    </div>
+
+    <div id="unitSelection">
+      <h2>Выберите юнит</h2>
+      <div class="unit-selector" id="unitGrid"></div>
+    </div>
+
+    <div id="theoryView" class="theory-section hidden"></div>
+    <div id="exerciseView" class="hidden"></div>
+    <div id="flashcardView" class="hidden"></div>
+  </div>
+</div>
+
+<script>
+const U = {
+1:{t:"What is a collocation?",i:[["make a mistake","допустить ошибку","I made a mistake."],["fast car","быстрая машина","A fast car."],["quick meal","быстрый перекус","A quick meal."]],q:[["Выберите верное:",0,"make a mistake","do a mistake","have a mistake"],["Выберите верное:",0,"fast food","quick food","rapid food"]]},
+2:{t:"Finding & recording",i:[["make a decision","принять решение","Make a decision."],["do some work","делать работу","Do some work."],["have a rest","отдохнуть","Have a rest."]],q:[["Выберите верное:",0,"make a decision","do a decision","take a decision"],["Выберите верное:",0,"do some work","make some work","have some work"]]},
+3:{t:"Using your dictionary",i:[["alleviate pain","облегчить боль","Alleviate pain."],["ease pain","облегчить боль","Ease pain."],["suffer pain","испытывать боль","Suffer pain."]],q:[["Выберите верное:",0,"alleviate pain","relieve pain","cure pain"],["Выберите верное:",0,"ease pain","pass pain","stop pain"]]},
+4:{t:"Types of collocation",i:[["bright colour","яркий цвет","A bright colour."],["brief chat","короткий разговор","A brief chat."],["major problem","серьезная проблема","A major problem."]],q:[["Выберите верное:",0,"bright colour","light colour","clear colour"],["Выберите верное:",0,"brief chat","short chat","quick chat"]]},
+5:{t:"Register",i:[["dismount","спешиться (формально)","Passengers must dismount."],["trespassers","нарушители границы","Trespassers will be prosecuted."],["bored stiff","страшно скучно (неформ.)","I'm bored stiff."]],q:[["Что формально?",0,"dismount","get off","bored stiff"],["Что неформально?",2,"dismount","trespassers","bored stiff"]]},
+6:{t:"Intensifying adverbs",i:[["highly unlikely","крайне маловероятно","Highly unlikely."],["utterly ridiculous","абсолютно нелепо","Utterly ridiculous."],["bitterly disappointed","горько разочарован","Bitterly disappointed."]],q:[["Выберите верное:",0,"highly unlikely","very unlikely","much unlikely"],["Выберите верное:",0,"bitterly disappointed","strongly disappointed","heavily disappointed"]]},
+7:{t:"Everyday verbs 1",i:[["make arrangements","организовать","Make arrangements."],["make a choice","сделать выбор","Make a choice."],["do damage","нанести ущерб","Do damage."]],q:[["Выберите верное:",0,"make arrangements","do arrangements","have arrangements"],["Выберите верное:",0,"do damage","make damage","cause damage"]]},
+8:{t:"Everyday verbs 2",i:[["go bald","облысеть","Go bald."],["fall ill","заболеть","Fall ill."],["become extinct","вымереть","Become extinct."]],q:[["Выберите верное:",0,"go bald","become bald","fall bald"],["Выберите верное:",0,"fall ill","go ill","get ill"]]},
+9:{t:"Everyday verbs 3",i:[["have an accident","попасть в аварию","Have an accident."],["have fun","веселиться","Have fun."],["pay attention","обращать внимание","Pay attention."]],q:[["Выберите верное:",0,"have an accident","make an accident","do an accident"],["Выберите верное:",0,"pay attention","give attention","take attention"]]},
+10:{t:"Synonyms 1",i:[["close a meeting","закрыть собрание","Close a meeting."],["ancient history","древняя история","Ancient history."],["antique furniture","антикварная мебель","Antique furniture."]],q:[["Выберите верное:",0,"close a meeting","shut a meeting","end a meeting"],["Выберите верное:",0,"antique furniture","ancient furniture","old furniture"]]},
+11:{t:"Synonyms 2",i:[["gain power","обрести власть","Gain power."],["win an award","выиграть награду","Win an award."],["earn a salary","получать зарплату","Earn a salary."]],q:[["Выберите верное:",0,"gain power","get power","take power"],["Выберите верное:",0,"earn a salary","win a salary","gain a salary"]]},
+12:{t:"Metaphor",i:[["sunny smile","солнечная улыбка","A sunny smile."],["ideas flow","идеи льются рекой","Ideas flow."],["heated discussion","оживленная дискуссия","A heated discussion."]],q:[["Выберите верное:",0,"heated discussion","hot discussion","warm discussion"],["Выберите верное:",0,"ideas flow","ideas run","ideas walk"]]},
+13:{t:"Weather",i:[["strong wind","сильный ветер","A strong wind."],["blanket of fog","сплошной туман","A blanket of fog."],["heavy rain","сильный дождь","Heavy rain."]],q:[["Выберите верное:",0,"heavy rain","strong rain","thick rain"],["Выберите верное:",0,"blanket of fog","cover of fog","box of fog"]]},
+14:{t:"Travel",i:[["tiring journey","утомительное путешествие","A tiring journey."],["aisle seat","место у прохода","An aisle seat."],["family-run hotel","семейный отель","A family-run hotel."]],q:[["Выберите верное:",0,"aisle seat","walk seat","path seat"],["Выберите верное:",0,"family-run hotel","family-made hotel","family-done hotel"]]},
+15:{t:"Countryside",i:[["surrounding countryside","окрестности","The surrounding countryside."],["breathtaking scenery","захватывающие пейзажи","Breathtaking scenery."],["unspoilt countryside","нетронутая природа","Unspoilt countryside."]],q:[["Выберите верное:",0,"breathtaking scenery","breathing scenery","broken scenery"],["Выберите верное:",0,"unspoilt countryside","unbroken countryside","untouched countryside"]]},
+16:{t:"Towns and cities",i:[["lined with shops","усеянный магазинами","Lined with shops."],["sprawling city","разрастающийся город","A sprawling city."],["high-rise flats","многоэтажки","High-rise flats."]],q:[["Выберите верное:",0,"lined with shops","filled with shops","covered with shops"],["Выберите верное:",0,"high-rise flats","tall-rise flats","high-build flats"]]},
+17:{t:"People: character",i:[["vivid imagination","яркое воображение","A vivid imagination."],["lose your patience","терять терпение","Lose your patience."],["bear a grudge","таить обиду","Bear a grudge."]],q:[["Выберите верное:",0,"vivid imagination","bright imagination","clear imagination"],["Выберите верное:",0,"bear a grudge","keep a grudge","hold a grudge"]]},
+18:{t:"People: appearance",i:[["slender waist","тонкая талия","A slender waist."],["immaculately groomed","безупречно ухоженный","Immaculately groomed."],["jet-black hair","иссиня-черные волосы","Jet-black hair."]],q:[["Выберите верное:",0,"jet-black hair","pitch-black hair","dark-black hair"],["Выберите верное:",0,"slender waist","thin waist","skinny waist"]]},
+19:{t:"Families",i:[["distant cousin","дальний родственник","A distant cousin."],["expecting a baby","ждет ребенка","Expecting a baby."],["stable home","стабильный дом","A stable home."]],q:[["Выберите верное:",0,"expecting a baby","waiting a baby","having a baby"],["Выберите верное:",0,"stable home","strong home","firm home"]]},
+20:{t:"Relationships",i:[["casual acquaintance","случайный знакомый","A casual acquaintance."],["love at first sight","любовь с первого взгляда","Love at first sight."],["strike up a friendship","завести дружбу","Strike up a friendship."]],q:[["Выберите верное:",0,"strike up a friendship","start up a friendship","make up a friendship"],["Выберите верное:",0,"casual acquaintance","random acquaintance","quick acquaintance"]]},
+21:{t:"Houses",i:[["move into a flat","въехать в квартиру","Move into a flat."],["spacious living room","просторная гостиная","A spacious living room."],["fully furnished","полностью меблировано","Fully furnished."]],q:[["Выберите верное:",0,"fully furnished","completely furnished","totally furnished"],["Выберите верное:",0,"spacious living room","wide living room","large living room"]]},
+22:{t:"Eating and drinking",i:[["nourishing meal","питательная еда","A nourishing meal."],["spoil your appetite","испортить аппетит","Spoil your appetite."],["dying of hunger","умираю с голоду","Dying of hunger."]],q:[["Выберите верное:",0,"spoil your appetite","break your appetite","ruin your appetite"],["Выберите верное:",0,"nourishing meal","nutritious meal","feeding meal"]]},
+23:{t:"Films and books",i:[["film critic","кинокритик","A film critic."],["go on the stage","выйти на сцену","Go on the stage."],["box-office hit","кассовый хит","A box-office hit."]],q:[["Выберите верное:",0,"box-office hit","cash-office hit","money-office hit"],["Выберите верное:",0,"film critic","movie critic","cinema critic"]]},
+24:{t:"Music",i:[["give a performance","выступить","Give a performance."],["go on tour","поехать в тур","Go on tour."],["strum a guitar","перебирать струны гитары","Strum a guitar."]],q:[["Выберите верное:",0,"strum a guitar","play a guitar","hit a guitar"],["Выберите верное:",0,"go on tour","make a tour","do a tour"]]},
+25:{t:"Sport",i:[["go snowboarding","кататься на сноуборде","Go snowboarding."],["take a penalty","пробить пенальти","Take a penalty."],["fierce competition","жесткая конкуренция","Fierce competition."]],q:[["Выберите верное:",0,"fierce competition","strong competition","hard competition"],["Выберите верное:",0,"take a penalty","make a penalty","do a penalty"]]},
+26:{t:"Health and illness",i:[["catch a cold","простудиться","Catch a cold."],["vigorous exercise","энергичные тренировки","Vigorous exercise."],["be taken ill","внезапно заболеть","Be taken ill."]],q:[["Выберите верное:",0,"catch a cold","get a cold","take a cold"],["Выберите верное:",0,"vigorous exercise","strong exercise","heavy exercise"]]},
+27:{t:"Using the internet",i:[["refine your search","уточнить поиск","Refine your search."],["open an attachment","открыть вложение","Open an attachment."],["block spam","блокировать спам","Block spam."]],q:[["Выберите верное:",0,"refine your search","fine your search","clean your search"],["Выберите верное:",0,"block spam","stop spam","close spam"]]},
+28:{t:"Study and learning",i:[["do research","проводить исследование","Do research."],["attend a lecture","посещать лекцию","Attend a lecture."],["first draft","первый черновик","A first draft."]],q:[["Выберите верное:",0,"do research","make research","take research"],["Выберите верное:",0,"attend a lecture","join a lecture","go a lecture"]]},
+29:{t:"Presentations",i:[["target audience","целевая аудитория","Target audience."],["prepare handouts","подготовить раздаточный материал","Prepare handouts."],["public speaking","публичные выступления","Public speaking."]],q:[["Выберите верное:",0,"target audience","aim audience","goal audience"],["Выберите верное:",0,"prepare handouts","make handouts","do handouts"]]},
+30:{t:"Work",i:[["high-powered job","ответственная работа","A high-powered job."],["hand in your notice","подать заявление об увольнении","Hand in your notice."],["take the minutes","вести протокол","Take the minutes."]],q:[["Выберите верное:",0,"hand in your notice","give in your notice","send in your notice"],["Выберите верное:",0,"take the minutes","make the minutes","write the minutes"]]},
+31:{t:"Business",i:[["set up a business","открыть бизнес","Set up a business."],["launch a product","запустить продукт","Launch a product."],["rival company","компания-конкурент","A rival company."]],q:[["Выберите верное:",0,"launch a product","start a product","open a product"],["Выберите верное:",0,"rival company","enemy company","fighting company"]]},
+32:{t:"Academic writing 1",i:[["key factor","ключевой фактор","A key factor."],["challenge a theory","оспорить теорию","Challenge a theory."],["carry out research","проводить исследование","Carry out research."]],q:[["Выберите верное:",0,"carry out research","do out research","make out research"],["Выберите верное:",0,"key factor","main factor","top factor"]]},
+33:{t:"Academic writing 2",i:[["make reference to","сослаться на","Make reference to."],["argue convincingly","убедительно аргументировать","Argue convincingly."],["draw an analogy","провести аналогию","Draw an analogy."]],q:[["Выберите верное:",0,"draw an analogy","make an analogy","take an analogy"],["Выберите верное:",0,"argue convincingly","fight convincingly","speak convincingly"]]},
+34:{t:"Laws and punishments",i:[["break the law","нарушить закон","Break the law."],["bend the rules","нарушить правила (мягко)","Bend the rules."],["fair trial","честный суд","A fair trial."]],q:[["Выберите верное:",0,"bend the rules","break the rules","curve the rules"],["Выберите верное:",0,"fair trial","just trial","right trial"]]},
+35:{t:"Crime",i:[["hardened criminal","закоренелый преступник","A hardened criminal."],["juvenile crime","преступность несовершеннолетних","Juvenile crime."],["tackle crime","бороться с преступностью","Tackle crime."]],q:[["Выберите верное:",0,"tackle crime","fight crime","hit crime"],["Выберите верное:",0,"hardened criminal","strong criminal","tough criminal"]]},
+36:{t:"News",i:[["hit the headlines","попасть на заголовки","Hit the headlines."],["hold talks","проводить переговоры","Hold talks."],["take hostage","взять в заложники","Take hostage."]],q:[["Выберите верное:",0,"hit the headlines","make the headlines","get the headlines"],["Выберите верное:",0,"hold talks","make talks","do talks"]]},
+37:{t:"Money",i:[["squander money","транжирить деньги","Squander money."],["price soars","цены взлетают","Price soars."],["rock-bottom prices","минимальные цены","Rock-bottom prices."]],q:[["Выберите верное:",0,"squander money","spend money","waste money"],["Выберите верное:",0,"price soars","prices flies","prices jumps"]]},
+38:{t:"War and peace",i:[["war breaks out","начинается война","War breaks out."],["restore order","восстановить порядок","Restore order."],["call a truce","объявить перемирие","Call a truce."]],q:[["Выберите верное:",0,"call a truce","make a truce","do a truce"],["Выберите верное:",0,"restore order","build order","fix order"]]},
+39:{t:"Global problems",i:[["eradicate poverty","искоренить бедность","Eradicate poverty."],["deplete the ozone layer","разрушать озоновый слой","Deplete the ozone layer."],["devastating famine","разрушительный голод","A devastating famine."]],q:[["Выберите верное:",0,"eradicate poverty","delete poverty","remove poverty"],["Выберите верное:",0,"devastating famine","destroying famine","breaking famine"]]},
+40:{t:"Time",i:[["save time","экономить время","Save time."],["ungodly hours","неподходящее время","Ungodly hours."],["from dawn till dusk","от рассвета до заката","From dawn till dusk."]],q:[["Выберите верное:",0,"ungodly hours","bad hours","evil hours"],["Выберите верное:",0,"save time","keep time","win time"]]},
+41:{t:"Sound",i:[["break the silence","нарушить тишину","Break the silence."],["excessive noise","чрезмерный шум","Excessive noise."],["almighty bang","оглушительный грохот","An almighty bang."]],q:[["Выберите верное:",0,"almighty bang","almighty crash","almighty hit"],["Выберите верное:",0,"excessive noise","extreme noise","over noise"]]},
+42:{t:"Distance and size",i:[["within commuting distance","в пределах доступности","Within commuting distance."],["painfully thin","болезненно худой","Painfully thin."],["great deal of","огромное количество","A great deal of."]],q:[["Выберите верное:",0,"great deal of","big deal of","large deal of"],["Выберите верное:",0,"painfully thin","sadly thin","hurtfully thin"]]},
+43:{t:"Colour and light",i:[["bright colour","яркий цвет","A bright colour."],["beam of light","луч света","A beam of light."],["shed some light on","пролить свет на","Shed some light on."]],q:[["Выберите верное:",0,"shed some light on","throw some light on","give some light on"],["Выберите верное:",0,"beam of light","ray of light","line of light"]]},
+44:{t:"Texture",i:[["choppy sea","бурное море","A choppy sea."],["soft pillow","мягкая подушка","A soft pillow."],["ice melts","лед тает","Ice melts."]],q:[["Выберите верное:",0,"choppy sea","rough sea","bumpy sea"],["Выберите верное:",0,"ice melts","ice dissolves","ice fades"]]},
+45:{t:"Taste and smell",i:[["fragrant perfume","ароматные духи","Fragrant perfume."],["have a taste","иметь вкус","Have a taste."],["smell danger","почуять опасность","Smell danger."]],q:[["Выберите верное:",0,"fragrant perfume","sweet perfume","nice perfume"],["Выберите верное:",0,"smell danger","sense danger","feel danger"]]},
+46:{t:"Number and frequency",i:[["significant number","значительное число","A significant number."],["come to a total of","составлять в итоге","Come to a total of."],["rare species","редкие виды","Rare species."]],q:[["Выберите верное:",0,"rare species","scarce species","few species"],["Выберите верное:",0,"come to a total of","reach to a total of","arrive to a total of"]]},
+47:{t:"Movement and speed",i:[["prompt payment","своевременная оплата","Prompt payment."],["painfully slow","мучительно медленно","Painfully slow."],["lose your balance","потерять равновесие","Lose your balance."]],q:[["Выберите верное:",0,"prompt payment","quick payment","fast payment"],["Выберите верное:",0,"lose your balance","drop your balance","fall your balance"]]},
+48:{t:"Change",i:[["make an adjustment","внести корректировку","Make an adjustment."],["break a habit","бросить привычку","Break a habit."],["change the subject","сменить тему","Change the subject."]],q:[["Выберите верное:",0,"break a habit","stop a habit","quit a habit"],["Выберите верное:",0,"make an adjustment","do an adjustment","fix an adjustment"]]},
+49:{t:"Ways of speaking",i:[["brief chat","короткая беседа","A brief chat."],["raise a subject","поднять тему","Raise a subject."],["drop a hint","намекнуть","Drop a hint."]],q:[["Выберите верное:",0,"drop a hint","give a hint","leave a hint"],["Выберите верное:",0,"raise a subject","lift a subject","open a subject"]]},
+50:{t:"Ways of walking",i:[["pace up and down","ходить взад-вперед","Pace up and down."],["wander aimlessly","бродить без цели","Wander aimlessly."],["faltering steps","неуверенные шаги","Faltering steps."]],q:[["Выберите верное:",0,"wander aimlessly","walk aimlessly","go aimlessly"],["Выберите верное:",0,"faltering steps","hesitant steps","weak steps"]]},
+51:{t:"Starting and finishing",i:[["promising start","многообещающее начало","A promising start."],["bring to an end","положить конец","Bring to an end."],["draw to a close","близиться к завершению","Draw to a close."]],q:[["Выберите верное:",0,"draw to a close","come to a close","pull to a close"],["Выберите верное:",0,"promising start","hopeful start","good start"]]},
+52:{t:"Success and failure",i:[["make a breakthrough","совершить прорыв","Make a breakthrough."],["fail miserably","потерпеть неудачу","Fail miserably."],["recipe for disaster","верный путь к катастрофе","A recipe for disaster."]],q:[["Выберите верное:",0,"recipe for disaster","formula for disaster","plan for disaster"],["Выберите верное:",0,"fail miserably","fall miserably","crash miserably"]]},
+53:{t:"Cause and effect",i:[["cause alarm","вызвать тревогу","Cause alarm."],["adverse effects","пагубные последствия","Adverse effects."],["major impact","серьезное влияние","A major impact."]],q:[["Выберите верное:",0,"adverse effects","bad effects","negative effects"],["Выберите верное:",0,"cause alarm","give alarm","make alarm"]]},
+54:{t:"Remembering and sensing",i:[["vaguely remember","смутно помнить","Vaguely remember."],["blot out a memory","вычеркнуть воспоминание","Blot out a memory."],["have a feeling","иметь предчувствие","Have a feeling."]],q:[["Выберите верное:",0,"blot out a memory","wipe out a memory","clear out a memory"],["Выберите верное:",0,"vaguely remember","weakly remember","faintly remember"]]},
+55:{t:"Agreeing and disagreeing",i:[["settle a dispute","урегулировать спор","Settle a dispute."],["agree to differ","согласиться не соглашаться","Agree to differ."],["heated argument","жаркий спор","A heated argument."]],q:[["Выберите верное:",0,"settle a dispute","solve a dispute","finish a dispute"],["Выберите верное:",0,"heated argument","hot argument","warm argument"]]},
+56:{t:"Beliefs and opinions",i:[["firmly believe","твердо верить","Firmly believe."],["colour someone's judgement","повлиять на чье-то суждение","Colour someone's judgement."],["unshakeable belief","непоколебимая вера","An unshakeable belief."]],q:[["Выберите верное:",0,"unshakeable belief","unmovable belief","strong belief"],["Выберите верное:",0,"firmly believe","strongly believe","hardly believe"]]},
+57:{t:"Deciding and choosing",i:[["arrive at a decision","принять решение","Arrive at a decision."],["have second thoughts","передумать","Have second thoughts."],["tough choice","трудный выбор","A tough choice."]],q:[["Выберите верное:",0,"arrive at a decision","reach at a decision","come at a decision"],["Выберите верное:",0,"tough choice","hard choice","difficult choice"]]},
+58:{t:"Claiming and denying",i:[["make the point that","утверждать, что","Make the point that."],["contradictory evidence","противоречивые доказательства","Contradictory evidence."],["strongly deny","категорически отрицать","Strongly deny."]],q:[["Выберите верное:",0,"contradictory evidence","opposite evidence","fighting evidence"],["Выберите верное:",0,"strongly deny","hardly deny","firmly deny"]]},
+59:{t:"Liking and disliking",i:[["have a liking","питать слабость","Have a liking."],["state a preference","выразить предпочтение","State a preference."],["take offence","обидеться","Take offence."]],q:[["Выберите верное:",0,"take offence","make offence","get offence"],["Выберите верное:",0,"state a preference","give a preference","show a preference"]]},
+60:{t:"Praising and criticising",i:[["offer congratulations","поздравить","Offer congratulations."],["speak highly of","отзываться с похвалой","Speak highly of."],["harsh criticism","суровая критика","Harsh criticism."]],q:[["Выберите верное:",0,"harsh criticism","strict criticism","hard criticism"],["Выберите верное:",0,"speak highly of","talk highly of","say highly of"]]}
+};
+
+let currentUnit = null;
+let currentCardIdx = 0;
+let isFlipped = false;
+
+function init() {
+  const grid = document.getElementById('unitGrid');
+  let totalColl = 0;
+  for (let k in U) {
+    totalColl += U[k].i.length;
+    const btn = document.createElement('div');
+    btn.className = 'unit-btn';
+    btn.innerHTML = `<strong>Unit ${k}</strong><small>${U[k].t}</small>`;
+    btn.onclick = () => selectUnit(k);
+    grid.appendChild(btn);
+  }
+  document.getElementById('statCollocations').innerText = totalColl;
+  document.getElementById('statExercises').innerText = Object.keys(U).length * 2;
+}
+
+function selectUnit(id) {
+  currentUnit = id;
+  document.getElementById('unitSelection').classList.add('hidden');
+  document.getElementById('modeSelector').classList.remove('hidden');
+  showTheory();
+}
+
+function showModeSelector() {
+  document.getElementById('unitSelection').classList.remove('hidden');
+  document.getElementById('modeSelector').classList.add('hidden');
+  document.getElementById('theoryView').classList.add('hidden');
+  document.getElementById('exerciseView').classList.add('hidden');
+  document.getElementById('flashcardView').classList.add('hidden');
+}
+
+function setActiveMode(btnText) {
+  document.querySelectorAll('.mode-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.innerText.includes(btnText)) b.classList.add('active');
+  });
+}
+
+function showTheory() {
+  setActiveMode('Теория');
+  document.getElementById('theoryView').classList.remove('hidden');
+  document.getElementById('exerciseView').classList.add('hidden');
+  document.getElementById('flashcardView').classList.add('hidden');
+  
+  const data = U[currentUnit];
+  let html = `<h2 class="theory-title">Unit ${currentUnit}: ${data.t}</h2>`;
+  data.i.forEach(item => {
+    html += `
+      <div class="collocation-card">
+        <div class="collocation-en">${item[0]}</div>
+        <div class="collocation-ru">${item[1]}</div>
+        <div class="collocation-example">💡 ${item[2]}</div>
+      </div>
+    `;
+  });
+  document.getElementById('theoryView').innerHTML = html;
+}
+
+function showExercise() {
+  setActiveMode('Упражнения');
+  document.getElementById('theoryView').classList.add('hidden');
+  document.getElementById('exerciseView').classList.remove('hidden');
+  document.getElementById('flashcardView').classList.add('hidden');
+  
+  const data = U[currentUnit];
+  let html = `<h2 class="exercise-title">Упражнения: Unit ${currentUnit}</h2>`;
+  data.q.forEach((q, idx) => {
+    html += `
+      <div class="question" id="q${idx}">
+        <div class="question-text">${idx + 1}. ${q[0]}</div>
+        <div class="options">
+          ${q.slice(2).map((opt, i) => `<div class="option" onclick="checkAnswer(${idx}, ${i}, ${q[1]})">${opt}</div>`).join('')}
+        </div>
+        <div class="feedback" id="fb${idx}"></div>
+      </div>
+    `;
+  });
+  document.getElementById('exerciseView').innerHTML = html;
+}
+
+function checkAnswer(qIdx, selected, correct) {
+  const qDiv = document.getElementById(`q${qIdx}`);
+  const opts = qDiv.querySelectorAll('.option');
+  const fb = document.getElementById(`fb${qIdx}`);
+  
+  opts.forEach((o, i) => {
+    o.classList.remove('selected', 'correct', 'incorrect');
+    if (i === correct) o.classList.add('correct');
+    if (i === selected && selected !== correct) o.classList.add('incorrect');
+  });
+  
+  if (selected === correct) {
+    fb.className = 'feedback show correct';
+    fb.innerText = '✅ Отлично! Верно.';
+  } else {
+    fb.className = 'feedback show incorrect';
+    fb.innerText = '❌ Ошибка. Правильный вариант выделен зеленым.';
+  }
+}
+
+function showFlashcards() {
+  setActiveMode('Карточки');
+  document.getElementById('theoryView').classList.add('hidden');
+  document.getElementById('exerciseView').classList.add('hidden');
+  document.getElementById('flashcardView').classList.remove('hidden');
+  
+  currentCardIdx = 0;
+  isFlipped = false;
+  renderCard();
+}
+
+function renderCard() {
+  const data = U[currentUnit];
+  const card = data.i[currentCardIdx];
+  const view = document.getElementById('flashcardView');
+  
+  view.innerHTML = `
+    <h2 class="exercise-title">Карточки: Unit ${currentUnit}</h2>
+    <div id="cardCounter">${currentCardIdx + 1} / ${data.i.length}</div>
+    <div class="flashcard" onclick="flipCard()">
+      ${isFlipped 
+        ? `<div class="flashcard-back"><strong>${card[0]}</strong><br><br>${card[1]}<br><br><em style="color:var(--soft)">${card[2]}</em></div>`
+        : `<div class="flashcard-front">${card[0]}</div>`
+      }
+    </div>
+    <div class="flashcard-controls">
+      <button class="nav-btn" onclick="prevCard()" ${currentCardIdx === 0 ? 'disabled' : ''}>⬅️ Назад</button>
+      <button class="nav-btn" onclick="flipCard()">🔄 Перевернуть</button>
+      <button class="nav-btn" onclick="nextCard()" ${currentCardIdx === data.i.length - 1 ? 'disabled' : ''}>Вперед ➡️</button>
+    </div>
+  `;
+}
+
+function flipCard() {
+  isFlipped = !isFlipped;
+  renderCard();
+}
+
+function nextCard() {
+  if (currentCardIdx < U[currentUnit].i.length - 1) {
+    currentCardIdx++;
+    isFlipped = false;
+    renderCard();
+  }
+}
+
+function prevCard() {
+  if (currentCardIdx > 0) {
+    currentCardIdx--;
+    isFlipped = false;
+    renderCard();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
