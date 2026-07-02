@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irregular Verbs · Natalie English</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lavender: #e8dff5;
+  --peach: #fce4d6;
+  --mint: #d4f1e8;
+  --rose: #f7d6e0;
+  --cream: #fdf6f0;
+  --deep: #5a4a7a;
+  --soft: #8b7ba8;
+  --text: #3d3554;
+  --text-light: #8b7ba8;
+  --success: #6ba889;
+  --danger: #c97b84;
+  --warning: #d4a574;
+  --shadow: 0 10px 40px rgba(138,107,175,0.15);
+  --radius: 24px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--lavender) 50%, var(--peach) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 20px;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  animation: float 20s infinite ease-in-out;
+}
+.blob1 { width: 400px; height: 400px; background: var(--rose); top: -100px; left: -100px; }
+.blob2 { width: 500px; height: 500px; background: var(--mint); bottom: -150px; right: -150px; animation-delay: -10s; }
+.blob3 { width: 300px; height: 300px; background: var(--lavender); top: 50%; left: 50%; animation-delay: -5s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -50px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+.top-nav {
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: rgba(253,246,240,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--deep);
+  letter-spacing: 1px;
+}
+.logo span { color: var(--soft); font-style: italic; }
+
+.back-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+  transition: all 0.3s;
+}
+.back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+
+.container { max-width: 1100px; margin: 0 auto; }
+
+header {
+  background: linear-gradient(135deg, var(--lavender) 0%, var(--rose) 50%, var(--peach) 100%);
+  color: var(--deep);
+  padding: 40px 30px;
+  text-align: center;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5em;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+header p {
+  color: var(--soft);
+  font-size: 1.05em;
+  font-style: italic;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(20px);
+  padding: 12px;
+  border-radius: 30px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+.tab-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 13px 18px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(232,223,245,0.8);
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+  letter-spacing: 0.3px;
+}
+
+.tab-btn:hover {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.3);
+}
+
+.content {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 35px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.8);
+  min-height: 500px;
+}
+
+.tab-content { display: none; animation: fadeIn 0.4s ease; }
+.tab-content.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  font-weight: 500;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-light);
+  font-style: italic;
+  margin-bottom: 25px;
+  font-size: 0.95em;
+}
+
+/* Таблица глаголов */
+.search-box {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 200px;
+  padding: 13px 20px;
+  border: 2px solid var(--lavender);
+  border-radius: 25px;
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+  background: rgba(255,255,255,0.8);
+  color: var(--text);
+  transition: all 0.3s;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--soft);
+  box-shadow: 0 0 0 4px rgba(139,123,168,0.15);
+  background: white;
+}
+
+.verbs-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  font-size: 0.95em;
+}
+
+.verbs-table thead th {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+  color: var(--deep);
+  padding: 14px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.verbs-table thead th:first-child { border-radius: 14px 0 0 14px; }
+.verbs-table thead th:last-child { border-radius: 0 14px 14px 0; }
+
+.verbs-table tbody tr {
+  background: rgba(255,255,255,0.7);
+  transition: all 0.3s;
+}
+
+.verbs-table tbody tr:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(252,228,214,0.5));
+  transform: translateX(5px);
+}
+
+.verbs-table tbody td {
+  padding: 13px 12px;
+  border-top: 1px solid rgba(232,223,245,0.5);
+  border-bottom: 1px solid rgba(232,223,245,0.5);
+}
+
+.verbs-table tbody td:first-child {
+  border-left: 1px solid rgba(232,223,245,0.5);
+  border-radius: 12px 0 0 12px;
+  font-weight: 600;
+  color: var(--deep);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1em;
+}
+
+.verbs-table tbody td:last-child {
+  border-right: 1px solid rgba(232,223,245,0.5);
+  border-radius: 0 12px 12px 0;
+}
+
+.verbs-table .form-cell {
+  color: var(--soft);
+  font-weight: 500;
+}
+
+.verbs-table .translation {
+  color: var(--text-light);
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* Упражнения */
+.exercise-box {
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(252,228,214,0.3));
+  padding: 30px;
+  border-radius: 22px;
+  border: 1px solid rgba(232,223,245,0.6);
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(138,107,175,0.08);
+}
+
+.exercise-type {
+  display: inline-block;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 18px;
+}
+
+.verb-display {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3em;
+  font-weight: 600;
+  color: var(--deep);
+  margin: 20px 0;
+  line-height: 1.2;
+}
+
+.verb-translation {
+  color: var(--text-light);
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.prompt-text {
+  color: var(--text);
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.answer-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px 22px;
+  border: 2px solid var(--lavender);
+  border-radius: 25px;
+  font-size: 1.2em;
+  font-family: 'Montserrat', sans-serif;
+  background: rgba(255,255,255,0.9);
+  color: var(--text);
+  text-align: center;
+  transition: all 0.3s;
+  margin-bottom: 15px;
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: var(--soft);
+  box-shadow: 0 0 0 4px rgba(139,123,168,0.15);
+  background: white;
+}
+
+.answer-input.correct {
+  border-color: var(--success);
+  background: rgba(212,241,232,0.5);
+  color: var(--success);
+}
+
+.answer-input.incorrect {
+  border-color: var(--danger);
+  background: rgba(247,214,224,0.5);
+  color: var(--danger);
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.btn {
+  padding: 13px 28px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+  margin: 5px;
+  letter-spacing: 0.3px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(90,74,122,0.35);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.7);
+  color: var(--deep);
+  border: 1px solid var(--lavender);
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, var(--lavender), var(--rose));
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--success), #5a9678);
+  box-shadow: 0 6px 18px rgba(107,168,137,0.3);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger), #b56870);
+  box-shadow: 0 6px 18px rgba(201,123,132,0.3);
+}
+
+.feedback {
+  padding: 15px 20px;
+  border-radius: 18px;
+  margin-top: 15px;
+  font-weight: 500;
+  display: none;
+  text-align: center;
+}
+
+.feedback.show { display: block; animation: fadeIn 0.3s ease; }
+
+.feedback.correct {
+  background: linear-gradient(135deg, rgba(212,241,232,0.7), rgba(107,168,137,0.3));
+  color: var(--success);
+  border-left: 4px solid var(--success);
+}
+
+.feedback.incorrect {
+  background: linear-gradient(135deg, rgba(247,214,224,0.7), rgba(201,123,132,0.3));
+  color: var(--danger);
+  border-left: 4px solid var(--danger);
+}
+
+/* Статистика */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(252,228,214,0.4));
+  padding: 22px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(232,223,245,0.6);
+  box-shadow: 0 4px 15px rgba(138,107,175,0.08);
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(138,107,175,0.15);
+}
+
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5em;
+  font-weight: 600;
+  color: var(--deep);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75em;
+  color: var(--text-light);
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+}
+
+/* Тест */
+.test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.test-stat {
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(252,228,214,0.4));
+  padding: 12px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(232,223,245,0.6);
+  text-align: center;
+}
+
+.test-stat .value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8em;
+  font-weight: 600;
+  color: var(--deep);
+}
+
+.test-stat .label {
+  font-size: 0.7em;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(232,223,245,0.5);
+  border-radius: 5px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success), var(--soft), var(--deep));
+  border-radius: 5px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* Сложные глаголы */
+.hard-verbs {
+  margin-top: 25px;
+}
+
+.hard-verb-item {
+  background: linear-gradient(135deg, rgba(247,214,224,0.4), rgba(252,228,214,0.3));
+  padding: 14px 18px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid var(--danger);
+}
+
+.hard-verb-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--deep);
+}
+
+.hard-verb-errors {
+  background: var(--danger);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .content { padding: 20px; }
+  header h1 { font-size: 1.8em; }
+  .tab-btn { min-width: 100%; }
+  .verb-display { font-size: 2.2em; }
+  .verbs-table { font-size: 0.85em; }
+  .verbs-table thead th, .verbs-table tbody td { padding: 10px 8px; }
+  .top-nav { padding: 12px 18px; }
+  .logo { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="top-nav">
+  <div class="logo">Natalie <span>English</span></div>
+  <a href="../index.html" class="back-btn">← На главную</a>
+</div>
+
+<div class="container">
+  <header>
+    <h1> Irregular Verbs Trainer </h1>
+    <p>Тренажёр неправильных глаголов английского языка</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('table', this)">📖 Таблица</button>
+    <button class="tab-btn" onclick="showTab('past', this)">🔄 Past Tense</button>
+    <button class="tab-btn" onclick="showTab('participle', this)">📝 Participle</button>
+    <button class="tab-btn" onclick="showTab('conjugation', this)">🎯 Спряжение</button>
+    <button class="tab-btn" onclick="showTab('test', this)">🏆 Тест</button>
+    <button class="tab-btn" onclick="showTab('stats', this)">📊 Статистика</button>
+  </div>
+
+  <div class="content">
+    
+    <!-- ТАБЛИЦА -->
+    <div class="tab-content active" id="table">
+      <h2>📖 Таблица неправильных глаголов</h2>
+      <p class="subtitle">Все формы глаголов в одном месте</p>
+      
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Поиск глагола..." oninput="filterTable()">
+      </div>
+      
+      <div style="overflow-x: auto;">
+        <table class="verbs-table" id="verbsTable">
+          <thead>
+            <tr>
+              <th>Infinitive</th>
+              <th>Present (he/she)</th>
+              <th>Past</th>
+              <th>Participle</th>
+              <th>Перевод</th>
+            </tr>
+          </thead>
+          <tbody id="verbsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAST TENSE -->
+    <div class="tab-content" id="past">
+      <h2>🔄 Past Tense</h2>
+      <p class="subtitle">Введите прошедшую форму глагола</p>
+      
+      <div class="exercise-box">
+        <div class="exercise-type">Past Tense</div>
+        <div class="verb-display" id="pastVerb">—</div>
+        <div class="verb-translation" id="pastTranslation"></div>
+        <div class="prompt-text">Введите форму Past Simple:</div>
+        <input type="text" class="answer-input" id="pastInput" placeholder="..." onkeypress="if(event.key==='Enter')checkPast()">
+        <div>
+          <button class="btn btn-success" onclick="checkPast()">✓ Проверить</button>
+          <button class="btn btn-secondary" onclick="showAnswer('past')">💡 Ответ</button>
+          <button class="btn" onclick="nextVerb('past')">Следующий ➡️</button>
+        </div>
+        <div class="feedback" id="pastFeedback"></div>
+      </div>
+    </div>
+
+    <!-- PARTICIPLE -->
+    <div class="tab-content" id="participle">
+      <h2>📝 Past Participle</h2>
+      <p class="subtitle">Введите форму причастия (3-я форма)</p>
+      
+      <div class="exercise-box">
+        <div class="exercise-type">Past Participle</div>
+        <div class="verb-display" id="participleVerb">—</div>
+        <div class="verb-translation" id="participleTranslation"></div>
+        <div class="prompt-text">Введите форму Past Participle:</div>
+        <input type="text" class="answer-input" id="participleInput" placeholder="..." onkeypress="if(event.key==='Enter')checkParticiple()">
+        <div>
+          <button class="btn btn-success" onclick="checkParticiple()">✓ Проверить</button>
+          <button class="btn btn-secondary" onclick="showAnswer('participle')">💡 Ответ</button>
+          <button class="btn" onclick="nextVerb('participle')">Следующий ➡️</button>
+        </div>
+        <div class="feedback" id="participleFeedback"></div>
+      </div>
+    </div>
+
+    <!-- СПРЯЖЕНИЕ -->
+    <div class="tab-content" id="conjugation">
+      <h2>🎯 Спряжение в Past Tense</h2>
+      <p class="subtitle">Проспрягайте глагол для указанного лица</p>
+      
+      <div class="exercise-box">
+        <div class="exercise-type">Conjugation</div>
+        <div class="prompt-text" id="conjugationPrompt">Past Tense: I</div>
+        <div class="verb-display" id="conjugationVerb">—</div>
+        <div class="verb-translation" id="conjugationTranslation"></div>
+        <input type="text" class="answer-input" id="conjugationInput" placeholder="..." onkeypress="if(event.key==='Enter')checkConjugation()">
+        <div>
+          <button class="btn btn-success" onclick="checkConjugation()">✓ Проверить</button>
+          <button class="btn btn-secondary" onclick="showAnswer('conjugation')">💡 Ответ</button>
+          <button class="btn" onclick="nextConjugation()">Следующий ➡️</button>
+        </div>
+        <div class="feedback" id="conjugationFeedback"></div>
+      </div>
+    </div>
+
+    <!-- ТЕСТ -->
+    <div class="tab-content" id="test">
+      <h2>🏆 Тест на время</h2>
+      <p class="subtitle">10 случайных глаголов — как можно быстрее!</p>
+      
+      <div class="test-header">
+        <div class="test-stat">
+          <div class="value" id="testCorrect">0</div>
+          <div class="label">Правильно</div>
+        </div>
+        <div class="test-stat">
+          <div class="value" id="testTime">0</div>
+          <div class="label">Секунд</div>
+        </div>
+        <div class="test-stat">
+          <div class="value" id="testProgress">0/10</div>
+          <div class="label">Прогресс</div>
+        </div>
+      </div>
+      
+      <div class="progress-bar">
+        <div class="progress-fill" id="testProgressFill"></div>
+      </div>
+      
+      <div class="exercise-box" id="testExercise" style="display:none;">
+        <div class="exercise-type">Past Tense</div>
+        <div class="verb-display" id="testVerb">—</div>
+        <input type="text" class="answer-input" id="testInput" placeholder="..." onkeypress="if(event.key==='Enter')checkTest()">
+        <div>
+          <button class="btn btn-success" onclick="checkTest()">✓ Ответ</button>
+        </div>
+        <div class="feedback" id="testFeedback"></div>
+      </div>
+      
+      <div id="testStart" style="text-align:center;">
+        <button class="btn" onclick="startTest()" style="font-size:1.1em; padding:16px 40px;">🚀 Начать тест</button>
+      </div>
+      
+      <div id="testResult" style="display:none; text-align:center; padding:30px;">
+        <h3 style="font-family:'Cormorant Garamond',serif; color:var(--deep); font-size:2em; margin-bottom:15px;"> Тест завершён!</h3>
+        <p style="font-size:1.2em; margin-bottom:20px;">Результат: <strong id="testFinalScore">0/10</strong></p>
+        <p style="font-size:1.1em; margin-bottom:25px; color:var(--text-light);">Время: <strong id="testFinalTime">0</strong> сек</p>
+        <button class="btn" onclick="startTest()">🔄 Пройти ещё раз</button>
+      </div>
+    </div>
+
+    <!-- СТАТИСТИКА -->
+    <div class="tab-content" id="stats">
+      <h2>📊 Ваша статистика</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statAttempts">0</div>
+          <div class="stat-label">Всего попыток</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statCorrect">0</div>
+          <div class="stat-label">Правильно</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statAccuracy">0%</div>
+          <div class="stat-label">Точность</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statBestTest">—</div>
+          <div class="stat-label">Лучший тест (сек)</div>
+        </div>
+      </div>
+      
+      <div class="hard-verbs">
+        <h3 style="font-family:'Cormorant Garamond',serif; color:var(--deep); margin-bottom:15px; font-size:1.4em;">🔥 Самые сложные глаголы</h3>
+        <div id="hardVerbsList">
+          <div class="empty-state">Пока нет данных</div>
+        </div>
+      </div>
+      
+      <div style="text-align:center; margin-top:30px;">
+        <button class="btn btn-danger" onclick="resetStats()">🔄 Сбросить статистику</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// База неправильных глаголов
+const verbs = [
+  { inf: "be", pres: "is", past: "was/were", part: "been", ru: "быть" },
+  { inf: "become", pres: "becomes", past: "became", part: "become", ru: "становиться" },
+  { inf: "begin", pres: "begins", past: "began", part: "begun", ru: "начинать" },
+  { inf: "break", pres: "breaks", past: "broke", part: "broken", ru: "ломать" },
+  { inf: "bring", pres: "brings", past: "brought", part: "brought", ru: "приносить" },
+  { inf: "build", pres: "builds", past: "built", part: "built", ru: "строить" },
+  { inf: "buy", pres: "buys", past: "bought", part: "bought", ru: "покупать" },
+  { inf: "catch", pres: "catches", past: "caught", part: "caught", ru: "ловить" },
+  { inf: "choose", pres: "chooses", past: "chose", part: "chosen", ru: "выбирать" },
+  { inf: "come", pres: "comes", past: "came", part: "come", ru: "приходить" },
+  { inf: "cost", pres: "costs", past: "cost", part: "cost", ru: "стоить" },
+  { inf: "cut", pres: "cuts", past: "cut", part: "cut", ru: "резать" },
+  { inf: "do", pres: "does", past: "did", part: "done", ru: "делать" },
+  { inf: "draw", pres: "draws", past: "drew", part: "drawn", ru: "рисовать" },
+  { inf: "drink", pres: "drinks", past: "drank", part: "drunk", ru: "пить" },
+  { inf: "drive", pres: "drives", past: "drove", part: "driven", ru: "водить" },
+  { inf: "eat", pres: "eats", past: "ate", part: "eaten", ru: "есть" },
+  { inf: "fall", pres: "falls", past: "fell", part: "fallen", ru: "падать" },
+  { inf: "feel", pres: "feels", past: "felt", part: "felt", ru: "чувствовать" },
+  { inf: "find", pres: "finds", past: "found", part: "found", ru: "находить" },
+  { inf: "fly", pres: "flies", past: "flew", part: "flown", ru: "летать" },
+  { inf: "forget", pres: "forgets", past: "forgot", part: "forgotten", ru: "забывать" },
+  { inf: "get", pres: "gets", past: "got", part: "got/gotten", ru: "получать" },
+  { inf: "give", pres: "gives", past: "gave", part: "given", ru: "давать" },
+  { inf: "go", pres: "goes", past: "went", part: "gone", ru: "идти" },
+  { inf: "grow", pres: "grows", past: "grew", part: "grown", ru: "расти" },
+  { inf: "have", pres: "has", past: "had", part: "had", ru: "иметь" },
+  { inf: "hear", pres: "hears", past: "heard", part: "heard", ru: "слышать" },
+  { inf: "hide", pres: "hides", past: "hid", part: "hidden", ru: "прятать" },
+  { inf: "hit", pres: "hits", past: "hit", part: "hit", ru: "ударять" },
+  { inf: "hold", pres: "holds", past: "held", part: "held", ru: "держать" },
+  { inf: "keep", pres: "keeps", past: "kept", part: "kept", ru: "держать, хранить" },
+  { inf: "know", pres: "knows", past: "knew", part: "known", ru: "знать" },
+  { inf: "lead", pres: "leads", past: "led", part: "led", ru: "вести" },
+  { inf: "learn", pres: "learns", past: "learned/learnt", part: "learned/learnt", ru: "учиться" },
+  { inf: "leave", pres: "leaves", past: "left", part: "left", ru: "покидать" },
+  { inf: "lend", pres: "lends", past: "lent", part: "lent", ru: "одалживать" },
+  { inf: "let", pres: "lets", past: "let", part: "let", ru: "позволять" },
+  { inf: "lie", pres: "lies", past: "lay", part: "lain", ru: "лежать" },
+  { inf: "lose", pres: "loses", past: "lost", part: "lost", ru: "терять" },
+  { inf: "make", pres: "makes", past: "made", part: "made", ru: "делать, создавать" },
+  { inf: "mean", pres: "means", past: "meant", part: "meant", ru: "означать" },
+  { inf: "meet", pres: "meets", past: "met", part: "met", ru: "встречать" },
+  { inf: "pay", pres: "pays", past: "paid", part: "paid", ru: "платить" },
+  { inf: "put", pres: "puts", past: "put", part: "put", ru: "класть" },
+  { inf: "read", pres: "reads", past: "read", part: "read", ru: "читать" },
+  { inf: "ride", pres: "rides", past: "rode", part: "ridden", ru: "ездить верхом" },
+  { inf: "run", pres: "runs", past: "ran", part: "run", ru: "бегать" },
+  { inf: "say", pres: "says", past: "said", part: "said", ru: "говорить" },
+  { inf: "see", pres: "sees", past: "saw", part: "seen", ru: "видеть" },
+  { inf: "sell", pres: "sells", past: "sold", part: "sold", ru: "продавать" },
+  { inf: "send", pres: "sends", past: "sent", part: "sent", ru: "посылать" },
+  { inf: "show", pres: "shows", past: "showed", part: "shown", ru: "показывать" },
+  { inf: "sing", pres: "sings", past: "sang", part: "sung", ru: "петь" },
+  { inf: "sit", pres: "sits", past: "sat", part: "sat", ru: "сидеть" },
+  { inf: "sleep", pres: "sleeps", past: "slept", part: "slept", ru: "спать" },
+  { inf: "speak", pres: "speaks", past: "spoke", part: "spoken", ru: "говорить" },
+  { inf: "spend", pres: "spends", past: "spent", part: "spent", ru: "тратить" },
+  { inf: "stand", pres: "stands", past: "stood", part: "stood", ru: "стоять" },
+  { inf: "steal", pres: "steals", past: "stole", part: "stolen", ru: "воровать" },
+  { inf: "swim", pres: "swims", past: "swam", part: "swum", ru: "плавать" },
+  { inf: "take", pres: "takes", past: "took", part: "taken", ru: "брать" },
+  { inf: "teach", pres: "teaches", past: "taught", part: "taught", ru: "учить" },
+  { inf: "tell", pres: "tells", past: "told", part: "told", ru: "рассказывать" },
+  { inf: "think", pres: "thinks", past: "thought", part: "thought", ru: "думать" },
+  { inf: "understand", pres: "understands", past: "understood", part: "understood", ru: "понимать" },
+  { inf: "wear", pres: "wears", past: "wore", part: "worn", ru: "носить (одежду)" },
+  { inf: "win", pres: "wins", past: "won", part: "won", ru: "побеждать" },
+  { inf: "write", pres: "writes", past: "wrote", part: "written", ru: "писать" }
+];
+
+// Состояние
+let currentVerbIndex = 0;
+let currentConjugation = { pronoun: 'I', verbIndex: 0 };
+let stats = JSON.parse(localStorage.getItem('verbsStats') || '{"attempts":0,"correct":0,"mistakes":{},"bestTest":null}');
+
+// Тест
+let testState = { active: false, verbs: [], index: 0, correct: 0, startTime: 0, timer: null };
+
+// Переключение вкладок
+function showTab(tabId, btnElement) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById(tabId).classList.add('active');
+  if (btnElement) btnElement.classList.add('active');
+  
+  if (tabId === 'stats') updateStatsDisplay();
+}
+
+// Заполнение таблицы
+function renderTable() {
+  var tbody = document.getElementById('verbsTableBody');
+  tbody.innerHTML = '';
+  verbs.forEach(function(v) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + v.inf + '</td>' +
+                   '<td class="form-cell">' + v.pres + '</td>' +
+                   '<td class="form-cell">' + v.past + '</td>' +
+                   '<td class="form-cell">' + v.part + '</td>' +
+                   '<td class="translation">' + v.ru + '</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function filterTable() {
+  var search = document.getElementById('searchInput').value.toLowerCase();
+  var rows = document.querySelectorAll('#verbsTableBody tr');
+  rows.forEach(function(row) {
+    var text = row.textContent.toLowerCase();
+    row.style.display = text.indexOf(search) !== -1 ? '' : 'none';
+  });
+}
+
+// Случайный глагол
+function getRandomVerbIndex() {
+  return Math.floor(Math.random() * verbs.length);
+}
+
+// Следующий глагол
+function nextVerb(mode) {
+  currentVerbIndex = getRandomVerbIndex();
+  var v = verbs[currentVerbIndex];
+  
+  if (mode === 'past') {
+    document.getElementById('pastVerb').textContent = v.inf;
+    document.getElementById('pastTranslation').textContent = v.ru;
+    document.getElementById('pastInput').value = '';
+    document.getElementById('pastInput').className = 'answer-input';
+    document.getElementById('pastFeedback').classList.remove('show');
+    document.getElementById('pastInput').focus();
+  } else if (mode === 'participle') {
+    document.getElementById('participleVerb').textContent = v.inf;
+    document.getElementById('participleTranslation').textContent = v.ru;
+    document.getElementById('participleInput').value = '';
+    document.getElementById('participleInput').className = 'answer-input';
+    document.getElementById('participleFeedback').classList.remove('show');
+    document.getElementById('participleInput').focus();
+  }
+}
+
+// Следующее спряжение
+function nextConjugation() {
+  var pronouns = ['I', 'You', 'He', 'She', 'It', 'We', 'They'];
+  currentConjugation.pronoun = pronouns[Math.floor(Math.random() * pronouns.length)];
+  currentConjugation.verbIndex = getRandomVerbIndex();
+  var v = verbs[currentConjugation.verbIndex];
+  
+  document.getElementById('conjugationPrompt').textContent = 'Past Tense: ' + currentConjugation.pronoun;
+  document.getElementById('conjugationVerb').textContent = v.inf;
+  document.getElementById('conjugationTranslation').textContent = v.ru;
+  document.getElementById('conjugationInput').value = '';
+  document.getElementById('conjugationInput').className = 'answer-input';
+  document.getElementById('conjugationFeedback').classList.remove('show');
+  document.getElementById('conjugationInput').focus();
+}
+
+// Проверка ответа
+function normalizeAnswer(str) {
+  return str.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function checkAnswer(userInput, correctAnswer, verbInf, mode) {
+  var user = normalizeAnswer(userInput);
+  var correct = normalizeAnswer(correctAnswer);
+  var correctOptions = correct.split('/').map(function(s) { return s.trim(); });
+  var isCorrect = correctOptions.indexOf(user) !== -1;
+  
+  var feedbackEl, inputEl;
+  if (mode === 'past') {
+    feedbackEl = document.getElementById('pastFeedback');
+    inputEl = document.getElementById('pastInput');
+  } else if (mode === 'participle') {
+    feedbackEl = document.getElementById('participleFeedback');
+    inputEl = document.getElementById('participleInput');
+  } else if (mode === 'conjugation') {
+    feedbackEl = document.getElementById('conjugationFeedback');
+    inputEl = document.getElementById('conjugationInput');
+  }
+  
+  stats.attempts++;
+  
+  if (isCorrect) {
+    stats.correct++;
+    inputEl.className = 'answer-input correct';
+    feedbackEl.className = 'feedback correct show';
+    feedbackEl.textContent = '✓ Правильно! Отличная работа!';
+  } else {
+    inputEl.className = 'answer-input incorrect';
+    feedbackEl.className = 'feedback incorrect show';
+    feedbackEl.textContent = '✗ Неправильно. Правильный ответ: ' + correctAnswer;
+    stats.mistakes[verbInf] = (stats.mistakes[verbInf] || 0) + 1;
+  }
+  
+  saveStats();
+}
+
+function checkPast() {
+  var input = document.getElementById('pastInput').value;
+  if (!input.trim()) return;
+  var v = verbs[currentVerbIndex];
+  checkAnswer(input, v.past, v.inf, 'past');
+}
+
+function checkParticiple() {
+  var input = document.getElementById('participleInput').value;
+  if (!input.trim()) return;
+  var v = verbs[currentVerbIndex];
+  checkAnswer(input, v.part, v.inf, 'participle');
+}
+
+function checkConjugation() {
+  var input = document.getElementById('conjugationInput').value;
+  if (!input.trim()) return;
+  var v = verbs[currentConjugation.verbIndex];
+  checkAnswer(input, v.past, v.inf, 'conjugation');
+}
+
+function showAnswer(mode) {
+  var v, feedbackEl;
+  if (mode === 'past') {
+    v = verbs[currentVerbIndex];
+    feedbackEl = document.getElementById('pastFeedback');
+  } else if (mode === 'participle') {
+    v = verbs[currentVerbIndex];
+    feedbackEl = document.getElementById('participleFeedback');
+  } else if (mode === 'conjugation') {
+    v = verbs[currentConjugation.verbIndex];
+    feedbackEl = document.getElementById('conjugationFeedback');
+  }
+  
+  feedbackEl.className = 'feedback correct show';
+  feedbackEl.textContent = '💡 Ответ: ' + v.past + ' / ' + v.part;
+}
+
+// Тест
+function startTest() {
+  testState.active = true;
+  testState.index = 0;
+  testState.correct = 0;
+  testState.startTime = Date.now();
+  
+  // Выбираем 10 случайных глаголов
+  var shuffled = verbs.slice().sort(function() { return Math.random() - 0.5; });
+  testState.verbs = shuffled.slice(0, 10);
+  
+  document.getElementById('testStart').style.display = 'none';
+  document.getElementById('testResult').style.display = 'none';
+  document.getElementById('testExercise').style.display = 'block';
+  
+  // Таймер
+  testState.timer = setInterval(function() {
+    var elapsed = Math.floor((Date.now() - testState.startTime) / 1000);
+    document.getElementById('testTime').textContent = elapsed;
+  }, 1000);
+  
+  showTestQuestion();
+}
+
+function showTestQuestion() {
+  if (testState.index >= testState.verbs.length) {
+    endTest();
+    return;
+  }
+  
+  var v = testState.verbs[testState.index];
+  document.getElementById('testVerb').textContent = v.inf;
+  document.getElementById('testInput').value = '';
+  document.getElementById('testInput').className = 'answer-input';
+  document.getElementById('testFeedback').classList.remove('show');
+  document.getElementById('testCorrect').textContent = testState.correct;
+  document.getElementById('testProgress').textContent = testState.index + '/10';
+  document.getElementById('testProgressFill').style.width = (testState.index / 10 * 100) + '%';
+  document.getElementById('testInput').focus();
+}
+
+function checkTest() {
+  var input = document.getElementById('testInput').value;
+  if (!input.trim()) return;
+  
+  var v = testState.verbs[testState.index];
+  var user = normalizeAnswer(input);
+  var correct = normalizeAnswer(v.past);
+  var correctOptions = correct.split('/').map(function(s) { return s.trim(); });
+  var isCorrect = correctOptions.indexOf(user) !== -1;
+  
+  var feedbackEl = document.getElementById('testFeedback');
+  var inputEl = document.getElementById('testInput');
+  
+  if (isCorrect) {
+    testState.correct++;
+    inputEl.className = 'answer-input correct';
+    feedbackEl.className = 'feedback correct show';
+    feedbackEl.textContent = '✓ Верно!';
+  } else {
+    inputEl.className = 'answer-input incorrect';
+    feedbackEl.className = 'feedback incorrect show';
+    feedbackEl.textContent = '✗ Правильно: ' + v.past;
+    stats.mistakes[v.inf] = (stats.mistakes[v.inf] || 0) + 1;
+  }
+  
+  stats.attempts++;
+  if (isCorrect) stats.correct++;
+  saveStats();
+  
+  setTimeout(function() {
+    testState.index++;
+    showTestQuestion();
+  }, 1200);
+}
+
+function endTest() {
+  clearInterval(testState.timer);
+  var totalTime = Math.floor((Date.now() - testState.startTime) / 1000);
+  
+  document.getElementById('testExercise').style.display = 'none';
+  document.getElementById('testResult').style.display = 'block';
+  document.getElementById('testFinalScore').textContent = testState.correct + '/10';
+  document.getElementById('testFinalTime').textContent = totalTime;
+  document.getElementById('testProgressFill').style.width = '100%';
+  
+  // Обновляем лучший результат
+  if (!stats.bestTest || totalTime < stats.bestTest) {
+    stats.bestTest = totalTime;
+    saveStats();
+  }
+}
+
+// Статистика
+function saveStats() {
+  localStorage.setItem('verbsStats', JSON.stringify(stats));
+}
+
+function updateStatsDisplay() {
+  document.getElementById('statAttempts').textContent = stats.attempts;
+  document.getElementById('statCorrect').textContent = stats.correct;
+  var accuracy = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
+  document.getElementById('statAccuracy').textContent = accuracy + '%';
+  document.getElementById('statBestTest').textContent = stats.bestTest || '—';
+  
+  // Сложные глаголы
+  var hardList = document.getElementById('hardVerbsList');
+  var mistakes = stats.mistakes;
+  var sorted = Object.keys(mistakes).sort(function(a, b) { return mistakes[b] - mistakes[a]; });
+  
+  if (sorted.length === 0) {
+    hardList.innerHTML = '<div class="empty-state">Пока нет данных</div>';
+  } else {
+    hardList.innerHTML = '';
+    sorted.slice(0, 10).forEach(function(verb) {
+      var item = document.createElement('div');
+      item.className = 'hard-verb-item';
+      item.innerHTML = '<span class="hard-verb-name">' + verb + '</span>' +
+                       '<span class="hard-verb-errors">' + mistakes[verb] + ' ошибок</span>';
+      hardList.appendChild(item);
+    });
+  }
+}
+
+function resetStats() {
+  if (!confirm('Вы уверены? Вся статистика будет удалена!')) return;
+  stats = { attempts: 0, correct: 0, mistakes: {}, bestTest: null };
+  saveStats();
+  updateStatsDisplay();
+}
+
+// Инициализация
+window.addEventListener('load', function() {
+  renderTable();
+  nextVerb('past');
+  nextVerb('participle');
+  nextConjugation();
+});
+</script>
+</body>
+</html>
