@@ -268,7 +268,7 @@
           const programs = progSnap.docs.map(d=>({id:d.id, ...d.data()}));
           const trainers = trainSnap.docs.map(d=>({id:d.id, ...d.data()}));
           if(!programs.length && !trainers.length){
-              el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся ✨</div>';
+              el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся </div>';
               return;
           }
           let html = '';
@@ -302,7 +302,7 @@
     function renderArticles(items){
       const el = document.getElementById('articles-list');
       if (!el) return;
-      if(!items.length){ el.innerHTML='<div class="empty">Статьи скоро появятся ✨</div>'; return; }
+      if(!items.length){ el.innerHTML='<div class="empty">Статьи скоро появятся </div>'; return; }
       el.innerHTML = items.map((a,i)=>'<div class="card" style="animation-delay:'+i*0.1+'s">' +
           (a.imageUrl?'<img src="'+a.imageUrl+'" alt="">':'') +
           '<div class="date">'+(a.date||'')+'</div>' +
@@ -313,7 +313,7 @@
     function renderVideos(items){
       const el = document.getElementById('videos-list');
       if (!el) return;
-      if(!items.length){ el.innerHTML='<div class="empty">Видео скоро появятся ✨</div>'; return; }
+      if(!items.length){ el.innerHTML='<div class="empty">Видео скоро появятся </div>'; return; }
       el.innerHTML = items.map((v,i)=>{
         const id = v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
         const embed = id ? '<iframe src="https://www.youtube.com/embed/'+id[1]+'" allowfullscreen></iframe>' : '';
@@ -325,7 +325,7 @@
     function renderGallery(items){
       const el = document.getElementById('gallery-list');
       if (!el) return;
-      if(!items.length){ el.innerHTML='<div class="empty">Фото скоро появятся ✨</div>'; return; }
+      if(!items.length){ el.innerHTML='<div class="empty">Фото скоро появятся </div>'; return; }
       el.innerHTML = items.map((g,i)=>'<div class="gallery-item" style="animation:slideUp 0.6s ease '+i*0.05+'s backwards" onclick="openModal(\''+g.imageUrl+'\')">' +
           '<img src="'+g.imageUrl+'" alt="'+(g.caption||'')+'"></div>').join('');
     }
