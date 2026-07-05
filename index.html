@@ -2,82 +2,127 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Наталья Николаева — репетитор английского языка. Индивидуальные уроки с душой и удовольствием.">
 <title>Наталья Николаева — Репетитор английского языка</title>
+
+<!-- Preconnect для ускорения -->
+<link rel="preconnect" href="https://firestore.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com">
+
+<!-- Preload шрифтов -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" as="style">
+
+<!-- Критический CSS для мгновенной отрисовки -->
+<style>
+  body{margin:0;font-family:'Montserrat',sans-serif;color:#3d3554;min-height:100vh}
+  header{position:sticky;top:0;z-index:100;padding:18px 5%;display:flex;justify-content:space-between;align-items:center}
+  .page{display:none;padding:60px 5%}
+  .page.active{display:block}
+  .hero{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:70vh}
+  .loader{text-align:center;padding:40px;color:#8b7ba8}
+</style>
+
+<!-- Основной CSS -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap&v=2.0" rel="stylesheet">
+
 <style>
   :root{--lavender:#e8dff5;--peach:#fce4d6;--mint:#d4f1e8;--rose:#f7d6e0;--cream:#fdf6f0;--deep:#5a4a7a;--soft:#8b7ba8;--text:#3d3554;--shadow:0 10px 40px rgba(138,107,175,0.15)}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:'Montserrat',sans-serif;color:var(--text);background:linear-gradient(135deg,var(--cream) 0%,var(--lavender) 50%,var(--peach) 100%);background-attachment:fixed;min-height:100vh;overflow-x:hidden}
-  .blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.5;z-index:-1;animation:float 20s infinite ease-in-out}
-  .blob1{width:400px;height:400px;background:var(--rose);top:-100px;left:-100px}
-  .blob2{width:500px;height:500px;background:var(--mint);bottom:-150px;right:-150px;animation-delay:-10s}
-  .blob3{width:300px;height:300px;background:var(--lavender);top:50%;left:50%;animation-delay:-5s}
-  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(50px,-50px) scale(1.1)}66%{transform:translate(-30px,40px) scale(0.95)}}
-  header{position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);background:rgba(253,246,240,0.7);border-bottom:1px solid rgba(255,255,255,0.5);padding:18px 5%;display:flex;justify-content:space-between;align-items:center}
+  
+  /* УБРАЛИ background-attachment: fixed - это критично для производительности! */
+  body{font-family:'Montserrat',sans-serif;color:var(--text);background:linear-gradient(135deg,var(--cream) 0%,var(--lavender) 50%,var(--peach) 100%);min-height:100vh;overflow-x:hidden}
+  
+  /* Blob'ы скрыты до загрузки страницы */
+  .blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:0;z-index:-1;transition:opacity 1s ease}
+  body.loaded .blob{opacity:0.5}
+  
+  /* Упрощённые анимации blob'ов */
+  .blob1{width:400px;height:400px;background:var(--rose);top:-100px;left:-100px;animation:float 20s infinite ease-in-out}
+  .blob2{width:500px;height:500px;background:var(--mint);bottom:-150px;right:-150px;animation:float 20s infinite ease-in-out;animation-delay:-10s}
+  .blob3{width:300px;height:300px;background:var(--lavender);top:50%;left:50%;animation:float 20s infinite ease-in-out;animation-delay:-5s}
+  
+  @keyframes float{0%,100%{transform:translate(0,0)}33%{transform:translate(50px,-50px)}66%{transform:translate(-30px,40px)}}
+  
+  header{backdrop-filter:blur(20px);background:rgba(253,246,240,0.7);border-bottom:1px solid rgba(255,255,255,0.5)}
   .logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--deep);letter-spacing:1px}
   .logo span{color:var(--soft);font-style:italic}
   nav ul{display:flex;list-style:none;gap:8px;flex-wrap:wrap}
   nav a{text-decoration:none;color:var(--text);padding:10px 18px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.3s ease}
   nav a:hover,nav a.active{background:linear-gradient(135deg,var(--lavender),var(--rose));color:var(--deep);transform:translateY(-2px);box-shadow:0 6px 20px rgba(138,107,175,0.25)}
-  .page{display:none;padding:60px 5%;animation:fadeIn 0.8s ease}
-  .page.active{display:block}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  .hero{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:70vh}
+  
+  .page{animation:fadeIn 0.8s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  
   .hero-text h1{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:500;line-height:1.1;color:var(--deep);margin-bottom:24px}
   .hero-text h1 em{color:var(--soft);font-style:italic}
   .hero-text p{font-size:18px;line-height:1.8;margin-bottom:32px;color:var(--text);opacity:0.85}
+  
   .btn{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,var(--deep),var(--soft));color:white;text-decoration:none;border-radius:30px;font-weight:500;letter-spacing:0.5px;box-shadow:0 8px 25px rgba(90,74,122,0.3);transition:all 0.4s ease;border:none;cursor:pointer}
   .btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(90,74,122,0.4)}
   .btn-outline{background:transparent;color:var(--deep);border:2px solid var(--deep);box-shadow:none;margin-left:12px}
-  .hero-img{position:relative;aspect-ratio:1;border-radius:50% 40% 50% 40%/40% 50% 40% 50%;background:linear-gradient(135deg,var(--peach),var(--rose),var(--lavender));display:flex;align-items:center;justify-content:center;animation:morph 10s infinite ease-in-out;box-shadow:var(--shadow);overflow:hidden}
+  
+  /* ОПТИМИЗИРОВАННАЯ анимация hero-img */
+  .hero-img{position:relative;aspect-ratio:1;border-radius:50% 40% 50% 40%/40% 50% 40% 50%;background:var(--peach);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);overflow:hidden}
+  .hero-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--peach),var(--rose),var(--lavender));animation:morph 10s infinite ease-in-out;will-change:border-radius;z-index:0}
+  .hero-img>*{position:relative;z-index:1}
   .hero-img img{width:100%;height:100%;object-fit:cover}
   .hero-img .placeholder{font-family:'Cormorant Garamond',serif;font-size:120px;color:white;opacity:0.9;display:none!important}
+  
   @keyframes morph{0%,100%{border-radius:50% 40% 50% 40%/40% 50% 40% 50%}50%{border-radius:40% 50% 40% 50%/50% 40% 50% 40%}}
+  
   .section-title{font-family:'Cormorant Garamond',serif;font-size:48px;color:var(--deep);text-align:center;margin-bottom:16px;font-weight:500}
   .section-subtitle{text-align:center;color:var(--soft);margin-bottom:50px;font-size:16px;font-style:italic}
+  
   .grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
-  .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.8);border-radius:24px;padding:30px;box-shadow:var(--shadow);transition:all 0.4s ease;animation:slideUp 0.6s ease backwards}
+  .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.8);border-radius:24px;padding:30px;box-shadow:var(--shadow);transition:all 0.4s ease}
   .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(138,107,175,0.25)}
-  @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
   .card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--deep);margin-bottom:12px}
   .card p{line-height:1.7;opacity:0.85;margin-bottom:16px}
   .card img{width:100%;border-radius:16px;margin-bottom:16px}
   .card .date{font-size:12px;color:var(--soft);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase}
+  
   .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;max-width:1200px;margin:0 auto}
   .service{background:rgba(255,255,255,0.6);backdrop-filter:blur(10px);padding:36px 28px;border-radius:24px;text-align:center;border:1px solid rgba(255,255,255,0.8);transition:all 0.4s ease}
   .service:hover{transform:translateY(-6px) scale(1.02);background:rgba(255,255,255,0.85)}
   .service .icon{width:70px;height:70px;margin:0 auto 20px;background:linear-gradient(135deg,var(--lavender),var(--rose));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px}
   .service h4{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--deep);margin-bottom:10px}
+  
   .gallery{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;justify-content:center}
   .gallery-item{width:100%;max-width:300px;aspect-ratio:1;border-radius:20px;overflow:hidden;cursor:pointer;transition:all 0.4s ease;box-shadow:var(--shadow);margin:0 auto}
   .gallery-item:hover{transform:scale(1.03)}
   .gallery-item img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 0.6s}
   .gallery-item:hover img{transform:scale(1.1)}
+  
   .video-card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);transition:all 0.4s ease}
   .video-card:hover{transform:translateY(-6px)}
   .video-card iframe{width:100%;aspect-ratio:16/9;border:none;display:block}
   .video-card .info{padding:20px}
   .video-card h4{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--deep);margin-bottom:8px}
+  
   .contacts{max-width:800px;margin:0 auto;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);padding:50px;border-radius:30px;box-shadow:var(--shadow);text-align:center}
   .contact-item{display:flex;align-items:center;justify-content:center;gap:16px;padding:18px;margin:12px 0;background:rgba(255,255,255,0.5);border-radius:16px;transition:all 0.3s ease}
   .contact-item:hover{background:rgba(255,255,255,0.9);transform:translateX(5px)}
   .contact-item .ic{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--lavender),var(--peach));display:flex;align-items:center;justify-content:center;font-size:22px}
+  
   footer{text-align:center;padding:40px 5%;color:var(--soft);font-size:14px;border-top:1px solid rgba(255,255,255,0.5);margin-top:60px}
   footer a{color:var(--deep);text-decoration:none;margin-left:10px}
+  
   .modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px}
   .modal.active{display:flex;animation:fadeIn 0.3s}
   .modal-content{background:white;border-radius:24px;max-width:90%;max-height:90%;overflow:auto}
   .modal-content img{max-width:100%;display:block}
   .modal-close{position:absolute;top:20px;right:30px;background:white;border:none;width:50px;height:50px;border-radius:50%;font-size:24px;cursor:pointer;box-shadow:var(--shadow)}
+  
   .empty{text-align:center;padding:60px 20px;color:var(--soft);font-style:italic}
   .loader{text-align:center;padding:40px;color:var(--soft)}
   .loader::after{content:'';display:inline-block;width:24px;height:24px;border:3px solid var(--lavender);border-top-color:var(--deep);border-radius:50%;animation:spin 1s linear infinite;margin-left:10px;vertical-align:middle}
   @keyframes spin{to{transform:rotate(360deg)}}
+  
+  /* МОБИЛЬНАЯ ОПТИМИЗАЦИЯ - убираем тяжёлые анимации */
   @media(max-width:768px){
     .hero{grid-template-columns:1fr;gap:40px;text-align:center}
     .hero-text h1{font-size:42px}
@@ -87,16 +132,19 @@
     .logo{font-size:22px}
     .contacts{padding:30px 20px}
     .gallery-item{max-width:150px}
+    
+    /* Отключаем blob'ы на мобильных */
+    .blob{display:none}
+    
+    /* Упрощаем фон */
+    body{background:var(--cream)}
+    
+    /* Отключаем анимацию hero-img на мобильных */
+    .hero-img::before{animation:none}
   }
 </style>
-<link rel="preconnect" href="https://firestore.googleapis.com">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.gstatic.com">
 </head>
 <body>
-
-<!-- Version 2.0 - Updated 2026-01-05 -->
 
 <div class="blob blob1"></div>
 <div class="blob blob2"></div>
@@ -125,9 +173,9 @@
       <a href="#contacts" data-page="contacts" class="btn nav-link">Записаться на урок</a>
       <a href="#about" data-page="about" class="btn btn-outline nav-link">Узнать больше</a>
     </div>
-   <div class="hero-img" style="background:linear-gradient(135deg,var(--peach),var(--rose),var(--lavender)); display:flex; align-items:center; justify-content:center;">
-  <!-- Здесь можно добавить ваше фото позже -->
-</div>
+    <div class="hero-img">
+      <!-- Здесь можно добавить ваше фото позже -->
+    </div>
   </div>
   <div style="max-width:1200px;margin:80px auto 0">
     <h2 class="section-title">Мои направления</h2>
@@ -181,7 +229,7 @@
   <div class="contacts">
     <div class="contact-item"><div class="ic">✉️</div><div><strong>Email</strong><br>natalya_tasha@bk.ru</div></div>
     <div class="contact-item"><div class="ic">💬</div><div><strong>Telegram</strong><br>Nikiniknat</div></div>
-   </div>
+  </div>
 </section>
 
 <div class="modal" id="imgModal">
@@ -191,13 +239,18 @@
 
 <footer>© 2026 Наталья Николаева · English with love <a href="admin.html">Админ</a></footer>
 
-<!-- Firebase загружается асинхронно -->
+<!-- Firebase загружается асинхронно с defer -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js?v=2.0" defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js?v=2.0" defer></script>
 
 <script>
   // Глобальная переменная для базы данных
   let db;
+
+  // Показываем blob'ы после загрузки страницы
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
 
   function showPage(pageId) {
     document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
@@ -276,9 +329,8 @@
     };
     
     firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore(); // Теперь db доступна глобально
+    db = firebase.firestore();
 
-    // Вызываем все функции загрузки данных
     renderPrograms();
     loadArticles();
     loadVideos();
