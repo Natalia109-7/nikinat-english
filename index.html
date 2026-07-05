@@ -88,16 +88,12 @@
     .contacts{padding:30px 20px}
     .gallery-item{max-width:150px}
   }
-   .logo{font-size:22px}
-   .contacts{padding:30px 20px}
-   .gallery-item{max-width:150px}
-  }
-  </style>
-    <link rel="preconnect" href="https://firestore.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.gstatic.com">
- </head>
+</style>
+<link rel="preconnect" href="https://firestore.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com">
+</head>
 <body>
 
 <!-- Version 2.0 - Updated 2026-01-05 -->
@@ -195,10 +191,14 @@
 
 <footer>© 2026 Наталья Николаева · English with love <a href="admin.html">Админ</a></footer>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js?v=2.0"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js?v=2.0"></script>
+<!-- Firebase загружается асинхронно -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js?v=2.0" defer></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js?v=2.0" defer></script>
 
 <script>
+  // Глобальная переменная для базы данных
+  let db;
+
   function showPage(pageId) {
     document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -255,13 +255,17 @@
     if (modal) modal.classList.remove('active');
   }
 
-  if (typeof firebase === 'undefined') {
-    console.error('Firebase не загрузился!');
-    ['programs-list','articles-list','videos-list','gallery-list'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.innerHTML = '<div class="empty">Не удалось загрузить данные. Проверьте интернет-соединение.</div>';
-    });
-  } else {
+  // Ждём полной загрузки страницы, потом инициализируем Firebase
+  window.addEventListener('load', function() {
+    if (typeof firebase === 'undefined') {
+      console.error('Firebase не загрузился!');
+      ['programs-list','articles-list','videos-list','gallery-list'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = '<div class="empty">Не удалось загрузить данные. Проверьте интернет-соединение.</div>';
+      });
+      return;
+    }
+
     const firebaseConfig = {
       apiKey: "AIzaSyC9WFkK_cmQGt7pNd926W4kIeo4C8p3H3I",
       authDomain: "nikinat-english.firebaseapp.com",
@@ -270,97 +274,108 @@
       messagingSenderId: "820894083136",
       appId: "1:820894083136:web:24ba3bddbe4f1ba719d7a5"
     };
+    
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    db = firebase.firestore(); // Теперь db доступна глобально
 
-    function renderPrograms(){
-      const el = document.getElementById('programs-list');
-      if (!el) return;
-      Promise.all([
-          db.collection('programs').orderBy('createdAt','desc').get(),
-          db.collection('trainers').orderBy('createdAt','desc').get()
-      ]).then(([progSnap, trainSnap]) => {
-          const programs = progSnap.docs.map(d=>({id:d.id, ...d.data()}));
-          const trainers = trainSnap.docs.map(d=>({id:d.id, ...d.data()}));
-          if(!programs.length && !trainers.length){
-              el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся (обнови страничку и появятся точно) </div>';
-              return;
-          }
-          let html = '';
-          programs.forEach((p,i)=>{
-              html += '<div class="card" style="animation-delay:'+i*0.1+'s">' +
-                  (p.imageUrl?'<img src="'+p.imageUrl+'" alt="">':'') +
-                  '<h3>'+p.title+'</h3>' +
-                  '<p>'+(p.description||'').replace(/\n/g,'<br>')+'</p></div>';
-          });
-          trainers.forEach((t,i)=>{
-              const safeTitle = t.title.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-              const safeFile = t.file.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-              html += '<div class="card" style="animation-delay:'+(programs.length+i)*0.1+'s; cursor:pointer" data-trainer-file="'+safeFile+'" data-trainer-title="'+safeTitle+'">' +
-                  '<div style="font-size:48px; text-align:center; margin-bottom:16px">🎮</div>' +
-                  '<h3>'+t.title+'</h3>' +
-                  '<p>'+(t.description||'').replace(/\n/g,'<br>')+'</p>' +
-                  '<button class="btn" style="margin-top:12px; font-size:13px; padding:10px 20px">Открыть тренажёр →</button></div>';
-          });
-          el.innerHTML = html;
-          el.querySelectorAll('[data-trainer-file]').forEach(card => {
-            card.addEventListener('click', function() {
-              window.open(this.dataset.trainerFile, '_blank');
-            });
-          });
-      }).catch(err=>{
-          console.error('Ошибка загрузки программ:', err);
-          el.innerHTML='<div class="empty">Ошибка загрузки 😔</div>';
-      });
-    }
-
-    function renderArticles(items){
-      const el = document.getElementById('articles-list');
-      if (!el) return;
-      if(!items.length){ el.innerHTML='<div class="empty">Статьи скоро появятся </div>'; return; }
-      el.innerHTML = items.map((a,i)=>'<div class="card" style="animation-delay:'+i*0.1+'s">' +
-          (a.imageUrl?'<img src="'+a.imageUrl+'" alt="">':'') +
-          '<div class="date">'+(a.date||'')+'</div>' +
-          '<h3>'+a.title+'</h3>' +
-          '<p>'+(a.content||'').replace(/\n/g,'<br>')+'</p></div>').join('');
-    }
-
-    function renderVideos(items){
-      const el = document.getElementById('videos-list');
-      if (!el) return;
-      if(!items.length){ el.innerHTML='<div class="empty">Видео скоро появятся </div>'; return; }
-      el.innerHTML = items.map((v,i)=>{
-        const id = v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
-        const embed = id ? '<iframe src="https://www.youtube.com/embed/'+id[1]+'" allowfullscreen></iframe>' : '';
-        return '<div class="video-card" style="animation:slideUp 0.6s ease '+i*0.1+'s backwards">' +
-          embed + '<div class="info"><h4>'+v.title+'</h4><p>'+(v.description||'')+'</p></div></div>';
-      }).join('');
-    }
-
-    function renderGallery(items){
-      const el = document.getElementById('gallery-list');
-      if (!el) return;
-      if(!items.length){ el.innerHTML='<div class="empty">Фото скоро появятся </div>'; return; }
-      el.innerHTML = items.map((g,i)=>'<div class="gallery-item" style="animation:slideUp 0.6s ease '+i*0.05+'s backwards" onclick="openModal(\''+g.imageUrl+'\')">' +
-          '<img src="'+g.imageUrl+'" alt="'+(g.caption||'')+'"></div>').join('');
-    }
-
+    // Вызываем все функции загрузки данных
     renderPrograms();
+    loadArticles();
+    loadVideos();
+    loadGallery();
+  });
 
+  function renderPrograms(){
+    const el = document.getElementById('programs-list');
+    if (!el) return;
+    Promise.all([
+        db.collection('programs').orderBy('createdAt','desc').get(),
+        db.collection('trainers').orderBy('createdAt','desc').get()
+    ]).then(([progSnap, trainSnap]) => {
+        const programs = progSnap.docs.map(d=>({id:d.id, ...d.data()}));
+        const trainers = trainSnap.docs.map(d=>({id:d.id, ...d.data()}));
+        if(!programs.length && !trainers.length){
+            el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся (обнови страничку и появятся точно) </div>';
+            return;
+        }
+        let html = '';
+        programs.forEach((p,i)=>{
+            html += '<div class="card" style="animation-delay:'+i*0.1+'s">' +
+                (p.imageUrl?'<img src="'+p.imageUrl+'" alt="">':'') +
+                '<h3>'+p.title+'</h3>' +
+                '<p>'+(p.description||'').replace(/\n/g,'<br>')+'</p></div>';
+        });
+        trainers.forEach((t,i)=>{
+            const safeTitle = t.title.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const safeFile = t.file.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            html += '<div class="card" style="animation-delay:'+(programs.length+i)*0.1+'s; cursor:pointer" data-trainer-file="'+safeFile+'" data-trainer-title="'+safeTitle+'">' +
+                '<div style="font-size:48px; text-align:center; margin-bottom:16px">🎮</div>' +
+                '<h3>'+t.title+'</h3>' +
+                '<p>'+(t.description||'').replace(/\n/g,'<br>')+'</p>' +
+                '<button class="btn" style="margin-top:12px; font-size:13px; padding:10px 20px">Открыть тренажёр →</button></div>';
+        });
+        el.innerHTML = html;
+        el.querySelectorAll('[data-trainer-file]').forEach(card => {
+          card.addEventListener('click', function() {
+            window.open(this.dataset.trainerFile, '_blank');
+          });
+        });
+    }).catch(err=>{
+        console.error('Ошибка загрузки программ:', err);
+        el.innerHTML='<div class="empty">Ошибка загрузки 😔</div>';
+    });
+  }
+
+  function renderArticles(items){
+    const el = document.getElementById('articles-list');
+    if (!el) return;
+    if(!items.length){ el.innerHTML='<div class="empty">Статьи скоро появятся </div>'; return; }
+    el.innerHTML = items.map((a,i)=>'<div class="card" style="animation-delay:'+i*0.1+'s">' +
+        (a.imageUrl?'<img src="'+a.imageUrl+'" alt="">':'') +
+        '<div class="date">'+(a.date||'')+'</div>' +
+        '<h3>'+a.title+'</h3>' +
+        '<p>'+(a.content||'').replace(/\n/g,'<br>')+'</p></div>').join('');
+  }
+
+  function renderVideos(items){
+    const el = document.getElementById('videos-list');
+    if (!el) return;
+    if(!items.length){ el.innerHTML='<div class="empty">Видео скоро появятся </div>'; return; }
+    el.innerHTML = items.map((v,i)=>{
+      const id = v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
+      const embed = id ? '<iframe src="https://www.youtube.com/embed/'+id[1]+'" allowfullscreen></iframe>' : '';
+      return '<div class="video-card" style="animation:slideUp 0.6s ease '+i*0.1+'s backwards">' +
+        embed + '<div class="info"><h4>'+v.title+'</h4><p>'+(v.description||'')+'</p></div></div>';
+    }).join('');
+  }
+
+  function renderGallery(items){
+    const el = document.getElementById('gallery-list');
+    if (!el) return;
+    if(!items.length){ el.innerHTML='<div class="empty">Фото скоро появятся </div>'; return; }
+    el.innerHTML = items.map((g,i)=>'<div class="gallery-item" style="animation:slideUp 0.6s ease '+i*0.05+'s backwards" onclick="openModal(\''+g.imageUrl+'\')">' +
+        '<img src="'+g.imageUrl+'" alt="'+(g.caption||'')+'"></div>').join('');
+  }
+
+  function loadArticles(){
     db.collection('articles').orderBy('createdAt','desc').onSnapshot(snap=>{
       renderArticles(snap.docs.map(d=>({id:d.id, ...d.data()})));
     }, err=>{
       const el = document.getElementById('articles-list');
       if (el) el.innerHTML='<div class="empty">Ошибка 😔</div>';
     });
+  }
 
+  function loadVideos(){
     db.collection('videos').orderBy('createdAt','desc').onSnapshot(snap=>{
       renderVideos(snap.docs.map(d=>({id:d.id, ...d.data()})));
     }, err=>{
       const el = document.getElementById('videos-list');
       if (el) el.innerHTML='<div class="empty">Ошибка 😔</div>';
     });
+  }
 
+  function loadGallery(){
     db.collection('gallery').orderBy('createdAt','desc').onSnapshot(snap=>{
       renderGallery(snap.docs.map(d=>({id:d.id, ...d.data()})));
     }, err=>{
