@@ -275,7 +275,7 @@
           const programs = progSnap.docs.map(d=>({id:d.id, ...d.data()}));
           const trainers = trainSnap.docs.map(d=>({id:d.id, ...d.data()}));
           if(!programs.length && !trainers.length){
-              el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся </div>';
+              el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся (обнови страничку и появятся точно) </div>';
               return;
           }
           let html = '';
