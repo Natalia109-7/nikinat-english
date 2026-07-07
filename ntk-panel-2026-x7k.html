@@ -151,6 +151,11 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
 
+  // Лимит попыток входа
+  let loginAttempts = 0;
+  const MAX_ATTEMPTS = 3;
+  let lockoutUntil = null;
+
   auth.onAuthStateChanged(user=>{
     if(user){
       document.getElementById('loginScreen').classList.add('hidden');
@@ -160,14 +165,34 @@
   });
 
   async function login(){
+    // Проверка блокировки
+    if(lockoutUntil && Date.now() < lockoutUntil){
+      const minutesLeft = Math.ceil((lockoutUntil - Date.now()) / 60000);
+      const errEl = document.getElementById('loginError');
+      errEl.textContent = `Слишком много попыток. Подождите ${minutesLeft} мин.`;
+      errEl.classList.remove('hidden');
+      return;
+    }
+    
     const email = document.getElementById('email').value.trim();
     const pwd = document.getElementById('pwd').value;
     const errEl = document.getElementById('loginError');
     errEl.classList.add('hidden');
+    
     try{
       await auth.signInWithEmailAndPassword(email, pwd);
+      loginAttempts = 0;
+      lockoutUntil = null;
     }catch(e){
-      errEl.textContent = 'Ошибка: ' + e.message;
+      loginAttempts++;
+      const attemptsLeft = MAX_ATTEMPTS - loginAttempts;
+      
+      if(attemptsLeft <= 0){
+        lockoutUntil = Date.now() + 300000;
+        errEl.textContent = 'Превышено количество попыток. Блокировка на 5 минут.';
+      }else{
+        errEl.textContent = `Неверный email или пароль. Осталось попыток: ${attemptsLeft}`;
+      }
       errEl.classList.remove('hidden');
     }
   }
