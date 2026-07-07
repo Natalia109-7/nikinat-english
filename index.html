@@ -2,247 +2,142 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Наталья Николаева — репетитор английского языка. Индивидуальные уроки с душой и удовольствием.">
-<title>Наталья Николаева — Репетитор английского языка</title>
-
-<!-- Preconnect -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://firestore.googleapis.com">
-
-<!-- КРИТИЧЕСКИЙ CSS INLINE -->
+<title>Админ-панель · Наталья Николаева</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#3d3554;min-height:100vh;background:#fdf6f0;overflow-x:hidden}
-  header{position:sticky;top:0;z-index:100;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;background:rgba(253,246,240,0.95);border-bottom:1px solid rgba(255,255,255,0.5)}
-  .logo{font-family:Georgia,serif;font-size:28px;font-weight:600;color:#5a4a7a}
-  .logo span{color:#8b7ba8;font-style:italic}
-  nav ul{display:flex;list-style:none;gap:8px;flex-wrap:wrap}
-  nav a{text-decoration:none;color:#3d3554;padding:10px 18px;border-radius:30px;font-size:14px;font-weight:500}
-  nav a.active{background:#e8dff5;color:#5a4a7a}
-  nav a:hover{background:#e8dff5;color:#5a4a7a}
-  .page{display:none;padding:60px 5%;max-width:100%;overflow-x:hidden}
-  .page.active{display:block}
-  .hero{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:70vh}
-  .hero-text h1{font-family:Georgia,serif;font-size:48px;color:#5a4a7a;margin-bottom:24px;line-height:1.1}
-  .hero-text p{font-size:18px;line-height:1.8;margin-bottom:32px}
-  .btn{display:inline-block;padding:14px 36px;background:#5a4a7a;color:#fff;text-decoration:none;border-radius:30px;font-weight:500}
-  .btn:hover{background:#6b5a8a}
-  .btn-outline{background:transparent;color:#5a4a7a;border:2px solid #5a4a7a;margin-left:12px}
-  .btn-outline:hover{background:#5a4a7a;color:#fff}
-  .loader{text-align:center;padding:40px;color:#8b7ba8}
-  @media(max-width:768px){
-    .hero{grid-template-columns:1fr;text-align:center}
-    .hero-text h1{font-size:32px}
-    nav a{padding:8px 12px;font-size:13px}
-    .logo{font-size:22px}
-  }
-</style>
-
-<!-- Шрифты загружаются АСИНХРОННО -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap"></noscript>
-
-<!-- ОСНОВНОЙ CSS -->
-<style>
-  :root{--lavender:#e8dff5;--peach:#fce4d6;--mint:#d4f1e8;--rose:#f7d6e0;--cream:#fdf6f0;--deep:#5a4a7a;--soft:#8b7ba8;--text:#3d3554;--shadow:0 10px 40px rgba(138,107,175,0.15)}
+  :root{--deep:#5a4a7a;--soft:#8b7ba8;--lavender:#e8dff5;--rose:#f7d6e0;--cream:#fdf6f0}
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  html,body{overflow-x:hidden;max-width:100vw}
-  
-  body{font-family:'Montserrat',sans-serif;color:var(--text);background:linear-gradient(135deg,var(--cream) 0%,var(--lavender) 50%,var(--peach) 100%);min-height:100vh}
-  *{max-width:100%}
-  
-  .blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:0;z-index:-1;animation:float 20s infinite ease-in-out;max-width:100vw}
-  body.loaded .blob{opacity:0.5}
-  @media(max-width:768px){.blob{display:none}}
-  
-  .blob1{width:400px;height:400px;background:var(--rose);top:-100px;left:-100px}
-  .blob2{width:500px;height:500px;background:var(--mint);bottom:-150px;right:-150px;animation-delay:-10s}
-  .blob3{width:300px;height:300px;background:var(--lavender);top:50%;left:50%;animation-delay:-5s}
-  @keyframes float{0%,100%{transform:translate(0,0)}33%{transform:translate(50px,-50px)}66%{transform:translate(-30px,40px)}}
-  
-  header{backdrop-filter:blur(20px)}
-  .page{animation:fadeIn 0.8s ease}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  
-  .hero-text h1{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:500;line-height:1.1;color:var(--deep);margin-bottom:24px}
-  .hero-text h1 em{color:var(--soft);font-style:italic}
-  .hero-text p{font-size:18px;line-height:1.8;margin-bottom:32px;color:var(--text);opacity:0.85}
-  
-  .btn{display:inline-block;padding:14px 36px;background:linear-gradient(135deg,var(--deep),var(--soft));color:#fff;text-decoration:none;border-radius:30px;font-weight:500;box-shadow:0 8px 25px rgba(90,74,122,0.3);transition:all 0.4s ease;border:none;cursor:pointer}
-  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(90,74,122,0.4)}
-  .btn-outline{background:transparent;color:var(--deep);border:2px solid var(--deep);box-shadow:none;margin-left:12px}
-  
-  .hero-img{position:relative;aspect-ratio:1;border-radius:50% 40% 50% 40%/40% 50% 40% 50%;background:var(--peach);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);max-width:100%;overflow:hidden}
-  .hero-img img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
-  @media(min-width:769px){
-    .hero-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--peach),var(--rose),var(--lavender));animation:morph 10s infinite ease-in-out;will-change:border-radius;z-index:0}
-    .hero-img>*{position:relative;z-index:1}
-    @keyframes morph{0%,100%{border-radius:50% 40% 50% 40%/40% 50% 40% 50%}50%{border-radius:40% 50% 40% 50%/50% 40% 50% 40%}}
-  }
-  
-  .section-title{font-family:'Cormorant Garamond',serif;font-size:48px;color:var(--deep);text-align:center;margin-bottom:16px}
-  .section-subtitle{text-align:center;color:var(--soft);margin-bottom:50px;font-size:16px;font-style:italic}
-  .grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
-  .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.8);border-radius:24px;padding:30px;box-shadow:var(--shadow);transition:all 0.4s ease;overflow:hidden}
-  .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(138,107,175,0.25)}
-  .card h3{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--deep);margin-bottom:12px}
-  .card p{line-height:1.7;opacity:0.85;margin-bottom:16px}
-  .card img{width:100%;border-radius:16px;margin-bottom:16px}
-  
-  .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;max-width:1200px;margin:0 auto}
-  .service{background:rgba(255,255,255,0.6);backdrop-filter:blur(10px);padding:36px 28px;border-radius:24px;text-align:center;border:1px solid rgba(255,255,255,0.8);overflow:hidden}
-  .service:hover{transform:translateY(-6px);background:rgba(255,255,255,0.85)}
-  .service .icon{width:70px;height:70px;margin:0 auto 20px;background:linear-gradient(135deg,var(--lavender),var(--rose));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px}
-  .service h4{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--deep);margin-bottom:10px}
-  
-  .gallery{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-  .gallery-item{width:100%;max-width:300px;aspect-ratio:1;border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:var(--shadow);margin:0 auto}
-  .gallery-item:hover{transform:scale(1.03)}
-  .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-  .gallery-item:hover img{transform:scale(1.1)}
-  
-  .video-card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
-  .video-card iframe{width:100%;aspect-ratio:16/9;border:none}
-  .video-card .info{padding:20px}
-  .video-card h4{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--deep);margin-bottom:8px}
-  
-  .contacts{max-width:800px;margin:0 auto;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);padding:50px;border-radius:30px;box-shadow:var(--shadow);text-align:center;overflow:hidden}
-  .contact-item{display:flex;align-items:center;justify-content:center;gap:16px;padding:18px;margin:12px 0;background:rgba(255,255,255,0.5);border-radius:16px}
-  .contact-item .ic{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--lavender),var(--peach));display:flex;align-items:center;justify-content:center;font-size:22px}
-  
-  footer{text-align:center;padding:40px 5%;color:var(--soft);font-size:14px;border-top:1px solid rgba(255,255,255,0.5);margin-top:60px}
-  footer a{color:var(--deep);text-decoration:none;font-weight:500}
-  footer a:hover{text-decoration:underline}
-  
-  .modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);align-items:center;justify-content:center}
-  .modal.active{display:flex}
-  .modal-content{background:#fff;border-radius:24px;max-width:90%;max-height:90%;overflow:auto}
-  .modal-content img{max-width:100%;display:block}
-  .modal-close{position:absolute;top:20px;right:30px;background:#fff;border:none;width:50px;height:50px;border-radius:50%;font-size:24px;cursor:pointer}
-  
-  .empty{text-align:center;padding:60px 20px;color:var(--soft);font-style:italic}
-  .loader::after{content:'';display:inline-block;width:24px;height:24px;border:3px solid var(--lavender);border-top-color:var(--deep);border-radius:50%;animation:spin 1s linear infinite;margin-left:10px}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  
-  @media(max-width:768px){
-    .hero{grid-template-columns:1fr;text-align:center;padding:0 20px}
-    .hero-text h1{font-size:42px}
-    .section-title{font-size:36px;padding:0 10px}
-    nav ul{gap:2px}
-    nav a{padding:8px 12px;font-size:13px}
-    .logo{font-size:22px}
-    .contacts{padding:30px 20px}
-    body{background:var(--cream)}
-    .hero-img{max-width:300px;margin:0 auto}
-  }
+  body{font-family:'Montserrat',sans-serif;color:#3d3554;background:linear-gradient(135deg,var(--cream),var(--lavender));background-attachment:fixed;min-height:100vh;padding:30px}
+  .container{max-width:1100px;margin:0 auto}
+  h1{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--deep);margin-bottom:8px}
+  .sub{color:var(--soft);margin-bottom:30px;font-style:italic}
+  .login-box{max-width:400px;margin:100px auto;background:white;padding:50px;border-radius:24px;box-shadow:0 10px 40px rgba(138,107,175,0.15);text-align:center}
+  .login-box h2{font-family:'Cormorant Garamond',serif;color:var(--deep);margin-bottom:24px;font-size:32px}
+  input,textarea,select{width:100%;padding:14px 18px;margin:8px 0;border:2px solid var(--lavender);border-radius:14px;font-family:inherit;font-size:14px;background:white;transition:all 0.3s}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--soft)}
+  textarea{min-height:120px;resize:vertical}
+  .btn{padding:14px 32px;background:linear-gradient(135deg,var(--deep),var(--soft));color:white;border:none;border-radius:30px;cursor:pointer;font-weight:500;font-size:14px;box-shadow:0 6px 20px rgba(90,74,122,0.3);transition:all 0.3s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:disabled{opacity:0.6;cursor:not-allowed}
+  .btn-danger{background:linear-gradient(135deg,#e88a9a,#d66b7e)}
+  .btn-small{padding:8px 16px;font-size:12px}
+  .tabs{display:flex;gap:8px;margin-bottom:30px;flex-wrap:wrap}
+  .tab{padding:12px 24px;background:rgba(255,255,255,0.6);border:none;border-radius:30px;cursor:pointer;font-family:inherit;font-size:14px;transition:all 0.3s}
+  .tab.active{background:linear-gradient(135deg,var(--deep),var(--soft));color:white}
+  .panel{background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);padding:30px;border-radius:24px;margin-bottom:30px;box-shadow:0 10px 40px rgba(138,107,175,0.1)}
+  .panel h3{font-family:'Cormorant Garamond',serif;color:var(--deep);font-size:26px;margin-bottom:16px}
+  .items-list{margin-top:24px}
+  .item{display:flex;justify-content:space-between;align-items:center;padding:16px;background:white;border-radius:14px;margin-bottom:10px;border:1px solid var(--lavender);gap:16px}
+  .item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
+  .item-info{flex:1;min-width:0}
+  .item-info strong{color:var(--deep);display:block;margin-bottom:4px}
+  .item-info small{color:var(--soft);font-size:12px}
+  .hidden{display:none}
+  .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+  a.back{color:var(--deep);text-decoration:none;font-weight:500}
+  .preview{max-width:200px;border-radius:12px;margin-top:10px}
+  .notice{padding:12px;background:var(--lavender);border-radius:12px;margin-bottom:16px;font-size:13px;color:var(--deep)}
+  .error{color:#c0392b;background:#fde8e8;padding:10px;border-radius:10px;margin-top:10px;font-size:13px}
 </style>
 </head>
 <body>
+<div class="container">
 
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div class="blob blob3"></div>
-
-<header>
-  <div class="logo"><span>English</span></div>
-  <nav aria-label="Главная навигация">
-    <ul>
-      <li><a href="#home" data-page="home" class="nav-link active">Главная</a></li>
-      <li><a href="#about" data-page="about" class="nav-link">Обо мне</a></li>
-      <li><a href="#programs" data-page="programs" class="nav-link">Программы</a></li>
-      <li><a href="#articles" data-page="articles" class="nav-link">Статьи</a></li>
-      <li><a href="#videos" data-page="videos" class="nav-link">Видео</a></li>
-      <li><a href="#gallery" data-page="gallery" class="nav-link">Галерея</a></li>
-      <li><a href="#contacts" data-page="contacts" class="nav-link">Контакты</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main id="main-content">
-<section id="home" class="page active" role="region" aria-label="Главная страница">
-  <div class="hero">
-    <div class="hero-text">
-      <h1>Английский <em>с душой</em> и удовольствием</h1>
-      <p>Меня зовут Наталья Николаева. Я помогаю влюбиться в английский язык.</p>
-      <a href="#contacts" data-page="contacts" class="btn nav-link">Записаться на урок</a>
-      <a href="#about" data-page="about" class="btn btn-outline nav-link">Узнать больше</a>
-    </div>
-    <div class="hero-img" role="img" aria-label="Английский с душой и удовольствием">
-      <img src="images-new/hero-image.png" alt="Английский с душой и удовольствием">
-    </div>
-  </div>
-  
-  <div style="max-width:1200px;margin:80px auto 0">
-    <h2 class="section-title">Мои направления</h2>
-    <p class="section-subtitle">Choose your path to fluency</p>
-    <div class="services">
-      <div class="service"><div class="icon" aria-hidden="true">📚</div><h4>General English</h4><p>Общий английский с нуля до продвинутого уровня</p></div>
-      <div class="service"><div class="icon" aria-hidden="true">💼</div><h4>Business English</h4><p>Деловой английский для карьеры</p></div>
-      <div class="service"><div class="icon" aria-hidden="true">🎓</div><h4>Подготовка к экзаменам</h4><p>ЕГЭ, ОГЭ</p></div>
-      <div class="service"><div class="icon" aria-hidden="true">✈️</div><h4>Разговорный</h4><p>Свободное общение</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="about" class="page" role="region" aria-label="Обо мне">
-  <h2 class="section-title">Обо мне</h2>
-  <p class="section-subtitle">A little bit about my journey</p>
-  <div class="contacts" style="text-align:left">
-    <p style="font-size:17px;line-height:1.9;margin-bottom:20px">Здравствуйте! Меня зовут <strong>Наталья Николаева</strong>. Я преподаю английский язык более 10 лет.</p>
-    <p style="font-size:17px;line-height:1.9;margin-bottom:20px">Мой подход — сочетание классической методики и современных технологий.</p>
-  </div>
-</section>
-
-<section id="programs" class="page" role="region" aria-label="Программы и тренажёры">
-  <h2 class="section-title">Программы и тренажёры</h2>
-  <p class="section-subtitle">My teaching programs & interactive trainers</p>
-  <div id="programs-list" class="grid"><div class="loader"></div></div>
-</section>
-
-<section id="articles" class="page" role="region" aria-label="Статьи">
-  <h2 class="section-title">Полезные статьи</h2>
-  <p class="section-subtitle">Tips & tricks for learning English</p>
-  <div id="articles-list" class="grid"><div class="loader"></div></div>
-</section>
-
-<section id="videos" class="page" role="region" aria-label="Видео">
-  <h2 class="section-title">Видеоуроки</h2>
-  <p class="section-subtitle">Watch, learn, enjoy</p>
-  <div id="videos-list" class="grid"><div class="loader"></div></div>
-</section>
-
-<section id="gallery" class="page" role="region" aria-label="Галерея">
-  <h2 class="section-title">Галерея</h2>
-  <p class="section-subtitle">Moments from my teaching life</p>
-  <div id="gallery-list" class="gallery"><div class="loader"></div></div>
-</section>
-
-<section id="contacts" class="page" role="region" aria-label="Контакты">
-  <h2 class="section-title">Свяжитесь со мной</h2>
-  <p class="section-subtitle">Let's start your journey together</p>
-  <div class="contacts">
-    <div class="contact-item"><div class="ic" aria-hidden="true">✉️</div><div><strong>Email</strong><br><a href="mailto:natalya_tasha@bk.ru" style="color:var(--deep)">natalya_tasha@bk.ru</a></div></div>
-    <div class="contact-item"><div class="ic" aria-hidden="true">💬</div><div><strong>Telegram</strong><br><a href="https://t.me/Nikiniknat" target="_blank" rel="noopener" style="color:var(--deep)">Nikiniknat</a></div></div>
-  </div>
-</section>
-</main>
-
-<div class="modal" id="imgModal" role="dialog" aria-label="Просмотр изображения" aria-modal="true">
-  <button class="modal-close" onclick="closeModal()" aria-label="Закрыть">✕</button>
-  <div class="modal-content"><img id="modalImg" src="" alt=""></div>
+<!-- ЛОГИН -->
+<div id="loginScreen" class="login-box">
+  <h2>🔐 Вход в админ-панель</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="pwd" placeholder="Пароль" onkeypress="if(event.key==='Enter')login()">
+  <br><button class="btn" id="loginBtn" onclick="login()">Войти</button>
+  <div id="loginError" class="error hidden"></div>
+  <p style="margin-top:20px;font-size:12px;color:var(--soft)">Используйте email и пароль из Firebase Authentication</p>
 </div>
 
-<footer role="contentinfo">
-<p>© 2026 Наталья Николаева · English with love</p>
-</footer>
+<!-- ПАНЕЛЬ -->
+<div id="adminPanel" class="hidden">
+  <div class="top-bar">
+    <div>
+      <h1>Админ-панель</h1>
+      <p class="sub">Управление контентом сайта</p>
+    </div>
+    <div>
+      <a href="index.html" class="back">← На сайт</a>
+      <button class="btn btn-small" onclick="logout()" style="margin-left:12px">Выйти</button>
+    </div>
+  </div>
 
-<!-- МОДУЛЬНЫЙ FIREBASE - загружается АСИНХРОННО -->
-<script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getFirestore, collection, query, orderBy, onSnapshot, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  <div class="tabs">
+    <button class="tab active" data-tab="programs">📚 Программы</button>
+    <button class="tab" data-tab="trainers">🎮 Тренажёры</button>
+    <button class="tab" data-tab="articles">📝 Статьи</button>
+    <button class="tab" data-tab="videos">🎬 Видео</button>
+    <button class="tab" data-tab="gallery">🖼️ Фото</button>
+  </div>
 
+  <!-- ПРОГРАММЫ -->
+  <div class="panel tab-panel" data-panel="programs">
+    <h3>Добавить программу</h3>
+    <input type="text" id="prog_title" placeholder="Название программы">
+    <textarea id="prog_desc" placeholder="Описание программы"></textarea>
+    <input type="file" id="prog_img" accept="image/*">
+    <img id="prog_preview" class="preview hidden">
+    <br><button class="btn" id="prog_btn" onclick="addProgram()">Добавить</button>
+    <div class="items-list" id="programs_list"></div>
+  </div>
+
+  <!-- ТРЕНАЖЁРЫ -->
+  <div class="panel tab-panel hidden" data-panel="trainers">
+    <h3>Добавить тренажёр</h3>
+    <div class="notice">💡 Загрузите HTML-файл тренажёра в репозиторий GitHub, затем укажите путь к нему (например: trainers/my-trainer.html)</div>
+    <input type="text" id="trainer_title" placeholder="Название тренажёра">
+    <textarea id="trainer_desc" placeholder="Описание тренажёра"></textarea>
+    <input type="text" id="trainer_file" placeholder="Путь к файлу (например: trainers/grammar.html)">
+    <br><button class="btn" id="trainer_btn" onclick="addTrainer()">Добавить</button>
+    <div class="items-list" id="trainers_list"></div>
+  </div>
+
+  <!-- СТАТЬИ -->
+  <div class="panel tab-panel hidden" data-panel="articles">
+    <h3>Добавить статью</h3>
+    <input type="text" id="art_title" placeholder="Заголовок">
+    <input type="text" id="art_date" placeholder="Дата (например, 26 июня 2026)">
+    <textarea id="art_content" placeholder="Текст статьи"></textarea>
+    <input type="file" id="art_img" accept="image/*">
+    <img id="art_preview" class="preview hidden">
+    <br><button class="btn" id="art_btn" onclick="addArticle()">Опубликовать</button>
+    <div class="items-list" id="articles_list"></div>
+  </div>
+
+  <!-- ВИДЕО -->
+  <div class="panel tab-panel hidden" data-panel="videos">
+    <h3>Добавить видео</h3>
+    <div class="notice">💡 Вставьте ссылку на YouTube-видео.</div>
+    <input type="text" id="vid_title" placeholder="Название видео">
+    <textarea id="vid_desc" placeholder="Описание (необязательно)"></textarea>
+    <input type="text" id="vid_url" placeholder="https://youtube.com/watch?v=...">
+    <br><button class="btn" id="vid_btn" onclick="addVideo()">Добавить</button>
+    <div class="items-list" id="videos_list"></div>
+  </div>
+
+  <!-- ФОТО -->
+  <div class="panel tab-panel hidden" data-panel="gallery">
+    <h3>Добавить фото</h3>
+    <div class="notice">💡 Фото будут сжаты автоматически.</div>
+    <input type="text" id="gal_cap" placeholder="Подпись (необязательно)">
+    <input type="file" id="gal_img" accept="image/*" multiple>
+    <br><button class="btn" id="gal_btn" onclick="addGallery()">Загрузить</button>
+    <div class="items-list" id="gallery_list"></div>
+  </div>
+</div>
+
+</div>
+
+<!-- Firebase SDK - ЭТО САМОЕ ВАЖНОЕ! -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
   const firebaseConfig = {
     apiKey: "AIzaSyC9WFkK_cmQGt7pNd926W4kIeo4C8p3H3I",
     authDomain: "nikinat-english.firebaseapp.com",
@@ -252,169 +147,249 @@
     appId: "1:820894083136:web:24ba3bddbe4f1ba719d7a5"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  
-  window.db = db;
-  document.body.classList.add('loaded');
-  
-  initFirebaseData();
-  
-  function initFirebaseData() {
-    renderPrograms();
-    loadArticles();
-    loadVideos();
-    loadGallery();
-  }
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-  function renderPrograms(){
-    const el = document.getElementById('programs-list');
-    if (!el) return;
-    Promise.all([
-        getDocs(query(collection(db, 'programs'), orderBy('createdAt','desc'))),
-        getDocs(query(collection(db, 'trainers'), orderBy('createdAt','desc')))
-    ]).then(([progSnap, trainSnap]) => {
-        const programs = progSnap.docs.map(d=>({id:d.id, ...d.data()}));
-        const trainers = trainSnap.docs.map(d=>({id:d.id, ...d.data()}));
-        if(!programs.length && !trainers.length){
-            el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся</div>';
-            return;
-        }
-        let html = '';
-        programs.forEach((p,i)=>{
-            html += '<article class="card">' +
-                (p.imageUrl?'<img src="'+p.imageUrl+'" alt="'+p.title+'">':'') +
-                '<h3>'+p.title+'</h3>' +
-                '<p>'+(p.description||'').replace(/\n/g,'<br>')+'</p></article>';
-        });
-        trainers.forEach((t,i)=>{
-            html += '<article class="card" style="cursor:pointer" data-trainer-file="'+t.file+'" data-trainer-title="'+t.title+'">' +
-                '<div style="font-size:48px;text-align:center;margin-bottom:16px" aria-hidden="true">🎮</div>' +
-                '<h3>'+t.title+'</h3>' +
-                '<p>'+(t.description||'').replace(/\n/g,'<br>')+'</p>' +
-                '<button class="btn" style="margin-top:12px">Открыть тренажёр →</button></article>';
-        });
-        el.innerHTML = html;
-        el.querySelectorAll('[data-trainer-file]').forEach(card => {
-          card.addEventListener('click', function() {
-            window.open(this.dataset.trainerFile, '_blank');
-          });
-        });
-    }).catch(err=>{
-        console.error('Ошибка:', err);
-        el.innerHTML='<div class="empty">Ошибка загрузки</div>';
-    });
-  }
+  // Лимит попыток входа
+  let loginAttempts = 0;
+  const MAX_ATTEMPTS = 3;
+  let lockoutUntil = null;
 
-  function renderArticles(items){
-    const el = document.getElementById('articles-list');
-    if (!el) return;
-    if(!items.length){ el.innerHTML='<div class="empty">Статьи скоро появятся</div>'; return; }
-    el.innerHTML = items.map((a,i)=>'<article class="card">' +
-        (a.imageUrl?'<img src="'+a.imageUrl+'" alt="'+a.title+'">':'') +
-        '<div class="date">'+(a.date||'')+'</div>' +
-        '<h3>'+a.title+'</h3>' +
-        '<p>'+(a.content||'').replace(/\n/g,'<br>')+'</p></article>').join('');
-  }
+  auth.onAuthStateChanged(user=>{
+    if(user){
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('adminPanel').classList.remove('hidden');
+      renderAll();
+    }
+  });
 
-  function renderVideos(items){
-    const el = document.getElementById('videos-list');
-    if (!el) return;
-    if(!items.length){ el.innerHTML='<div class="empty">Видео скоро появятся</div>'; return; }
-    el.innerHTML = items.map((v,i)=>{
-      const id = v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
-      const embed = id ? '<iframe src="https://www.youtube.com/embed/'+id[1]+'" allowfullscreen loading="lazy"></iframe>' : '';
-      return '<article class="video-card">' + embed + '<div class="info"><h3>'+v.title+'</h3><p>'+(v.description||'')+'</p></div></article>';
-    }).join('');
-  }
-
-  function renderGallery(items){
-    const el = document.getElementById('gallery-list');
-    if (!el) return;
-    if(!items.length){ el.innerHTML='<div class="empty">Фото скоро появятся</div>'; return; }
-    el.innerHTML = items.map((g,i)=>'<div class="gallery-item" onclick="openModal(\''+g.imageUrl+'\')" role="button" tabindex="0" aria-label="Открыть изображение: '+(g.caption||'')+'">' +
-        '<img src="'+g.imageUrl+'" alt="'+(g.caption||'')+'"></div>').join('');
-  }
-
-  function loadArticles(){
-    onSnapshot(query(collection(db, 'articles'), orderBy('createdAt','desc')), snap=>{
-      renderArticles(snap.docs.map(d=>({id:d.id, ...d.data()})));
-    }, err=>{
-      const el = document.getElementById('articles-list');
-      if (el) el.innerHTML='<div class="empty">Ошибка</div>';
-    });
-  }
-
-  function loadVideos(){
-    onSnapshot(query(collection(db, 'videos'), orderBy('createdAt','desc')), snap=>{
-      renderVideos(snap.docs.map(d=>({id:d.id, ...d.data()})));
-    }, err=>{
-      const el = document.getElementById('videos-list');
-      if (el) el.innerHTML='<div class="empty">Ошибка</div>';
-    });
-  }
-
-  function loadGallery(){
-    onSnapshot(query(collection(db, 'gallery'), orderBy('createdAt','desc')), snap=>{
-      renderGallery(snap.docs.map(d=>({id:d.id, ...d.data()})));
-    }, err=>{
-      const el = document.getElementById('gallery-list');
-      if (el) el.innerHTML='<div class="empty">Ошибка</div>';
-    });
-  }
-</script>
-
-<!-- Навигация -->
-<script>
-  function showPage(pageId) {
-    document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const link = document.querySelector(`.nav-link[data-page="${pageId}"]`);
-    const page = document.getElementById(pageId);
-    if (link && page) {
-      link.classList.add('active');
-      page.classList.add('active');
-      window.scrollTo({top: 0, behavior: 'smooth'});
+  async function login(){
+    // Проверка блокировки
+    if(lockoutUntil && Date.now() < lockoutUntil){
+      const minutesLeft = Math.ceil((lockoutUntil - Date.now()) / 60000);
+      const errEl = document.getElementById('loginError');
+      errEl.textContent = `Слишком много попыток. Подождите ${minutesLeft} мин.`;
+      errEl.classList.remove('hidden');
+      return;
+    }
+    
+    const email = document.getElementById('email').value.trim();
+    const pwd = document.getElementById('pwd').value;
+    const errEl = document.getElementById('loginError');
+    errEl.classList.add('hidden');
+    
+    try{
+      await auth.signInWithEmailAndPassword(email, pwd);
+      loginAttempts = 0;
+      lockoutUntil = null;
+    }catch(e){
+      loginAttempts++;
+      const attemptsLeft = MAX_ATTEMPTS - loginAttempts;
+      
+      if(attemptsLeft <= 0){
+        lockoutUntil = Date.now() + 300000;
+        errEl.textContent = 'Превышено количество попыток. Блокировка на 5 минут.';
+      }else{
+        errEl.textContent = `Неверный email или пароль. Осталось попыток: ${attemptsLeft}`;
+      }
+      errEl.classList.remove('hidden');
     }
   }
 
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const pageId = this.dataset.page;
-      showPage(pageId);
-      history.pushState(null, '', pageId === 'home' ? window.location.pathname : '#' + pageId);
+  function logout(){ auth.signOut(); location.reload(); }
+
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.onclick = ()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(x=>x.classList.add('hidden'));
+      t.classList.add('active');
+      document.querySelector(`[data-panel="${t.dataset.tab}"]`).classList.remove('hidden');
+    };
+  });
+
+  function compressImage(file, maxW=800, quality=0.7){
+    return new Promise((resolve, reject)=>{
+      const reader = new FileReader();
+      reader.onload = e=>{
+        const img = new Image();
+        img.onload = ()=>{
+          let w = img.width, h = img.height;
+          if(w > maxW){ h = h * maxW / w; w = maxW; }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
     });
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const hash = window.location.hash.substring(1);
-    showPage(hash && document.getElementById(hash) ? hash : 'home');
-  });
-
-  window.addEventListener('popstate', () => {
-    const hash = window.location.hash.substring(1);
-    showPage(hash && document.getElementById(hash) ? hash : 'home');
-  });
-
-  document.getElementById('imgModal').addEventListener('click', (e) => {
-    if (e.target.id === 'imgModal') closeModal();
-  });
-
-  function openModal(src){
-    const modal = document.getElementById('imgModal');
-    const img = document.getElementById('modalImg');
-    if (modal && img) { img.src = src; modal.classList.add('active'); }
   }
 
-  function closeModal(){
-    const modal = document.getElementById('imgModal');
-    if (modal) modal.classList.remove('active');
+  function setupPreview(inputId, previewId){
+    document.getElementById(inputId).onchange = async e=>{
+      const f = e.target.files[0]; if(!f) return;
+      const base64 = await compressImage(f);
+      const p = document.getElementById(previewId);
+      p.src = base64; p.classList.remove('hidden');
+    };
+  }
+  setupPreview('prog_img','prog_preview');
+  setupPreview('art_img','art_preview');
+
+  async function addProgram(){
+    const title = document.getElementById('prog_title').value.trim();
+    const desc = document.getElementById('prog_desc').value.trim();
+    const img = document.getElementById('prog_img').files[0];
+    if(!title){ alert('Введите название'); return; }
+    const btn = document.getElementById('prog_btn'); btn.disabled = true;
+    try{
+      let imageUrl = '';
+      if(img) imageUrl = await compressImage(img);
+      await db.collection('programs').add({title, description:desc, imageUrl, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      document.getElementById('prog_title').value='';
+      document.getElementById('prog_desc').value='';
+      document.getElementById('prog_img').value='';
+      document.getElementById('prog_preview').classList.add('hidden');
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
   }
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
+  async function addTrainer(){
+    const title = document.getElementById('trainer_title').value.trim();
+    const desc = document.getElementById('trainer_desc').value.trim();
+    const file = document.getElementById('trainer_file').value.trim();
+    if(!title || !file){ alert('Заполните название и путь к файлу'); return; }
+    const btn = document.getElementById('trainer_btn'); btn.disabled = true;
+    try{
+      await db.collection('trainers').add({title, description:desc, file, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      document.getElementById('trainer_title').value='';
+      document.getElementById('trainer_desc').value='';
+      document.getElementById('trainer_file').value='';
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
+  }
+
+  async function addArticle(){
+    const title = document.getElementById('art_title').value.trim();
+    const date = document.getElementById('art_date').value.trim();
+    const content = document.getElementById('art_content').value.trim();
+    const img = document.getElementById('art_img').files[0];
+    if(!title||!content){ alert('Заполните заголовок и текст'); return; }
+    const btn = document.getElementById('art_btn'); btn.disabled = true;
+    try{
+      let imageUrl = '';
+      if(img) imageUrl = await compressImage(img);
+      await db.collection('articles').add({title, date, content, imageUrl, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      document.getElementById('art_title').value='';
+      document.getElementById('art_date').value='';
+      document.getElementById('art_content').value='';
+      document.getElementById('art_img').value='';
+      document.getElementById('art_preview').classList.add('hidden');
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
+  }
+
+  async function addVideo(){
+    const title = document.getElementById('vid_title').value.trim();
+    const desc = document.getElementById('vid_desc').value.trim();
+    const url = document.getElementById('vid_url').value.trim();
+    if(!title){ alert('Введите название'); return; }
+    if(!url){ alert('Вставьте ссылку YouTube'); return; }
+    const btn = document.getElementById('vid_btn'); btn.disabled = true;
+    try{
+      await db.collection('videos').add({title, description:desc, type:'youtube', url, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      document.getElementById('vid_title').value='';
+      document.getElementById('vid_desc').value='';
+      document.getElementById('vid_url').value='';
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
+  }
+
+  async function addGallery(){
+    const cap = document.getElementById('gal_cap').value.trim();
+    const files = document.getElementById('gal_img').files;
+    if(!files.length){ alert('Выберите фото'); return; }
+    const btn = document.getElementById('gal_btn'); btn.disabled = true;
+    try{
+      for(const f of files){
+        const imageUrl = await compressImage(f);
+        await db.collection('gallery').add({caption:cap, imageUrl, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+      }
+      document.getElementById('gal_cap').value='';
+      document.getElementById('gal_img').value='';
+    }catch(e){ alert('Ошибка: '+e.message); }
+    btn.disabled = false;
+  }
+
+  async function delItem(collection, id){
+    if(!confirm('Удалить элемент?')) return;
+    try{
+      await db.collection(collection).doc(id).delete();
+    }catch(e){ alert('Ошибка: '+e.message); }
+  }
+
+  function listen(name, render){
+    db.collection(name).orderBy('createdAt','desc').onSnapshot(snap=>{
+      const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+      render(items);
+    });
+  }
+
+  function renderPrograms(items){
+    document.getElementById('programs_list').innerHTML = items.map(p=>`
+      <div class="item">
+        ${p.imageUrl?`<img src="${p.imageUrl}">`:''}
+        <div class="item-info"><strong>${p.title}</strong><small>${(p.description||'').slice(0,80)}...</small></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('programs','${p.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+
+  function renderTrainers(items){
+    document.getElementById('trainers_list').innerHTML = items.map(t=>`
+      <div class="item">
+        <div class="item-info"><strong>🎮 ${t.title}</strong><small>📄 ${t.file}</small><br><small>${(t.description||'').slice(0,60)}...</small></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('trainers','${t.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+
+  function renderArticles(items){
+    document.getElementById('articles_list').innerHTML = items.map(a=>`
+      <div class="item">
+        ${a.imageUrl?`<img src="${a.imageUrl}">`:''}
+        <div class="item-info"><strong>${a.title}</strong><small>${a.date||''}</small></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('articles','${a.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+
+  function renderVideos(items){
+    document.getElementById('videos_list').innerHTML = items.map(v=>`
+      <div class="item">
+        <div class="item-info"><strong>🎬 ${v.title}</strong><small>${v.description||''}</small></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('videos','${v.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+
+  function renderGallery(items){
+    document.getElementById('gallery_list').innerHTML = items.map(g=>`
+      <div class="item">
+        <img src="${g.imageUrl}">
+        <div class="item-info"><strong>${g.caption||'Без подписи'}</strong></div>
+        <button class="btn btn-danger btn-small" onclick="delItem('gallery','${g.id}')">Удалить</button>
+      </div>`).join('') || '<p style="color:var(--soft);padding:20px">Пока пусто</p>';
+  }
+
+  function renderAll(){
+    listen('programs', renderPrograms);
+    listen('trainers', renderTrainers);
+    listen('articles', renderArticles);
+    listen('videos', renderVideos);
+    listen('gallery', renderGallery);
+  }
 </script>
 </body>
 </html>
