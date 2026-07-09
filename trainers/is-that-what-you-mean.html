@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -338,6 +339,17 @@ body {
 }
 .img-box .hint strong { color: var(--deep); }
 
+/* Readonly image box for non-admin */
+.img-box.readonly {
+  cursor: default;
+  border-style: solid;
+  border-color: var(--border);
+}
+.img-box.readonly:hover {
+  border-color: var(--border);
+  background: rgba(253,246,240,0.5);
+}
+
 /* Practice A items */
 .practice-a-item {
   background: rgba(255,255,255,0.6);
@@ -620,6 +632,122 @@ body {
   to { transform: translateX(0); opacity: 1; }
 }
 
+/* Модальное окно */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(42,36,56,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal {
+  background: var(--card-solid);
+  border-radius: 24px;
+  padding: 35px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 25px 80px rgba(90,74,122,0.3);
+  animation: scaleIn 0.3s;
+  text-align: center;
+}
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.modal h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+.modal p {
+  color: var(--text-light);
+  margin-bottom: 20px;
+  font-size: 0.95em;
+}
+.modal input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  font-size: 1.2em;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 8px;
+  color: var(--deep);
+  background: rgba(253,246,240,0.5);
+  transition: all 0.3s;
+  margin-bottom: 18px;
+}
+.modal input:focus {
+  outline: none;
+  border-color: var(--deep);
+  box-shadow: 0 0 0 3px rgba(90,74,122,0.15);
+}
+.modal .btn { margin: 5px; }
+
+/* Admin badge */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--success), #5a9678);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(107,168,137,0.3);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 4px 12px rgba(107,168,137,0.3); }
+  50% { box-shadow: 0 4px 20px rgba(107,168,137,0.5); }
+}
+
+/* Admin image management panel */
+.admin-img-panel {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+.admin-img-panel button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+.admin-img-panel .btn-replace {
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+}
+.admin-img-panel .btn-delete {
+  background: linear-gradient(135deg, var(--danger), #b56870);
+  color: white;
+}
+.admin-img-panel button:hover {
+  transform: scale(1.15);
+}
+
 /* Адаптивность */
 @media (max-width: 900px) {
   body { flex-direction: column; }
@@ -663,12 +791,13 @@ body {
   <button onclick="document.getElementById('import-file').click()">📂 Импорт прогресса</button>
   <input type="file" id="import-file" accept=".json" style="display:none" onchange="importProgress(event)">
   <button onclick="resetProgress()" style="background:linear-gradient(135deg, var(--danger), #b56870); color:white;">🗑️ Сбросить прогресс</button>
+  <div id="admin-section" style="margin-top:10px; border-top:1px solid var(--lavender); padding-top:10px;">
+    <button id="btn-admin-login" onclick="showAdminLogin()" style="background:linear-gradient(135deg, #4a3a6a, #6a5a8a); color:white;">🔐 Админ-панель</button>
+    <button id="btn-admin-logout" onclick="adminLogout()" style="display:none; background:linear-gradient(135deg, var(--danger), #b56870); color:white;">🚪 Выйти из админки</button>
+  </div>
   <div class="sidebar-info">
     💡 <strong>Вставка картинок:</strong><br>
-    1. Наведите мышь на карточку (рамка станет фиолетовой)<br>
-    2. <kbd>PrintScreen</kbd> → <kbd>Ctrl+V</kbd><br>
-    3. Или кликните по карточке для выбора файла<br>
-    4. Новая картинка заменит старую
+    Только администратор может добавлять и менять картинки. Войдите в админ-панель для управления изображениями.
   </div>
 </div>
 
@@ -912,6 +1041,10 @@ const DATA = {
 }
 };
 
+// ==================== ADMIN ====================
+const ADMIN_CODE = "01051";
+let isAdmin = false;
+
 // ==================== STATE ====================
 let currentUnit = 1;
 let currentMode = 'theory';
@@ -927,6 +1060,7 @@ function init() {
     setMode('theory');
     if (localStorage.getItem('trainer_theme') === 'dark') document.body.classList.add('dark');
     document.addEventListener('paste', handleGlobalPaste);
+    updateAdminUI();
     
     // Если страница открыта в iframe — все ссылки будут открываться в главном окне
     if (window.self !== window.top) {
@@ -969,6 +1103,97 @@ function toggleTheme() {
     localStorage.setItem('trainer_theme', document.body.classList.contains('dark') ? 'dark' : 'light');
 }
 
+// ==================== ADMIN FUNCTIONS ====================
+function showAdminLogin() {
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.id = 'admin-modal';
+    overlay.innerHTML = `
+        <div class="modal">
+            <h2>🔐 Админ-панель</h2>
+            <p>Введите код доступа для управления картинками</p>
+            <input type="password" id="admin-code-input" maxlength="5" placeholder="•••••" autocomplete="off">
+            <div>
+                <button class="btn btn-primary" onclick="checkAdminCode()">Войти</button>
+                <button class="btn btn-wrong" onclick="closeAdminModal()">Отмена</button>
+            </div>
+            <p id="admin-error" style="color:var(--danger); margin-top:12px; display:none; font-size:0.9em;">❌ Неверный код</p>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    
+    // Focus on input and handle Enter
+    setTimeout(() => {
+        const input = document.getElementById('admin-code-input');
+        input.focus();
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') checkAdminCode();
+        });
+    }, 100);
+}
+
+function checkAdminCode() {
+    const input = document.getElementById('admin-code-input');
+    if (input.value === ADMIN_CODE) {
+        isAdmin = true;
+        sessionStorage.setItem('admin_mode', 'true');
+        closeAdminModal();
+        updateAdminUI();
+        renderContent();
+        showToast('✅ Вы вошли как администратор', false, 'info');
+    } else {
+        const error = document.getElementById('admin-error');
+        error.style.display = 'block';
+        input.value = '';
+        input.focus();
+        input.style.borderColor = 'var(--danger)';
+        setTimeout(() => {
+            input.style.borderColor = '';
+        }, 1000);
+    }
+}
+
+function closeAdminModal() {
+    const modal = document.getElementById('admin-modal');
+    if (modal) modal.remove();
+}
+
+function adminLogout() {
+    if (!confirm('Выйти из админ-панели?')) return;
+    isAdmin = false;
+    sessionStorage.removeItem('admin_mode');
+    currentTargetBox = null;
+    updateAdminUI();
+    renderContent();
+    showToast('🚪 Вы вышли из админ-панели');
+}
+
+function updateAdminUI() {
+    // Check session storage on init
+    if (sessionStorage.getItem('admin_mode') === 'true') {
+        isAdmin = true;
+    }
+    
+    const loginBtn = document.getElementById('btn-admin-login');
+    const logoutBtn = document.getElementById('btn-admin-logout');
+    
+    if (isAdmin) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'block';
+    } else {
+        loginBtn.style.display = 'block';
+        logoutBtn.style.display = 'none';
+    }
+    
+    // Update header with admin badge
+    const controls = document.getElementById('header-controls');
+    if (isAdmin) {
+        controls.innerHTML = `<span class="admin-badge">👑 Администратор</span>`;
+    } else {
+        controls.innerHTML = '';
+    }
+}
+
 // ==================== RENDER ====================
 function renderContent() {
     const title = document.getElementById('main-title');
@@ -980,7 +1205,6 @@ function renderContent() {
     area.innerHTML = '';
     statsArea.innerHTML = '';
     filterBar.innerHTML = '';
-    controls.innerHTML = '';
     
     const modeNames = {
         theory: '📖 Theory',
@@ -996,6 +1220,13 @@ function renderContent() {
         title.innerText = `Unit ${currentUnit} — ${modeNames[currentMode]}`;
     }
 
+    // Update admin badge in header
+    if (isAdmin) {
+        controls.innerHTML = `<span class="admin-badge">👑 Администратор</span>`;
+    } else {
+        controls.innerHTML = '';
+    }
+
     if (currentMode === 'theory') renderTheory(area);
     else if (currentMode === 'flashcards') renderFlashcards(area);
     else if (currentMode === 'practiceA') renderPracticeA(area);
@@ -1007,6 +1238,7 @@ function renderContent() {
 
 // ==================== IMAGE HANDLING ====================
 function handleGlobalPaste(e) {
+    if (!isAdmin) return; // Only admin can paste images
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     const items = e.clipboardData.items;
     for (let i = 0; i < items.length; i++) {
@@ -1049,6 +1281,20 @@ function initImageBox(unit, id) {
     box.dataset.unit = unit;
     box.dataset.id = id;
     
+    if (!isAdmin) {
+        // Non-admin: readonly mode
+        box.classList.add('readonly');
+        box.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        // Load saved image if exists
+        const savedImg = localStorage.getItem(`img_u${unit}_t${id}`);
+        if (savedImg) updateImageUI(unit, id, savedImg);
+        return;
+    }
+    
+    // Admin mode: full functionality
     box.addEventListener('mouseenter', () => {
         document.querySelectorAll('.img-box.target-hover').forEach(b => {
             if (b !== box && b !== currentTargetBox) b.classList.remove('target-hover');
@@ -1061,6 +1307,9 @@ function initImageBox(unit, id) {
     });
     
     box.addEventListener('click', (e) => {
+        // If clicking on admin panel buttons, don't toggle target
+        if (e.target.closest('.admin-img-panel')) return;
+        
         if (e.target.tagName === 'IMG') {
             const input = document.getElementById(`file-${unit}-${id}`);
             if (input) input.click();
@@ -1101,12 +1350,45 @@ function saveImage(unit, id, imgData) {
     updateImageUI(unit, id, imgData);
 }
 
+function deleteImage(unit, id) {
+    if (!confirm(`Удалить картинку для Unit ${unit}, Правило #${id}?`)) return;
+    localStorage.removeItem(`img_u${unit}_t${id}`);
+    // Re-render the image box to show placeholder
+    const box = document.getElementById(`img-box-${unit}-${id}`);
+    if (box) {
+        const theory = DATA[unit].theory[id - 1];
+        box.innerHTML = `
+            <div class="placeholder">${theory.emoji}</div>
+            <div class="hint">
+                <strong>📎 Вставить картинку из книги:</strong><br>
+                Наведите мышь сюда → <kbd>PrintScreen</kbd> → <kbd>Ctrl+V</kbd><br>
+                или кликните для выбора файла
+            </div>
+            <input type="file" accept="image/*" id="file-${unit}-${id}" style="display:none">
+        `;
+        initImageBox(unit, id);
+    }
+    showToast('🗑️ Картинка удалена');
+}
+
 function updateImageUI(unit, id, imgData) {
     const box = document.getElementById(`img-box-${unit}-${id}`);
     if (!box) return;
     const wasActive = box.classList.contains('target-active');
     const wasHovered = box.classList.contains('target-hover');
-    box.innerHTML = `<img src="${imgData}" alt="Book Image" title="Кликните, чтобы заменить картинку">`;
+    
+    let adminPanelHtml = '';
+    if (isAdmin) {
+        adminPanelHtml = `
+            <div class="admin-img-panel">
+                <button class="btn-replace" onclick="event.stopPropagation(); document.getElementById('file-${unit}-${id}').click();" title="Заменить картинку">🔄</button>
+                <button class="btn-delete" onclick="event.stopPropagation(); deleteImage(${unit}, ${id});" title="Удалить картинку">🗑️</button>
+            </div>
+            <input type="file" accept="image/*" id="file-${unit}-${id}" style="display:none">
+        `;
+    }
+    
+    box.innerHTML = `<img src="${imgData}" alt="Book Image" title="${isAdmin ? 'Кликните, чтобы заменить картинку' : 'Изображение правила'}">${adminPanelHtml}`;
     if (wasActive) box.classList.add('target-active');
     if (wasHovered) box.classList.add('target-hover');
 }
@@ -1131,14 +1413,10 @@ function renderTheory(area) {
         const card = document.createElement('div');
         card.className = 'card';
         card.style.animationDelay = (idx * 0.08) + 's';
-        card.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <strong style="color:var(--deep); font-family:'Cormorant Garamond',serif; font-size:1.3em;">Правило #${id}</strong>
-            </div>
-            <div class="wrong" style="margin-top:12px;">❌ ${t.w}</div>
-            <div class="explain">💡 ${t.e}</div>
-            <div class="correct">✅ ${t.c}</div>
-            <div class="img-box" id="img-box-${currentUnit}-${id}">
+        
+        let imgBoxContent = '';
+        if (isAdmin) {
+            imgBoxContent = `
                 <div class="placeholder">${t.emoji}</div>
                 <div class="hint">
                     <strong>📎 Вставить картинку из книги:</strong><br>
@@ -1146,6 +1424,25 @@ function renderTheory(area) {
                     или кликните для выбора файла
                 </div>
                 <input type="file" accept="image/*" id="file-${currentUnit}-${id}" style="display:none">
+            `;
+        } else {
+            imgBoxContent = `
+                <div class="placeholder">${t.emoji}</div>
+                <div class="hint" style="color:var(--text-light);">
+                    📷 Изображение будет доступно после загрузки администратором
+                </div>
+            `;
+        }
+        
+        card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:var(--deep); font-family:'Cormorant Garamond',serif; font-size:1.3em;">Правило #${id}</strong>
+            </div>
+            <div class="wrong" style="margin-top:12px;">❌ ${t.w}</div>
+            <div class="explain">💡 ${t.e}</div>
+            <div class="correct">✅ ${t.c}</div>
+            <div class="img-box ${isAdmin ? '' : 'readonly'}" id="img-box-${currentUnit}-${id}">
+                ${imgBoxContent}
             </div>
         `;
         area.appendChild(card);
@@ -1213,10 +1510,12 @@ function renderPracticeA(area) {
     `;
     
     const controls = document.getElementById('header-controls');
-    controls.innerHTML = `
+    let controlsHtml = isAdmin ? `<span class="admin-badge">👑 Администратор</span> ` : '';
+    controlsHtml += `
         <button class="btn btn-warning" onclick="showAllAnswers()">👁️ Показать все ответы</button>
         <button class="btn btn-primary" onclick="resetUnitAnswers()">🔄 Сбросить</button>
     `;
+    controls.innerHTML = controlsHtml;
     
     practices.forEach((p, idx) => {
         const key = `${currentUnit}_A_${idx}`;
