@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -50,7 +49,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Плавающие декоративные круги */
 .blob {
   position: fixed;
   border-radius: 50%;
@@ -69,7 +67,6 @@ body {
   66% { transform: translate(-30px,40px) scale(0.95); }
 }
 
-/* Верхняя навигация */
 .top-nav {
   position: fixed;
   top: 20px;
@@ -122,7 +119,6 @@ body {
 }
 .theme-toggle:hover { background: linear-gradient(135deg, var(--lavender), var(--rose)); transform: rotate(180deg); }
 
-/* Боковая панель */
 .sidebar {
   width: 290px;
   background: rgba(255,255,255,0.7);
@@ -217,7 +213,6 @@ body {
 
 .sidebar-info strong { color: var(--deep); }
 
-/* Основная область */
 .main {
   flex: 1;
   padding: 100px 30px 30px;
@@ -225,7 +220,6 @@ body {
   max-width: calc(100% - 330px);
 }
 
-/* Карточки */
 .card {
   background: rgba(255,255,255,0.7);
   backdrop-filter: blur(10px);
@@ -271,11 +265,17 @@ body {
   border-left: 3px solid var(--soft);
 }
 
-/* Блок для изображений */
+/* Images container - 2 images side by side */
+.images-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
 .img-box {
-  width: 100%;
-  min-height: 220px;
-  max-height: 400px;
+  min-height: 200px;
+  max-height: 350px;
   border: 2px dashed var(--soft);
   border-radius: 16px;
   display: flex;
@@ -285,7 +285,6 @@ body {
   cursor: pointer;
   position: relative;
   background: rgba(253,246,240,0.5);
-  margin-top: 15px;
   overflow: hidden;
   transition: all 0.3s ease;
 }
@@ -320,7 +319,7 @@ body {
 }
 .img-box img {
   max-width: 100%;
-  max-height: 380px;
+  max-height: 330px;
   object-fit: contain;
   cursor: pointer;
   border-radius: 12px;
@@ -331,15 +330,14 @@ body {
   opacity: 0.6;
 }
 .img-box .hint {
-  font-size: 0.85em;
+  font-size: 0.8em;
   color: var(--text-light);
   text-align: center;
-  padding: 10px;
-  line-height: 1.6;
+  padding: 8px;
+  line-height: 1.5;
 }
 .img-box .hint strong { color: var(--deep); }
 
-/* Readonly image box for non-admin */
 .img-box.readonly {
   cursor: default;
   border-style: solid;
@@ -350,7 +348,20 @@ body {
   background: rgba(253,246,240,0.5);
 }
 
-/* Practice A items */
+/* Image number label */
+.img-label {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--deep);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: 600;
+  z-index: 5;
+}
+
 .practice-a-item {
   background: rgba(255,255,255,0.6);
   backdrop-filter: blur(10px);
@@ -371,7 +382,6 @@ body {
 }
 .practice-a-item.hidden-item { display: none; }
 
-/* Кнопки */
 .btn {
   padding: 10px 20px;
   border: none;
@@ -455,7 +465,6 @@ body {
   font-weight: 600;
 }
 
-/* Заголовок */
 .header {
   display: flex;
   justify-content: space-between;
@@ -472,7 +481,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* Статистика */
 .stats {
   display: flex;
   gap: 15px;
@@ -502,7 +510,6 @@ body {
   color: var(--deep);
 }
 
-/* Прогресс-бар */
 .progress-bar {
   width: 100%;
   height: 8px;
@@ -518,7 +525,6 @@ body {
   border-radius: 4px;
 }
 
-/* Флеш-карточки */
 .flashcard {
   perspective: 1000px;
   height: 380px;
@@ -583,7 +589,6 @@ body {
   padding: 8px 16px;
 }
 
-/* Панель фильтров */
 .filter-bar {
   display: flex;
   gap: 10px;
@@ -610,7 +615,6 @@ body {
   border-color: transparent;
 }
 
-/* Toast уведомления */
 .toast {
   position: fixed;
   bottom: 25px;
@@ -632,7 +636,6 @@ body {
   to { transform: translateX(0); opacity: 1; }
 }
 
-/* Модальное окно */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -695,7 +698,6 @@ body {
 }
 .modal .btn { margin: 5px; }
 
-/* Admin badge */
 .admin-badge {
   display: inline-flex;
   align-items: center;
@@ -714,7 +716,6 @@ body {
   50% { box-shadow: 0 4px 20px rgba(107,168,137,0.5); }
 }
 
-/* Admin image management panel */
 .admin-img-panel {
   position: absolute;
   top: 8px;
@@ -724,12 +725,12 @@ body {
   z-index: 10;
 }
 .admin-img-panel button {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 0.85em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -748,7 +749,6 @@ body {
   transform: scale(1.15);
 }
 
-/* Адаптивность */
 @media (max-width: 900px) {
   body { flex-direction: column; }
   .sidebar {
@@ -769,6 +769,9 @@ body {
   }
   .logo { font-size: 18px; }
   .header h1 { font-size: 1.5em; }
+  .images-container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
@@ -797,7 +800,7 @@ body {
   </div>
   <div class="sidebar-info">
     💡 <strong>Вставка картинок:</strong><br>
-    Только администратор может добавлять и менять картинки. Войдите в админ-панель для управления изображениями.
+    Только администратор может добавлять и менять картинки. В каждой карточке можно вставить <strong>2 изображения</strong>.
   </div>
 </div>
 
@@ -823,7 +826,7 @@ const DATA = {
         {w:"stole a bank", e:"steal = украсть ВЕЩЬ (money). rob = ограбить МЕСТО или ЧЕЛОВЕКА (bank).", c:"robbed a bank", emoji:"🏦💰"},
         {w:"controlled tickets", e:"control = управлять/контролировать. Проверять билеты = check / examine.", c:"checked tickets", emoji:"🎟️🔍"},
         {w:"good cooker", e:"cooker = кухонная плита (машина). Человек = cook.", c:"good cook", emoji:"👩‍🍳🍳"},
-        {w:"on time", e:"on time = пунктуально, ровно в срок. in time = вовремя, успеть до чего-то (до пожара).", c:"in time", emoji:"🔥‍♂️"},
+        {w:"on time", e:"on time = пунктуально, ровно в срок. in time = вовремя, успеть до чего-то (до пожара).", c:"in time", emoji:"🔥♂️"},
         {w:"throw at him", e:"throw at = бросить со злостью (попасть). throw to = бросить дружески (чтобы поймал).", c:"throw to him", emoji:"🔨😊"},
         {w:"with her car", e:"with = вместе с кем-то. Способ транспорта = by car (без местоимений).", c:"by car", emoji:"🚗💨"}
     ],
@@ -861,15 +864,15 @@ const DATA = {
 },
 2: {
     theory: [
-        {w:"wish you would be taller", e:"would для изменений в поведении. Для неизменного (рост) = Past Simple (were).", c:"wish you were taller", emoji:"📏🤷‍♂️"},
+        {w:"wish you would be taller", e:"would для изменений в поведении. Для неизменного (рост) = Past Simple (were).", c:"wish you were taller", emoji:"📏‍♂️"},
         {w:"stop to sleep", e:"stop to do = остановиться, чтобы сделать. stop doing = прекратить делать.", c:"stop sleeping", emoji:"🛑💤"},
         {w:"I am very boring", e:"boring = вызывающий скуку. bored = чувствующий скуку.", c:"I am very bored", emoji:"🥱😐"},
         {w:"change the train", e:"change trains = делать пересадку (множ. число).", c:"change trains", emoji:"🚆🔄"},
         {w:"so that", e:"so that = чтобы (цель). so = поэтому (результат).", c:"so", emoji:"☔🌧️"},
         {w:"grown up", e:"grow up = взрослеть. grow = расти (о растениях/размере).", c:"grown", emoji:"🌱"},
-        {w:"educate their children", e:"educate = давать академические знания (школа). bring up = воспитывать.", c:"bring up", emoji:"👨‍👩‍‍👦"},
+        {w:"educate their children", e:"educate = давать академические знания (школа). bring up = воспитывать.", c:"bring up", emoji:"👨‍👩‍👦"},
         {w:"careless", e:"careless = неосторожный. carefree = беззаботный.", c:"carefree", emoji:"🏖️"},
-        {w:"on the platform", e:"on the platform = на платформе (жд). at the platform = прибыть к платформе.", c:"at the platform", emoji:"🚉⏱️"},
+        {w:"on the platform", e:"on the platform = на платформе (жд). at the platform = прибыть к платформе.", c:"at the platform", emoji:"🚉️"},
         {w:"died with pneumonia", e:"die of = от внутренней болезни. die from = от внешней причины (травма).", c:"died of pneumonia", emoji:"🤒🕊️"}
     ],
     practiceA: [
@@ -910,7 +913,7 @@ const DATA = {
         {w:"After putting... my husband", e:"Если subjekty разные, нельзя использовать -ing после after. Нужно: After I put...", c:"After I put", emoji:"👗"},
         {w:"paid the car", e:"pay someone / pay FOR something.", c:"paid for the car", emoji:"🚗💸"},
         {w:"beautiful hairs", e:"hair на голове = неисчисляемое. hairs = отдельные волосинки (в супе).", c:"beautiful hair", emoji:"💇‍♀️✨"},
-        {w:"a paper", e:"paper = бумага (неисч.) или газета. Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📝📄"},
+        {w:"a paper", e:"paper = бумага (неисч.) или газета. Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📝"},
         {w:"matches you", e:"match = подходить по цвету/стилю к ДРУГОЙ вещи. suit = идти к ЧЕЛОВЕКУ.", c:"suits you", emoji:"👗"},
         {w:"make a picture", e:"make = создавать. Фотографировать = take a picture.", c:"take a picture", emoji:"📸🖼️"},
         {w:"borrow the money", e:"borrow = брать взаймы (к себе). lend = давать взаймы (от себя).", c:"lend the money", emoji:"🏦"},
@@ -951,16 +954,16 @@ const DATA = {
 },
 4: {
     theory: [
-        {w:"cut my hair", e:"have something done = делать что-то в салоне (have my hair cut).", c:"have my hair cut", emoji:"💇‍♂️📰"},
+        {w:"cut my hair", e:"have something done = делать что-то в салоне (have my hair cut).", c:"have my hair cut", emoji:"💇‍️📰"},
         {w:"played tennis when", e:"Длительное действие прерывается кратким: were playing ... when it started.", c:"were playing tennis", emoji:"🎾🌧️"},
         {w:"In case the weather gets", e:"in case = на случай (подготовка). if = условие.", c:"If the weather gets", emoji:"🧥❄️"},
-        {w:"go to prison", e:"go to prison = как заключенный. go to THE prison = как посетитель.", c:"go to the prison", emoji:"👮‍♂️🔒"},
+        {w:"go to prison", e:"go to prison = как заключенный. go to THE prison = как посетитель.", c:"go to the prison", emoji:"👮‍️🔒"},
         {w:"few friends", e:"few = мало (негатив). a few = несколько (позитив).", c:"a few friends", emoji:"🎉"},
-        {w:"laying on the sofa", e:"lay = класть (с объектом). lie = лежать (без объекта).", c:"lying on the sofa", emoji:"🛋️🐶"},
+        {w:"laying on the sofa", e:"lay = класть (с объектом). lie = лежать (без объекта).", c:"lying on the sofa", emoji:"🛋️"},
         {w:"says the truth", e:"tell the truth (устойчивое выражение).", c:"tells the truth", emoji:"🤥🤐"},
-        {w:"At last, I will end", e:"at last = наконец-то (после долгого ожидания). finally = последним пунктом.", c:"Finally", emoji:"🎤🔚"},
-        {w:"look for his plants", e:"look for = искать (потерянное). look after = присматривать/ухаживать.", c:"look after", emoji:"🌿👀"},
-        {w:"backside", e:"backside = неформ. 'пятая точка'. Обратная сторона фото = back.", c:"back", emoji:"📸🍑"}
+        {w:"At last, I will end", e:"at last = наконец-то (после долгого ожидания). finally = последним пунктом.", c:"Finally", emoji:"🎤"},
+        {w:"look for his plants", e:"look for = искать (потерянное). look after = присматривать/ухаживать.", c:"look after", emoji:"🌿"},
+        {w:"backside", e:"backside = неформ. 'пятая точка'. Обратная сторона фото = back.", c:"back", emoji:"📸"}
     ],
     practiceA: [
         {s:"Satoko is going to the hairdresser's this afternoon to cut her hair.", ans:false, fix:"to have her hair cut", ref:"p.68"},
@@ -996,7 +999,7 @@ const DATA = {
 },
 5: {
     theory: [
-        {w:"suggested going", e:"suggest + -ing (для всех). suggest + that + subject + verb (без s).", c:"suggested she go", emoji:"🛏️🩺"},
+        {w:"suggested going", e:"suggest + -ing (для всех). suggest + that + subject + verb (без s).", c:"suggested she go", emoji:"🛏️"},
         {w:"coming from Colombia", e:"coming = в процессе пути. comes from = родился/происходит.", c:"comes from", emoji:"🇨🇴️"},
         {w:"searching the boy", e:"search someone = обыскивать человека. search FOR = искать.", c:"searching for", emoji:"🔦🐕"},
         {w:"a toast", e:"toast (напиток) = неисч. a piece of toast (еда).", c:"toast", emoji:"🍞🥂"},
@@ -1062,7 +1065,6 @@ function init() {
     document.addEventListener('paste', handleGlobalPaste);
     updateAdminUI();
     
-    // Если страница открыта в iframe — все ссылки будут открываться в главном окне
     if (window.self !== window.top) {
         document.querySelectorAll('a').forEach(link => {
             if (!link.target) link.target = '_top';
@@ -1122,7 +1124,6 @@ function showAdminLogin() {
     `;
     document.body.appendChild(overlay);
     
-    // Focus on input and handle Enter
     setTimeout(() => {
         const input = document.getElementById('admin-code-input');
         input.focus();
@@ -1169,7 +1170,6 @@ function adminLogout() {
 }
 
 function updateAdminUI() {
-    // Check session storage on init
     if (sessionStorage.getItem('admin_mode') === 'true') {
         isAdmin = true;
     }
@@ -1185,7 +1185,6 @@ function updateAdminUI() {
         logoutBtn.style.display = 'none';
     }
     
-    // Update header with admin badge
     const controls = document.getElementById('header-controls');
     if (isAdmin) {
         controls.innerHTML = `<span class="admin-badge">👑 Администратор</span>`;
@@ -1220,7 +1219,6 @@ function renderContent() {
         title.innerText = `Unit ${currentUnit} — ${modeNames[currentMode]}`;
     }
 
-    // Update admin badge in header
     if (isAdmin) {
         controls.innerHTML = `<span class="admin-badge">👑 Администратор</span>`;
     } else {
@@ -1236,9 +1234,9 @@ function renderContent() {
     updateStats();
 }
 
-// ==================== IMAGE HANDLING ====================
+// ==================== IMAGE HANDLING (2 IMAGES) ====================
 function handleGlobalPaste(e) {
-    if (!isAdmin) return; // Only admin can paste images
+    if (!isAdmin) return;
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     const items = e.clipboardData.items;
     for (let i = 0; i < items.length; i++) {
@@ -1251,8 +1249,9 @@ function handleGlobalPaste(e) {
                 if (targetBox) {
                     const unit = targetBox.dataset.unit;
                     const id = targetBox.dataset.id;
-                    saveImage(unit, id, event.target.result);
-                    showToast(`✅ Картинка вставлена в Unit ${unit}, Правило #${id}`);
+                    const imgNum = targetBox.dataset.imgNum;
+                    saveImage(unit, id, imgNum, event.target.result);
+                    showToast(`✅ Картинка ${imgNum} вставлена в Unit ${unit}, Правило #${id}`);
                 } else {
                     showToast('❌ Нет активной карточки. Наведите мышь на карточку и повторите Ctrl+V', true);
                 }
@@ -1275,26 +1274,24 @@ function getTargetImageBox() {
     return null;
 }
 
-function initImageBox(unit, id) {
-    const box = document.getElementById(`img-box-${unit}-${id}`);
+function initImageBox(unit, id, imgNum) {
+    const box = document.getElementById(`img-box-${unit}-${id}-${imgNum}`);
     if (!box) return;
     box.dataset.unit = unit;
     box.dataset.id = id;
+    box.dataset.imgNum = imgNum;
     
     if (!isAdmin) {
-        // Non-admin: readonly mode
         box.classList.add('readonly');
         box.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
         });
-        // Load saved image if exists
-        const savedImg = localStorage.getItem(`img_u${unit}_t${id}`);
-        if (savedImg) updateImageUI(unit, id, savedImg);
+        const savedImg = localStorage.getItem(`img_u${unit}_t${id}_n${imgNum}`);
+        if (savedImg) updateImageUI(unit, id, imgNum, savedImg);
         return;
     }
     
-    // Admin mode: full functionality
     box.addEventListener('mouseenter', () => {
         document.querySelectorAll('.img-box.target-hover').forEach(b => {
             if (b !== box && b !== currentTargetBox) b.classList.remove('target-hover');
@@ -1307,11 +1304,10 @@ function initImageBox(unit, id) {
     });
     
     box.addEventListener('click', (e) => {
-        // If clicking on admin panel buttons, don't toggle target
         if (e.target.closest('.admin-img-panel')) return;
         
         if (e.target.tagName === 'IMG') {
-            const input = document.getElementById(`file-${unit}-${id}`);
+            const input = document.getElementById(`file-${unit}-${id}-${imgNum}`);
             if (input) input.click();
             return;
         }
@@ -1323,56 +1319,56 @@ function initImageBox(unit, id) {
             box.classList.add('target-active');
             box.classList.remove('target-hover');
             currentTargetBox = box;
-            showToast(`🎯 Карточка #${id} зафиксирована как целевая для Ctrl+V`, false, 'info');
+            showToast(`🎯 Карточка #${id} (изобр. ${imgNum}) зафиксирована для Ctrl+V`, false, 'info');
         }
     });
     
-    const fileInput = document.getElementById(`file-${unit}-${id}`);
-    if (fileInput) fileInput.onchange = (e) => handleFileUpload(unit, id, e);
+    const fileInput = document.getElementById(`file-${unit}-${id}-${imgNum}`);
+    if (fileInput) fileInput.onchange = (e) => handleFileUpload(unit, id, imgNum, e);
     
-    const savedImg = localStorage.getItem(`img_u${unit}_t${id}`);
-    if (savedImg) updateImageUI(unit, id, savedImg);
+    const savedImg = localStorage.getItem(`img_u${unit}_t${id}_n${imgNum}`);
+    if (savedImg) updateImageUI(unit, id, imgNum, savedImg);
 }
 
-function handleFileUpload(unit, id, e) {
+function handleFileUpload(unit, id, imgNum, e) {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = function(event) {
-        saveImage(unit, id, event.target.result);
-        showToast(`✅ Картинка заменена (Unit ${unit}, Правило #${id})`);
+        saveImage(unit, id, imgNum, event.target.result);
+        showToast(`✅ Картинка ${imgNum} заменена (Unit ${unit}, Правило #${id})`);
     };
     reader.readAsDataURL(file);
 }
 
-function saveImage(unit, id, imgData) {
-    localStorage.setItem(`img_u${unit}_t${id}`, imgData);
-    updateImageUI(unit, id, imgData);
+function saveImage(unit, id, imgNum, imgData) {
+    localStorage.setItem(`img_u${unit}_t${id}_n${imgNum}`, imgData);
+    updateImageUI(unit, id, imgNum, imgData);
 }
 
-function deleteImage(unit, id) {
-    if (!confirm(`Удалить картинку для Unit ${unit}, Правило #${id}?`)) return;
-    localStorage.removeItem(`img_u${unit}_t${id}`);
-    // Re-render the image box to show placeholder
-    const box = document.getElementById(`img-box-${unit}-${id}`);
+function deleteImage(unit, id, imgNum) {
+    if (!confirm(`Удалить картинку ${imgNum} для Unit ${unit}, Правило #${id}?`)) return;
+    localStorage.removeItem(`img_u${unit}_t${id}_n${imgNum}`);
+    const box = document.getElementById(`img-box-${unit}-${id}-${imgNum}`);
     if (box) {
         const theory = DATA[unit].theory[id - 1];
         box.innerHTML = `
+            <div class="img-label">Картинка ${imgNum}</div>
             <div class="placeholder">${theory.emoji}</div>
             <div class="hint">
-                <strong>📎 Вставить картинку из книги:</strong><br>
-                Наведите мышь сюда → <kbd>PrintScreen</kbd> → <kbd>Ctrl+V</kbd><br>
-                или кликните для выбора файла
+                <strong>📎 Вставить:</strong><br>
+                Наведите → <kbd>PrintScreen</kbd> → <kbd>Ctrl+V</kbd><br>
+                или кликните для файла
             </div>
-            <input type="file" accept="image/*" id="file-${unit}-${id}" style="display:none">
+            <input type="file" accept="image/*" id="file-${unit}-${id}-${imgNum}" style="display:none">
         `;
-        initImageBox(unit, id);
+        initImageBox(unit, id, imgNum);
     }
     showToast('🗑️ Картинка удалена');
 }
 
-function updateImageUI(unit, id, imgData) {
-    const box = document.getElementById(`img-box-${unit}-${id}`);
+function updateImageUI(unit, id, imgNum, imgData) {
+    const box = document.getElementById(`img-box-${unit}-${id}-${imgNum}`);
     if (!box) return;
     const wasActive = box.classList.contains('target-active');
     const wasHovered = box.classList.contains('target-hover');
@@ -1381,14 +1377,14 @@ function updateImageUI(unit, id, imgData) {
     if (isAdmin) {
         adminPanelHtml = `
             <div class="admin-img-panel">
-                <button class="btn-replace" onclick="event.stopPropagation(); document.getElementById('file-${unit}-${id}').click();" title="Заменить картинку">🔄</button>
-                <button class="btn-delete" onclick="event.stopPropagation(); deleteImage(${unit}, ${id});" title="Удалить картинку">🗑️</button>
+                <button class="btn-replace" onclick="event.stopPropagation(); document.getElementById('file-${unit}-${id}-${imgNum}').click();" title="Заменить">🔄</button>
+                <button class="btn-delete" onclick="event.stopPropagation(); deleteImage(${unit}, ${id}, ${imgNum});" title="Удалить">🗑️</button>
             </div>
-            <input type="file" accept="image/*" id="file-${unit}-${id}" style="display:none">
+            <input type="file" accept="image/*" id="file-${unit}-${id}-${imgNum}" style="display:none">
         `;
     }
     
-    box.innerHTML = `<img src="${imgData}" alt="Book Image" title="${isAdmin ? 'Кликните, чтобы заменить картинку' : 'Изображение правила'}">${adminPanelHtml}`;
+    box.innerHTML = `<div class="img-label">Картинка ${imgNum}</div><img src="${imgData}" alt="Image ${imgNum}" title="${isAdmin ? 'Кликните, чтобы заменить' : 'Изображение'}">${adminPanelHtml}`;
     if (wasActive) box.classList.add('target-active');
     if (wasHovered) box.classList.add('target-hover');
 }
@@ -1414,24 +1410,32 @@ function renderTheory(area) {
         card.className = 'card';
         card.style.animationDelay = (idx * 0.08) + 's';
         
-        let imgBoxContent = '';
-        if (isAdmin) {
-            imgBoxContent = `
-                <div class="placeholder">${t.emoji}</div>
-                <div class="hint">
-                    <strong>📎 Вставить картинку из книги:</strong><br>
-                    Наведите мышь сюда → <kbd>PrintScreen</kbd> → <kbd>Ctrl+V</kbd><br>
-                    или кликните для выбора файла
-                </div>
-                <input type="file" accept="image/*" id="file-${currentUnit}-${id}" style="display:none">
-            `;
-        } else {
-            imgBoxContent = `
-                <div class="placeholder">${t.emoji}</div>
-                <div class="hint" style="color:var(--text-light);">
-                    📷 Изображение будет доступно после загрузки администратором
-                </div>
-            `;
+        let imagesHtml = '';
+        for (let imgNum = 1; imgNum <= 2; imgNum++) {
+            if (isAdmin) {
+                imagesHtml += `
+                    <div class="img-box" id="img-box-${currentUnit}-${id}-${imgNum}">
+                        <div class="img-label">Картинка ${imgNum}</div>
+                        <div class="placeholder">${t.emoji}</div>
+                        <div class="hint">
+                            <strong>📎 Вставить:</strong><br>
+                            Наведите → <kbd>PrintScreen</kbd> → <kbd>Ctrl+V</kbd><br>
+                            или кликните для файла
+                        </div>
+                        <input type="file" accept="image/*" id="file-${currentUnit}-${id}-${imgNum}" style="display:none">
+                    </div>
+                `;
+            } else {
+                imagesHtml += `
+                    <div class="img-box readonly" id="img-box-${currentUnit}-${id}-${imgNum}">
+                        <div class="img-label">Картинка ${imgNum}</div>
+                        <div class="placeholder">${t.emoji}</div>
+                        <div class="hint" style="color:var(--text-light);">
+                            📷 Будет доступно после загрузки
+                        </div>
+                    </div>
+                `;
+            }
         }
         
         card.innerHTML = `
@@ -1441,12 +1445,16 @@ function renderTheory(area) {
             <div class="wrong" style="margin-top:12px;">❌ ${t.w}</div>
             <div class="explain">💡 ${t.e}</div>
             <div class="correct">✅ ${t.c}</div>
-            <div class="img-box ${isAdmin ? '' : 'readonly'}" id="img-box-${currentUnit}-${id}">
-                ${imgBoxContent}
+            <div class="images-container">
+                ${imagesHtml}
             </div>
         `;
         area.appendChild(card);
-        initImageBox(currentUnit, id);
+        
+        // Initialize both image boxes
+        for (let imgNum = 1; imgNum <= 2; imgNum++) {
+            initImageBox(currentUnit, id, imgNum);
+        }
     });
 }
 
