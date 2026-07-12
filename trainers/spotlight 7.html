@@ -1,0 +1,2878 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Trainer - Spotlight 7</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Montserrat',sans-serif;background:linear-gradient(135deg,#f5eef0 0%,#e8d5e0 50%,#f0e6e8 100%);color:#5a4a5a;min-height:100vh;padding:20px}
+.container{max-width:1200px;margin:0 auto}
+header{text-align:center;padding:40px 20px;background:rgba(255,255,255,0.7);border-radius:30px;margin-bottom:30px;box-shadow:0 8px 32px rgba(147,112,147,0.1)}
+h1{font-family:'Cormorant Garamond',serif;font-size:3.5em;color:#6b5b7a;margin-bottom:10px;font-weight:600}
+.subtitle{font-size:1.2em;color:#8b7b8b;font-style:italic}
+.nav-menu{display:flex;justify-content:center;gap:10px;margin:30px 0;flex-wrap:wrap}
+.nav-btn{padding:10px 18px;background:linear-gradient(135deg,#d4a5b5 0%,#b8a5c4 100%);border:none;border-radius:25px;color:white;font-family:'Montserrat',sans-serif;font-size:0.85em;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(147,112,147,0.2)}
+.nav-btn:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(147,112,147,0.3)}
+.nav-btn.active{background:linear-gradient(135deg,#b8a5c4 0%,#9a8ba8 100%)}
+.module-section{display:none;background:rgba(255,255,255,0.8);border-radius:30px;padding:40px;margin-bottom:30px;box-shadow:0 8px 32px rgba(147,112,147,0.1)}
+.module-section.active{display:block;animation:fadeIn 0.5s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.module-title{font-family:'Cormorant Garamond',serif;font-size:2.5em;color:#6b5b7a;margin-bottom:30px;text-align:center}
+.subsection{margin-bottom:40px;padding:25px;background:rgba(255,255,255,0.9);border-radius:20px;border-left:5px solid #d4a5b5}
+.subsection-title{font-family:'Cormorant Garamond',serif;font-size:1.8em;color:#7b6b7a;margin-bottom:20px;border-bottom:2px solid #d4a5b5;padding-bottom:10px}
+.exercise-block{background:rgba(255,255,255,0.9);border-radius:20px;padding:25px;margin-bottom:25px;border-left:5px solid #d4a5b5}
+.exercise-title{font-family:'Cormorant Garamond',serif;font-size:1.6em;color:#7b6b7a;margin-bottom:20px}
+.theory-box{background:rgba(184,165,196,0.15);border-radius:15px;padding:20px;margin-bottom:20px;border-left:4px solid #b8a5c4}
+.theory-box h5{font-family:'Cormorant Garamond',serif;color:#6b5b7a;margin-bottom:10px;font-size:1.3em}
+.theory-box ul{margin-left:20px}
+.theory-box li{margin-bottom:5px}
+.question{margin-bottom:20px;padding:15px;background:rgba(212,165,181,0.1);border-radius:15px}
+.question-text{font-weight:500;margin-bottom:12px;color:#5a4a5a}
+.options{display:flex;flex-direction:column;gap:8px}
+.option-label{display:flex;align-items:center;padding:10px 15px;background:white;border-radius:10px;cursor:pointer;transition:all 0.3s ease;border:2px solid transparent}
+.option-label:hover{background:rgba(212,165,181,0.2);border-color:#d4a5b5}
+input[type="radio"],input[type="checkbox"]{margin-right:12px;width:18px;height:18px;cursor:pointer}
+input[type="text"]{border:none;border-bottom:2px solid #b8a5c4;padding:8px 12px;font-family:'Montserrat',sans-serif;font-size:1em;background:transparent;width:200px;transition:all 0.3s ease}
+input[type="text"]:focus{outline:none;border-bottom-color:#6b5b7a;background:rgba(184,165,196,0.1)}
+.check-btn{display:block;margin:25px auto;padding:14px 45px;background:linear-gradient(135deg,#a890a8 0%,#8b7b8b 100%);border:none;border-radius:30px;color:white;font-family:'Montserrat',sans-serif;font-size:1em;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(147,112,147,0.3)}
+.check-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(147,112,147,0.4)}
+.result{text-align:center;padding:18px;margin-top:15px;border-radius:15px;font-size:1.1em;font-weight:500;display:none}
+.result.success{background:rgba(147,187,147,0.3);color:#4a7a4a;display:block}
+.result.error{background:rgba(220,147,147,0.3);color:#7a4a4a;display:block}
+.matching-exercise{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.matching-column{display:flex;flex-direction:column;gap:8px}
+.matching-item{padding:12px;background:white;border-radius:10px;border:2px solid #d4a5b5;cursor:pointer;transition:all 0.3s ease;font-size:0.95em}
+.matching-item:hover{background:rgba(212,165,181,0.2)}
+.matching-item.selected{background:rgba(184,165,196,0.4);border-color:#9a8ba8}
+.matching-item.correct{background:rgba(147,187,147,0.4);border-color:#4a7a4a}
+.matching-item.wrong{background:rgba(220,147,147,0.4);border-color:#7a4a4a}
+.vocab-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:15px 0}
+.vocab-item{padding:12px;background:white;border-radius:10px;border-left:4px solid #d4a5b5;font-size:0.95em}
+@media (max-width:768px){h1{font-size:2.5em}.module-section{padding:20px}.matching-exercise{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>English Trainer</h1>
+<p class="subtitle">Spotlight 7 — Полная программа с теорией и упражнениями</p>
+</header>
+
+<nav class="nav-menu">
+<button class="nav-btn active" onclick="showModule('module1',this)">Module 1</button>
+<button class="nav-btn" onclick="showModule('module2',this)">Module 2</button>
+<button class="nav-btn" onclick="showModule('module3',this)">Module 3</button>
+<button class="nav-btn" onclick="showModule('module4',this)">Module 4</button>
+<button class="nav-btn" onclick="showModule('module5',this)">Module 5</button>
+<button class="nav-btn" onclick="showModule('module6',this)">Module 6</button>
+<button class="nav-btn" onclick="showModule('module7',this)">Module 7</button>
+<button class="nav-btn" onclick="showModule('module8',this)">Module 8</button>
+<button class="nav-btn" onclick="showModule('module9',this)">Module 9</button>
+<button class="nav-btn" onclick="showModule('module10',this)">Module 10</button>
+<button class="nav-btn" onclick="showModule('progress',this)">Progress Checks</button>
+</nav>
+
+<!-- ============ MODULE 1: LIFESTYLES ============ -->
+<section id="module1" class="module-section active">
+<h2 class="module-title">Module 1: Lifestyles</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">1a — A city mouse or a country mouse?</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Lifestyles</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>lead unhealthy lifestyle</strong> — вести нездоровый образ жизни</div>
+<div class="vocab-item"><strong>heavy traffic</strong> — интенсивное движение</div>
+<div class="vocab-item"><strong>constant noise & pollution</strong> — постоянный шум и загрязнение</div>
+<div class="vocab-item"><strong>convenient public transport</strong> — удобный общественный транспорт</div>
+<div class="vocab-item"><strong>crowded streets</strong> — переполненные улицы</div>
+<div class="vocab-item"><strong>high cost of living</strong> — высокая стоимость жизни</div>
+<div class="vocab-item"><strong>fresh air</strong> — свежий воздух</div>
+<div class="vocab-item"><strong>peace and quiet</strong> — тишина и спокойствие</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Present Simple vs Present Continuous</h4>
+<div class="theory-box">
+<h5>Правила:</h5>
+<ul>
+<li><strong>Present Simple:</strong> постоянные действия, привычки, факты, расписания (usually, always, every day)</li>
+<li><strong>Present Continuous:</strong> действия сейчас, временные ситуации, запланированное будущее (now, at the moment, today)</li>
+<li><strong>Stative verbs</strong> НЕ используются в Continuous: like, love, hate, know, believe, understand, belong</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. She <input type="text" id="m1q1" placeholder="read"> (read) a book now.</p></div>
+<div class="question"><p class="question-text">2. They <input type="text" id="m1q2" placeholder="go"> (go) to school every day.</p></div>
+<div class="question"><p class="question-text">3. Look! It <input type="text" id="m1q3" placeholder="snow"> (snow) outside.</p></div>
+<div class="question"><p class="question-text">4. He <input type="text" id="m1q4" placeholder="not/like"> (not/like) coffee.</p></div>
+<div class="question"><p class="question-text">5. The train <input type="text" id="m1q5" placeholder="leave"> (leave) at 7 am.</p></div>
+<button class="check-btn" onclick="checkM1a()">Проверить</button>
+<div id="r_m1a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">1b — Better safe than sorry</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Safety Rules</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>alarm system</strong> — сигнализация</div>
+<div class="vocab-item"><strong>burglar</strong> — взломщик</div>
+<div class="vocab-item"><strong>peephole</strong> — глазок в двери</div>
+<div class="vocab-item"><strong>door chain</strong> — дверная цепочка</div>
+<div class="vocab-item"><strong>valuables</strong> — ценные вещи</div>
+<div class="vocab-item"><strong>switch on/off</strong> — включать/выключать</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Should/Shouldn't & Phrasal Verbs (run)</h4>
+<div class="theory-box">
+<h5>Should/Shouldn't</h5>
+<p>Используется для советов и рекомендаций.</p>
+<h5>Phrasal Verbs: run</h5>
+<ul>
+<li><strong>run into</strong> — случайно встретить</li>
+<li><strong>run out of</strong> — заканчиваться</li>
+<li><strong>run after</strong> — преследовать</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. Dan <input type="text" id="m1q6" placeholder="run ..."> Jo on his way home.</p></div>
+<div class="question"><p class="question-text">2. He <input type="text" id="m1q7" placeholder="run ..."> milk.</p></div>
+<div class="question"><p class="question-text">3. The police are <input type="text" id="m1q8" placeholder="run ..."> a robber.</p></div>
+<div class="question">
+<p class="question-text">4. You should / shouldn't look through the peephole before opening the door.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="m1q9" value="a"><span>a) should</span></label>
+<label class="option-label"><input type="radio" name="m1q9" value="b"><span>b) shouldn't</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkM1b()">Проверить</button>
+<div id="r_m1b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">1c — Hanging out</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Free-time Activities</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>hang out</strong> — проводить время</div>
+<div class="vocab-item"><strong>go surfing</strong> — заниматься серфингом</div>
+<div class="vocab-item"><strong>do the gardening</strong> — работать в саду</div>
+<div class="vocab-item"><strong>surf the Net</strong> — бродить в интернете</div>
+<div class="vocab-item"><strong>chat with friends</strong> — болтать с друзьями</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise: Prepositions</h4>
+<div class="question"><p class="question-text">1. There are plenty of activities to choose <input type="text" id="m1q10">.</p></div>
+<div class="question"><p class="question-text">2. I'm crazy <input type="text" id="m1q11"> skating.</p></div>
+<div class="question"><p class="question-text">3. We can go <input type="text" id="m1q12"> a ride on the carousel.</p></div>
+<button class="check-btn" onclick="checkM1c()">Проверить</button>
+<div id="r_m1c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 2: TALE TIME ============ -->
+<section id="module2" class="module-section">
+<h2 class="module-title">Module 2: Tale Time</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">2a — Bookworms</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Literary Genres</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>adventure story</strong> — приключенческая история</div>
+<div class="vocab-item"><strong>mystery</strong> — детектив</div>
+<div class="vocab-item"><strong>science fiction</strong> — научная фантастика</div>
+<div class="vocab-item"><strong>comedy</strong> — комедия</div>
+<div class="vocab-item"><strong>biography</strong> — биография</div>
+<div class="vocab-item"><strong>humorous story</strong> — юмористическая история</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Quiz: Literary Genres</h4>
+<div class="question"><p class="question-text">1. A(n) <input type="text" id="m2q1"> story is about a hero on an unusual journey.</p></div>
+<div class="question"><p class="question-text">2. A <input type="text" id="m2q2"> is a story about a crime.</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="m2q3"> fiction is about events in the future.</p></div>
+<button class="check-btn" onclick="checkM2a()">Проверить</button>
+<div id="r_m2a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">2b — A Classic Read</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Past Simple & Used to</h4>
+<div class="theory-box">
+<h5>Past Simple</h5>
+<p>Действия, завершённые в прошлом (yesterday, last week, ago).</p>
+<h5>Used to + infinitive</h5>
+<p>Привычки и регулярные действия в прошлом, которых больше нет.</p>
+</div>
+<div class="question"><p class="question-text">1. When I was young, I <input type="text" id="m2q4" placeholder="read"> comics every day.</p></div>
+<div class="question"><p class="question-text">2. Yesterday I <input type="text" id="m2q5" placeholder="go"> to the library.</p></div>
+<div class="question"><p class="question-text">3. She <input type="text" id="m2q6" placeholder="not use to"> like vegetables.</p></div>
+<button class="check-btn" onclick="checkM2b()">Проверить</button>
+<div id="r_m2b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">2c — Vanished!</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Sounds & Sequence of events</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>sigh</strong> — вздох</div>
+<div class="vocab-item"><strong>gasp</strong> — резкий вдох</div>
+<div class="vocab-item"><strong>whisper</strong> — шепот</div>
+<div class="vocab-item"><strong>yawn</strong> — зевок</div>
+<div class="vocab-item"><strong>snore</strong> — храп</div>
+<div class="vocab-item"><strong>gust of wind</strong> — порыв ветра</div>
+</div>
+<div class="theory-box">
+<h5>Sequence of events</h5>
+<p>as soon as, when, after, until, then</p>
+</div>
+<div class="question"><p class="question-text">1. The phone rang <input type="text" id="m2q7"> he entered the room.</p></div>
+<div class="question"><p class="question-text">2. They looked around <input type="text" id="m2q8"> they heard a noise.</p></div>
+<div class="question"><p class="question-text">3. I saw him <input type="text" id="m2q9" placeholder="leave"> the room.</p></div>
+<button class="check-btn" onclick="checkM2c()">Проверить</button>
+<div id="r_m2c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 3: PROFILES ============ -->
+<section id="module3" class="module-section">
+<h2 class="module-title">Module 3: Profiles</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">3a — Lead the way!</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Character Qualities</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>determined</strong> — решительный</div>
+<div class="vocab-item"><strong>creative</strong> — творческий</div>
+<div class="vocab-item"><strong>sociable</strong> — общительный</div>
+<div class="vocab-item"><strong>patient</strong> — терпеливый</div>
+<div class="vocab-item"><strong>imaginative</strong> — с богатым воображением</div>
+<div class="vocab-item"><strong>athletic</strong> — атлетичный</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Relative Pronouns</h4>
+<div class="theory-box">
+<h5>Relative pronouns & adverbs</h5>
+<ul>
+<li><strong>who/that</strong> — для людей</li>
+<li><strong>which/that</strong> — для вещей</li>
+<li><strong>whose</strong> — принадлежность</li>
+<li><strong>when</strong> — время</li>
+<li><strong>where</strong> — место</li>
+<li><strong>why</strong> — причина</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. This is the boy <input type="text" id="m3q1"> won the competition.</p></div>
+<div class="question"><p class="question-text">2. I visited the town <input type="text" id="m3q2"> I was born.</p></div>
+<div class="question"><p class="question-text">3. She's the girl <input type="text" id="m3q3"> brother is famous.</p></div>
+<div class="question"><p class="question-text">4. 2018 was the year <input type="text" id="m3q4"> they visited the USA.</p></div>
+<button class="check-btn" onclick="checkM3a()">Проверить</button>
+<div id="r_m3a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">3b — Who's who?</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Appearance</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>slim / thin / skinny</strong> — стройный / худой</div>
+<div class="vocab-item"><strong>well-built</strong> — крепкого телосложения</div>
+<div class="vocab-item"><strong>spiky hair</strong> — торчащие волосы</div>
+<div class="vocab-item"><strong>freckles</strong> — веснушки</div>
+<div class="vocab-item"><strong>shoulder-length</strong> — до плеч</div>
+<div class="vocab-item"><strong>middle-aged</strong> — средних лет</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: -ed/-ing Participles & Order of Adjectives</h4>
+<div class="theory-box">
+<h5>Participles</h5>
+<ul>
+<li><strong>-ing</strong> описывает предмет: a boring film</li>
+<li><strong>-ed</strong> описывает чувства: I am bored</li>
+</ul>
+<h5>Order of Adjectives</h5>
+<p>Opinion → Size → Age → Shape → Colour → Origin → Material</p>
+</div>
+<div class="question">
+<p class="question-text">1. The film was boring / bored.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="m3q5" value="a"><span>a) boring</span></label>
+<label class="option-label"><input type="radio" name="m3q5" value="b"><span>b) bored</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. She is interested / interesting in art.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="m3q6" value="a"><span>a) interested</span></label>
+<label class="option-label"><input type="radio" name="m3q6" value="b"><span>b) interesting</span></label>
+</div>
+</div>
+<div class="question"><p class="question-text">3. Put in order: a / traditional / Russian / wooden / doll</p>
+<input type="text" id="m3q7" style="width:300px"></div>
+<button class="check-btn" onclick="checkM3b()">Проверить</button>
+<div id="r_m3b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">3c — Against all odds</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Phrasal Verbs (give)</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>give back</strong> — возвращать</div>
+<div class="vocab-item"><strong>give away</strong> — раздавать</div>
+<div class="vocab-item"><strong>give up</strong> — бросать, сдаваться</div>
+</div>
+<div class="question"><p class="question-text">1. They <input type="text" id="m3q8" placeholder="give ..."> their old toys to the poor.</p></div>
+<div class="question"><p class="question-text">2. He <input type="text" id="m3q9" placeholder="give ..."> smoking last year.</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="m3q10" placeholder="Give ..."> me my book, please.</p></div>
+<button class="check-btn" onclick="checkM3c()">Проверить</button>
+<div id="r_m3c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 4: IN THE NEWS ============ -->
+<section id="module4" class="module-section">
+<h2 class="module-title">Module 4: In the News</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">4a — News Stories</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Types of Media</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>newspaper</strong> — газета</div>
+<div class="vocab-item"><strong>magazine</strong> — журнал</div>
+<div class="vocab-item"><strong>headline</strong> — заголовок</div>
+<div class="vocab-item"><strong>article</strong> — статья</div>
+<div class="vocab-item"><strong>interview</strong> — интервью</div>
+<div class="vocab-item"><strong>cartoon strip</strong> — комикс</div>
+<div class="vocab-item"><strong>chat show</strong> — ток-шоу</div>
+<div class="vocab-item"><strong>documentary</strong> — документальный фильм</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Past Continuous</h4>
+<div class="theory-box">
+<h5>Past Continuous (was/were + V-ing)</h5>
+<ul>
+<li>Действие в определённый момент в прошлом</li>
+<li>Действие, прерванное другим (Past Simple)</li>
+<li>Два одновременных действия</li>
+<li>Маркеры: while, when, as, at 8 o'clock yesterday</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. At 8 pm yesterday I <input type="text" id="m4q1" placeholder="watch"> TV.</p></div>
+<div class="question"><p class="question-text">2. They <input type="text" id="m4q2" placeholder="not/sleep"> when I called.</p></div>
+<div class="question"><p class="question-text">3. What <input type="text" id="m4q3" placeholder="you/do"> at 10 o'clock?</p></div>
+<div class="question"><p class="question-text">4. Kate <input type="text" id="m4q4" placeholder="cook"> breakfast when she heard a noise.</p></div>
+<button class="check-btn" onclick="checkM4a()">Проверить</button>
+<div id="r_m4a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">4b — Did you hear about...?</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Past Simple vs Past Continuous & Phrasal Verbs (go)</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>go off</strong> — портиться / звенеть</div>
+<div class="vocab-item"><strong>go on</strong> — продолжаться</div>
+<div class="vocab-item"><strong>go with</strong> — подходить, сочетаться</div>
+</div>
+<div class="question"><p class="question-text">1. This sweater <input type="text" id="m4q5" placeholder="go ..."> your trousers.</p></div>
+<div class="question"><p class="question-text">2. Put the meat in the fridge or it'll <input type="text" id="m4q6" placeholder="go ...">.</p></div>
+<div class="question"><p class="question-text">3. My alarm clock <input type="text" id="m4q7" placeholder="go ..."> at 7 o'clock.</p></div>
+<div class="question"><p class="question-text">4. Mr Shiao <input type="text" id="m4q8" placeholder="drive"> his taxi when a turtle fell.</p></div>
+<button class="check-btn" onclick="checkM4b()">Проверить</button>
+<div id="r_m4b" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 5: WHAT THE FUTURE HOLDS ============ -->
+<section id="module5" class="module-section">
+<h2 class="module-title">Module 5: What the Future Holds</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">5a — Predictions</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Predictions</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>glass dome</strong> — стеклянный купол</div>
+<div class="vocab-item"><strong>mini-submarine</strong> — мини-субмарина</div>
+<div class="vocab-item"><strong>robotic housemaid</strong> — робот-домработница</div>
+<div class="vocab-item"><strong>traffic jam</strong> — дорожная пробка</div>
+<div class="vocab-item"><strong>underwater city</strong> — подводный город</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Future Simple (will)</h4>
+<div class="theory-box">
+<h5>Future Simple (will + V)</h5>
+<ul>
+<li>Предсказания, основанные на мнении (I think, I'm sure)</li>
+<li>Спонтанные решения</li>
+<li>Обещания, угрозы, предложения</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. I think people <input type="text" id="m5q1" placeholder="will + verb"> (live) on the moon.</p></div>
+<div class="question"><p class="question-text">2. She <input type="text" id="m5q2" placeholder="will + verb"> (not/come) tomorrow.</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="m5q3" placeholder="Will + subject + verb"> (you/help) me?</p></div>
+<button class="check-btn" onclick="checkM5a()">Проверить</button>
+<div id="r_m5a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">5b — Gadget Madness</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Future Forms & Conditionals (0 & 1)</h4>
+<div class="theory-box">
+<h5>Future Forms</h5>
+<ul>
+<li><strong>will</strong> — предсказания, спонтанные решения</li>
+<li><strong>be going to</strong> — планы, предсказания с очевидными признаками</li>
+<li><strong>Present Continuous</strong> — запланированные действия</li>
+<li><strong>Present Simple</strong> — расписания</li>
+</ul>
+<h5>Conditionals</h5>
+<p><strong>Zero:</strong> If/When + Present Simple, Present Simple</p>
+<p><strong>First:</strong> If/Unless + Present Simple, will + infinitive</p>
+</div>
+<div class="question"><p class="question-text">1. If it <input type="text" id="m5q4" placeholder="rain"> (not/rain), the plants die.</p></div>
+<div class="question"><p class="question-text">2. If you run, you <input type="text" id="m5q5" placeholder="catch"> (catch) the train.</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="m5q6" placeholder="I/call"> (I/call) you if I finish work early.</p></div>
+<div class="question"><p class="question-text">4. Unless you <input type="text" id="m5q7" placeholder="study"> (study) hard, you will fail.</p></div>
+<button class="check-btn" onclick="checkM5b()">Проверить</button>
+<div id="r_m5b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">5c — What's your opinion?</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Phrasal Verbs (look)</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>look after</strong> — заботиться</div>
+<div class="vocab-item"><strong>look for</strong> — искать</div>
+<div class="vocab-item"><strong>look up</strong> — искать в справочнике</div>
+<div class="vocab-item"><strong>look forward to</strong> — с нетерпением ждать</div>
+</div>
+<div class="question"><p class="question-text">1. We're really <input type="text" id="m5q8" placeholder="look ..."> our summer holidays.</p></div>
+<div class="question"><p class="question-text">2. Who will <input type="text" id="m5q9" placeholder="look ..."> your little brother?</p></div>
+<div class="question"><p class="question-text">3. I'll get the dictionary and <input type="text" id="m5q10" placeholder="look ..."> the words.</p></div>
+<button class="check-btn" onclick="checkM5c()">Проверить</button>
+<div id="r_m5c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 6: HAVING FUN ============ -->
+<section id="module6" class="module-section">
+<h2 class="module-title">Module 6: Having Fun</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">6a — The Fun Starts Here!</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Theme Parks</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>pirate ship</strong> — пиратский корабль</div>
+<div class="vocab-item"><strong>big wheel</strong> — колесо обозрения</div>
+<div class="vocab-item"><strong>rollercoaster</strong> — американские горки</div>
+<div class="vocab-item"><strong>trapeze artists</strong> — артисты на трапеции</div>
+<div class="vocab-item"><strong>haunted mansion</strong> — дом с привидениями</div>
+<div class="vocab-item"><strong>candy floss</strong> — сахарная вата</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Present Perfect</h4>
+<div class="theory-box">
+<h5>Present Perfect (have/has + V3)</h5>
+<ul>
+<li>Действие, завершённое к моменту речи, с результатом</li>
+<li>Действие, начавшееся в прошлом и продолжающееся (for, since)</li>
+<li>Жизненный опыт</li>
+<li>Маркеры: ever, never, already, yet, just, before, recently</li>
+</ul>
+<p><strong>has gone</strong> — ушёл и ещё там | <strong>has been</strong> — был и вернулся</p>
+</div>
+<div class="question"><p class="question-text">1. <input type="text" id="m6q1" placeholder="Have/Has"> you ever been to a theme park?</p></div>
+<div class="question"><p class="question-text">2. She <input type="text" id="m6q2" placeholder="has/have"> never seen a ghost.</p></div>
+<div class="question"><p class="question-text">3. I <input type="text" id="m6q3" placeholder="already/read"> (already/read) the letter.</p></div>
+<div class="question"><p class="question-text">4. They <input type="text" id="m6q4" placeholder="not/play"> (not/play) the game yet.</p></div>
+<div class="question"><p class="question-text">5. John isn't here. He <input type="text" id="m6q5" placeholder="go"> (go) shopping.</p></div>
+<button class="check-btn" onclick="checkM6a()">Проверить</button>
+<div id="r_m6a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">6b — Teen Camps</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Phrasal Verbs (come)</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>come back</strong> — возвращаться</div>
+<div class="vocab-item"><strong>come round</strong> — заходить, приезжать</div>
+<div class="vocab-item"><strong>come out</strong> — выходить, публиковаться</div>
+<div class="vocab-item"><strong>come across</strong> — натолкнуться</div>
+</div>
+<div class="question"><p class="question-text">1. He <input type="text" id="m6q6" placeholder="come ..."> this book in an antiques shop.</p></div>
+<div class="question"><p class="question-text">2. They <input type="text" id="m6q7" placeholder="come ..."> to their hometown.</p></div>
+<div class="question"><p class="question-text">3. His new book <input type="text" id="m6q8" placeholder="come ..."> soon.</p></div>
+<div class="question"><p class="question-text">4. Mary is going <input type="text" id="m6q9" placeholder="come ..."> to see my new stereo.</p></div>
+<button class="check-btn" onclick="checkM6b()">Проверить</button>
+<div id="r_m6b" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 7: IN THE SPOTLIGHT ============ -->
+<section id="module7" class="module-section">
+<h2 class="module-title">Module 7: In the Spotlight</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">7a — Walk of Fame</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Celebrities</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>actor/actress</strong> — актёр/актриса</div>
+<div class="vocab-item"><strong>film director</strong> — режиссёр</div>
+<div class="vocab-item"><strong>opera singer</strong> — оперный певец</div>
+<div class="vocab-item"><strong>figure skater</strong> — фигурист</div>
+<div class="vocab-item"><strong>TV presenter</strong> — телеведущий</div>
+<div class="vocab-item"><strong>talented / successful / well-known</strong></div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Comparatives & Superlatives</h4>
+<div class="theory-box">
+<h5>Comparatives</h5>
+<ul>
+<li>Короткие: + er (tall → taller)</li>
+<li>Длинные: more + adj (beautiful → more beautiful)</li>
+<li>Исключения: good → better, bad → worse, far → farther/further</li>
+</ul>
+<h5>Superlatives</h5>
+<ul>
+<li>Короткие: the + est (the tallest)</li>
+<li>Длинные: the most + adj (the most beautiful)</li>
+</ul>
+<h5>Constructions</h5>
+<ul>
+<li>as + adj + as (такой же, как)</li>
+<li>not as/so + adj + as (не такой, как)</li>
+<li>less + adj + than (менее, чем)</li>
+<li>the + comp ..., the + comp ... (чем ..., тем ...)</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. She is <input type="text" id="m7q1" placeholder="tall"> than her sister.</p></div>
+<div class="question"><p class="question-text">2. This is the <input type="text" id="m7q2" placeholder="good"> film I've ever seen.</p></div>
+<div class="question"><p class="question-text">3. Kamila Valieva is <input type="text" id="m7q3" placeholder="young"> than Anna Shcherbakova.</p></div>
+<div class="question"><p class="question-text">4. Kamila Valieva is the <input type="text" id="m7q4" placeholder="talented"> jumper in skating.</p></div>
+<div class="question"><p class="question-text">5. Barcelona is <input type="text" id="m7q5" placeholder="sunny"> than London.</p></div>
+<div class="question"><p class="question-text">6. That's the <input type="text" id="m7q6" placeholder="bad"> film I've ever seen.</p></div>
+<button class="check-btn" onclick="checkM7a()">Проверить</button>
+<div id="r_m7a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">7b — Streaming Frenzy!</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Films</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>comedy / fantasy / animation</strong></div>
+<div class="vocab-item"><strong>horror movie / science fiction</strong></div>
+<div class="vocab-item"><strong>adventure / romance / thriller</strong></div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Passive Voice & Present Perfect vs Past Simple</h4>
+<div class="theory-box">
+<h5>Passive Voice: be + V3</h5>
+<ul>
+<li>Present Simple: is/are + V3</li>
+<li>Past Simple: was/were + V3</li>
+<li>Present Perfect: has/have been + V3</li>
+<li>Future Simple: will be + V3</li>
+</ul>
+<h5>Present Perfect vs Past Simple</h5>
+<ul>
+<li><strong>Past Simple</strong> — действие в указанное время в прошлом</li>
+<li><strong>Present Perfect</strong> — действие в неопределённое время, с результатом</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. Comedies <input type="text" id="m7q7" placeholder="watch"> (watch) by millions.</p></div>
+<div class="question"><p class="question-text">2. "Romeo and Juliet" <input type="text" id="m7q8" placeholder="direct"> (direct) by Carlo Carlei.</p></div>
+<div class="question"><p class="question-text">3. We <input type="text" id="m7q9" placeholder="watch"> (watch) a new comedy last night.</p></div>
+<div class="question"><p class="question-text">4. <input type="text" id="m7q10" placeholder="you/ever/watch"> (you/ever/watch) a thriller?</p></div>
+<button class="check-btn" onclick="checkM7b()">Проверить</button>
+<div id="r_m7b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">7c — In the Charts!</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Phrasal Verbs (turn) & Adjectives -ful/-less</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>turn into</strong> — превращаться</div>
+<div class="vocab-item"><strong>turn off</strong> — выключать</div>
+<div class="vocab-item"><strong>turn on</strong> — включать</div>
+</div>
+<div class="question"><p class="question-text">1. In Shrek, Fiona <input type="text" id="m7q11" placeholder="turn ..."> an ogre at midnight.</p></div>
+<div class="question"><p class="question-text">2. Please <input type="text" id="m7q12" placeholder="turn ..."> the radio. I want to hear the news.</p></div>
+<div class="question"><p class="question-text">3. I'm very tired. I think I'll <input type="text" id="m7q13" placeholder="turn ..."> the lights.</p></div>
+<button class="check-btn" onclick="checkM7c()">Проверить</button>
+<div id="r_m7c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 8: GREEN ISSUES ============ -->
+<section id="module8" class="module-section">
+<h2 class="module-title">Module 8: Green Issues</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">8a — Save the Earth</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Pollution</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>acid rain</strong> — кислотный дождь</div>
+<div class="vocab-item"><strong>air pollution</strong> — загрязнение воздуха</div>
+<div class="vocab-item"><strong>toxic fumes</strong> — токсичные испарения</div>
+<div class="vocab-item"><strong>factory waste</strong> — заводские отходы</div>
+<div class="vocab-item"><strong>power station</strong> — электростанция</div>
+<div class="vocab-item"><strong>endangered species</strong> — исчезающие виды</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Present Perfect Continuous</h4>
+<div class="theory-box">
+<h5>Present Perfect Continuous (have/has been + V-ing)</h5>
+<ul>
+<li>Действие началось в прошлом и продолжается</li>
+<li>Действие только что закончилось с видимым результатом</li>
+<li>Маркеры: since, for, how long, all day</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. I <input type="text" id="m8q1" placeholder="wait"> (wait) for two hours.</p></div>
+<div class="question"><p class="question-text">2. Jill <input type="text" id="m8q2" placeholder="swim"> (swim) in this lake since she was a child.</p></div>
+<div class="question"><p class="question-text">3. How long <input type="text" id="m8q3" placeholder="you/take care"> (you/take care) of this bird?</p></div>
+<div class="question"><p class="question-text">4. They <input type="text" id="m8q4" placeholder="study"> (study) very hard for their exams.</p></div>
+<div class="question"><p class="question-text">5. The government <input type="text" id="m8q5" placeholder="try"> (try) to reduce pollution for years.</p></div>
+<button class="check-btn" onclick="checkM8a()">Проверить</button>
+<div id="r_m8a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">8b — Eco-helpers</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Question Tags & (don't) have to / must / mustn't</h4>
+<div class="theory-box">
+<h5>Question Tags</h5>
+<p>Утверждение → отрицательный хвост | Отрицание → утвердительный хвост</p>
+<h5>Modal Verbs</h5>
+<ul>
+<li><strong>must</strong> — должен (обязательство, совет)</li>
+<li><strong>mustn't</strong> — нельзя (запрет)</li>
+<li><strong>have to</strong> — должен (внешняя необходимость)</li>
+<li><strong>don't have to</strong> — не нужно (отсутствие необходимости)</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. They live in London, <input type="text" id="m8q6" placeholder="...">?</p></div>
+<div class="question"><p class="question-text">2. He didn't go to the park yesterday, <input type="text" id="m8q7" placeholder="...">?</p></div>
+<div class="question"><p class="question-text">3. The children are watching TV at the moment, <input type="text" id="m8q8" placeholder="...">?</p></div>
+<div class="question"><p class="question-text">4. She can't drive, <input type="text" id="m8q9" placeholder="...">?</p></div>
+<div class="question"><p class="question-text">5. The air is polluted, <input type="text" id="m8q10" placeholder="...">?</p></div>
+<div class="question"><p class="question-text">6. You <input type="text" id="m8q11" placeholder="must"> smoke in hospitals. It's forbidden.</p></div>
+<div class="question"><p class="question-text">7. I <input type="text" id="m8q12" placeholder="have to"> do it tonight. It's urgent!</p></div>
+<div class="question"><p class="question-text">8. You <input type="text" id="m8q13" placeholder="don't have to"> water the plants. I've done it.</p></div>
+<button class="check-btn" onclick="checkM8b()">Проверить</button>
+<div id="r_m8b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">8c — Born Free</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Animals & Habitats & Phrasal Verbs (make)</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>desert / tropical rainforest</strong></div>
+<div class="vocab-item"><strong>wetlands / savannah</strong></div>
+<div class="vocab-item"><strong>the South Pole</strong></div>
+<div class="vocab-item"><strong>alligator / parrot / penguin</strong></div>
+</div>
+<div class="theory-box">
+<h5>Phrasal Verbs: make</h5>
+<ul>
+<li><strong>make up</strong> — выдумывать</li>
+<li><strong>make out</strong> — понимать, разбирать</li>
+<li><strong>make up with sb</strong> — мириться</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. It's not true. She <input type="text" id="m8q14" placeholder="make ..."> the whole story.</p></div>
+<div class="question"><p class="question-text">2. He has <input type="text" id="m8q15" placeholder="make ..."> with Tom after their quarrel.</p></div>
+<div class="question"><p class="question-text">3. I can't <input type="text" id="m8q16" placeholder="make ..."> your handwriting.</p></div>
+<button class="check-btn" onclick="checkM8c()">Проверить</button>
+<div id="r_m8c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 9: SHOPPING TIME ============ -->
+<section id="module9" class="module-section">
+<h2 class="module-title">Module 9: Shopping Time</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">9a — You are what you eat!</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Food & Drinks & Containers</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>dairy products</strong> — молочные продукты</div>
+<div class="vocab-item"><strong>cereal / grains / pasta</strong></div>
+<div class="vocab-item"><strong>beverages</strong> — напитки</div>
+<div class="vocab-item"><strong>junk food</strong> — вредная еда</div>
+<div class="vocab-item"><strong>poultry</strong> — птица</div>
+<div class="vocab-item"><strong>herbs & spices</strong> — травы и специи</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Quantifiers</h4>
+<div class="theory-box">
+<h5>Quantifiers</h5>
+<ul>
+<li><strong>Countable:</strong> many, a few, few</li>
+<li><strong>Uncountable:</strong> much, a little, little</li>
+<li><strong>Both:</strong> some, any, a lot of</li>
+</ul>
+</div>
+<div class="question">
+<p class="question-text">1. Is there any / few sugar in the cupboard?</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="m9q1" value="a"><span>a) any</span></label>
+<label class="option-label"><input type="radio" name="m9q1" value="b"><span>b) few</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. There aren't any / some apples left.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="m9q2" value="a"><span>a) any</span></label>
+<label class="option-label"><input type="radio" name="m9q2" value="b"><span>b) some</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. We haven't got many / much bananas left.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="m9q3" value="a"><span>a) many</span></label>
+<label class="option-label"><input type="radio" name="m9q3" value="b"><span>b) much</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. I'll have a little / few ice cream with my pie.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="m9q4" value="a"><span>a) a little</span></label>
+<label class="option-label"><input type="radio" name="m9q4" value="b"><span>b) a few</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. There are a lot of / little eggs in the fridge.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="m9q5" value="a"><span>a) a lot of</span></label>
+<label class="option-label"><input type="radio" name="m9q5" value="b"><span>b) little</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkM9a()">Проверить</button>
+<div id="r_m9a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">9b — Can I help you?</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Present Perfect vs Present Perfect Continuous & to-infinitive vs -ing</h4>
+<div class="theory-box">
+<h5>to-infinitive vs -ing</h5>
+<ul>
+<li><strong>forget + to V</strong> — забыть сделать</li>
+<li><strong>forget + V-ing</strong> — забыть, что делал</li>
+<li><strong>remember + to V</strong> — помнить, что надо сделать</li>
+<li><strong>remember + V-ing</strong> — помнить, что делал</li>
+<li><strong>stop + to V</strong> — остановиться, чтобы сделать</li>
+<li><strong>stop + V-ing</strong> — прекратить делать</li>
+</ul>
+</div>
+<div class="question"><p class="question-text">1. I forgot <input type="text" id="m9q6" placeholder="pack"> (pack) my towel!</p></div>
+<div class="question"><p class="question-text">2. I will never forget <input type="text" id="m9q7" placeholder="swim"> (swim) in the Red Sea.</p></div>
+<div class="question"><p class="question-text">3. As the sun was bright, I stopped <input type="text" id="m9q8" placeholder="put"> (put) on my glasses.</p></div>
+<div class="question"><p class="question-text">4. When Ann was 15, she stopped <input type="text" id="m9q9" placeholder="write"> (write) her diary.</p></div>
+<button class="check-btn" onclick="checkM9b()">Проверить</button>
+<div id="r_m9b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">9c — Gifts for Everyone!</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Phrasal Verbs (take) & Order of Adjectives</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>take off</strong> — снимать (одежду)</div>
+<div class="vocab-item"><strong>take back</strong> — возвращать</div>
+<div class="vocab-item"><strong>take out</strong> — приглашать</div>
+<div class="vocab-item"><strong>take away</strong> — уносить с собой</div>
+</div>
+<div class="question"><p class="question-text">1. Why don't you take <input type="text" id="m9q10"> your jumper if you're hot?</p></div>
+<div class="question"><p class="question-text">2. I am going to take you <input type="text" id="m9q11"> for your birthday.</p></div>
+<div class="question"><p class="question-text">3. A chicken burger and fries to take <input type="text" id="m9q12">, please.</p></div>
+<div class="question"><p class="question-text">4. It was the wrong size, so I had to take it <input type="text" id="m9q13"> to the shop.</p></div>
+<button class="check-btn" onclick="checkM9c()">Проверить</button>
+<div id="r_m9c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 10: HEALTHY BODY ============ -->
+<section id="module10" class="module-section">
+<h2 class="module-title">Module 10: Healthy Body, Healthy Mind</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">10a — Stress Free</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Stress Signs</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>headache</strong> — головная боль</div>
+<div class="vocab-item"><strong>stomachache</strong> — боль в желудке</div>
+<div class="vocab-item"><strong>toothache</strong> — зубная боль</div>
+<div class="vocab-item"><strong>earache</strong> — боль в ухе</div>
+<div class="vocab-item"><strong>sore throat</strong> — боль в горле</div>
+<div class="vocab-item"><strong>high fever</strong> — высокая температура</div>
+<div class="vocab-item"><strong>exhausted</strong> — измученный</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Should / If-Unless (practice)</h4>
+<div class="theory-box">
+<h5>Should/Shouldn't</h5>
+<p>Советы и рекомендации.</p>
+<h5>Unless = if... not</h5>
+<p>Unless you study, you will fail = If you don't study, you will fail.</p>
+</div>
+<div class="question"><p class="question-text">1. You <input type="text" id="m10q1" placeholder="should"> get enough sleep.</p></div>
+<div class="question"><p class="question-text">2. You won't pass <input type="text" id="m10q2" placeholder="unless"> you study.</p></div>
+<div class="question"><p class="question-text">3. If the children don't behave, they <input type="text" id="m10q3" placeholder="not/go"> (not/go) to the zoo.</p></div>
+<div class="question"><p class="question-text">4. <input type="text" id="m10q4" placeholder="Unless"> the children behave well, they can't go to the movies.</p></div>
+<button class="check-btn" onclick="checkM10a()">Проверить</button>
+<div id="r_m10a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">10b — Accident-prone</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📚 Vocabulary: Accidents & Injuries</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>cut your finger</strong> — порезать палец</div>
+<div class="vocab-item"><strong>break your leg</strong> — сломать ногу</div>
+<div class="vocab-item"><strong>chip a tooth</strong> — отколоть зуб</div>
+<div class="vocab-item"><strong>twist your ankle</strong> — вывихнуть лодыжку</div>
+<div class="vocab-item"><strong>sprain your wrist</strong> — растянуть запястье</div>
+<div class="vocab-item"><strong>bang your head</strong> — удариться головой</div>
+<div class="vocab-item"><strong>hurt your back</strong> — повредить спину</div>
+</div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Reflexive Pronouns & Modal Verb "might"</h4>
+<div class="theory-box">
+<h5>Reflexive Pronouns</h5>
+<p>myself, yourself, himself, herself, itself, ourselves, yourselves, themselves</p>
+<h5>Might</h5>
+<p>Выражает вероятность в настоящем: Your ankle might be broken.</p>
+</div>
+<div class="question"><p class="question-text">1. Sarah made this sweater <input type="text" id="m10q5" placeholder="...">.</p></div>
+<div class="question"><p class="question-text">2. My brother irons his shirts by <input type="text" id="m10q6" placeholder="...">.</p></div>
+<div class="question"><p class="question-text">3. I cut <input type="text" id="m10q7" placeholder="..."> when I was cooking.</p></div>
+<div class="question"><p class="question-text">4. Don't run so fast! You <input type="text" id="m10q8" placeholder="might break"> (break) your leg.</p></div>
+<div class="question"><p class="question-text">5. Oh, I see blood. Your finger <input type="text" id="m10q9" placeholder="might be cut"> (cut).</p></div>
+<button class="check-btn" onclick="checkM10b()">Проверить</button>
+<div id="r_m10b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">10c — Doctor, doctor!</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">📖 Grammar: Phrasal Verbs (fall)</h4>
+<div class="vocab-list">
+<div class="vocab-item"><strong>fall apart</strong> — разваливаться</div>
+<div class="vocab-item"><strong>fall behind</strong> — отставать</div>
+<div class="vocab-item"><strong>fall out with sb</strong> — ссориться</div>
+</div>
+<div class="question"><p class="question-text">1. It's hurtful when you fall <input type="text" id="m10q10"> with friends.</p></div>
+<div class="question"><p class="question-text">2. If you revise regularly, you won't fall <input type="text" id="m10q11"> at school.</p></div>
+<div class="question"><p class="question-text">3. That chair has fallen <input type="text" id="m10q12">. It needs fixing.</p></div>
+<button class="check-btn" onclick="checkM10c()">Проверить</button>
+<div id="r_m10c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ PROGRESS CHECKS ============ -->
+<section id="progress" class="module-section">
+<h2 class="module-title">Progress Checks</h2>
+
+<!-- PC1 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 1 (Module 1)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Match the words</h4>
+<div class="matching-exercise" id="matchPC1">
+<div class="matching-column">
+<div class="matching-item" data-side="left" data-pair="1">1. alarm</div>
+<div class="matching-item" data-side="left" data-pair="2">2. heavy</div>
+<div class="matching-item" data-side="left" data-pair="3">3. beautiful</div>
+<div class="matching-item" data-side="left" data-pair="4">4. crowded</div>
+<div class="matching-item" data-side="left" data-pair="5">5. public</div>
+<div class="matching-item" data-side="left" data-pair="6">6. door</div>
+<div class="matching-item" data-side="left" data-pair="7">7. feel</div>
+<div class="matching-item" data-side="left" data-pair="8">8. fresh</div>
+</div>
+<div class="matching-column">
+<div class="matching-item" data-side="right" data-pair="5">A. transport</div>
+<div class="matching-item" data-side="right" data-pair="2">B. traffic</div>
+<div class="matching-item" data-side="right" data-pair="3">C. landscapes</div>
+<div class="matching-item" data-side="right" data-pair="4">D. streets</div>
+<div class="matching-item" data-side="right" data-pair="1">E. system</div>
+<div class="matching-item" data-side="right" data-pair="6">F. chain</div>
+<div class="matching-item" data-side="right" data-pair="7">G. isolated</div>
+<div class="matching-item" data-side="right" data-pair="8">H. air</div>
+</div>
+</div>
+<button class="check-btn" onclick="checkMatch('matchPC1','r_PC1',8)">Проверить</button>
+<div id="r_PC1" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Choose the correct word</h4>
+<div class="question">
+<p class="question-text">1. John leads an unhealthy / unwelcome lifestyle.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q1" value="a"><span>a) unhealthy</span></label>
+<label class="option-label"><input type="radio" name="pc1q1" value="b"><span>b) unwelcome</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. We really like the landscape / peace and quiet in this village.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q2" value="a"><span>a) landscape</span></label>
+<label class="option-label"><input type="radio" name="pc1q2" value="b"><span>b) peace and quiet</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. There is a low rate of unemployment / living in big cities.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q3" value="a"><span>a) unemployment</span></label>
+<label class="option-label"><input type="radio" name="pc1q3" value="b"><span>b) living</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. It's a crime to look / break into a house.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q4" value="a"><span>a) look</span></label>
+<label class="option-label"><input type="radio" name="pc1q4" value="b"><span>b) break</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. I miss the hustle and noise / bustle of LA.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q5" value="a"><span>a) noise</span></label>
+<label class="option-label"><input type="radio" name="pc1q5" value="b"><span>b) bustle</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">6. I love saying / chatting with my friends.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q6" value="a"><span>a) saying</span></label>
+<label class="option-label"><input type="radio" name="pc1q6" value="b"><span>b) chatting</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">7. Public transport is convenient / heavy in my town.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q7" value="a"><span>a) convenient</span></label>
+<label class="option-label"><input type="radio" name="pc1q7" value="b"><span>b) heavy</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">8. You are hometown / homesick when you miss home.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q8" value="a"><span>a) hometown</span></label>
+<label class="option-label"><input type="radio" name="pc1q8" value="b"><span>b) homesick</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC1()">Проверить</button>
+<div id="r_PC1b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Phrasal Verbs & Prepositions</h4>
+<div class="question">
+<p class="question-text">1. Many young people hang on / out at shopping centres.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q9" value="a"><span>a) on</span></label>
+<label class="option-label"><input type="radio" name="pc1q9" value="b"><span>b) out</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. The police are running into / after a burglar.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q10" value="a"><span>a) into</span></label>
+<label class="option-label"><input type="radio" name="pc1q10" value="b"><span>b) after</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. There are lots of books to choose from / in.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q11" value="a"><span>a) from</span></label>
+<label class="option-label"><input type="radio" name="pc1q11" value="b"><span>b) in</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. He's crazy of / about football.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc1q12" value="a"><span>a) of</span></label>
+<label class="option-label"><input type="radio" name="pc1q12" value="b"><span>b) about</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC1c()">Проверить</button>
+<div id="r_PC1c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Present Simple vs Present Continuous</h4>
+<div class="question"><p class="question-text">1. John <input type="text" id="pc1q13" placeholder="visit"> (visit) his parents this weekend.</p></div>
+<div class="question"><p class="question-text">2. He <input type="text" id="pc1q14" placeholder="take"> (take) me to school every day.</p></div>
+<div class="question"><p class="question-text">3. Be quiet. The baby <input type="text" id="pc1q15" placeholder="sleep"> (sleep).</p></div>
+<div class="question"><p class="question-text">4. He <input type="text" id="pc1q16" placeholder="always/bite"> (always/bite) his nails.</p></div>
+<div class="question"><p class="question-text">5. Water <input type="text" id="pc1q17" placeholder="not/boil"> (not/boil) at 80°C.</p></div>
+<div class="question"><p class="question-text">6. The bus <input type="text" id="pc1q18" placeholder="leave"> (leave) at 6:30 pm.</p></div>
+<button class="check-btn" onclick="checkPC1d()">Проверить</button>
+<div id="r_PC1d" class="result"></div>
+</div>
+</div>
+
+<!-- PC2 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 2 (Module 2)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Choose the odd word out</h4>
+<div class="question">
+<p class="question-text">1. scared - shocked - frightened - relieved</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q1" value="a"><span>a) scared</span></label>
+<label class="option-label"><input type="radio" name="pc2q1" value="b"><span>b) shocked</span></label>
+<label class="option-label"><input type="radio" name="pc2q1" value="c"><span>c) frightened</span></label>
+<label class="option-label"><input type="radio" name="pc2q1" value="d"><span>d) relieved</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. cape - uniform - pipe - hat</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q2" value="a"><span>a) cape</span></label>
+<label class="option-label"><input type="radio" name="pc2q2" value="b"><span>b) uniform</span></label>
+<label class="option-label"><input type="radio" name="pc2q2" value="c"><span>c) pipe</span></label>
+<label class="option-label"><input type="radio" name="pc2q2" value="d"><span>d) hat</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. ordinary - typical - incredible - usual</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q3" value="a"><span>a) ordinary</span></label>
+<label class="option-label"><input type="radio" name="pc2q3" value="b"><span>b) typical</span></label>
+<label class="option-label"><input type="radio" name="pc2q3" value="c"><span>c) incredible</span></label>
+<label class="option-label"><input type="radio" name="pc2q3" value="d"><span>d) usual</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. comedy - mystery - science fiction - literature</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q4" value="a"><span>a) comedy</span></label>
+<label class="option-label"><input type="radio" name="pc2q4" value="b"><span>b) mystery</span></label>
+<label class="option-label"><input type="radio" name="pc2q4" value="c"><span>c) science fiction</span></label>
+<label class="option-label"><input type="radio" name="pc2q4" value="d"><span>d) literature</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. mystery - drama - glance - myth</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q5" value="a"><span>a) mystery</span></label>
+<label class="option-label"><input type="radio" name="pc2q5" value="b"><span>b) drama</span></label>
+<label class="option-label"><input type="radio" name="pc2q5" value="c"><span>c) glance</span></label>
+<label class="option-label"><input type="radio" name="pc2q5" value="d"><span>d) myth</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC2()">Проверить</button>
+<div id="r_PC2" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Collocations</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: wear, tell, create, solve, smoke, use, overcome, put, play, explore</p>
+<div class="question"><p class="question-text">1. <input type="text" id="pc2q6"> a story</p></div>
+<div class="question"><p class="question-text">2. <input type="text" id="pc2q7"> a magnifying glass</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="pc2q8"> an area</p></div>
+<div class="question"><p class="question-text">4. <input type="text" id="pc2q9"> a role</p></div>
+<div class="question"><p class="question-text">5. <input type="text" id="pc2q10"> a character</p></div>
+<div class="question"><p class="question-text">6. <input type="text" id="pc2q11"> criminals behind bars</p></div>
+<div class="question"><p class="question-text">7. <input type="text" id="pc2q12"> a crime</p></div>
+<div class="question"><p class="question-text">8. <input type="text" id="pc2q13"> a pipe</p></div>
+<button class="check-btn" onclick="checkPC2b()">Проверить</button>
+<div id="r_PC2b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Used to</h4>
+<div class="question"><p class="question-text">1. play football (X) — <input type="text" id="pc2q14" style="width:350px"></p></div>
+<div class="question"><p class="question-text">2. wake up early (✓) — <input type="text" id="pc2q15" style="width:350px"></p></div>
+<div class="question"><p class="question-text">3. play computer games (✓) — <input type="text" id="pc2q16" style="width:350px"></p></div>
+<div class="question"><p class="question-text">4. go to the seaside (✓) — <input type="text" id="pc2q17" style="width:350px"></p></div>
+<div class="question"><p class="question-text">5. play with toys (X) — <input type="text" id="pc2q18" style="width:350px"></p></div>
+<button class="check-btn" onclick="checkPC2c()">Проверить</button>
+<div id="r_PC2c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Sequence of Events</h4>
+<div class="question">
+<p class="question-text">1. He waited in the airport as soon as / until the plane arrived.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q19" value="a"><span>a) as soon as</span></label>
+<label class="option-label"><input type="radio" name="pc2q19" value="b"><span>b) until</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. Mary called her mother until / as soon as she got home.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q20" value="a"><span>a) until</span></label>
+<label class="option-label"><input type="radio" name="pc2q20" value="b"><span>b) as soon as</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. He tried to find a good job until / after he graduated.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q21" value="a"><span>a) until</span></label>
+<label class="option-label"><input type="radio" name="pc2q21" value="b"><span>b) after</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. She was in bed after / when the phone rang.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q22" value="a"><span>a) after</span></label>
+<label class="option-label"><input type="radio" name="pc2q22" value="b"><span>b) when</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. He watched TV when / then he had dinner.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc2q23" value="a"><span>a) when</span></label>
+<label class="option-label"><input type="radio" name="pc2q23" value="b"><span>b) then</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC2d()">Проверить</button>
+<div id="r_PC2d" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 5: Past Simple Forms</h4>
+<div class="question"><p class="question-text">1. catch — <input type="text" id="pc2q24"></p></div>
+<div class="question"><p class="question-text">2. wake — <input type="text" id="pc2q25"></p></div>
+<div class="question"><p class="question-text">3. send — <input type="text" id="pc2q26"></p></div>
+<div class="question"><p class="question-text">4. decide — <input type="text" id="pc2q27"></p></div>
+<div class="question"><p class="question-text">5. find — <input type="text" id="pc2q28"></p></div>
+<div class="question"><p class="question-text">6. hear — <input type="text" id="pc2q29"></p></div>
+<div class="question"><p class="question-text">7. hide — <input type="text" id="pc2q30"></p></div>
+<div class="question"><p class="question-text">8. leave — <input type="text" id="pc2q31"></p></div>
+<div class="question"><p class="question-text">9. break — <input type="text" id="pc2q32"></p></div>
+<div class="question"><p class="question-text">10. put — <input type="text" id="pc2q33"></p></div>
+<button class="check-btn" onclick="checkPC2e()">Проверить</button>
+<div id="r_PC2e" class="result"></div>
+</div>
+</div>
+
+<!-- PC3 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 3 (Module 3)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Character Qualities</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: fit, imaginative, sociable, determined, patient, creative</p>
+<div class="question"><p class="question-text">1. John doesn't get upset easily. He's <input type="text" id="pc3q1"></p></div>
+<div class="question"><p class="question-text">2. Jill is very <input type="text" id="pc3q2">. She spends every afternoon at the gym.</p></div>
+<div class="question"><p class="question-text">3. Robert enjoys parties. He is very <input type="text" id="pc3q3"></p></div>
+<div class="question"><p class="question-text">4. She's a(n) <input type="text" id="pc3q4"> person; she designs and makes her own clothes.</p></div>
+<div class="question"><p class="question-text">5. Warren won't give up easily. He is <input type="text" id="pc3q5"> to succeed.</p></div>
+<button class="check-btn" onclick="checkPC3a()">Проверить</button>
+<div id="r_PC3a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Choose the odd word out</h4>
+<div class="question">
+<p class="question-text">1. bald - young - teenager - elderly</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q6" value="a"><span>a) bald</span></label>
+<label class="option-label"><input type="radio" name="pc3q6" value="b"><span>b) young</span></label>
+<label class="option-label"><input type="radio" name="pc3q6" value="c"><span>c) teenager</span></label>
+<label class="option-label"><input type="radio" name="pc3q6" value="d"><span>d) elderly</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. slim - plump - freckles - well-built</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q7" value="a"><span>a) slim</span></label>
+<label class="option-label"><input type="radio" name="pc3q7" value="b"><span>b) plump</span></label>
+<label class="option-label"><input type="radio" name="pc3q7" value="c"><span>c) freckles</span></label>
+<label class="option-label"><input type="radio" name="pc3q7" value="d"><span>d) well-built</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. spiky - wavy - curly - middle-aged</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q8" value="a"><span>a) spiky</span></label>
+<label class="option-label"><input type="radio" name="pc3q8" value="b"><span>b) wavy</span></label>
+<label class="option-label"><input type="radio" name="pc3q8" value="c"><span>c) curly</span></label>
+<label class="option-label"><input type="radio" name="pc3q8" value="d"><span>d) middle-aged</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. pretty - ugly - tall - cute</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q9" value="a"><span>a) pretty</span></label>
+<label class="option-label"><input type="radio" name="pc3q9" value="b"><span>b) ugly</span></label>
+<label class="option-label"><input type="radio" name="pc3q9" value="c"><span>c) tall</span></label>
+<label class="option-label"><input type="radio" name="pc3q9" value="d"><span>d) cute</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC3b()">Проверить</button>
+<div id="r_PC3b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Phrasal Verbs (give)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: back, away, up, for, with, of</p>
+<div class="question"><p class="question-text">1. Don't give <input type="text" id="pc3q10"> even if you fail your test.</p></div>
+<div class="question"><p class="question-text">2. I gave Jim <input type="text" id="pc3q11"> his toy.</p></div>
+<div class="question"><p class="question-text">3. He can't cope <input type="text" id="pc3q12"> his problems.</p></div>
+<div class="question"><p class="question-text">4. He was famous <input type="text" id="pc3q13"> his music.</p></div>
+<div class="question"><p class="question-text">5. You must not give <input type="text" id="pc3q14"> your school books.</p></div>
+<div class="question"><p class="question-text">6. He lost control <input type="text" id="pc3q15"> his muscles.</p></div>
+<button class="check-btn" onclick="checkPC3c()">Проверить</button>
+<div id="r_PC3c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Relative Pronouns</h4>
+<div class="question">
+<p class="question-text">1. That's the boy whose / who lives next door.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q16" value="a"><span>a) whose</span></label>
+<label class="option-label"><input type="radio" name="pc3q16" value="b"><span>b) who</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. The people which / whose horse won the race come from Portugal.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q17" value="a"><span>a) which</span></label>
+<label class="option-label"><input type="radio" name="pc3q17" value="b"><span>b) whose</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. 2014 was the year when / where the Olympic Games were held in Sochi.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q18" value="a"><span>a) when</span></label>
+<label class="option-label"><input type="radio" name="pc3q18" value="b"><span>b) where</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. This is the house which / where he was born.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q19" value="a"><span>a) which</span></label>
+<label class="option-label"><input type="radio" name="pc3q19" value="b"><span>b) where</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC3d()">Проверить</button>
+<div id="r_PC3d" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 5: -ed/-ing Participles</h4>
+<div class="question">
+<p class="question-text">1. The movie was really scared / scaring.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q20" value="a"><span>a) scared</span></label>
+<label class="option-label"><input type="radio" name="pc3q20" value="b"><span>b) scaring</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. Kim was tiring / tired after the game.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q21" value="a"><span>a) tiring</span></label>
+<label class="option-label"><input type="radio" name="pc3q21" value="b"><span>b) tired</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. He was disappointed / disappointing with the news.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q22" value="a"><span>a) disappointed</span></label>
+<label class="option-label"><input type="radio" name="pc3q22" value="b"><span>b) disappointing</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. The book was very bored / boring.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc3q23" value="a"><span>a) bored</span></label>
+<label class="option-label"><input type="radio" name="pc3q23" value="b"><span>b) boring</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC3e()">Проверить</button>
+<div id="r_PC3e" class="result"></div>
+</div>
+</div>
+
+<!-- PC4 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 4 (Module 4)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Match the words</h4>
+<div class="matching-exercise" id="matchPC4">
+<div class="matching-column">
+<div class="matching-item" data-side="left" data-pair="1">1. interesting</div>
+<div class="matching-item" data-side="left" data-pair="2">2. local</div>
+<div class="matching-item" data-side="left" data-pair="3">3. chat</div>
+<div class="matching-item" data-side="left" data-pair="4">4. cartoon</div>
+<div class="matching-item" data-side="left" data-pair="5">5. weather</div>
+<div class="matching-item" data-side="left" data-pair="6">6. text</div>
+<div class="matching-item" data-side="left" data-pair="7">7. TV</div>
+<div class="matching-item" data-side="left" data-pair="8">8. celebrity</div>
+</div>
+<div class="matching-column">
+<div class="matching-item" data-side="right" data-pair="6">A. message</div>
+<div class="matching-item" data-side="right" data-pair="7">B. shows</div>
+<div class="matching-item" data-side="right" data-pair="8">C. gossip</div>
+<div class="matching-item" data-side="right" data-pair="4">D. strips</div>
+<div class="matching-item" data-side="right" data-pair="5">E. reports</div>
+<div class="matching-item" data-side="right" data-pair="1">F. articles</div>
+<div class="matching-item" data-side="right" data-pair="2">G. news</div>
+<div class="matching-item" data-side="right" data-pair="3">H. show</div>
+</div>
+</div>
+<button class="check-btn" onclick="checkMatch('matchPC4','r_PC4',8)">Проверить</button>
+<div id="r_PC4" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Choose the correct word</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">stray · members · idea · record · proud</p>
+<div class="question">
+<p class="question-text">1. Fred came up with a great ...</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc4q1" value="a"><span>a) stray</span></label>
+<label class="option-label"><input type="radio" name="pc4q1" value="b"><span>b) members</span></label>
+<label class="option-label"><input type="radio" name="pc4q1" value="c"><span>c) idea</span></label>
+<label class="option-label"><input type="radio" name="pc4q1" value="d"><span>d) record</span></label>
+<label class="option-label"><input type="radio" name="pc4q1" value="e"><span>e) proud</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. The Animal Watch club helps ... animals.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc4q2" value="a"><span>a) stray</span></label>
+<label class="option-label"><input type="radio" name="pc4q2" value="b"><span>b) members</span></label>
+<label class="option-label"><input type="radio" name="pc4q2" value="c"><span>c) idea</span></label>
+<label class="option-label"><input type="radio" name="pc4q2" value="d"><span>d) record</span></label>
+<label class="option-label"><input type="radio" name="pc4q2" value="e"><span>e) proud</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. Our teacher was very ... of her students.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc4q3" value="a"><span>a) stray</span></label>
+<label class="option-label"><input type="radio" name="pc4q3" value="b"><span>b) members</span></label>
+<label class="option-label"><input type="radio" name="pc4q3" value="c"><span>c) idea</span></label>
+<label class="option-label"><input type="radio" name="pc4q3" value="d"><span>d) record</span></label>
+<label class="option-label"><input type="radio" name="pc4q3" value="e"><span>e) proud</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. The athlete broke the world ... for the 100m race.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc4q4" value="a"><span>a) stray</span></label>
+<label class="option-label"><input type="radio" name="pc4q4" value="b"><span>b) members</span></label>
+<label class="option-label"><input type="radio" name="pc4q4" value="c"><span>c) idea</span></label>
+<label class="option-label"><input type="radio" name="pc4q4" value="d"><span>d) record</span></label>
+<label class="option-label"><input type="radio" name="pc4q4" value="e"><span>e) proud</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. There are 2000 ... in our club.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc4q5" value="a"><span>a) stray</span></label>
+<label class="option-label"><input type="radio" name="pc4q5" value="b"><span>b) members</span></label>
+<label class="option-label"><input type="radio" name="pc4q5" value="c"><span>c) idea</span></label>
+<label class="option-label"><input type="radio" name="pc4q5" value="d"><span>d) record</span></label>
+<label class="option-label"><input type="radio" name="pc4q5" value="e"><span>e) proud</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC4b()">Проверить</button>
+<div id="r_PC4b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Phrasal Verbs (go)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: on, with, off</p>
+<div class="question"><p class="question-text">1. We must use those eggs soon before they go <input type="text" id="pc4q6"></p></div>
+<div class="question"><p class="question-text">2. Go <input type="text" id="pc4q7">! I'm listening to you.</p></div>
+<div class="question"><p class="question-text">3. That blouse goes really well <input type="text" id="pc4q8"> your skirt.</p></div>
+<div class="question"><p class="question-text">4. My alarm clock went <input type="text" id="pc4q9"> at 7 o'clock.</p></div>
+<button class="check-btn" onclick="checkPC4c()">Проверить</button>
+<div id="r_PC4c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Past Continuous</h4>
+<div class="question"><p class="question-text">1. Bob <input type="text" id="pc4q10" placeholder="play"> (play) football at 10 am.</p></div>
+<div class="question"><p class="question-text">2. Mark <input type="text" id="pc4q11" placeholder="send"> (send) emails until 11 pm.</p></div>
+<div class="question"><p class="question-text">3. Tom <input type="text" id="pc4q12" placeholder="recover"> (recover) in hospital when he got an invitation.</p></div>
+<div class="question"><p class="question-text">4. Janie <input type="text" id="pc4q13" placeholder="read"> (read) the newspaper when the phone rang.</p></div>
+<div class="question"><p class="question-text">5. Tom <input type="text" id="pc4q14" placeholder="watch"> (watch) TV when Jane arrived.</p></div>
+<button class="check-btn" onclick="checkPC4d()">Проверить</button>
+<div id="r_PC4d" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 5: Past Simple vs Past Continuous</h4>
+<div class="question"><p class="question-text">1. Kate <input type="text" id="pc4q15" placeholder="cook"> (cook) breakfast when she heard a noise.</p></div>
+<div class="question"><p class="question-text">2. Jim <input type="text" id="pc4q16" placeholder="read"> (read) a newspaper when the fire started.</p></div>
+<div class="question"><p class="question-text">3. My parents <input type="text" id="pc4q17" placeholder="watch"> (watch) TV while I was sleeping.</p></div>
+<div class="question"><p class="question-text">4. When Joe saw the lion running away, he <input type="text" id="pc4q18" placeholder="feel"> (feel) happy.</p></div>
+<button class="check-btn" onclick="checkPC4e()">Проверить</button>
+<div id="r_PC4e" class="result"></div>
+</div>
+</div>
+
+<!-- PC5 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 5 (Module 5)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Vocabulary</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">In 2100...</p>
+<div class="question"><p class="question-text">1. people will live in underwater c<input type="text" id="pc5q1"></p></div>
+<div class="question"><p class="question-text">2. it will be difficult to find c<input type="text" id="pc5q2"> water.</p></div>
+<div class="question"><p class="question-text">3. people will travel in f<input type="text" id="pc5q3"> cars.</p></div>
+<div class="question"><p class="question-text">4. there will be o<input type="text" id="pc5q4"> schools.</p></div>
+<div class="question"><p class="question-text">5. people will live in g<input type="text" id="pc5q5"> domes.</p></div>
+<button class="check-btn" onclick="checkPC5a()">Проверить</button>
+<div id="r_PC5a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Vocabulary (gadgets)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: listen, send, surf, watch, take, store, read</p>
+<div class="question"><p class="question-text">1. <input type="text" id="pc5q6"> pictures</p></div>
+<div class="question"><p class="question-text">2. <input type="text" id="pc5q7"> text messages</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="pc5q8"> an email</p></div>
+<div class="question"><p class="question-text">4. <input type="text" id="pc5q9"> an e-book</p></div>
+<div class="question"><p class="question-text">5. <input type="text" id="pc5q10"> the Net</p></div>
+<div class="question"><p class="question-text">6. <input type="text" id="pc5q11"> music files</p></div>
+<div class="question"><p class="question-text">7. <input type="text" id="pc5q12"> TV</p></div>
+<div class="question"><p class="question-text">8. <input type="text" id="pc5q13"> to music</p></div>
+<button class="check-btn" onclick="checkPC5b()">Проверить</button>
+<div id="r_PC5b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Vocabulary (gadgets)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: electronic, button, connect, send, store</p>
+<div class="question"><p class="question-text">1. Press the <input type="text" id="pc5q14"> and the light comes on.</p></div>
+<div class="question"><p class="question-text">2. <input type="text" id="pc5q15"> me a message after your class.</p></div>
+<div class="question"><p class="question-text">3. There's a problem. I can't <input type="text" id="pc5q16"> to the Internet.</p></div>
+<div class="question"><p class="question-text">4. My MP3 player can <input type="text" id="pc5q17"> up to 7,000 songs.</p></div>
+<div class="question"><p class="question-text">5. I prefer reading <input type="text" id="pc5q18"> books.</p></div>
+<button class="check-btn" onclick="checkPC5c()">Проверить</button>
+<div id="r_PC5c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Phrasal Verbs (look)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: forward, after, up, for</p>
+<div class="question"><p class="question-text">1. She looks <input type="text" id="pc5q19"> her mother when she's ill.</p></div>
+<div class="question"><p class="question-text">2. Sean is looking <input type="text" id="pc5q20"> to his holiday.</p></div>
+<div class="question"><p class="question-text">3. Look <input type="text" id="pc5q21"> the word in the dictionary.</p></div>
+<div class="question"><p class="question-text">4. I'm looking <input type="text" id="pc5q22"> Sam. Have you seen him?</p></div>
+<button class="check-btn" onclick="checkPC5d()">Проверить</button>
+<div id="r_PC5d" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 5: Future Forms</h4>
+<div class="question"><p class="question-text">1. I <input type="text" id="pc5q23" placeholder="take"> (take) a plane to St Petersburg tomorrow morning.</p></div>
+<div class="question"><p class="question-text">2. Look! He's too tired to continue. He <input type="text" id="pc5q24" placeholder="lose"> (lose).</p></div>
+<div class="question"><p class="question-text">3. Sit down and I <input type="text" id="pc5q25" placeholder="get"> (get) you a drink.</p></div>
+<div class="question"><p class="question-text">4. I'm sure she <input type="text" id="pc5q26" placeholder="be"> (be) home soon.</p></div>
+<div class="question"><p class="question-text">5. Now that I have enough money, I <input type="text" id="pc5q27" placeholder="buy"> (buy) some new computer games.</p></div>
+<button class="check-btn" onclick="checkPC5e()">Проверить</button>
+<div id="r_PC5e" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 6: Conditionals</h4>
+<div class="question">
+<p class="question-text">1. If I will see / see Harry, I'll tell him you called.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc5q28" value="a"><span>a) will see</span></label>
+<label class="option-label"><input type="radio" name="pc5q28" value="b"><span>b) see</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. When we sleep, we usually will dream / dream.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc5q29" value="a"><span>a) will dream</span></label>
+<label class="option-label"><input type="radio" name="pc5q29" value="b"><span>b) dream</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. If you get / will get home late, we won't go out.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc5q30" value="a"><span>a) get</span></label>
+<label class="option-label"><input type="radio" name="pc5q30" value="b"><span>b) will get</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. If you won't call / don't call, he'll be upset.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc5q31" value="a"><span>a) won't call</span></label>
+<label class="option-label"><input type="radio" name="pc5q31" value="b"><span>b) don't call</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. She'll cook dinner if she won't be / isn't tired.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc5q32" value="a"><span>a) won't be</span></label>
+<label class="option-label"><input type="radio" name="pc5q32" value="b"><span>b) isn't</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC5f()">Проверить</button>
+<div id="r_PC5f" class="result"></div>
+</div>
+</div>
+
+<!-- PC6 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 6 (Module 6)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Vocabulary (theme parks)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: pirate, big, cartoon, shake, theme, famous, candy, rocket, perform, water</p>
+<div class="question"><p class="question-text">1. <input type="text" id="pc6q1"> hands</p></div>
+<div class="question"><p class="question-text">2. <input type="text" id="pc6q2"> landmarks</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="pc6q3"> park</p></div>
+<div class="question"><p class="question-text">4. <input type="text" id="pc6q4"> floss</p></div>
+<div class="question"><p class="question-text">5. <input type="text" id="pc6q5"> tricks</p></div>
+<div class="question"><p class="question-text">6. <input type="text" id="pc6q6"> ship</p></div>
+<div class="question"><p class="question-text">7. <input type="text" id="pc6q7"> wheel</p></div>
+<div class="question"><p class="question-text">8. <input type="text" id="pc6q8"> ride</p></div>
+<div class="question"><p class="question-text">9. <input type="text" id="pc6q9"> characters</p></div>
+<div class="question"><p class="question-text">10. <input type="text" id="pc6q10"> journey</p></div>
+<button class="check-btn" onclick="checkPC6a()">Проверить</button>
+<div id="r_PC6a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Vocabulary (camps & holidays)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: trapeze, safari, pool, jungle, obey, haunted, souvenir, address, models, reserve</p>
+<div class="question"><p class="question-text">1. I hate <input type="text" id="pc6q11"> shopping while on holiday.</p></div>
+<div class="question"><p class="question-text">2. We went on a <input type="text" id="pc6q12"> trek in Africa.</p></div>
+<div class="question"><p class="question-text">3. We got scared in the <input type="text" id="pc6q13"> mansion.</p></div>
+<div class="question"><p class="question-text">4. Hello, I'd like to <input type="text" id="pc6q14"> a place at your camp.</p></div>
+<div class="question"><p class="question-text">5. You must <input type="text" id="pc6q15"> the lifeguards.</p></div>
+<div class="question"><p class="question-text">6. Can I have your e-mail <input type="text" id="pc6q16"> please?</p></div>
+<div class="question"><p class="question-text">7. Did you see the <input type="text" id="pc6q17"> artists at the circus?</p></div>
+<div class="question"><p class="question-text">8. Did you read the leaflet about <input type="text" id="pc6q18"> safety?</p></div>
+<div class="question"><p class="question-text">9. My favourite ride at Disneyland is the <input type="text" id="pc6q19"> cruise.</p></div>
+<div class="question"><p class="question-text">10. There are some amazing <input type="text" id="pc6q20"> at Legoland.</p></div>
+<button class="check-btn" onclick="checkPC6b()">Проверить</button>
+<div id="r_PC6b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Phrasal Verbs (come)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: round, across, out, back</p>
+<div class="question"><p class="question-text">1. He came <input type="text" id="pc6q21"> this book in an antiques shop.</p></div>
+<div class="question"><p class="question-text">2. They came <input type="text" id="pc6q22"> to their hometown.</p></div>
+<div class="question"><p class="question-text">3. His new book is coming <input type="text" id="pc6q23"> soon.</p></div>
+<div class="question"><p class="question-text">4. He came <input type="text" id="pc6q24"> to the country a month ago.</p></div>
+<div class="question"><p class="question-text">5. Look! I came <input type="text" id="pc6q25"> this lovely old Lego in the old toy shop.</p></div>
+<button class="check-btn" onclick="checkPC6c()">Проверить</button>
+<div id="r_PC6c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Present Perfect</h4>
+<div class="question"><p class="question-text">1. <input type="text" id="pc6q26" placeholder="you/ever/see"> (you/ever/see) this film?</p></div>
+<div class="question"><p class="question-text">2. He <input type="text" id="pc6q27" placeholder="never/fly"> (never/fly) an aeroplane.</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="pc6q28" placeholder="you/ever/visit"> (you/ever/visit) a theme park?</p></div>
+<div class="question"><p class="question-text">4. John isn't here. He <input type="text" id="pc6q29" placeholder="go"> (go) shopping.</p></div>
+<div class="question"><p class="question-text">5. <input type="text" id="pc6q30" placeholder="you/ever/meet"> (you/ever/meet) someone famous?</p></div>
+<div class="question"><p class="question-text">6. She <input type="text" id="pc6q31" placeholder="never/travel"> (never/travel) abroad.</p></div>
+<div class="question"><p class="question-text">7. I <input type="text" id="pc6q32" placeholder="already/read"> (already/read) the letter.</p></div>
+<div class="question"><p class="question-text">8. They <input type="text" id="pc6q33" placeholder="not/play"> (not/play) the game yet.</p></div>
+<div class="question"><p class="question-text">9. <input type="text" id="pc6q34" placeholder="you/ever/see"> (you/ever/see) a ghost?</p></div>
+<div class="question"><p class="question-text">10. We <input type="text" id="pc6q35" placeholder="already/pack"> (already/pack) our suitcases.</p></div>
+<button class="check-btn" onclick="checkPC6d()">Проверить</button>
+<div id="r_PC6d" class="result"></div>
+</div>
+</div>
+
+<!-- PC7 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 7 (Module 7)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Vocabulary (films)</h4>
+<div class="question"><p class="question-text">1. Star Wars is a classic <input type="text" id="pc7q1"> fiction film.</p></div>
+<div class="question"><p class="question-text">2. A <input type="text" id="pc7q2"> is a film about love.</p></div>
+<div class="question"><p class="question-text">3. Children love <input type="text" id="pc7q3"> films like Finding Nemo.</p></div>
+<div class="question"><p class="question-text">4. I get scared when I watch a <input type="text" id="pc7q4"> on TV.</p></div>
+<div class="question"><p class="question-text">5. <input type="text" id="pc7q5"> films are very exciting.</p></div>
+<button class="check-btn" onclick="checkPC7a()">Проверить</button>
+<div id="r_PC7a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Collocations</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Match: talented, film, sound, catchy, rock with: effects, tune, actress, music, industry</p>
+<div class="question"><p class="question-text">1. talented <input type="text" id="pc7q6"></p></div>
+<div class="question"><p class="question-text">2. film <input type="text" id="pc7q7"></p></div>
+<div class="question"><p class="question-text">3. sound <input type="text" id="pc7q8"></p></div>
+<div class="question"><p class="question-text">4. catchy <input type="text" id="pc7q9"></p></div>
+<div class="question"><p class="question-text">5. rock <input type="text" id="pc7q10"></p></div>
+<button class="check-btn" onclick="checkPC7b()">Проверить</button>
+<div id="r_PC7b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Synonyms</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Write the synonyms: well-known, amusing, clever, skillful, wonderful</p>
+<div class="question"><p class="question-text">1. well-known — <input type="text" id="pc7q11"></p></div>
+<div class="question"><p class="question-text">2. amusing — <input type="text" id="pc7q12"></p></div>
+<div class="question"><p class="question-text">3. clever — <input type="text" id="pc7q13"></p></div>
+<div class="question"><p class="question-text">4. skillful — <input type="text" id="pc7q14"></p></div>
+<div class="question"><p class="question-text">5. wonderful — <input type="text" id="pc7q15"></p></div>
+<button class="check-btn" onclick="checkPC7c()">Проверить</button>
+<div id="r_PC7c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Comparatives & Superlatives</h4>
+<div class="question"><p class="question-text">1. Barcelona is <input type="text" id="pc7q16" placeholder="sunny"> than London.</p></div>
+<div class="question"><p class="question-text">2. That's the <input type="text" id="pc7q17" placeholder="bad"> film I've ever seen.</p></div>
+<div class="question"><p class="question-text">3. Mark learns <input type="text" id="pc7q18" placeholder="fast"> than Lee.</p></div>
+<div class="question"><p class="question-text">4. He is <input type="text" id="pc7q19" placeholder="good"> than Steve at sports.</p></div>
+<div class="question"><p class="question-text">5. She works <input type="text" id="pc7q20" placeholder="carefully"> than the others.</p></div>
+<button class="check-btn" onclick="checkPC7d()">Проверить</button>
+<div id="r_PC7d" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 5: Present Perfect vs Past Simple</h4>
+<div class="question"><p class="question-text">1. Henry <input type="text" id="pc7q21" placeholder="live"> (live) here since he was a child.</p></div>
+<div class="question"><p class="question-text">2. They <input type="text" id="pc7q22" placeholder="go"> (go) to the cinema yesterday.</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="pc7q23" placeholder="you/read"> (you/read) Lord of the Rings yet?</p></div>
+<div class="question"><p class="question-text">4. She <input type="text" id="pc7q24" placeholder="always/love"> (always/love) horror films.</p></div>
+<div class="question"><p class="question-text">5. His first film <input type="text" id="pc7q25" placeholder="be/direct"> (be/direct) by him about ten years ago.</p></div>
+<button class="check-btn" onclick="checkPC7e()">Проверить</button>
+<div id="r_PC7e" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 6: Time Expressions</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: always, ago, yet, for, since</p>
+<div class="question"><p class="question-text">1. Have you read this book <input type="text" id="pc7q26">?</p></div>
+<div class="question"><p class="question-text">2. She's <input type="text" id="pc7q27"> been a fan of Bruce Willis.</p></div>
+<div class="question"><p class="question-text">3. He's been famous <input type="text" id="pc7q28"> over fifty years.</p></div>
+<div class="question"><p class="question-text">4. I met David Beckham five years <input type="text" id="pc7q29">.</p></div>
+<div class="question"><p class="question-text">5. I've been a fan of Jude Law <input type="text" id="pc7q30"> 2001.</p></div>
+<button class="check-btn" onclick="checkPC7f()">Проверить</button>
+<div id="r_PC7f" class="result"></div>
+</div>
+</div>
+
+<!-- PC8 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 8 (Module 8)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Vocabulary (pollution)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: acid, natural, endangered, power, recycling</p>
+<div class="question"><p class="question-text">1. <input type="text" id="pc8q1"> stations</p></div>
+<div class="question"><p class="question-text">2. <input type="text" id="pc8q2"> species</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="pc8q3"> bin</p></div>
+<div class="question"><p class="question-text">4. <input type="text" id="pc8q4"> rain</p></div>
+<div class="question"><p class="question-text">5. <input type="text" id="pc8q5"> habitat</p></div>
+<button class="check-btn" onclick="checkPC8a()">Проверить</button>
+<div id="r_PC8a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Choose the correct word</h4>
+<div class="question">
+<p class="question-text">1. Zoos play an important role / cycle in animal conservation.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc8q6" value="a"><span>a) role</span></label>
+<label class="option-label"><input type="radio" name="pc8q6" value="b"><span>b) cycle</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. Cars burn / emit petrol.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc8q7" value="a"><span>a) burn</span></label>
+<label class="option-label"><input type="radio" name="pc8q7" value="b"><span>b) emit</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. Animals should live in their natural ecology / habitat.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc8q8" value="a"><span>a) ecology</span></label>
+<label class="option-label"><input type="radio" name="pc8q8" value="b"><span>b) habitat</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. Acid rain causes / poisons trees and plants.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc8q9" value="a"><span>a) causes</span></label>
+<label class="option-label"><input type="radio" name="pc8q9" value="b"><span>b) poisons</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. He made off / up the whole story.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc8q10" value="a"><span>a) off</span></label>
+<label class="option-label"><input type="radio" name="pc8q10" value="b"><span>b) up</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC8b()">Проверить</button>
+<div id="r_PC8b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Present Perfect Continuous</h4>
+<div class="question"><p class="question-text">1. He <input type="text" id="pc8q11" placeholder="work"> (work) here for over ten years.</p></div>
+<div class="question"><p class="question-text">2. Jill <input type="text" id="pc8q12" placeholder="swim"> (swim) in this lake since she was a child.</p></div>
+<div class="question"><p class="question-text">3. How long <input type="text" id="pc8q13" placeholder="you/take care"> (you/take care) of this injured bird?</p></div>
+<div class="question"><p class="question-text">4. They <input type="text" id="pc8q14" placeholder="study"> (study) very hard for their exams.</p></div>
+<div class="question"><p class="question-text">5. My parents <input type="text" id="pc8q15" placeholder="donate"> (donate) to WWF for a long time.</p></div>
+<div class="question"><p class="question-text">6. The government <input type="text" id="pc8q16" placeholder="try"> (try) to reduce pollution for years.</p></div>
+<button class="check-btn" onclick="checkPC8c()">Проверить</button>
+<div id="r_PC8c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: (don't) have to</h4>
+<div class="question"><p class="question-text">1. I <input type="text" id="pc8q17" placeholder="have to"> do it tonight. It's urgent!</p></div>
+<div class="question"><p class="question-text">2. You <input type="text" id="pc8q18" placeholder="don't have to"> water the plants. I've done it.</p></div>
+<div class="question"><p class="question-text">3. Do you <input type="text" id="pc8q19" placeholder="have to"> leave so early?</p></div>
+<div class="question"><p class="question-text">4. He <input type="text" id="pc8q20" placeholder="doesn't have to"> go to school. He's ill.</p></div>
+<div class="question"><p class="question-text">5. You <input type="text" id="pc8q21" placeholder="have to"> pay £10 to become a member.</p></div>
+<button class="check-btn" onclick="checkPC8d()">Проверить</button>
+<div id="r_PC8d" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 5: Question Tags</h4>
+<div class="question"><p class="question-text">1. They live in London, <input type="text" id="pc8q22">?</p></div>
+<div class="question"><p class="question-text">2. He didn't go to the park yesterday, <input type="text" id="pc8q23">?</p></div>
+<div class="question"><p class="question-text">3. The children are watching TV at the moment, <input type="text" id="pc8q24">?</p></div>
+<div class="question"><p class="question-text">4. She can't drive, <input type="text" id="pc8q25">?</p></div>
+<div class="question"><p class="question-text">5. The air is polluted, <input type="text" id="pc8q26">?</p></div>
+<button class="check-btn" onclick="checkPC8e()">Проверить</button>
+<div id="r_PC8e" class="result"></div>
+</div>
+</div>
+
+<!-- PC9 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 9 (Module 9)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Food Categories</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Put the foods into categories: lamb chops, white bread, bananas, brown rice, coffee, low-fat yoghurt, green peppers, a bar of chocolate, butter, a packet of crisps</p>
+<div class="question"><p class="question-text">Meat: <input type="text" id="pc9q1" style="width:300px"></p></div>
+<div class="question"><p class="question-text">Fruit & Vegetables: <input type="text" id="pc9q2" style="width:300px"></p></div>
+<div class="question"><p class="question-text">Dairy products: <input type="text" id="pc9q3" style="width:300px"></p></div>
+<div class="question"><p class="question-text">Beverages: <input type="text" id="pc9q4" style="width:300px"></p></div>
+<div class="question"><p class="question-text">Cereal, grains & pasta: <input type="text" id="pc9q5" style="width:300px"></p></div>
+<div class="question"><p class="question-text">Snacks: <input type="text" id="pc9q6" style="width:300px"></p></div>
+<button class="check-btn" onclick="checkPC9a()">Проверить</button>
+<div id="r_PC9a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Containers</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: packet, jar, cup, box, can</p>
+<div class="question"><p class="question-text">1. a <input type="text" id="pc9q7"> of tea</p></div>
+<div class="question"><p class="question-text">2. a <input type="text" id="pc9q8"> of cola</p></div>
+<div class="question"><p class="question-text">3. a <input type="text" id="pc9q9"> of honey</p></div>
+<div class="question"><p class="question-text">4. a <input type="text" id="pc9q10"> of cereal</p></div>
+<div class="question"><p class="question-text">5. a <input type="text" id="pc9q11"> of crisps</p></div>
+<button class="check-btn" onclick="checkPC9b()">Проверить</button>
+<div id="r_PC9b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Quantifiers</h4>
+<div class="question">
+<p class="question-text">1. Is there any / few sugar in the cupboard?</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q12" value="a"><span>a) any</span></label>
+<label class="option-label"><input type="radio" name="pc9q12" value="b"><span>b) few</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. There aren't any / some apples left.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q13" value="a"><span>a) any</span></label>
+<label class="option-label"><input type="radio" name="pc9q13" value="b"><span>b) some</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. We haven't got many / much bananas left.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q14" value="a"><span>a) many</span></label>
+<label class="option-label"><input type="radio" name="pc9q14" value="b"><span>b) much</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. I'll have a little / few ice cream with my pie.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q15" value="a"><span>a) a little</span></label>
+<label class="option-label"><input type="radio" name="pc9q15" value="b"><span>b) a few</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. There are a lot of / little eggs in the fridge.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q16" value="a"><span>a) a lot of</span></label>
+<label class="option-label"><input type="radio" name="pc9q16" value="b"><span>b) little</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC9c()">Проверить</button>
+<div id="r_PC9c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Phrasal Verbs (take)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: away, off, out, back</p>
+<div class="question"><p class="question-text">1. Why don't you take <input type="text" id="pc9q17"> your jumper if you're hot?</p></div>
+<div class="question"><p class="question-text">2. I am going to take you <input type="text" id="pc9q18"> for your birthday.</p></div>
+<div class="question"><p class="question-text">3. A chicken burger and fries to take <input type="text" id="pc9q19">, please.</p></div>
+<div class="question"><p class="question-text">4. It was the wrong size, so I had to take it <input type="text" id="pc9q20"> to the shop.</p></div>
+<button class="check-btn" onclick="checkPC9d()">Проверить</button>
+<div id="r_PC9d" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 5: Present Perfect vs Present Perfect Continuous</h4>
+<div class="question"><p class="question-text">1. I <input type="text" id="pc9q21" placeholder="study"> (study) all day. Time for a break!</p></div>
+<div class="question"><p class="question-text">2. Peter <input type="text" id="pc9q22" placeholder="join"> (join) the school drama club.</p></div>
+<div class="question"><p class="question-text">3. Jane <input type="text" id="pc9q23" placeholder="cook"> (cook) for two days to prepare for the dinner party.</p></div>
+<div class="question"><p class="question-text">4. Mum <input type="text" id="pc9q24" placeholder="go"> (go) to the shops. She will be back soon.</p></div>
+<div class="question"><p class="question-text">5. I <input type="text" id="pc9q25" placeholder="swim"> (swim) all morning. I am so tired!</p></div>
+<button class="check-btn" onclick="checkPC9e()">Проверить</button>
+<div id="r_PC9e" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 6: Everyday English</h4>
+<div class="question">
+<p class="question-text">1. Are they your size? — No, they're too big. / Thanks.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q26" value="a"><span>a) No, they're too big.</span></label>
+<label class="option-label"><input type="radio" name="pc9q26" value="b"><span>b) Thanks.</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. It really suits you. — Thank you very much. / Hang on a sec.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q27" value="a"><span>a) Thank you very much.</span></label>
+<label class="option-label"><input type="radio" name="pc9q27" value="b"><span>b) Hang on a sec.</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. This is for you! — Don't mention it. / That's very kind of you.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q28" value="a"><span>a) Don't mention it.</span></label>
+<label class="option-label"><input type="radio" name="pc9q28" value="b"><span>b) That's very kind of you.</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. How much is it? — It's £39.99. / That's true.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q29" value="a"><span>a) It's £39.99.</span></label>
+<label class="option-label"><input type="radio" name="pc9q29" value="b"><span>b) That's true.</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. £40 please. — I'll take it. / Here you are.</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc9q30" value="a"><span>a) I'll take it.</span></label>
+<label class="option-label"><input type="radio" name="pc9q30" value="b"><span>b) Here you are.</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC9f()">Проверить</button>
+<div id="r_PC9f" class="result"></div>
+</div>
+</div>
+
+<!-- PC10 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 10 (Module 10)</h3>
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 1: Vocabulary (accidents)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: cut, lose, chip, break, bang, throw, twist, practise, move, sit</p>
+<div class="question"><p class="question-text">1. <input type="text" id="pc10q1"> a party</p></div>
+<div class="question"><p class="question-text">2. <input type="text" id="pc10q2"> sth valuable</p></div>
+<div class="question"><p class="question-text">3. <input type="text" id="pc10q3"> your leg</p></div>
+<div class="question"><p class="question-text">4. <input type="text" id="pc10q4"> your ankle</p></div>
+<div class="question"><p class="question-text">5. <input type="text" id="pc10q5"> your finger</p></div>
+<div class="question"><p class="question-text">6. <input type="text" id="pc10q6"> a tooth</p></div>
+<div class="question"><p class="question-text">7. <input type="text" id="pc10q7"> your head</p></div>
+<div class="question"><p class="question-text">8. <input type="text" id="pc10q8"> an instrument</p></div>
+<div class="question"><p class="question-text">9. <input type="text" id="pc10q9"> house</p></div>
+<div class="question"><p class="question-text">10. <input type="text" id="pc10q10"> exams</p></div>
+<button class="check-btn" onclick="checkPC10a()">Проверить</button>
+<div id="r_PC10a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 2: Choose the odd word out</h4>
+<div class="question">
+<p class="question-text">1. ankle - wrist - result - finger</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc10q11" value="a"><span>a) ankle</span></label>
+<label class="option-label"><input type="radio" name="pc10q11" value="b"><span>b) wrist</span></label>
+<label class="option-label"><input type="radio" name="pc10q11" value="c"><span>c) result</span></label>
+<label class="option-label"><input type="radio" name="pc10q11" value="d"><span>d) finger</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">2. sore throat - earache - symptoms - fever</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc10q12" value="a"><span>a) sore throat</span></label>
+<label class="option-label"><input type="radio" name="pc10q12" value="b"><span>b) earache</span></label>
+<label class="option-label"><input type="radio" name="pc10q12" value="c"><span>c) symptoms</span></label>
+<label class="option-label"><input type="radio" name="pc10q12" value="d"><span>d) fever</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">3. chip - break - bang - react</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc10q13" value="a"><span>a) chip</span></label>
+<label class="option-label"><input type="radio" name="pc10q13" value="b"><span>b) break</span></label>
+<label class="option-label"><input type="radio" name="pc10q13" value="c"><span>c) bang</span></label>
+<label class="option-label"><input type="radio" name="pc10q13" value="d"><span>d) react</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">4. syrup - breathing - capsules - tablets</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc10q14" value="a"><span>a) syrup</span></label>
+<label class="option-label"><input type="radio" name="pc10q14" value="b"><span>b) breathing</span></label>
+<label class="option-label"><input type="radio" name="pc10q14" value="c"><span>c) capsules</span></label>
+<label class="option-label"><input type="radio" name="pc10q14" value="d"><span>d) tablets</span></label>
+</div>
+</div>
+<div class="question">
+<p class="question-text">5. exhausted - worn out - tired - worried</p>
+<div class="options">
+<label class="option-label"><input type="radio" name="pc10q15" value="a"><span>a) exhausted</span></label>
+<label class="option-label"><input type="radio" name="pc10q15" value="b"><span>b) worn out</span></label>
+<label class="option-label"><input type="radio" name="pc10q15" value="c"><span>c) tired</span></label>
+<label class="option-label"><input type="radio" name="pc10q15" value="d"><span>d) worried</span></label>
+</div>
+</div>
+<button class="check-btn" onclick="checkPC10b()">Проверить</button>
+<div id="r_PC10b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 3: Vocabulary (health)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: high, sore, light, regular, doctors</p>
+<div class="question"><p class="question-text">1. I've got a <input type="text" id="pc10q16"> throat.</p></div>
+<div class="question"><p class="question-text">2. Don't forget your <input type="text" id="pc10q17"> appointment at 3 pm.</p></div>
+<div class="question"><p class="question-text">3. He takes <input type="text" id="pc10q18"> exercise by riding his bike every day.</p></div>
+<div class="question"><p class="question-text">4. You should eat a <input type="text" id="pc10q19"> meal.</p></div>
+<div class="question"><p class="question-text">5. Do you have a <input type="text" id="pc10q20"> fever?</p></div>
+<button class="check-btn" onclick="checkPC10c()">Проверить</button>
+<div id="r_PC10c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 4: Phrasal Verbs (fall)</h4>
+<p style="margin-bottom:15px;color:#6b5b7a">Complete with: apart, out, behind</p>
+<div class="question"><p class="question-text">1. It's hurtful when you fall <input type="text" id="pc10q21"> with friends.</p></div>
+<div class="question"><p class="question-text">2. If you revise regularly, you won't fall <input type="text" id="pc10q22"> at school.</p></div>
+<div class="question"><p class="question-text">3. That chair has fallen <input type="text" id="pc10q23">. It needs fixing.</p></div>
+<div class="question"><p class="question-text">4. Jane has fallen <input type="text" id="pc10q24"> with Sue over a book.</p></div>
+<div class="question"><p class="question-text">5. He fell <input type="text" id="pc10q25"> in Maths, so he had a few private lessons to catch up.</p></div>
+<button class="check-btn" onclick="checkPC10d()">Проверить</button>
+<div id="r_PC10d" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 5: Reflexive Pronouns</h4>
+<div class="question"><p class="question-text">1. We always do the gardening <input type="text" id="pc10q26"></p></div>
+<div class="question"><p class="question-text">2. They painted the room by <input type="text" id="pc10q27"></p></div>
+<div class="question"><p class="question-text">3. He usually goes for a walk by <input type="text" id="pc10q28"></p></div>
+<div class="question"><p class="question-text">4. I used to go jogging by <input type="text" id="pc10q29"></p></div>
+<div class="question"><p class="question-text">5. Why don't you do it <input type="text" id="pc10q30">?</p></div>
+<button class="check-btn" onclick="checkPC10e()">Проверить</button>
+<div id="r_PC10e" class="result"></div>
+</div>
+
+<div class="exercise-block">
+<h4 class="exercise-title">Exercise 6: Conditionals</h4>
+<div class="question"><p class="question-text">1. If you tidy your room, I <input type="text" id="pc10q31" placeholder="take"> (take) you to the cinema.</p></div>
+<div class="question"><p class="question-text">2. <input type="text" id="pc10q32" placeholder="Unless"> Sean studies hard, he will fail his exams.</p></div>
+<div class="question"><p class="question-text">3. Unless you rest, you <input type="text" id="pc10q33" placeholder="not/feel"> (not/feel) better.</p></div>
+<div class="question"><p class="question-text">4. If you mix blue and yellow, you <input type="text" id="pc10q34" placeholder="get"> (get) green.</p></div>
+<div class="question"><p class="question-text">5. Unless the children <input type="text" id="pc10q35" placeholder="behave"> (behave) well, they can't go to the movies.</p></div>
+<button class="check-btn" onclick="checkPC10f()">Проверить</button>
+<div id="r_PC10f" class="result"></div>
+</div>
+</div>
+
+</section>
+
+</div>
+
+<script>
+// === NAVIGATION ===
+function showModule(id,btn){
+document.querySelectorAll('.module-section').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+btn.classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// === UTILITIES ===
+function checkAns(id,correct){
+const el=document.getElementById(id);
+if(!el)return false;
+const val=el.value.toLowerCase().trim();
+if(Array.isArray(correct))return correct.some(c=>val===c.toLowerCase());
+return val===correct.toLowerCase();
+}
+
+function showResult(id,score,total){
+const el=document.getElementById(id);
+const pct=Math.round((score/total)*100);
+el.className='result '+(pct>=60?'success':'error');
+el.textContent=`${pct>=60?'Отлично!':'Попробуйте ещё раз.'} Правильных ответов: ${score} из ${total} (${pct}%)`;
+}
+
+// === MATCHING EXERCISE ===
+function checkMatch(containerId,resultId,total){
+const container=document.getElementById(containerId);
+const leftItems=container.querySelectorAll('.matching-item[data-side="left"]');
+const rightItems=container.querySelectorAll('.matching-item[data-side="right"]');
+const leftSelected=container.querySelectorAll('.matching-item[data-side="left"].selected');
+const rightSelected=container.querySelectorAll('.matching-item[data-side="right"].selected');
+
+// Reset styles
+container.querySelectorAll('.matching-item').forEach(i=>{
+i.classList.remove('correct','wrong');
+});
+
+let correct=0;
+// Match by order of selection
+const leftOrder=Array.from(leftSelected);
+const rightOrder=Array.from(rightSelected);
+const pairs=Math.min(leftOrder.length,rightOrder.length);
+
+for(let i=0;i<pairs;i++){
+const lPair=leftOrder[i].dataset.pair;
+const rPair=rightOrder[i].dataset.pair;
+if(lPair===rPair){
+correct++;
+leftOrder[i].classList.add('correct');
+rightOrder[i].classList.add('correct');
+}else{
+leftOrder[i].classList.add('wrong');
+rightOrder[i].classList.add('wrong');
+}
+}
+
+showResult(resultId,correct,total);
+}
+
+// === MODULE 1 ===
+function checkM1a(){
+let s=0;
+if(checkAns('m1q1',['is reading',"'s reading"]))s++;
+if(checkAns('m1q2','go'))s++;
+if(checkAns('m1q3',['is snowing',"'s snowing"]))s++;
+if(checkAns('m1q4',["doesn't like",'does not like']))s++;
+if(checkAns('m1q5','leaves'))s++;
+showResult('r_m1a',s,5);
+}
+
+function checkM1b(){
+let s=0;
+if(checkAns('m1q6',['ran into','runs into']))s++;
+if(checkAns('m1q7',['ran out of','runs out of']))s++;
+if(checkAns('m1q8',['running after','runs after']))s++;
+const r=document.querySelector('input[name="m1q9"]:checked');
+if(r&&r.value==='a')s++;
+showResult('r_m1b',s,4);
+}
+
+function checkM1c(){
+let s=0;
+if(checkAns('m1q10','from'))s++;
+if(checkAns('m1q11','about'))s++;
+if(checkAns('m1q12','on'))s++;
+showResult('r_m1c',s,3);
+}
+
+// === MODULE 2 ===
+function checkM2a(){
+let s=0;
+if(checkAns('m2q1','adventure'))s++;
+if(checkAns('m2q2','mystery'))s++;
+if(checkAns('m2q3','science'))s++;
+showResult('r_m2a',s,3);
+}
+
+function checkM2b(){
+let s=0;
+if(checkAns('m2q4',['used to read','read']))s++;
+if(checkAns('m2q5','went'))s++;
+if(checkAns('m2q6',["didn't use to","did not use to"]))s++;
+showResult('r_m2b',s,3);
+}
+
+function checkM2c(){
+let s=0;
+if(checkAns('m2q7',['as soon as','when']))s++;
+if(checkAns('m2q8','until'))s++;
+if(checkAns('m2q9',['leave','leaving']))s++;
+showResult('r_m2c',s,3);
+}
+
+// === MODULE 3 ===
+function checkM3a(){
+let s=0;
+if(checkAns('m3q1',['who','that']))s++;
+if(checkAns('m3q2','where'))s++;
+if(checkAns('m3q3','whose'))s++;
+if(checkAns('m3q4',['when','that']))s++;
+showResult('r_m3a',s,4);
+}
+
+function checkM3b(){
+let s=0;
+const r5=document.querySelector('input[name="m3q5"]:checked');
+const r6=document.querySelector('input[name="m3q6"]:checked');
+if(r5&&r5.value==='a')s++;
+if(r6&&r6.value==='a')s++;
+if(checkAns('m3q7','a traditional russian wooden doll'))s++;
+showResult('r_m3b',s,3);
+}
+
+function checkM3c(){
+let s=0;
+if(checkAns('m3q8',['gave away','give away']))s++;
+if(checkAns('m3q9',['gave up','give up']))s++;
+if(checkAns('m3q10',['give back','give']))s++;
+showResult('r_m3c',s,3);
+}
+
+// === MODULE 4 ===
+function checkM4a(){
+let s=0;
+if(checkAns('m4q1',['was watching',"'s watching"]))s++;
+if(checkAns('m4q2',["weren't sleeping",'were not sleeping']))s++;
+if(checkAns('m4q3','were you doing'))s++;
+if(checkAns('m4q4',['was cooking',"'s cooking"]))s++;
+showResult('r_m4a',s,4);
+}
+
+function checkM4b(){
+let s=0;
+if(checkAns('m4q5',['goes with','goes']))s++;
+if(checkAns('m4q6','off'))s++;
+if(checkAns('m4q7','off'))s++;
+if(checkAns('m4q8',['was driving',"'s driving"]))s++;
+showResult('r_m4b',s,4);
+}
+
+// === MODULE 5 ===
+function checkM5a(){
+let s=0;
+if(checkAns('m5q1','will live'))s++;
+if(checkAns('m5q2',["won't come",'will not come']))s++;
+if(checkAns('m5q3','will you help'))s++;
+showResult('r_m5a',s,3);
+}
+
+function checkM5b(){
+let s=0;
+if(checkAns('m5q4',["doesn't rain",'does not rain']))s++;
+if(checkAns('m5q5','will catch'))s++;
+if(checkAns('m5q6',["i'll call",'i will call']))s++;
+if(checkAns('m5q7','study'))s++;
+showResult('r_m5b',s,4);
+}
+
+function checkM5c(){
+let s=0;
+if(checkAns('m5q8',['looking forward to','look forward to']))s++;
+if(checkAns('m5q9',['look after']))s++;
+if(checkAns('m5q10',['look up']))s++;
+showResult('r_m5c',s,3);
+}
+
+// === MODULE 6 ===
+function checkM6a(){
+let s=0;
+if(checkAns('m6q1','have'))s++;
+if(checkAns('m6q2','has'))s++;
+if(checkAns('m6q3',['have already read',"'ve already read"]))s++;
+if(checkAns('m6q4',["haven't played",'have not played']))s++;
+if(checkAns('m6q5',['has gone',"'s gone"]))s++;
+showResult('r_m6a',s,5);
+}
+
+function checkM6b(){
+let s=0;
+if(checkAns('m6q6',['came across','come across']))s++;
+if(checkAns('m6q7',['came back','come back']))s++;
+if(checkAns('m6q8','out'))s++;
+if(checkAns('m6q9','round'))s++;
+showResult('r_m6b',s,4);
+}
+
+// === MODULE 7 ===
+function checkM7a(){
+let s=0;
+if(checkAns('m7q1','taller'))s++;
+if(checkAns('m7q2','best'))s++;
+if(checkAns('m7q3','younger'))s++;
+if(checkAns('m7q4','most talented'))s++;
+if(checkAns('m7q5','sunnier'))s++;
+if(checkAns('m7q6','worst'))s++;
+showResult('r_m7a',s,6);
+}
+
+function checkM7b(){
+let s=0;
+if(checkAns('m7q7','are watched'))s++;
+if(checkAns('m7q8','was directed'))s++;
+if(checkAns('m7q9','watched'))s++;
+if(checkAns('m7q10',['have you ever watched','have you watched']))s++;
+showResult('r_m7b',s,4);
+}
+
+function checkM7c(){
+let s=0;
+if(checkAns('m7q11',['turned into','turns into']))s++;
+if(checkAns('m7q12','on'))s++;
+if(checkAns('m7q13',['turn off','turn out']))s++;
+showResult('r_m7c',s,3);
+}
+
+// === MODULE 8 ===
+function checkM8a(){
+let s=0;
+if(checkAns('m8q1',['have been waiting',"'ve been waiting"]))s++;
+if(checkAns('m8q2',['has been swimming',"'s been swimming"]))s++;
+if(checkAns('m8q3',['have you been taking care','have you taken care']))s++;
+if(checkAns('m8q4',['have been studying',"'ve been studying"]))s++;
+if(checkAns('m8q5',['has been trying',"'s been trying"]))s++;
+showResult('r_m8a',s,5);
+}
+
+function checkM8b(){
+let s=0;
+if(checkAns('m8q6',"don't they"))s++;
+if(checkAns('m8q7','did he'))s++;
+if(checkAns('m8q8',"aren't they"))s++;
+if(checkAns('m8q9','can she'))s++;
+if(checkAns('m8q10',"isn't it"))s++;
+if(checkAns('m8q11','must'))s++;
+if(checkAns('m8q12','have to'))s++;
+if(checkAns('m8q13',["don't have to",'do not have to']))s++;
+showResult('r_m8b',s,8);
+}
+
+function checkM8c(){
+let s=0;
+if(checkAns('m8q14',['made up','makes up']))s++;
+if(checkAns('m8q15',['made up with','makes up with']))s++;
+if(checkAns('m8q16',['make out']))s++;
+showResult('r_m8c',s,3);
+}
+
+// === MODULE 9 ===
+function checkM9a(){
+let s=0;
+const r1=document.querySelector('input[name="m9q1"]:checked');
+const r2=document.querySelector('input[name="m9q2"]:checked');
+const r3=document.querySelector('input[name="m9q3"]:checked');
+const r4=document.querySelector('input[name="m9q4"]:checked');
+const r5=document.querySelector('input[name="m9q5"]:checked');
+if(r1&&r1.value==='a')s++;
+if(r2&&r2.value==='a')s++;
+if(r3&&r3.value==='a')s++;
+if(r4&&r4.value==='a')s++;
+if(r5&&r5.value==='a')s++;
+showResult('r_m9a',s,5);
+}
+
+function checkM9b(){
+let s=0;
+if(checkAns('m9q6','to pack'))s++;
+if(checkAns('m9q7','swimming'))s++;
+if(checkAns('m9q8','to put'))s++;
+if(checkAns('m9q9','writing'))s++;
+showResult('r_m9b',s,4);
+}
+
+function checkM9c(){
+let s=0;
+if(checkAns('m9q10','off'))s++;
+if(checkAns('m9q11','out'))s++;
+if(checkAns('m9q12','away'))s++;
+if(checkAns('m9q13','back'))s++;
+showResult('r_m9c',s,4);
+}
+
+// === MODULE 10 ===
+function checkM10a(){
+let s=0;
+if(checkAns('m10q1','should'))s++;
+if(checkAns('m10q2','unless'))s++;
+if(checkAns('m10q3',["won't go",'will not go']))s++;
+if(checkAns('m10q4','unless'))s++;
+showResult('r_m10a',s,4);
+}
+
+function checkM10b(){
+let s=0;
+if(checkAns('m10q5','herself'))s++;
+if(checkAns('m10q6','himself'))s++;
+if(checkAns('m10q7','myself'))s++;
+if(checkAns('m10q8',['might break','might be breaking']))s++;
+if(checkAns('m10q9',['might be cut','might have cut','might be bleeding']))s++;
+showResult('r_m10b',s,5);
+}
+
+function checkM10c(){
+let s=0;
+if(checkAns('m10q10','out'))s++;
+if(checkAns('m10q11','behind'))s++;
+if(checkAns('m10q12','apart'))s++;
+showResult('r_m10c',s,3);
+}
+
+// === PROGRESS CHECK 1 ===
+function checkPC1(){
+let s=0;
+const ans={pc1q1:'a',pc1q2:'b',pc1q3:'a',pc1q4:'b',pc1q5:'b',pc1q6:'b',pc1q7:'a',pc1q8:'b'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC1b',s,8);
+}
+
+function checkPC1c(){
+let s=0;
+const ans={pc1q9:'b',pc1q10:'b',pc1q11:'a',pc1q12:'b'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC1c',s,4);
+}
+
+function checkPC1d(){
+let s=0;
+if(checkAns('pc1q13',['is visiting',"'s visiting"]))s++;
+if(checkAns('pc1q14','takes'))s++;
+if(checkAns('pc1q15',['is sleeping',"'s sleeping"]))s++;
+if(checkAns('pc1q16',['is always biting',"'s always biting"]))s++;
+if(checkAns('pc1q17',["doesn't boil",'does not boil']))s++;
+if(checkAns('pc1q18','leaves'))s++;
+showResult('r_PC1d',s,6);
+}
+
+// === PROGRESS CHECK 2 ===
+function checkPC2(){
+let s=0;
+const ans={pc2q1:'d',pc2q2:'c',pc2q3:'c',pc2q4:'d',pc2q5:'c'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC2',s,5);
+}
+
+function checkPC2b(){
+let s=0;
+const ans={pc2q6:'tell',pc2q7:'use',pc2q8:'explore',pc2q9:'play',pc2q10:'create',pc2q11:'put',pc2q12:'solve',pc2q13:'smoke'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC2b',s,8);
+}
+
+function checkPC2c(){
+let s=0;
+if(checkAns('pc2q14',["he didn't use to play football","he didn't play football"]))s++;
+if(checkAns('pc2q15',["he used to wake up early","he woke up early"]))s++;
+if(checkAns('pc2q16',["he used to play computer games","he played computer games"]))s++;
+if(checkAns('pc2q17',["he used to go to the seaside","he went to the seaside"]))s++;
+if(checkAns('pc2q18',["he didn't use to play with toys","he didn't play with toys"]))s++;
+showResult('r_PC2c',s,5);
+}
+
+function checkPC2d(){
+let s=0;
+const ans={pc2q19:'b',pc2q20:'b',pc2q21:'b',pc2q22:'b',pc2q23:'a'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC2d',s,5);
+}
+
+function checkPC2e(){
+let s=0;
+const ans={pc2q24:'caught',pc2q25:'woke',pc2q26:'sent',pc2q27:'decided',pc2q28:'found',pc2q29:'heard',pc2q30:'hid',pc2q31:'left',pc2q32:'broke',pc2q33:'put'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC2e',s,10);
+}
+
+// === PROGRESS CHECK 3 ===
+function checkPC3a(){
+let s=0;
+const ans={pc3q1:'patient',pc3q2:'fit',pc3q3:'sociable',pc3q4:'creative',pc3q5:'determined'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC3a',s,5);
+}
+
+function checkPC3b(){
+let s=0;
+const ans={pc3q6:'c',pc3q7:'c',pc3q8:'d',pc3q9:'c'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC3b',s,4);
+}
+
+function checkPC3c(){
+let s=0;
+const ans={pc3q10:'up',pc3q11:'back',pc3q12:'with',pc3q13:'for',pc3q14:'away',pc3q15:'of'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC3c',s,6);
+}
+
+function checkPC3d(){
+let s=0;
+const ans={pc3q16:'b',pc3q17:'b',pc3q18:'a',pc3q19:'b'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC3d',s,4);
+}
+
+function checkPC3e(){
+let s=0;
+const ans={pc3q20:'a',pc3q21:'b',pc3q22:'a',pc3q23:'b'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC3e',s,4);
+}
+
+// === PROGRESS CHECK 4 ===
+function checkPC4b(){
+let s=0;
+const ans={pc4q1:'c',pc4q2:'a',pc4q3:'e',pc4q4:'d',pc4q5:'b'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC4b',s,5);
+}
+
+function checkPC4c(){
+let s=0;
+const ans={pc4q6:'off',pc4q7:'on',pc4q8:'with',pc4q9:'off'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC4c',s,4);
+}
+
+function checkPC4d(){
+let s=0;
+if(checkAns('pc4q10','was playing'))s++;
+if(checkAns('pc4q11','was sending'))s++;
+if(checkAns('pc4q12','was recovering'))s++;
+if(checkAns('pc4q13','was reading'))s++;
+if(checkAns('pc4q14','was watching'))s++;
+showResult('r_PC4d',s,5);
+}
+
+function checkPC4e(){
+let s=0;
+if(checkAns('pc4q15','was cooking'))s++;
+if(checkAns('pc4q16','was reading'))s++;
+if(checkAns('pc4q17','were watching'))s++;
+if(checkAns('pc4q18','felt'))s++;
+showResult('r_PC4e',s,4);
+}
+
+// === PROGRESS CHECK 5 ===
+function checkPC5a(){
+let s=0;
+const ans={pc5q1:'cities',pc5q2:'clean',pc5q3:'flying',pc5q4:'online',pc5q5:'glass'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC5a',s,5);
+}
+
+function checkPC5b(){
+let s=0;
+const ans={pc5q6:'take',pc5q7:'send',pc5q8:'send',pc5q9:'read',pc5q10:'surf',pc5q11:'store',pc5q12:'watch',pc5q13:'listen'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC5b',s,8);
+}
+
+function checkPC5c(){
+let s=0;
+const ans={pc5q14:'button',pc5q15:'send',pc5q16:'connect',pc5q17:'store',pc5q18:'electronic'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC5c',s,5);
+}
+
+function checkPC5d(){
+let s=0;
+const ans={pc5q19:'after',pc5q20:'forward',pc5q21:'up',pc5q22:'for'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC5d',s,4);
+}
+
+function checkPC5e(){
+let s=0;
+if(checkAns('pc5q23',['am taking',"'m taking",'will take']))s++;
+if(checkAns('pc5q24',['is going to lose',"'s going to lose"]))s++;
+if(checkAns('pc5q25',["i'll get",'i will get']))s++;
+if(checkAns('pc5q26','will be'))s++;
+if(checkAns('pc5q27',['am going to buy',"'m going to buy",'will buy']))s++;
+showResult('r_PC5e',s,5);
+}
+
+function checkPC5f(){
+let s=0;
+const ans={pc5q28:'b',pc5q29:'b',pc5q30:'a',pc5q31:'b',pc5q32:'b'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC5f',s,5);
+}
+
+// === PROGRESS CHECK 6 ===
+function checkPC6a(){
+let s=0;
+const ans={pc6q1:'shake',pc6q2:'famous',pc6q3:'theme',pc6q4:'candy',pc6q5:'perform',pc6q6:'pirate',pc6q7:'big',pc6q8:'water',pc6q9:'cartoon',pc6q10:'rocket'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC6a',s,10);
+}
+
+function checkPC6b(){
+let s=0;
+const ans={pc6q11:'souvenir',pc6q12:'safari',pc6q13:'haunted',pc6q14:'reserve',pc6q15:'obey',pc6q16:'address',pc6q17:'trapeze',pc6q18:'pool',pc6q19:'jungle',pc6q20:'models'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC6b',s,10);
+}
+
+function checkPC6c(){
+let s=0;
+const ans={pc6q21:'across',pc6q22:'back',pc6q23:'out',pc6q24:'back',pc6q25:'across'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC6c',s,5);
+}
+
+function checkPC6d(){
+let s=0;
+if(checkAns('pc6q26',['have you ever seen','have you seen']))s++;
+if(checkAns('pc6q27',['has never flown',"'s never flown"]))s++;
+if(checkAns('pc6q28',['have you ever visited','have you visited']))s++;
+if(checkAns('pc6q29',['has gone',"'s gone"]))s++;
+if(checkAns('pc6q30',['have you ever met','have you met']))s++;
+if(checkAns('pc6q31',['has never travelled',"'s never travelled","has never traveled"]))s++;
+if(checkAns('pc6q32',['have already read',"'ve already read"]))s++;
+if(checkAns('pc6q33',["haven't played",'have not played']))s++;
+if(checkAns('pc6q34',['have you ever seen','have you seen']))s++;
+if(checkAns('pc6q35',['have already packed',"'ve already packed"]))s++;
+showResult('r_PC6d',s,10);
+}
+
+// === PROGRESS CHECK 7 ===
+function checkPC7a(){
+let s=0;
+const ans={pc7q1:'science',pc7q2:'romance',pc7q3:'animation',pc7q4:'horror',pc7q5:'adventure'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC7a',s,5);
+}
+
+function checkPC7b(){
+let s=0;
+const ans={pc7q6:'actress',pc7q7:'industry',pc7q8:'effects',pc7q9:'tune',pc7q10:'music'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC7b',s,5);
+}
+
+function checkPC7c(){
+let s=0;
+const ans={pc7q11:'famous',pc7q12:'funny',pc7q13:'intelligent',pc7q14:'talented',pc7q15:'great'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC7c',s,5);
+}
+
+function checkPC7d(){
+let s=0;
+if(checkAns('pc7q16','sunnier'))s++;
+if(checkAns('pc7q17','worst'))s++;
+if(checkAns('pc7q18','faster'))s++;
+if(checkAns('pc7q19','better'))s++;
+if(checkAns('pc7q20','more carefully'))s++;
+showResult('r_PC7d',s,5);
+}
+
+function checkPC7e(){
+let s=0;
+if(checkAns('pc7q21',['has lived',"'s lived"]))s++;
+if(checkAns('pc7q22','went'))s++;
+if(checkAns('pc7q23',['have you read']))s++;
+if(checkAns('pc7q24',['has always loved',"'s always loved"]))s++;
+if(checkAns('pc7q25','was directed'))s++;
+showResult('r_PC7e',s,5);
+}
+
+function checkPC7f(){
+let s=0;
+const ans={pc7q26:'yet',pc7q27:'always',pc7q28:'for',pc7q29:'ago',pc7q30:'since'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC7f',s,5);
+}
+
+// === PROGRESS CHECK 8 ===
+function checkPC8a(){
+let s=0;
+const ans={pc8q1:'power',pc8q2:'endangered',pc8q3:'recycling',pc8q4:'acid',pc8q5:'natural'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC8a',s,5);
+}
+
+function checkPC8b(){
+let s=0;
+const ans={pc8q6:'a',pc8q7:'a',pc8q8:'b',pc8q9:'b',pc8q10:'b'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC8b',s,5);
+}
+
+function checkPC8c(){
+let s=0;
+if(checkAns('pc8q11',['has been working',"'s been working"]))s++;
+if(checkAns('pc8q12',['has been swimming',"'s been swimming"]))s++;
+if(checkAns('pc8q13',['have you been taking care','have you taken care']))s++;
+if(checkAns('pc8q14',['have been studying',"'ve been studying"]))s++;
+if(checkAns('pc8q15',['have been donating',"'ve been donating"]))s++;
+if(checkAns('pc8q16',['has been trying',"'s been trying"]))s++;
+showResult('r_PC8c',s,6);
+}
+
+function checkPC8d(){
+let s=0;
+if(checkAns('pc8q17','have to'))s++;
+if(checkAns('pc8q18',["don't have to",'do not have to']))s++;
+if(checkAns('pc8q19','have to'))s++;
+if(checkAns('pc8q20',["doesn't have to",'does not have to']))s++;
+if(checkAns('pc8q21','have to'))s++;
+showResult('r_PC8d',s,5);
+}
+
+function checkPC8e(){
+let s=0;
+if(checkAns('pc8q22',["don't they"]))s++;
+if(checkAns('pc8q23','did he'))s++;
+if(checkAns('pc8q24',["aren't they"]))s++;
+if(checkAns('pc8q25','can she'))s++;
+if(checkAns('pc8q26',["isn't it"]))s++;
+showResult('r_PC8e',s,5);
+}
+
+// === PROGRESS CHECK 9 ===
+function checkPC9a(){
+let s=0;
+const v1=document.getElementById('pc9q1').value.toLowerCase();
+const v2=document.getElementById('pc9q2').value.toLowerCase();
+const v3=document.getElementById('pc9q3').value.toLowerCase();
+const v4=document.getElementById('pc9q4').value.toLowerCase();
+const v5=document.getElementById('pc9q5').value.toLowerCase();
+const v6=document.getElementById('pc9q6').value.toLowerCase();
+if(v1.includes('lamb chops'))s++;
+if(v2.includes('bananas')&&v2.includes('peppers'))s++;
+if(v3.includes('yoghurt')&&v3.includes('butter'))s++;
+if(v4.includes('coffee'))s++;
+if(v5.includes('bread')&&v5.includes('rice'))s++;
+if(v6.includes('chocolate')&&v6.includes('crisps'))s++;
+showResult('r_PC9a',s,6);
+}
+
+function checkPC9b(){
+let s=0;
+const ans={pc9q7:'box',pc9q8:'can',pc9q9:'jar',pc9q10:'box',pc9q11:'packet'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC9b',s,5);
+}
+
+function checkPC9c(){
+let s=0;
+const ans={pc9q12:'a',pc9q13:'a',pc9q14:'a',pc9q15:'a',pc9q16:'a'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC9c',s,5);
+}
+
+function checkPC9d(){
+let s=0;
+const ans={pc9q17:'off',pc9q18:'out',pc9q19:'away',pc9q20:'back'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC9d',s,4);
+}
+
+function checkPC9e(){
+let s=0;
+if(checkAns('pc9q21',['have been studying',"'ve been studying"]))s++;
+if(checkAns('pc9q22',['has joined',"'s joined"]))s++;
+if(checkAns('pc9q23',['has been cooking',"'s been cooking"]))s++;
+if(checkAns('pc9q24',['has gone',"'s gone"]))s++;
+if(checkAns('pc9q25',['have been swimming',"'ve been swimming"]))s++;
+showResult('r_PC9e',s,5);
+}
+
+function checkPC9f(){
+let s=0;
+const ans={pc9q26:'a',pc9q27:'a',pc9q28:'a',pc9q29:'a',pc9q30:'b'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC9f',s,5);
+}
+
+// === PROGRESS CHECK 10 ===
+function checkPC10a(){
+let s=0;
+const ans={pc10q1:'sit',pc10q2:'lose',pc10q3:'break',pc10q4:'twist',pc10q5:'cut',pc10q6:'chip',pc10q7:'bang',pc10q8:'practise',pc10q9:'move',pc10q10:'sit'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC10a',s,10);
+}
+
+function checkPC10b(){
+let s=0;
+const ans={pc10q11:'c',pc10q12:'c',pc10q13:'d',pc10q14:'b',pc10q15:'d'};
+for(let[n,v]of Object.entries(ans)){
+const r=document.querySelector(`input[name="${n}"]:checked`);
+if(r&&r.value===v)s++;
+}
+showResult('r_PC10b',s,5);
+}
+
+function checkPC10c(){
+let s=0;
+const ans={pc10q16:'sore',pc10q17:'doctors',pc10q18:'regular',pc10q19:'light',pc10q20:'high'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC10c',s,5);
+}
+
+function checkPC10d(){
+let s=0;
+const ans={pc10q21:'out',pc10q22:'behind',pc10q23:'apart',pc10q24:'out',pc10q25:'behind'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC10d',s,5);
+}
+
+function checkPC10e(){
+let s=0;
+const ans={pc10q26:'ourselves',pc10q27:'themselves',pc10q28:'himself',pc10q29:'myself',pc10q30:'yourself'};
+for(let[id,v]of Object.entries(ans))if(checkAns(id,v))s++;
+showResult('r_PC10e',s,5);
+}
+
+function checkPC10f(){
+let s=0;
+if(checkAns('pc10q31',['will take',"'ll take"]))s++;
+if(checkAns('pc10q32','unless'))s++;
+if(checkAns('pc10q33',["won't feel",'will not feel']))s++;
+if(checkAns('pc10q34','will get'))s++;
+if(checkAns('pc10q35',['behave','behave themselves']))s++;
+showResult('r_PC10f',s,5);
+}
+
+// === MATCHING CLICK ===
+document.addEventListener('click',function(e){
+if(e.target.classList.contains('matching-item')){
+e.target.classList.toggle('selected');
+}
+});
+</script>
+</body>
+</html>
