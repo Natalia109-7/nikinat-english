@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Trainer - Spotlight 8</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5eef0 0%, #e8d5e0 50%, #f0e6e8 100%);
+            color: #5a4a5a;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(147, 112, 147, 0.1);
+        }
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5em;
+            color: #6b5b7a;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .subtitle { font-size: 1.2em; color: #8b7b8b; font-style: italic; }
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #d4a5b5 0%, #b8a5c4 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(147, 112, 147, 0.2);
+        }
+        .nav-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(147, 112, 147, 0.3); }
+        .nav-btn.active { background: linear-gradient(135deg, #b8a5c4 0%, #9a8ba8 100%); }
+        .module-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(147, 112, 147, 0.1);
+        }
+        .module-section.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .module-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5em;
+            color: #6b5b7a;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .subsection {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border-left: 5px solid #d4a5b5;
+        }
+        .subsection-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8em;
+            color: #7b6b7a;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d4a5b5;
+            padding-bottom: 10px;
+        }
+        .exercise-block {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #d4a5b5;
+        }
+        .exercise-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6em;
+            color: #7b6b7a;
+            margin-bottom: 20px;
+        }
+        .theory-box {
+            background: rgba(184, 165, 196, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #b8a5c4;
+        }
+        .theory-box h5 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #6b5b7a;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .theory-box ul { margin-left: 20px; }
+        .theory-box li { margin-bottom: 5px; }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(212, 165, 181, 0.1);
+            border-radius: 15px;
+        }
+        .question-text { font-weight: 500; margin-bottom: 12px; color: #5a4a5a; }
+        .options { display: flex; flex-direction: column; gap: 8px; }
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .option-label:hover { background: rgba(212, 165, 181, 0.2); border-color: #d4a5b5; }
+        input[type="radio"], input[type="checkbox"] { margin-right: 12px; width: 18px; height: 18px; cursor: pointer; }
+        input[type="text"] {
+            border: none;
+            border-bottom: 2px solid #b8a5c4;
+            padding: 8px 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            background: transparent;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus { outline: none; border-bottom-color: #6b5b7a; background: rgba(184, 165, 196, 0.1); }
+        .check-btn {
+            display: block;
+            margin: 25px auto;
+            padding: 14px 45px;
+            background: linear-gradient(135deg, #a890a8 0%, #8b7b8b 100%);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(147, 112, 147, 0.3);
+        }
+        .check-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(147, 112, 147, 0.4); }
+        .result {
+            text-align: center;
+            padding: 18px;
+            margin-top: 15px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 500;
+            display: none;
+        }
+        .result.success { background: rgba(147, 187, 147, 0.3); color: #4a7a4a; display: block; }
+        .result.error { background: rgba(220, 147, 147, 0.3); color: #7a4a4a; display: block; }
+        .matching-exercise { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .matching-column { display: flex; flex-direction: column; gap: 8px; }
+        .matching-item {
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #d4a5b5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .matching-item:hover { background: rgba(212, 165, 181, 0.2); }
+        .matching-item.selected { background: rgba(184, 165, 196, 0.4); border-color: #9a8ba8; }
+        .vocab-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .vocab-item {
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #d4a5b5;
+            font-size: 0.95em;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .module-section { padding: 20px; }
+            .matching-exercise { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>English Trainer</h1>
+    <p class="subtitle">Spotlight 8 — Полная программа</p>
+</header>
+
+<nav class="nav-menu">
+    <button class="nav-btn active" onclick="showModule('module1', this)">Module 1</button>
+    <button class="nav-btn" onclick="showModule('module2', this)">Module 2</button>
+    <button class="nav-btn" onclick="showModule('module3', this)">Module 3</button>
+    <button class="nav-btn" onclick="showModule('module4', this)">Module 4</button>
+    <button class="nav-btn" onclick="showModule('module5', this)">Module 5</button>
+    <button class="nav-btn" onclick="showModule('module6', this)">Module 6</button>
+    <button class="nav-btn" onclick="showModule('module7', this)">Module 7</button>
+    <button class="nav-btn" onclick="showModule('module8', this)">Module 8</button>
+    <button class="nav-btn" onclick="showModule('progress', this)">Progress Checks</button>
+</nav>
+
+<!-- ============ MODULE 1: SOCIALISING ============ -->
+<section id="module1" class="module-section active">
+<h2 class="module-title">Module 1: Socialising</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">1a — Character & Body Language</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Character Adjectives</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>optimistic</strong> — оптимистичный</div>
+        <div class="vocab-item"><strong>reliable</strong> — надёжный</div>
+        <div class="vocab-item"><strong>sociable</strong> — общительный</div>
+        <div class="vocab-item"><strong>stubborn</strong> — упрямый</div>
+        <div class="vocab-item"><strong>selfish</strong> — эгоистичный</div>
+        <div class="vocab-item"><strong>shy</strong> — застенчивый</div>
+        <div class="vocab-item"><strong>creative</strong> — творческий</div>
+        <div class="vocab-item"><strong>patient</strong> — терпеливый</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Present Tenses & Stative Verbs</h4>
+    <div class="theory-box">
+        <h5>Stative verbs (глаголы состояния)</h5>
+        <p>Не используются в Continuous: <em>like, love, hate, know, believe, understand, belong, own, want, wish, need, seem, appear, sound, taste, smell</em></p>
+    </div>
+    <div class="question">
+        <p class="question-text">1. She <input type="text" id="m1q1" placeholder="read"> (read) a book now.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. They <input type="text" id="m1q2" placeholder="go"> (go) to school every day.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I <input type="text" id="m1q3" placeholder="think"> (think) it's a good idea. (stative)</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. He <input type="text" id="m1q4" placeholder="not/like"> (not/like) coffee.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">5. We <input type="text" id="m1q5" placeholder="think"> (think) of changing school. (action)</p>
+    </div>
+    <button class="check-btn" onclick="checkM1a()">Проверить</button>
+    <div id="r_m1a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">1b — Socialising & Personal Information</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Socialising Phrases</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>break the ice</strong> — растопить лёд</div>
+        <div class="vocab-item"><strong>hang out</strong> — проводить время</div>
+        <div class="vocab-item"><strong>get on well with</strong> — хорошо ладить с</div>
+        <div class="vocab-item"><strong>have a lot in common</strong> — иметь много общего</div>
+        <div class="vocab-item"><strong>keep in touch</strong> — поддерживать связь</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Expressing Future Actions</h4>
+    <div class="theory-box">
+        <h5>Future forms</h5>
+        <ul>
+            <li><strong>will</strong> — спонтанные решения, предсказания</li>
+            <li><strong>be going to</strong> — планы, намерения</li>
+            <li><strong>Present Continuous</strong> — запланированные действия</li>
+            <li><strong>Present Simple</strong> — расписания</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. I <input type="text" id="m1q6" placeholder="meet"> (meet) John tomorrow at 5. (planned)</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. The train <input type="text" id="m1q7" placeholder="leave"> (leave) at 7:30. (timetable)</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I think it <input type="text" id="m1q8" placeholder="rain"> (rain) later. (prediction)</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. We <input type="text" id="m1q9" placeholder="visit"> (visit) our grandparents next weekend. (plan)</p>
+    </div>
+    <button class="check-btn" onclick="checkM1b()">Проверить</button>
+    <div id="r_m1b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">1c — Appearance & Character</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Appearance & Opposite Adjectives</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>slim</strong> ↔ <strong>plump</strong></div>
+        <div class="vocab-item"><strong>curly</strong> ↔ <strong>straight</strong> (hair)</div>
+        <div class="vocab-item"><strong>reliable</strong> ↔ <strong>unreliable</strong></div>
+        <div class="vocab-item"><strong>patient</strong> ↔ <strong>impatient</strong></div>
+        <div class="vocab-item"><strong>logical</strong> ↔ <strong>illogical</strong></div>
+        <div class="vocab-item"><strong>possible</strong> ↔ <strong>impossible</strong></div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Past Simple vs Past Continuous</h4>
+    <div class="theory-box">
+        <h5>Past Simple vs Past Continuous</h5>
+        <ul>
+            <li><strong>Past Simple</strong> — завершённое действие в прошлом</li>
+            <li><strong>Past Continuous</strong> — действие в процессе (was/were + V-ing)</li>
+            <li>When + Past Simple, Past Continuous (прерванное действие)</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. I <input type="text" id="m1q10" placeholder="walk"> (walk) home when it <input type="text" id="m1q11" placeholder="start"> (start) to rain.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="m1q12" placeholder="cook"> (cook) dinner while he <input type="text" id="m1q13" placeholder="read"> (read).</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. They <input type="text" id="m1q14" placeholder="watch"> (watch) TV when the phone <input type="text" id="m1q15" placeholder="ring"> (ring).</p>
+    </div>
+    <button class="check-btn" onclick="checkM1c()">Проверить</button>
+    <div id="r_m1c" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">1d — Relationships & Idioms</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Phrasal Verbs: get</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>get on with</strong> — ладить с</div>
+        <div class="vocab-item"><strong>get over</strong> — преодолеть, оправиться</div>
+        <div class="vocab-item"><strong>get along</strong> — ладить</div>
+        <div class="vocab-item"><strong>get by</strong> — справляться</div>
+        <div class="vocab-item"><strong>get together</strong> — собираться вместе</div>
+    </div>
+    <div class="question">
+        <p class="question-text">1. Do you <input type="text" id="m1q16" placeholder="get ..."> well with your classmates?</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. It took her a long time to <input type="text" id="m1q17" placeholder="get ..."> the illness.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. Let's <input type="text" id="m1q18" placeholder="get ..."> this weekend!</p>
+    </div>
+    <button class="check-btn" onclick="checkM1d()">Проверить</button>
+    <div id="r_m1d" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 2: FOOD & SHOPPING ============ -->
+<section id="module2" class="module-section">
+<h2 class="module-title">Module 2: Food & Shopping</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">2a — Ways of Cooking & Food Collocations</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Cooking Methods</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>boil</strong> — варить</div>
+        <div class="vocab-item"><strong>fry</strong> — жарить</div>
+        <div class="vocab-item"><strong>grill</strong> — жарить на гриле</div>
+        <div class="vocab-item"><strong>roast</strong> — запекать</div>
+        <div class="vocab-item"><strong>bake</strong> — печь</div>
+        <div class="vocab-item"><strong>steam</strong> — готовить на пару</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Present Perfect vs Present Perfect Continuous</h4>
+    <div class="theory-box">
+        <h5>Present Perfect vs Present Perfect Continuous</h5>
+        <ul>
+            <li><strong>Present Perfect</strong> — результат действия (have/has + V3)</li>
+            <li><strong>Present Perfect Continuous</strong> — длительность (have/has been + V-ing)</li>
+            <li>Маркеры: for, since, already, yet, just, ever, never</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. I <input type="text" id="m2q1" placeholder="know"> (know) her for five years.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="m2q2" placeholder="cook"> (cook) all morning.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. We <input type="text" id="m2q3" placeholder="not/finish"> (not/finish) yet.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. They <input type="text" id="m2q4" placeholder="live"> (live) here since 2015.</p>
+    </div>
+    <button class="check-btn" onclick="checkM2a()">Проверить</button>
+    <div id="r_m2a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">2b — Shopping & Places to Shop</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Shops</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>chemist's</strong> — аптека</div>
+        <div class="vocab-item"><strong>baker's</strong> — пекарня</div>
+        <div class="vocab-item"><strong>butcher's</strong> — мясная лавка</div>
+        <div class="vocab-item"><strong>newsagent's</strong> — газетный киоск</div>
+        <div class="vocab-item"><strong>optician's</strong> — оптика</div>
+        <div class="vocab-item"><strong>stationery shop</strong> — канцелярский магазин</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Quantifiers & Articles</h4>
+    <div class="theory-box">
+        <h5>Quantifiers</h5>
+        <ul>
+            <li><strong>Countable:</strong> many, a few, few</li>
+            <li><strong>Uncountable:</strong> much, a little, little</li>
+            <li><strong>Both:</strong> some, any, a lot of</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. There aren't <input type="text" id="m2q5" placeholder="many/much"> apples.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. Is there <input type="text" id="m2q6" placeholder="any/some"> milk?</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I have <input type="text" id="m2q7" placeholder="a few/a little"> friends here.</p>
+    </div>
+    <button class="check-btn" onclick="checkM2b()">Проверить</button>
+    <div id="r_m2b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">2c — Eating Habits & Word Formation</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Phrasal Verbs: go</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>go off</strong> — портиться (о еде)</div>
+        <div class="vocab-item"><strong>go on</strong> — продолжаться</div>
+        <div class="vocab-item"><strong>go with</strong> — подходить, сочетаться</div>
+        <div class="vocab-item"><strong>go without</strong> — обходиться без</div>
+    </div>
+    <div class="question">
+        <p class="question-text">1. The milk has <input type="text" id="m2q8" placeholder="go ...">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. This tie <input type="text" id="m2q9" placeholder="go ..."> your shirt.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. We can't <input type="text" id="m2q10" placeholder="go ..."> water.</p>
+    </div>
+    <button class="check-btn" onclick="checkM2c()">Проверить</button>
+    <div id="r_m2c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 3: GREAT MINDS ============ -->
+<section id="module3" class="module-section">
+<h2 class="module-title">Module 3: Great Minds</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">3a — Fields of Science</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Science Fields</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>biology</strong> — биология</div>
+        <div class="vocab-item"><strong>chemistry</strong> — химия</div>
+        <div class="vocab-item"><strong>physics</strong> — физика</div>
+        <div class="vocab-item"><strong>astronomy</strong> — астрономия</div>
+        <div class="vocab-item"><strong>psychology</strong> — психология</div>
+        <div class="vocab-item"><strong>ecology</strong> — экология</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Past Perfect & Complex Object</h4>
+    <div class="theory-box">
+        <h5>Past Perfect (had + V3)</h5>
+        <p>Действие, произошедшее до другого действия в прошлом.</p>
+        <h5>Complex Object</h5>
+        <ul>
+            <li><strong>see/hear/watch + object + V-ing</strong> (процесс)</li>
+            <li><strong>see/hear + object + V</strong> (факт)</li>
+            <li><strong>want/expect + object + to V</strong></li>
+            <li><strong>let/make + object + V</strong> (без to)</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. By the time we arrived, the film <input type="text" id="m3q1" placeholder="already/start">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. I saw him <input type="text" id="m3q2" placeholder="leave"> the room.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. She heard someone <input type="text" id="m3q3" placeholder="call"> her name.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. They made him <input type="text" id="m3q4" placeholder="apologise">.</p>
+    </div>
+    <button class="check-btn" onclick="checkM3a()">Проверить</button>
+    <div id="r_m3a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">3b — Work & Jobs</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Jobs & Stages in Life</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>childhood</strong> — детство</div>
+        <div class="vocab-item"><strong>adolescence</strong> — отрочество</div>
+        <div class="vocab-item"><strong>adulthood</strong> — взрослая жизнь</div>
+        <div class="vocab-item"><strong>retirement</strong> — пенсия</div>
+        <div class="vocab-item"><strong>career</strong> — карьера</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Phrasal Verbs: bring</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>bring up</strong> — воспитывать, поднимать тему</div>
+        <div class="vocab-item"><strong>bring about</strong> — вызывать, приводить к</div>
+        <div class="vocab-item"><strong>bring back</strong> — возвращать</div>
+        <div class="vocab-item"><strong>bring in</strong> — приносить (доход)</div>
+    </div>
+    <div class="question">
+        <p class="question-text">1. She was <input type="text" id="m3q5" placeholder="bring ..."> by her grandmother.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. The new law will <input type="text" id="m3q6" placeholder="bring ..."> many changes.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. This job <input type="text" id="m3q7" placeholder="bring ..."> a good salary.</p>
+    </div>
+    <button class="check-btn" onclick="checkM3b()">Проверить</button>
+    <div id="r_m3b" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 4: BE YOURSELF ============ -->
+<section id="module4" class="module-section">
+<h2 class="module-title">Module 4: Be Yourself</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">4a — Appearance & Clothes</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Patterns & Materials</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>checked</strong> — в клетку</div>
+        <div class="vocab-item"><strong>striped</strong> — в полоску</div>
+        <div class="vocab-item"><strong>polka-dot</strong> — в горошек</div>
+        <div class="vocab-item"><strong>plain</strong> — однотонный</div>
+        <div class="vocab-item"><strong>cotton</strong> — хлопок</div>
+        <div class="vocab-item"><strong>leather</strong> — кожа</div>
+        <div class="vocab-item"><strong>woollen</strong> — шерстяной</div>
+        <div class="vocab-item"><strong>velvet</strong> — бархат</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Passive Voice</h4>
+    <div class="theory-box">
+        <h5>Passive Voice: be + V3</h5>
+        <ul>
+            <li>Present Simple: is/are + V3</li>
+            <li>Past Simple: was/were + V3</li>
+            <li>Present Perfect: has/have been + V3</li>
+            <li>Future Simple: will be + V3</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. English <input type="text" id="m4q1" placeholder="speak"> (speak) all over the world.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. The film <input type="text" id="m4q2" placeholder="direct"> (direct) by Spielberg.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. The letter <input type="text" id="m4q3" placeholder="already/send"> (already/send).</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. The house <input type="text" id="m4q4" placeholder="build"> (build) next year.</p>
+    </div>
+    <button class="check-btn" onclick="checkM4a()">Проверить</button>
+    <div id="r_m4a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">4b — Body Image & Idioms</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Phrasal Verbs: put</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>put on</strong> — надевать</div>
+        <div class="vocab-item"><strong>put off</strong> — откладывать</div>
+        <div class="vocab-item"><strong>put up with</strong> — мириться с</div>
+        <div class="vocab-item"><strong>put out</strong> — тушить</div>
+    </div>
+    <div class="question">
+        <p class="question-text">1. <input type="text" id="m4q5" placeholder="Put ..."> your coat, it's cold.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. Don't <input type="text" id="m4q6" placeholder="put ..."> the meeting.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I can't <input type="text" id="m4q7" placeholder="put ..."> the noise.</p>
+    </div>
+    <button class="check-btn" onclick="checkM4b()">Проверить</button>
+    <div id="r_m4b" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 5: GLOBAL ISSUES ============ -->
+<section id="module5" class="module-section">
+<h2 class="module-title">Module 5: Global Issues</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">5a — Natural Disasters</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Natural Disasters</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>earthquake</strong> — землетрясение</div>
+        <div class="vocab-item"><strong>flood</strong> — наводнение</div>
+        <div class="vocab-item"><strong>hurricane</strong> — ураган</div>
+        <div class="vocab-item"><strong>tornado</strong> — торнадо</div>
+        <div class="vocab-item"><strong>tsunami</strong> — цунами</div>
+        <div class="vocab-item"><strong>drought</strong> — засуха</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Infinitive vs -ing Form</h4>
+    <div class="theory-box">
+        <h5>Infinitive vs -ing</h5>
+        <ul>
+            <li><strong>forget + to V</strong> — забыть сделать</li>
+            <li><strong>forget + V-ing</strong> — забыть, что делал</li>
+            <li><strong>remember + to V</strong> — помнить, что надо сделать</li>
+            <li><strong>remember + V-ing</strong> — помнить, что делал</li>
+            <li><strong>stop + to V</strong> — остановиться, чтобы сделать</li>
+            <li><strong>stop + V-ing</strong> — прекратить делать</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. I forgot <input type="text" id="m5q1" placeholder="lock"> (lock) the door.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. I'll never forget <input type="text" id="m5q2" placeholder="see"> (see) that view.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. Remember <input type="text" id="m5q3" placeholder="bring"> (bring) your book.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. He stopped <input type="text" id="m5q4" placeholder="smoke"> (smoke) last year.</p>
+    </div>
+    <button class="check-btn" onclick="checkM5a()">Проверить</button>
+    <div id="r_m5a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">5b — Weather & Idioms</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Weather Idioms</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>under the weather</strong> — плохо себя чувствовать</div>
+        <div class="vocab-item"><strong>a storm in a teacup</strong> — буря в стакане воды</div>
+        <div class="vocab-item"><strong>rain cats and dogs</strong> — лить как из ведра</div>
+        <div class="vocab-item"><strong>every cloud has a silver lining</strong> — нет худа без добра</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: used to / be used to / get used to</h4>
+    <div class="theory-box">
+        <h5>used to / be used to / get used to</h5>
+        <ul>
+            <li><strong>used to + V</strong> — раньше делал (привычка в прошлом)</li>
+            <li><strong>be used to + V-ing</strong> — привык к</li>
+            <li><strong>get used to + V-ing</strong> — привыкать к</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. I <input type="text" id="m5q5" placeholder="use to"> live in London. (past habit)</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She is <input type="text" id="m5q6" placeholder="use to"> working late.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. He is <input type="text" id="m5q7" placeholder="get use to"> the cold weather.</p>
+    </div>
+    <button class="check-btn" onclick="checkM5b()">Проверить</button>
+    <div id="r_m5b" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">5c — Opinions & Viewpoints</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Phrasal Verbs: call</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>call off</strong> — отменять</div>
+        <div class="vocab-item"><strong>call on</strong> — призывать, обращаться</div>
+        <div class="vocab-item"><strong>call for</strong> — требовать</div>
+        <div class="vocab-item"><strong>call back</strong> — перезванивать</div>
+    </div>
+    <div class="question">
+        <p class="question-text">1. The meeting was <input type="text" id="m5q8" placeholder="call ...">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. They <input type="text" id="m5q9" placeholder="call ..."> immediate action.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I'll <input type="text" id="m5q10" placeholder="call ..."> you later.</p>
+    </div>
+    <button class="check-btn" onclick="checkM5c()">Проверить</button>
+    <div id="r_m5c" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 6: CULTURE EXCHANGES ============ -->
+<section id="module6" class="module-section">
+<h2 class="module-title">Module 6: Culture Exchanges</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">6a — Holidays & Holiday Activities</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Holiday Activities</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>go sightseeing</strong> — осматривать достопримечательности</div>
+        <div class="vocab-item"><strong>go sunbathing</strong> — загорать</div>
+        <div class="vocab-item"><strong>go hiking</strong> — ходить в поход</div>
+        <div class="vocab-item"><strong>go rafting</strong> — сплавляться на плотах</div>
+        <div class="vocab-item"><strong>go sailing</strong> — ходить под парусом</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Reported Speech</h4>
+    <div class="theory-box">
+        <h5>Reported Speech</h5>
+        <ul>
+            <li>Present Simple → Past Simple</li>
+            <li>Present Continuous → Past Continuous</li>
+            <li>Past Simple → Past Perfect</li>
+            <li>will → would</li>
+            <li>can → could</li>
+            <li>must → had to</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. "I like coffee." → She said she <input type="text" id="m6q1" placeholder="like"> coffee.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. "I am reading." → He said he <input type="text" id="m6q2" placeholder="read">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. "I will help." → She said she <input type="text" id="m6q3" placeholder="help">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. "I can swim." → He said he <input type="text" id="m6q4" placeholder="swim">.</p>
+    </div>
+    <button class="check-btn" onclick="checkM6a()">Проверить</button>
+    <div id="r_m6a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">6b — Holiday Problems & Transport</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Transport Idioms</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>miss the boat</strong> — упустить возможность</div>
+        <div class="vocab-item"><strong>on the right track</strong> — на правильном пути</div>
+        <div class="vocab-item"><strong>hit the road</strong> — отправиться в путь</div>
+        <div class="vocab-item"><strong>get off to a good start</strong> — хорошо начать</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Phrasal Verbs: set</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>set off</strong> — отправляться в путь</div>
+        <div class="vocab-item"><strong>set up</strong> — основывать, устанавливать</div>
+        <div class="vocab-item"><strong>set out</strong> — начинать, излагать</div>
+        <div class="vocab-item"><strong>set back</strong> — задерживать</div>
+    </div>
+    <div class="question">
+        <p class="question-text">1. We <input type="text" id="m6q5" placeholder="set ..."> early in the morning.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. The company was <input type="text" id="m6q6" placeholder="set ..."> in 2010.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. The delay <input type="text" id="m6q7" placeholder="set ..."> us an hour.</p>
+    </div>
+    <button class="check-btn" onclick="checkM6b()">Проверить</button>
+    <div id="r_m6b" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 7: EDUCATION ============ -->
+<section id="module7" class="module-section">
+<h2 class="module-title">Module 7: Education</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">7a — Media Usage</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Media</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>social media</strong> — социальные сети</div>
+        <div class="vocab-item"><strong>streaming</strong> — потоковое вещание</div>
+        <div class="vocab-item"><strong>podcast</strong> — подкаст</div>
+        <div class="vocab-item"><strong>blog</strong> — блог</div>
+        <div class="vocab-item"><strong>influencer</strong> — инфлюенсер</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Modals & Making Deductions</h4>
+    <div class="theory-box">
+        <h5>Modals for deductions</h5>
+        <ul>
+            <li><strong>must</strong> — наверняка (уверенность)</li>
+            <li><strong>might/may/could</strong> — возможно</li>
+            <li><strong>can't</strong> — не может быть</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. He <input type="text" id="m7q1" placeholder="must/might/can't"> be at home — his car is here.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="m7q2" placeholder="must/might/can't"> be tired — she worked all night.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. That <input type="text" id="m7q3" placeholder="must/might/can't"> be John — he's in Paris.</p>
+    </div>
+    <button class="check-btn" onclick="checkM7a()">Проверить</button>
+    <div id="r_m7a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">7b — School Education & Exams</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Phrasal Verbs: give</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>give up</strong> — сдаваться, бросать</div>
+        <div class="vocab-item"><strong>give in</strong> — уступать</div>
+        <div class="vocab-item"><strong>give away</strong> — раздавать, выдавать</div>
+        <div class="vocab-item"><strong>give back</strong> — возвращать</div>
+    </div>
+    <div class="question">
+        <p class="question-text">1. Don't <input type="text" id="m7q4" placeholder="give ...">!</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="m7q5" placeholder="give ..."> all her old books.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. Please <input type="text" id="m7q6" placeholder="give ..."> my book.</p>
+    </div>
+    <button class="check-btn" onclick="checkM7b()">Проверить</button>
+    <div id="r_m7b" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ MODULE 8: PASTIMES ============ -->
+<section id="module8" class="module-section">
+<h2 class="module-title">Module 8: Pastimes</h2>
+
+<div class="subsection">
+<h3 class="subsection-title">8a — Extreme Sports & Interests</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Vocabulary: Sports</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>rock climbing</strong> — скалолазание</div>
+        <div class="vocab-item"><strong>bungee jumping</strong> — прыжки с тарзанки</div>
+        <div class="vocab-item"><strong>paragliding</strong> — парапланеризм</div>
+        <div class="vocab-item"><strong>snowboarding</strong> — сноубординг</div>
+        <div class="vocab-item"><strong>skydiving</strong> — парашютный спорт</div>
+    </div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">📖 Grammar: Conditionals (if/when/unless)</h4>
+    <div class="theory-box">
+        <h5>Conditionals</h5>
+        <ul>
+            <li><strong>Zero:</strong> If/When + Present Simple, Present Simple</li>
+            <li><strong>First:</strong> If/Unless + Present Simple, will + V</li>
+            <li><strong>Second:</strong> If + Past Simple, would + V</li>
+            <li><strong>Third:</strong> If + Past Perfect, would have + V3</li>
+        </ul>
+    </div>
+    <div class="question">
+        <p class="question-text">1. If I <input type="text" id="m8q1" placeholder="be"> rich, I would travel.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. If you heat ice, it <input type="text" id="m8q2" placeholder="melt">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. If I had known, I <input type="text" id="m8q3" placeholder="come">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. Unless you study, you <input type="text" id="m8q4" placeholder="not/pass">.</p>
+    </div>
+    <button class="check-btn" onclick="checkM8a()">Проверить</button>
+    <div id="r_m8a" class="result"></div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">8b — Sports & Phrasal Verbs</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">📚 Phrasal Verbs: take</h4>
+    <div class="vocab-list">
+        <div class="vocab-item"><strong>take up</strong> — начинать (хобби)</div>
+        <div class="vocab-item"><strong>take off</strong> — снимать, взлетать</div>
+        <div class="vocab-item"><strong>take after</strong> — быть похожим на</div>
+        <div class="vocab-item"><strong>take over</strong> — брать под контроль</div>
+    </div>
+    <div class="question">
+        <p class="question-text">1. She <input type="text" id="m8q5" placeholder="take ..."> tennis last year.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. He <input type="text" id="m8q6" placeholder="take ..."> his father.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. <input type="text" id="m8q7" placeholder="Take ..."> your shoes.</p>
+    </div>
+    <button class="check-btn" onclick="checkM8b()">Проверить</button>
+    <div id="r_m8b" class="result"></div>
+</div>
+</div>
+</section>
+
+<!-- ============ PROGRESS CHECKS ============ -->
+<section id="progress" class="module-section">
+<h2 class="module-title">Progress Checks</h2>
+
+<!-- PC1 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 1 (Module 1)</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 1: Character Adjectives</h4>
+    <div class="question">
+        <p class="question-text">1. John doesn't get upset easily. He's <input type="text" id="pc1q1" placeholder="patient"></p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. Jill is very <input type="text" id="pc1q2" placeholder="sociable">. She loves parties.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. He's very <input type="text" id="pc1q3" placeholder="stubborn">. He never changes his mind.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. She's <input type="text" id="pc1q4" placeholder="reliable">. You can trust her.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC1a()">Проверить</button>
+    <div id="r_PC1a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 2: Present Tenses</h4>
+    <div class="question">
+        <p class="question-text">1. She <input type="text" id="pc1q5" placeholder="read"> (read) a book now.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. They <input type="text" id="pc1q6" placeholder="go"> (go) to school every day.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I <input type="text" id="pc1q7" placeholder="think"> (think) it's a good idea.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. The train <input type="text" id="pc1q8" placeholder="leave"> (leave) at 7:30.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC1b()">Проверить</button>
+    <div id="r_PC1b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 3: Past Simple vs Past Continuous</h4>
+    <div class="question">
+        <p class="question-text">1. I <input type="text" id="pc1q9" placeholder="walk"> (walk) home when it <input type="text" id="pc1q10" placeholder="start"> (start) to rain.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="pc1q11" placeholder="cook"> (cook) while he <input type="text" id="pc1q12" placeholder="read"> (read).</p>
+    </div>
+    <button class="check-btn" onclick="checkPC1c()">Проверить</button>
+    <div id="r_PC1c" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 4: Phrasal Verbs (get)</h4>
+    <div class="question">
+        <p class="question-text">1. Do you <input type="text" id="pc1q13" placeholder="get ..."> well with your neighbours?</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. It took her long to <input type="text" id="pc1q14" placeholder="get ..."> the illness.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. Let's <input type="text" id="pc1q15" placeholder="get ..."> this weekend!</p>
+    </div>
+    <button class="check-btn" onclick="checkPC1d()">Проверить</button>
+    <div id="r_PC1d" class="result"></div>
+</div>
+</div>
+
+<!-- PC2 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 2 (Module 2)</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 1: Present Perfect</h4>
+    <div class="question">
+        <p class="question-text">1. I <input type="text" id="pc2q1" placeholder="know"> (know) her for five years.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="pc2q2" placeholder="cook"> (cook) all morning.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. We <input type="text" id="pc2q3" placeholder="not/finish"> (not/finish) yet.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. They <input type="text" id="pc2q4" placeholder="live"> (live) here since 2015.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC2a()">Проверить</button>
+    <div id="r_PC2a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 2: Quantifiers</h4>
+    <div class="question">
+        <p class="question-text">1. There aren't <input type="text" id="pc2q5" placeholder="many/much"> apples.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. Is there <input type="text" id="pc2q6" placeholder="any/some"> milk?</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I have <input type="text" id="pc2q7" placeholder="a few/a little"> friends here.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC2b()">Проверить</button>
+    <div id="r_PC2b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 3: Phrasal Verbs (go)</h4>
+    <div class="question">
+        <p class="question-text">1. The milk has <input type="text" id="pc2q8" placeholder="go ...">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. This tie <input type="text" id="pc2q9" placeholder="go ..."> your shirt.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. We can't <input type="text" id="pc2q10" placeholder="go ..."> water.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC2c()">Проверить</button>
+    <div id="r_PC2c" class="result"></div>
+</div>
+</div>
+
+<!-- PC3 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 3 (Module 3)</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 1: Past Perfect</h4>
+    <div class="question">
+        <p class="question-text">1. By the time we arrived, the film <input type="text" id="pc3q1" placeholder="already/start">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="pc3q2" placeholder="leave"> before I came.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. They <input type="text" id="pc3q3" placeholder="already/eat"> when we arrived.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC3a()">Проверить</button>
+    <div id="r_PC3a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 2: Complex Object</h4>
+    <div class="question">
+        <p class="question-text">1. I saw him <input type="text" id="pc3q4" placeholder="leave"> the room.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She heard someone <input type="text" id="pc3q5" placeholder="call"> her name.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. They made him <input type="text" id="pc3q6" placeholder="apologise">.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC3b()">Проверить</button>
+    <div id="r_PC3b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 3: Phrasal Verbs (bring)</h4>
+    <div class="question">
+        <p class="question-text">1. She was <input type="text" id="pc3q7" placeholder="bring ..."> by her grandmother.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. The new law will <input type="text" id="pc3q8" placeholder="bring ..."> many changes.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. This job <input type="text" id="pc3q9" placeholder="bring ..."> a good salary.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC3c()">Проверить</button>
+    <div id="r_PC3c" class="result"></div>
+</div>
+</div>
+
+<!-- PC4 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 4 (Module 4)</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 1: Passive Voice</h4>
+    <div class="question">
+        <p class="question-text">1. English <input type="text" id="pc4q1" placeholder="speak"> (speak) all over the world.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. The film <input type="text" id="pc4q2" placeholder="direct"> (direct) by Spielberg.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. The letter <input type="text" id="pc4q3" placeholder="already/send"> (already/send).</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. The house <input type="text" id="pc4q4" placeholder="build"> (build) next year.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC4a()">Проверить</button>
+    <div id="r_PC4a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 2: Phrasal Verbs (put)</h4>
+    <div class="question">
+        <p class="question-text">1. <input type="text" id="pc4q5" placeholder="Put ..."> your coat, it's cold.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. Don't <input type="text" id="pc4q6" placeholder="put ..."> the meeting.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I can't <input type="text" id="pc4q7" placeholder="put ..."> the noise.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC4b()">Проверить</button>
+    <div id="r_PC4b" class="result"></div>
+</div>
+</div>
+
+<!-- PC5 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 5 (Module 5)</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 1: Infinitive vs -ing</h4>
+    <div class="question">
+        <p class="question-text">1. I forgot <input type="text" id="pc5q1" placeholder="lock"> (lock) the door.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. I'll never forget <input type="text" id="pc5q2" placeholder="see"> (see) that view.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. Remember <input type="text" id="pc5q3" placeholder="bring"> (bring) your book.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. He stopped <input type="text" id="pc5q4" placeholder="smoke"> (smoke) last year.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC5a()">Проверить</button>
+    <div id="r_PC5a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 2: used to / be used to / get used to</h4>
+    <div class="question">
+        <p class="question-text">1. I <input type="text" id="pc5q5" placeholder="use to"> live in London.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She is <input type="text" id="pc5q6" placeholder="use to"> working late.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. He is <input type="text" id="pc5q7" placeholder="get use to"> the cold weather.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC5b()">Проверить</button>
+    <div id="r_PC5b" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 3: Phrasal Verbs (call)</h4>
+    <div class="question">
+        <p class="question-text">1. The meeting was <input type="text" id="pc5q8" placeholder="call ...">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. They <input type="text" id="pc5q9" placeholder="call ..."> immediate action.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. I'll <input type="text" id="pc5q10" placeholder="call ..."> you later.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC5c()">Проверить</button>
+    <div id="r_PC5c" class="result"></div>
+</div>
+</div>
+
+<!-- PC6 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 6 (Module 6)</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 1: Reported Speech</h4>
+    <div class="question">
+        <p class="question-text">1. "I like coffee." → She said she <input type="text" id="pc6q1" placeholder="like"> coffee.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. "I am reading." → He said he <input type="text" id="pc6q2" placeholder="read">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. "I will help." → She said she <input type="text" id="pc6q3" placeholder="help">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. "I can swim." → He said he <input type="text" id="pc6q4" placeholder="swim">.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC6a()">Проверить</button>
+    <div id="r_PC6a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 2: Phrasal Verbs (set)</h4>
+    <div class="question">
+        <p class="question-text">1. We <input type="text" id="pc6q5" placeholder="set ..."> early in the morning.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. The company was <input type="text" id="pc6q6" placeholder="set ..."> in 2010.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. The delay <input type="text" id="pc6q7" placeholder="set ..."> us an hour.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC6b()">Проверить</button>
+    <div id="r_PC6b" class="result"></div>
+</div>
+</div>
+
+<!-- PC7 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 7 (Module 7)</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 1: Modals (deductions)</h4>
+    <div class="question">
+        <p class="question-text">1. He <input type="text" id="pc7q1" placeholder="must/might/can't"> be at home — his car is here.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="pc7q2" placeholder="must/might/can't"> be tired — she worked all night.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. That <input type="text" id="pc7q3" placeholder="must/might/can't"> be John — he's in Paris.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC7a()">Проверить</button>
+    <div id="r_PC7a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 2: Phrasal Verbs (give)</h4>
+    <div class="question">
+        <p class="question-text">1. Don't <input type="text" id="pc7q4" placeholder="give ...">!</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. She <input type="text" id="pc7q5" placeholder="give ..."> all her old books.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. Please <input type="text" id="pc7q6" placeholder="give ..."> my book.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC7b()">Проверить</button>
+    <div id="r_PC7b" class="result"></div>
+</div>
+</div>
+
+<!-- PC8 -->
+<div class="subsection">
+<h3 class="subsection-title">Progress Check 8 (Module 8)</h3>
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 1: Conditionals</h4>
+    <div class="question">
+        <p class="question-text">1. If I <input type="text" id="pc8q1" placeholder="be"> rich, I would travel.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. If you heat ice, it <input type="text" id="pc8q2" placeholder="melt">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. If I had known, I <input type="text" id="pc8q3" placeholder="come">.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">4. Unless you study, you <input type="text" id="pc8q4" placeholder="not/pass">.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC8a()">Проверить</button>
+    <div id="r_PC8a" class="result"></div>
+</div>
+
+<div class="exercise-block">
+    <h4 class="exercise-title">Exercise 2: Phrasal Verbs (take)</h4>
+    <div class="question">
+        <p class="question-text">1. She <input type="text" id="pc8q5" placeholder="take ..."> tennis last year.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">2. He <input type="text" id="pc8q6" placeholder="take ..."> his father.</p>
+    </div>
+    <div class="question">
+        <p class="question-text">3. <input type="text" id="pc8q7" placeholder="Take ..."> your shoes.</p>
+    </div>
+    <button class="check-btn" onclick="checkPC8b()">Проверить</button>
+    <div id="r_PC8b" class="result"></div>
+</div>
+</div>
+
+</section>
+
+</div>
+
+<script>
+function showModule(id, btn) {
+    document.querySelectorAll('.module-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function checkAns(id, correct) {
+    const el = document.getElementById(id);
+    if (!el) return false;
+    const val = el.value.toLowerCase().trim();
+    if (Array.isArray(correct)) return correct.some(c => val === c.toLowerCase());
+    return val === correct.toLowerCase();
+}
+
+function showResult(id, score, total) {
+    const el = document.getElementById(id);
+    const pct = Math.round((score / total) * 100);
+    el.className = 'result ' + (pct >= 60 ? 'success' : 'error');
+    el.textContent = `${pct >= 60 ? 'Отлично!' : 'Попробуйте ещё раз.'} Правильных ответов: ${score} из ${total} (${pct}%)`;
+}
+
+// Module 1
+function checkM1a() {
+    let s = 0;
+    if (checkAns('m1q1', ['is reading', "'s reading"])) s++;
+    if (checkAns('m1q2', 'go')) s++;
+    if (checkAns('m1q3', 'think')) s++;
+    if (checkAns('m1q4', ["doesn't like", 'does not like'])) s++;
+    if (checkAns('m1q5', ["are thinking", "'re thinking"])) s++;
+    showResult('r_m1a', s, 5);
+}
+
+function checkM1b() {
+    let s = 0;
+    if (checkAns('m1q6', ['am meeting', "'m meeting"])) s++;
+    if (checkAns('m1q7', 'leaves')) s++;
+    if (checkAns('m1q8', ['will rain', "'ll rain"])) s++;
+    if (checkAns('m1q9', ['are visiting', "'re visiting"])) s++;
+    showResult('r_m1b', s, 4);
+}
+
+function checkM1c() {
+    let s = 0;
+    if (checkAns('m1q10', 'was walking')) s++;
+    if (checkAns('m1q11', 'started')) s++;
+    if (checkAns('m1q12', 'was cooking')) s++;
+    if (checkAns('m1q13', 'was reading')) s++;
+    if (checkAns('m1q14', 'were watching')) s++;
+    if (checkAns('m1q15', 'rang')) s++;
+    showResult('r_m1c', s, 6);
+}
+
+function checkM1d() {
+    let s = 0;
+    if (checkAns('m1q16', ['get on', 'get along'])) s++;
+    if (checkAns('m1q17', 'get over')) s++;
+    if (checkAns('m1q18', ['get together'])) s++;
+    showResult('r_m1d', s, 3);
+}
+
+// Module 2
+function checkM2a() {
+    let s = 0;
+    if (checkAns('m2q1', ['have known', "'ve known"])) s++;
+    if (checkAns('m2q2', ['has been cooking', "'s been cooking"])) s++;
+    if (checkAns('m2q3', ["haven't finished", 'have not finished'])) s++;
+    if (checkAns('m2q4', ['have lived', "'ve lived"])) s++;
+    showResult('r_m2a', s, 4);
+}
+
+function checkM2b() {
+    let s = 0;
+    if (checkAns('m2q5', 'many')) s++;
+    if (checkAns('m2q6', 'any')) s++;
+    if (checkAns('m2q7', 'a few')) s++;
+    showResult('r_m2b', s, 3);
+}
+
+function checkM2c() {
+    let s = 0;
+    if (checkAns('m2q8', ['gone off'])) s++;
+    if (checkAns('m2q9', ['goes with', 'go with'])) s++;
+    if (checkAns('m2q10', ['go without'])) s++;
+    showResult('r_m2c', s, 3);
+}
+
+// Module 3
+function checkM3a() {
+    let s = 0;
+    if (checkAns('m3q1', ['had already started', "'d already started"])) s++;
+    if (checkAns('m3q2', ['leave', 'leaving'])) s++;
+    if (checkAns('m3q3', ['call', 'calling'])) s++;
+    if (checkAns('m3q4', 'apologise')) s++;
+    showResult('r_m3a', s, 4);
+}
+
+function checkM3b() {
+    let s = 0;
+    if (checkAns('m3q5', ['brought up'])) s++;
+    if (checkAns('m3q6', ['bring about'])) s++;
+    if (checkAns('m3q7', ['brings in'])) s++;
+    showResult('r_m3b', s, 3);
+}
+
+// Module 4
+function checkM4a() {
+    let s = 0;
+    if (checkAns('m4q1', ['is spoken'])) s++;
+    if (checkAns('m4q2', ['was directed'])) s++;
+    if (checkAns('m4q3', ['has already been sent', "'s already been sent"])) s++;
+    if (checkAns('m4q4', ['will be built'])) s++;
+    showResult('r_m4a', s, 4);
+}
+
+function checkM4b() {
+    let s = 0;
+    if (checkAns('m4q5', ['Put on'])) s++;
+    if (checkAns('m4q6', ['put off'])) s++;
+    if (checkAns('m4q7', ['put up with'])) s++;
+    showResult('r_m4b', s, 3);
+}
+
+// Module 5
+function checkM5a() {
+    let s = 0;
+    if (checkAns('m5q1', 'to lock')) s++;
+    if (checkAns('m5q2', 'seeing')) s++;
+    if (checkAns('m5q3', 'to bring')) s++;
+    if (checkAns('m5q4', 'smoking')) s++;
+    showResult('r_m5a', s, 4);
+}
+
+function checkM5b() {
+    let s = 0;
+    if (checkAns('m5q5', ['used to'])) s++;
+    if (checkAns('m5q6', ['used to'])) s++;
+    if (checkAns('m5q7', ['getting used to'])) s++;
+    showResult('r_m5b', s, 3);
+}
+
+function checkM5c() {
+    let s = 0;
+    if (checkAns('m5q8', ['called off'])) s++;
+    if (checkAns('m5q9', ['called for', 'are calling for'])) s++;
+    if (checkAns('m5q10', ['call back'])) s++;
+    showResult('r_m5c', s, 3);
+}
+
+// Module 6
+function checkM6a() {
+    let s = 0;
+    if (checkAns('m6q1', 'liked')) s++;
+    if (checkAns('m6q2', ['was reading'])) s++;
+    if (checkAns('m6q3', ['would help'])) s++;
+    if (checkAns('m6q4', ['could swim'])) s++;
+    showResult('r_m6a', s, 4);
+}
+
+function checkM6b() {
+    let s = 0;
+    if (checkAns('m6q5', ['set off'])) s++;
+    if (checkAns('m6q6', ['set up'])) s++;
+    if (checkAns('m6q7', ['set back'])) s++;
+    showResult('r_m6b', s, 3);
+}
+
+// Module 7
+function checkM7a() {
+    let s = 0;
+    if (checkAns('m7q1', 'must')) s++;
+    if (checkAns('m7q2', 'must')) s++;
+    if (checkAns('m7q3', "can't")) s++;
+    showResult('r_m7a', s, 3);
+}
+
+function checkM7b() {
+    let s = 0;
+    if (checkAns('m7q4', ['give up'])) s++;
+    if (checkAns('m7q5', ['gave away'])) s++;
+    if (checkAns('m7q6', ['give back'])) s++;
+    showResult('r_m7b', s, 3);
+}
+
+// Module 8
+function checkM8a() {
+    let s = 0;
+    if (checkAns('m8q1', ['were'])) s++;
+    if (checkAns('m8q2', 'melts')) s++;
+    if (checkAns('m8q3', ['would have come', "'d have come"])) s++;
+    if (checkAns('m8q4', ["won't pass", 'will not pass'])) s++;
+    showResult('r_m8a', s, 4);
+}
+
+function checkM8b() {
+    let s = 0;
+    if (checkAns('m8q5', ['took up'])) s++;
+    if (checkAns('m8q6', ['takes after'])) s++;
+    if (checkAns('m8q7', ['Take off'])) s++;
+    showResult('r_m8b', s, 3);
+}
+
+// Progress Checks
+function checkPC1a() {
+    let s = 0;
+    if (checkAns('pc1q1', 'patient')) s++;
+    if (checkAns('pc1q2', 'sociable')) s++;
+    if (checkAns('pc1q3', 'stubborn')) s++;
+    if (checkAns('pc1q4', 'reliable')) s++;
+    showResult('r_PC1a', s, 4);
+}
+
+function checkPC1b() {
+    let s = 0;
+    if (checkAns('pc1q5', ['is reading', "'s reading"])) s++;
+    if (checkAns('pc1q6', 'go')) s++;
+    if (checkAns('pc1q7', 'think')) s++;
+    if (checkAns('pc1q8', 'leaves')) s++;
+    showResult('r_PC1b', s, 4);
+}
+
+function checkPC1c() {
+    let s = 0;
+    if (checkAns('pc1q9', 'was walking')) s++;
+    if (checkAns('pc1q10', 'started')) s++;
+    if (checkAns('pc1q11', 'was cooking')) s++;
+    if (checkAns('pc1q12', 'was reading')) s++;
+    showResult('r_PC1c', s, 4);
+}
+
+function checkPC1d() {
+    let s = 0;
+    if (checkAns('pc1q13', ['get on', 'get along'])) s++;
+    if (checkAns('pc1q14', 'get over')) s++;
+    if (checkAns('pc1q15', ['get together'])) s++;
+    showResult('r_PC1d', s, 3);
+}
+
+function checkPC2a() {
+    let s = 0;
+    if (checkAns('pc2q1', ['have known', "'ve known"])) s++;
+    if (checkAns('pc2q2', ['has been cooking', "'s been cooking"])) s++;
+    if (checkAns('pc2q3', ["haven't finished", 'have not finished'])) s++;
+    if (checkAns('pc2q4', ['have lived', "'ve lived"])) s++;
+    showResult('r_PC2a', s, 4);
+}
+
+function checkPC2b() {
+    let s = 0;
+    if (checkAns('pc2q5', 'many')) s++;
+    if (checkAns('pc2q6', 'any')) s++;
+    if (checkAns('pc2q7', 'a few')) s++;
+    showResult('r_PC2b', s, 3);
+}
+
+function checkPC2c() {
+    let s = 0;
+    if (checkAns('pc2q8', ['gone off'])) s++;
+    if (checkAns('pc2q9', ['goes with', 'go with'])) s++;
+    if (checkAns('pc2q10', ['go without'])) s++;
+    showResult('r_PC2c', s, 3);
+}
+
+function checkPC3a() {
+    let s = 0;
+    if (checkAns('pc3q1', ['had already started', "'d already started"])) s++;
+    if (checkAns('pc3q2', ['had left', "'d left"])) s++;
+    if (checkAns('pc3q3', ['had already eaten', "'d already eaten"])) s++;
+    showResult('r_PC3a', s, 3);
+}
+
+function checkPC3b() {
+    let s = 0;
+    if (checkAns('pc3q4', ['leave', 'leaving'])) s++;
+    if (checkAns('pc3q5', ['call', 'calling'])) s++;
+    if (checkAns('pc3q6', 'apologise')) s++;
+    showResult('r_PC3b', s, 3);
+}
+
+function checkPC3c() {
+    let s = 0;
+    if (checkAns('pc3q7', ['brought up'])) s++;
+    if (checkAns('pc3q8', ['bring about'])) s++;
+    if (checkAns('pc3q9', ['brings in'])) s++;
+    showResult('r_PC3c', s, 3);
+}
+
+function checkPC4a() {
+    let s = 0;
+    if (checkAns('pc4q1', ['is spoken'])) s++;
+    if (checkAns('pc4q2', ['was directed'])) s++;
+    if (checkAns('pc4q3', ['has already been sent', "'s already been sent"])) s++;
+    if (checkAns('pc4q4', ['will be built'])) s++;
+    showResult('r_PC4a', s, 4);
+}
+
+function checkPC4b() {
+    let s = 0;
+    if (checkAns('pc4q5', ['Put on'])) s++;
+    if (checkAns('pc4q6', ['put off'])) s++;
+    if (checkAns('pc4q7', ['put up with'])) s++;
+    showResult('r_PC4b', s, 3);
+}
+
+function checkPC5a() {
+    let s = 0;
+    if (checkAns('pc5q1', 'to lock')) s++;
+    if (checkAns('pc5q2', 'seeing')) s++;
+    if (checkAns('pc5q3', 'to bring')) s++;
+    if (checkAns('pc5q4', 'smoking')) s++;
+    showResult('r_PC5a', s, 4);
+}
+
+function checkPC5b() {
+    let s = 0;
+    if (checkAns('pc5q5', ['used to'])) s++;
+    if (checkAns('pc5q6', ['used to'])) s++;
+    if (checkAns('pc5q7', ['getting used to'])) s++;
+    showResult('r_PC5b', s, 3);
+}
+
+function checkPC5c() {
+    let s = 0;
+    if (checkAns('pc5q8', ['called off'])) s++;
+    if (checkAns('pc5q9', ['called for', 'are calling for'])) s++;
+    if (checkAns('pc5q10', ['call back'])) s++;
+    showResult('r_PC5c', s, 3);
+}
+
+function checkPC6a() {
+    let s = 0;
+    if (checkAns('pc6q1', 'liked')) s++;
+    if (checkAns('pc6q2', ['was reading'])) s++;
+    if (checkAns('pc6q3', ['would help'])) s++;
+    if (checkAns('pc6q4', ['could swim'])) s++;
+    showResult('r_PC6a', s, 4);
+}
+
+function checkPC6b() {
+    let s = 0;
+    if (checkAns('pc6q5', ['set off'])) s++;
+    if (checkAns('pc6q6', ['set up'])) s++;
+    if (checkAns('pc6q7', ['set back'])) s++;
+    showResult('r_PC6b', s, 3);
+}
+
+function checkPC7a() {
+    let s = 0;
+    if (checkAns('pc7q1', 'must')) s++;
+    if (checkAns('pc7q2', 'must')) s++;
+    if (checkAns('pc7q3', "can't")) s++;
+    showResult('r_PC7a', s, 3);
+}
+
+function checkPC7b() {
+    let s = 0;
+    if (checkAns('pc7q4', ['give up'])) s++;
+    if (checkAns('pc7q5', ['gave away'])) s++;
+    if (checkAns('pc7q6', ['give back'])) s++;
+    showResult('r_PC7b', s, 3);
+}
+
+function checkPC8a() {
+    let s = 0;
+    if (checkAns('pc8q1', ['were'])) s++;
+    if (checkAns('pc8q2', 'melts')) s++;
+    if (checkAns('pc8q3', ['would have come', "'d have come"])) s++;
+    if (checkAns('pc8q4', ["won't pass", 'will not pass'])) s++;
+    showResult('r_PC8a', s, 4);
+}
+
+function checkPC8b() {
+    let s = 0;
+    if (checkAns('pc8q5', ['took up'])) s++;
+    if (checkAns('pc8q6', ['takes after'])) s++;
+    if (checkAns('pc8q7', ['Take off'])) s++;
+    showResult('r_PC8b', s, 3);
+}
+</script>
+</body>
+</html>
