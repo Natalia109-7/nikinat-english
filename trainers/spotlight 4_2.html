@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spotlight 4 Part 2 - Полное интерактивное пособие</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); min-height: 100vh; }
+.container { max-width: 1300px; margin: 0 auto; padding: 20px; }
+header { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 20px; text-align: center; }
+header h1 { color: #11998e; font-size: 2.3em; margin-bottom: 8px; }
+header p { color: #666; }
+.nav-menu { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 25px; }
+.nav-btn { background: white; border: none; padding: 12px 18px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: bold; color: #11998e; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.nav-btn:hover, .nav-btn.active { background: #11998e; color: white; transform: translateY(-2px); }
+.content-section { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: none; }
+.content-section.active { display: block; animation: fadeIn 0.4s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+.module-title { color: #11998e; font-size: 1.9em; margin-bottom: 18px; border-bottom: 3px solid #11998e; padding-bottom: 10px; }
+.subsection { margin-bottom: 22px; padding: 18px; background: #f0fff4; border-radius: 10px; border-left: 5px solid #11998e; }
+.subsection h2 { color: #0f7a6a; margin-bottom: 12px; font-size: 1.3em; }
+.subsection h3 { color: #11998e; margin: 12px 0 8px; font-size: 1.1em; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-top: 12px; }
+.vocab-item { background: white; padding: 10px 14px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; font-size: 0.95em; }
+.vocab-word { font-weight: bold; color: #11998e; }
+.vocab-translation { color: #666; font-size: 0.9em; }
+.grammar-box { background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 10px; margin: 12px 0; }
+.grammar-box h3 { color: #856404; margin-bottom: 8px; }
+.example { background: #d4edda; border-left: 4px solid #28a745; padding: 12px; margin: 8px 0; border-radius: 5px; line-height: 1.6; }
+.story-box { background: #fff5e6; border: 2px dashed #ff9800; padding: 18px; border-radius: 10px; margin: 12px 0; line-height: 1.7; }
+.story-box .speaker { font-weight: bold; color: #e65100; }
+.comic-box { background: #e3f2fd; border: 2px solid #2196f3; padding: 15px; border-radius: 10px; margin: 10px 0; }
+.comic-panel { background: white; border: 2px solid #333; padding: 12px; margin: 8px 0; border-radius: 8px; position: relative; }
+.comic-panel::before { content: attr(data-num); position: absolute; top: -10px; left: 10px; background: #2196f3; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+.speech-bubble { background: white; border: 2px solid #333; padding: 10px; border-radius: 15px; margin: 5px 0; position: relative; }
+.test-container { background: #f8f9ff; padding: 20px; border-radius: 10px; }
+.question { margin-bottom: 18px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.question-text { font-weight: bold; margin-bottom: 12px; color: #333; }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.option { padding: 10px; background: #f0f0f0; border: 2px solid transparent; border-radius: 5px; cursor: pointer; transition: all 0.3s; }
+.option:hover { background: #e0e0ff; border-color: #11998e; }
+.option.correct { background: #28a745; color: white; }
+.option.incorrect { background: #dc3545; color: white; }
+.btn { background: #11998e; color: white; border: none; padding: 10px 22px; border-radius: 5px; cursor: pointer; font-size: 15px; margin: 8px 4px; transition: all 0.3s; }
+.btn:hover { background: #0f7a6a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.image-upload { border: 3px dashed #11998e; padding: 30px; text-align: center; border-radius: 10px; margin: 15px 0; cursor: pointer; transition: all 0.3s; }
+.image-upload:hover { background: #f0fff4; }
+.image-container { margin: 12px 0; text-align: center; }
+.image-container img { max-width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.score-display { font-size: 1.3em; text-align: center; padding: 15px; background: #d4edda; border-radius: 10px; margin-top: 15px; display: none; }
+.hidden-input { display: none; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.95em; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background: #11998e; color: white; }
+tr:nth-child(even) { background: #f0fff4; }
+.tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; border-bottom: 2px solid #11998e; }
+.tab-btn { background: #f0f0f0; border: none; padding: 8px 16px; cursor: pointer; border-radius: 8px 8px 0 0; font-weight: bold; color: #11998e; }
+.tab-btn.active { background: #11998e; color: white; }
+.tab-content { display: none; padding: 15px 0; }
+.tab-content.active { display: block; animation: fadeIn 0.3s; }
+.flag-card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); text-align: center; }
+.flag-card .flag { font-size: 2.5em; }
+.recipe-box { background: #fff8e1; border: 2px solid #ffa000; padding: 15px; border-radius: 10px; margin: 12px 0; }
+.recipe-box ol, .recipe-box ul { margin-left: 20px; line-height: 1.8; }
+.poem-box { background: #f3e5f5; border-left: 5px solid #9c27b0; padding: 15px; border-radius: 10px; margin: 12px 0; font-style: italic; line-height: 1.7; }
+.rule-card { background: #ffebee; border: 2px solid #f44336; padding: 12px; border-radius: 8px; margin: 8px 0; }
+.rule-card .sign { font-size: 1.5em; }
+.progress-bar { width: 100%; height: 25px; background: #e0e0e0; border-radius: 15px; overflow: hidden; margin: 15px 0; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #11998e, #38ef7d); transition: width 0.5s; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9em; }
+.phonetics-table td { font-family: 'Lucida Sans Unicode', sans-serif; }
+.city-card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.city-card h4 { color: #11998e; margin-bottom: 5px; }
+.profile-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); margin: 10px 0; border-left: 5px solid #11998e; }
+.profile-card h4 { color: #0f7a6a; margin-bottom: 8px; }
+.dialog-box { background: #e8eaf6; padding: 12px; border-radius: 8px; margin: 8px 0; }
+.dialog-box .line { margin: 5px 0; }
+.dialog-box .line strong { color: #3f51b5; }
+@media (max-width: 768px) {
+    .module-title { font-size: 1.5em; }
+    .nav-btn { padding: 8px 12px; font-size: 12px; }
+    .vocab-grid { grid-template-columns: 1fr; }
+}
+@media print {
+    .nav-menu, .btn, .image-upload { display: none; }
+    .content-section { display: block !important; box-shadow: none; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>📚 Spotlight 4 - Part 2</h1>
+    <p>Английский в фокусе • 4 класс • Часть 2 • Полное интерактивное пособие</p>
+    <p style="font-size:0.85em; color:#999; margin-top:5px;">Авторы: Н.И. Быкова, Дж. Дули, М.Д. Поспелова, В. Эванс</p>
+    <div class="progress-bar">
+        <div class="progress-fill" id="mainProgress" style="width: 0%">Progress: 0%</div>
+    </div>
+</header>
+
+<nav class="nav-menu">
+    <button class="nav-btn active" onclick="showSection('module5')">📅 Module 5</button>
+    <button class="nav-btn" onclick="showSection('module6')"> Module 6</button>
+    <button class="nav-btn" onclick="showSection('module7')">🎉 Module 7</button>
+    <button class="nav-btn" onclick="showSection('module8')">✈️ Module 8</button>
+    <button class="nav-btn" onclick="showSection('goldilocks2')">🐻 Goldilocks 2</button>
+    <button class="nav-btn" onclick="showSection('arthur2')">🐺 Arthur 2</button>
+    <button class="nav-btn" onclick="showSection('russia2')">🇺 Russia 2</button>
+    <button class="nav-btn" onclick="showSection('grammar2')">📖 Grammar 2</button>
+    <button class="nav-btn" onclick="showSection('vocab2')">📝 Word List 2</button>
+    <button class="nav-btn" onclick="showSection('tests2')">✅ Tests 2</button>
+    <button class="nav-btn" onclick="showSection('images2')"> Images 2</button>
+</nav>
+
+<!-- ================= MODULE 5 ================= -->
+<section id="module5" class="content-section active">
+<h1 class="module-title">📅 Module 5 — Where were you yesterday?</h1>
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="showTab(this, 'm5-feelings')">😊 Feelings</button>
+    <button class="tab-btn" onclick="showTab(this, 'm5-where')">📍 Where</button>
+    <button class="tab-btn" onclick="showTab(this, 'm5-birthday')"> Birthday</button>
+    <button class="tab-btn" onclick="showTab(this, 'm5-uk')">🇬🇧 UK</button>
+</div>
+
+<div id="m5-feelings" class="tab-content active">
+    <div class="subsection">
+        <h2>😊 Feelings & Emotions</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">angry</span><span class="vocab-translation">злой</span></div>
+            <div class="vocab-item"><span class="vocab-word">bored</span><span class="vocab-translation">скучающий</span></div>
+            <div class="vocab-item"><span class="vocab-word">scared</span><span class="vocab-translation">испуганный</span></div>
+            <div class="vocab-item"><span class="vocab-word">tired</span><span class="vocab-translation">уставший</span></div>
+            <div class="vocab-item"><span class="vocab-word">hungry</span><span class="vocab-translation">голодный</span></div>
+            <div class="vocab-item"><span class="vocab-word">happy</span><span class="vocab-translation">счастливый</span></div>
+            <div class="vocab-item"><span class="vocab-word">sad</span><span class="vocab-translation">грустный</span></div>
+        </div>
+        <h3>🎵 Song: I wasn't happy yesterday</h3>
+        <div class="poem-box">
+            I wasn't happy yesterday.<br>
+            I was sad and angry,<br>
+            bored and tired,<br>
+            scared and hungry!<br><br>
+            But not today, not today!<br>
+            Today I'm very happy!
+        </div>
+    </div>
+</div>
+
+<div id="m5-where" class="tab-content">
+    <div class="subsection">
+        <h2>📍 Where were they? — Past Simple (was/were)</h2>
+        <div class="grammar-box">
+            <h3>Was/Were — прошедшее время глагола to be</h3>
+            <p><strong>I/He/She/It was</strong> (wasn't)<br>
+            <strong>You/We/They were</strong> (weren't)</p>
+        </div>
+        <div class="example">
+            <strong>A:</strong> Where were you yesterday?<br>
+            <strong>B:</strong> I was at the cinema.<br><br>
+            <strong>A:</strong> Were you at school last Monday?<br>
+            <strong>B:</strong> Yes, I was. / No, I wasn't.<br><br>
+            Larry and Lulu were at the zoo last week.<br>
+            Maya and Paco weren't at the party.
+        </div>
+        <h3>📖 Reading: Last week</h3>
+        <div class="story-box">
+            <strong>A:</strong> Last week Larry and I were at the zoo. We were with my uncle Harry. There were lots of animals there: seals, dolphins and crocodiles, too! It was really exciting!<br><br>
+            <strong>B:</strong> Yesterday Maya and I were at the theatre. There was a really funny show on. There were dancers and clowns, too! It was a really interesting day!
+        </div>
+    </div>
+</div>
+
+<div id="m5-birthday" class="tab-content">
+    <div class="subsection">
+        <h2>🎂 Birthday Wishes! — Ordinal Numbers</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">1st</span><span>first</span></div>
+            <div class="vocab-item"><span class="vocab-word">2nd</span><span>second</span></div>
+            <div class="vocab-item"><span class="vocab-word">3rd</span><span>third</span></div>
+            <div class="vocab-item"><span class="vocab-word">4th</span><span>fourth</span></div>
+            <div class="vocab-item"><span class="vocab-word">5th</span><span>fifth</span></div>
+            <div class="vocab-item"><span class="vocab-word">6th</span><span>sixth</span></div>
+            <div class="vocab-item"><span class="vocab-word">11th</span><span>eleventh</span></div>
+            <div class="vocab-item"><span class="vocab-word">12th</span><span>twelfth</span></div>
+            <div class="vocab-item"><span class="vocab-word">16th</span><span>sixteenth</span></div>
+            <div class="vocab-item"><span class="vocab-word">20th</span><span>twentieth</span></div>
+        </div>
+        <h3>🎉 Tea Party Story</h3>
+        <div class="story-box">
+            <span class="speaker">A:</span> That looks delicious!<br>
+            <span class="speaker">B:</span> It's for Robbie's sixteenth birthday.<br>
+            <span class="speaker">A:</span> Oh, no! Look at the cake!<br>
+            <span class="speaker">B:</span> Look! Chuckles is having a chimp's tea party!<br>
+            <span class="speaker">A:</span> Then, who was it?<br>
+            <span class="speaker">B:</span> Hmm, I think I know!
+        </div>
+    </div>
+</div>
+
+<div id="m5-uk" class="tab-content">
+    <div class="subsection">
+        <h2>🇬🇧 Spotlight on the UK — Birthday Parties</h2>
+        <div class="story-box">
+            Birthday parties in England are a lot of fun! Children bring presents and cards for the Birthday Boy or Girl. Then the party begins!<br><br>
+            At the party there is always lots of food and drink. There are usually a lot of balloons in the room where the party is. The children wear party hats and play party games.<br><br>
+            After that, it's time for the birthday cake! The Birthday Boy or Girl blows out the candles and makes a birthday wish! Then everyone sings 'Happy Birthday'.<br><br>
+            Birthday parties are great fun for everyone!
+        </div>
+        <h3> Happy Birthday Song</h3>
+        <div class="poem-box">
+            Happy birthday to you,<br>
+            Happy birthday to you,<br>
+            Happy birthday dear [Name],<br>
+            Happy birthday to you!
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>📚 Grammar — Was/Were (Past Simple of 'to be')</h2>
+    <table>
+        <tr><th>Positive</th><th>Negative</th><th>Question</th></tr>
+        <tr><td>I was</td><td>I wasn't</td><td>Was I?</td></tr>
+        <tr><td>You were</td><td>You weren't</td><td>Were you?</td></tr>
+        <tr><td>He/She/It was</td><td>He/She/It wasn't</td><td>Was he/she/it?</td></tr>
+        <tr><td>We were</td><td>We weren't</td><td>Were we?</td></tr>
+        <tr><td>They were</td><td>They weren't</td><td>Were they?</td></tr>
+    </table>
+    <div class="example">
+        <strong>A:</strong> Was Mike at the party yesterday?<br>
+        <strong>B:</strong> Yes, he was. / No, he wasn't.<br><br>
+        <strong>A:</strong> Where were you on Monday?<br>
+        <strong>B:</strong> I was at home.<br><br>
+        Signal words: yesterday, last week/month/year, two days ago, ago, in 1975
+    </div>
+</div>
+</section>
+
+<!-- ================= MODULE 6 ================= -->
+<section id="module6" class="content-section">
+<h1 class="module-title">📖 Module 6 — Tell the tale!</h1>
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="showTab(this, 'm6-hare')"> Hare & Tortoise</button>
+    <button class="tab-btn" onclick="showTab(this, 'm6-past')">⏮️ Past Simple</button>
+    <button class="tab-btn" onclick="showTab(this, 'm6-dreams')">💭 Dreams</button>
+    <button class="tab-btn" onclick="showTab(this, 'm6-rhyme')">🎵 Rhymes</button>
+</div>
+
+<div id="m6-hare" class="tab-content active">
+    <div class="subsection">
+        <h2>🐰 The Hare and the Tortoise</h2>
+        <div class="story-box">
+            Once upon a time, there was a very fast hare and a very slow tortoise. The hare always laughed at the tortoise because he was so slow.<br><br>
+            All the animals were tired of listening to the hare. Then one day the tortoise surprised them all: 'Let's have a race tomorrow then!'<br><br>
+            The next day, when they started the race, the hare jumped forward. Very soon he was far ahead of the tortoise.<br><br>
+            It was a very sunny day and the hare was very hot. 'There's a tree. I can rest under it!' A few hours later, the tortoise passed the sleeping hare...<br><br>
+            Suddenly, the hare opened his eyes and looked around. He saw the tortoise at the finish line!<br><br>
+            <strong>The tortoise was the winner!</strong><br><br>
+            The hare learned his lesson that day: <strong>'Keep on going and don't stop until you cross the finish line!'</strong>
+        </div>
+        <h3>📖 Vocabulary</h3>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">finish line</span><span class="vocab-translation">финишная линия</span></div>
+            <div class="vocab-item"><span class="vocab-word">hare</span><span class="vocab-translation">заяц</span></div>
+            <div class="vocab-item"><span class="vocab-word">pass</span><span class="vocab-translation">проходить мимо</span></div>
+            <div class="vocab-item"><span class="vocab-word">soon</span><span class="vocab-translation">скоро</span></div>
+            <div class="vocab-item"><span class="vocab-word">tortoise</span><span class="vocab-translation">черепаха</span></div>
+        </div>
+    </div>
+</div>
+
+<div id="m6-past" class="tab-content">
+    <div class="subsection">
+        <h2>⏮️ Past Simple — Regular Verbs (-ed)</h2>
+        <div class="grammar-box">
+            <h3>Образование Past Simple для правильных глаголов</h3>
+            <p>Добавляем <strong>-ed</strong> к начальной форме глагола</p>
+        </div>
+        <table>
+            <tr><th>Infinitive</th><th>Past Simple</th><th>Translation</th></tr>
+            <tr><td>watch</td><td>watched</td><td>смотреть</td></tr>
+            <tr><td>jump</td><td>jumped</td><td>прыгать</td></tr>
+            <tr><td>walk</td><td>walked</td><td>гулять</td></tr>
+            <tr><td>talk</td><td>talked</td><td>разговаривать</td></tr>
+            <tr><td>climb</td><td>climbed</td><td>лазить</td></tr>
+            <tr><td>play</td><td>played</td><td>играть</td></tr>
+            <tr><td>laugh</td><td>laughed</td><td>смеяться</td></tr>
+            <tr><td>pass</td><td>passed</td><td>проходить</td></tr>
+       
