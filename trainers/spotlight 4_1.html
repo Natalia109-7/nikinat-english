@@ -3,24 +3,2180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spotlight 4 Part 2 - Полное интерактивное пособие</title>
+<title>Spotlight 4 - Полное интерактивное пособие</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); min-height: 100vh; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
 .container { max-width: 1300px; margin: 0 auto; padding: 20px; }
 header { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 20px; text-align: center; }
-header h1 { color: #11998e; font-size: 2.3em; margin-bottom: 8px; }
+header h1 { color: #667eea; font-size: 2.3em; margin-bottom: 8px; }
 header p { color: #666; }
 .nav-menu { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 25px; }
-.nav-btn { background: white; border: none; padding: 12px 18px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: bold; color: #11998e; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-.nav-btn:hover, .nav-btn.active { background: #11998e; color: white; transform: translateY(-2px); }
+.nav-btn { background: white; border: none; padding: 12px 18px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: bold; color: #667eea; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.nav-btn:hover, .nav-btn.active { background: #667eea; color: white; transform: translateY(-2px); }
 .content-section { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: none; }
 .content-section.active { display: block; animation: fadeIn 0.4s; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-.module-title { color: #11998e; font-size: 1.9em; margin-bottom: 18px; border-bottom: 3px solid #11998e; padding-bottom: 10px; }
-.subsection { margin-bottom: 22px; padding: 18px; background: #f0fff4; border-radius: 10px; border-left: 5px solid #11998e; }
-.subsection h2 { color: #0f7a6a; margin-bottom: 12px; font-size: 1.3em; }
-.subsection h3 { color: #11998e; margin: 12px 0 8px; font-size: 1.1em; }
+.module-title { color: #667eea; font-size: 1.9em; margin-bottom: 18px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+.subsection { margin-bottom: 22px; padding: 18px; background: #f8f9ff; border-radius: 10px; border-left: 5px solid #667eea; }
+.subsection h2 { color: #764ba2; margin-bottom: 12px; font-size: 1.3em; }
+.subsection h3 { color: #667eea; margin: 12px 0 8px; font-size: 1.1em; }
 .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-top: 12px; }
 .vocab-item { background: white; padding: 10px 14px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; font-size: 0.95em; }
-.vocab-word { font
+.vocab-word { font-weight: bold; color: #667eea; }
+.vocab-translation { color: #666; font-size: 0.9em; }
+.grammar-box { background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 10px; margin: 12px 0; }
+.grammar-box h3 { color: #856404; margin-bottom: 8px; }
+.example { background: #d4edda; border-left: 4px solid #28a745; padding: 12px; margin: 8px 0; border-radius: 5px; line-height: 1.6; }
+.story-box { background: #fff5e6; border: 2px dashed #ff9800; padding: 18px; border-radius: 10px; margin: 12px 0; line-height: 1.7; }
+.story-box .speaker { font-weight: bold; color: #e65100; }
+.comic-box { background: #e3f2fd; border: 2px solid #2196f3; padding: 15px; border-radius: 10px; margin: 10px 0; }
+.comic-panel { background: white; border: 2px solid #333; padding: 12px; margin: 8px 0; border-radius: 8px; position: relative; }
+.comic-panel::before { content: attr(data-num); position: absolute; top: -10px; left: 10px; background: #2196f3; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+.speech-bubble { background: white; border: 2px solid #333; padding: 10px; border-radius: 15px; margin: 5px 0; position: relative; }
+.test-container { background: #f8f9ff; padding: 20px; border-radius: 10px; }
+.question { margin-bottom: 18px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.question-text { font-weight: bold; margin-bottom: 12px; color: #333; }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.option { padding: 10px; background: #f0f0f0; border: 2px solid transparent; border-radius: 5px; cursor: pointer; transition: all 0.3s; }
+.option:hover { background: #e0e0ff; border-color: #667eea; }
+.option.correct { background: #28a745; color: white; }
+.option.incorrect { background: #dc3545; color: white; }
+.btn { background: #667eea; color: white; border: none; padding: 10px 22px; border-radius: 5px; cursor: pointer; font-size: 15px; margin: 8px 4px; transition: all 0.3s; }
+.btn:hover { background: #764ba2; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.image-upload { border: 3px dashed #667eea; padding: 30px; text-align: center; border-radius: 10px; margin: 15px 0; cursor: pointer; transition: all 0.3s; }
+.image-upload:hover { background: #f0f0ff; }
+.image-container { margin: 12px 0; text-align: center; }
+.image-container img { max-width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.score-display { font-size: 1.3em; text-align: center; padding: 15px; background: #d4edda; border-radius: 10px; margin-top: 15px; display: none; }
+.hidden-input { display: none; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.95em; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background: #667eea; color: white; }
+tr:nth-child(even) { background: #f8f9ff; }
+.tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; border-bottom: 2px solid #667eea; }
+.tab-btn { background: #f0f0f0; border: none; padding: 8px 16px; cursor: pointer; border-radius: 8px 8px 0 0; font-weight: bold; color: #667eea; }
+.tab-btn.active { background: #667eea; color: white; }
+.tab-content { display: none; padding: 15px 0; }
+.tab-content.active { display: block; animation: fadeIn 0.3s; }
+.flag-card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); text-align: center; }
+.flag-card .flag { font-size: 2.5em; }
+.recipe-box { background: #fff8e1; border: 2px solid #ffa000; padding: 15px; border-radius: 10px; margin: 12px 0; }
+.recipe-box ol, .recipe-box ul { margin-left: 20px; line-height: 1.8; }
+.poem-box { background: #f3e5f5; border-left: 5px solid #9c27b0; padding: 15px; border-radius: 10px; margin: 12px 0; font-style: italic; line-height: 1.7; }
+.rule-card { background: #ffebee; border: 2px solid #f44336; padding: 12px; border-radius: 8px; margin: 8px 0; }
+.rule-card .sign { font-size: 1.5em; }
+.progress-bar { width: 100%; height: 25px; background: #e0e0e0; border-radius: 15px; overflow: hidden; margin: 15px 0; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.5s; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.9em; }
+.phonetics-table td { font-family: 'Lucida Sans Unicode', sans-serif; }
+.city-card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.city-card h4 { color: #667eea; margin-bottom: 5px; }
+.profile-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); margin: 10px 0; border-left: 5px solid #667eea; }
+.profile-card h4 { color: #764ba2; margin-bottom: 8px; }
+.dialog-box { background: #e8eaf6; padding: 12px; border-radius: 8px; margin: 8px 0; }
+.dialog-box .line { margin: 5px 0; }
+.dialog-box .line strong { color: #3f51b5; }
+@media (max-width: 768px) {
+    .module-title { font-size: 1.5em; }
+    .nav-btn { padding: 8px 12px; font-size: 12px; }
+    .vocab-grid { grid-template-columns: 1fr; }
+}
+@media print {
+    .nav-menu, .btn, .image-upload { display: none; }
+    .content-section { display: block !important; box-shadow: none; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>📚 Spotlight 4</h1>
+    <p>Английский в фокусе • 4 класс • Полное интерактивное пособие</p>
+    <p style="font-size:0.85em; color:#999; margin-top:5px;">Авторы: Н.И. Быкова, Дж. Дули, М.Д. Поспелова, В. Эванс</p>
+    <div class="progress-bar">
+        <div class="progress-fill" id="mainProgress" style="width: 0%">Progress: 0%</div>
+    </div>
+</header>
+
+<nav class="nav-menu">
+    <button class="nav-btn active" onclick="showSection('starter')">🌟 Starter</button>
+    <button class="nav-btn" onclick="showSection('module1')">👨‍👩‍👧 Module 1</button>
+    <button class="nav-btn" onclick="showSection('module2')">💼 Module 2</button>
+    <button class="nav-btn" onclick="showSection('module3')">🍎 Module 3</button>
+    <button class="nav-btn" onclick="showSection('module4')">🦒 Module 4</button>
+    <button class="nav-btn" onclick="showSection('goldilocks')">🐻 Goldilocks</button>
+    <button class="nav-btn" onclick="showSection('arthur')">🐺 Arthur & Rascal</button>
+    <button class="nav-btn" onclick="showSection('countries')">🌍 Countries</button>
+    <button class="nav-btn" onclick="showSection('russia')">🇷🇺 Russia</button>
+    <button class="nav-btn" onclick="showSection('grammar')">📖 Grammar</button>
+    <button class="nav-btn" onclick="showSection('phonetics')">🔤 Phonetics</button>
+    <button class="nav-btn" onclick="showSection('vocab')">📝 Word List</button>
+    <button class="nav-btn" onclick="showSection('tests')">✅ All Tests</button>
+    <button class="nav-btn" onclick="showSection('images')">📷 My Images</button>
+</nav>
+
+<!-- ================= STARTER ================= -->
+<section id="starter" class="content-section active">
+<h1 class="module-title">🌟 Starter Unit — Back together!</h1>
+
+<div class="subsection">
+    <h2>📖 Vocabulary</h2>
+    <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">activity</span><span class="vocab-translation">деятельность</span></div>
+        <div class="vocab-item"><span class="vocab-word">back together</span><span class="vocab-translation">снова вместе</span></div>
+        <div class="vocab-item"><span class="vocab-word">feel</span><span class="vocab-translation">чувствовать</span></div>
+        <div class="vocab-item"><span class="vocab-word">hope</span><span class="vocab-translation">надеяться</span></div>
+        <div class="vocab-item"><span class="vocab-word">join</span><span class="vocab-translation">присоединяться</span></div>
+        <div class="vocab-item"><span class="vocab-word">remember</span><span class="vocab-translation">помнить</span></div>
+        <div class="vocab-item"><span class="vocab-word">same</span><span class="vocab-translation">такой же</span></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>💬 Useful Dialogues</h2>
+    <div class="dialog-box">
+        <div class="line"><strong>A:</strong> Hi, my name's Kelly. What's your name?</div>
+        <div class="line"><strong>B:</strong> Hello! I'm David.</div>
+        <div class="line"><strong>A:</strong> Nice to meet you, David.</div>
+    </div>
+    <div class="dialog-box">
+        <div class="line"><strong>A:</strong> Can you swim?</div>
+        <div class="line"><strong>B:</strong> Yes, I can swim really well. / No, I can't. / Not very well.</div>
+    </div>
+    <div class="dialog-box">
+        <div class="line"><strong>A:</strong> I've got a present for you!</div>
+        <div class="line"><strong>B:</strong> What is it?</div>
+        <div class="line"><strong>A:</strong> It's a computer game.</div>
+        <div class="line"><strong>B:</strong> Oh, thank you. / You're welcome.</div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎂 Happy Birthday to Alex!</h2>
+    <div class="example">
+        🎉 It's Alex's birthday!<br>
+        🎵 Happy birthday to you, Alex!<br>
+        🎁 Presents: computer game, books, toys
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🕐 My Day — Telling the Time</h2>
+    <table>
+        <tr><th>Time</th><th>Activity</th></tr>
+        <tr><td>7:00</td><td>get up</td></tr>
+        <tr><td>7:30</td><td>have breakfast</td></tr>
+        <tr><td>8:30</td><td>go to school</td></tr>
+        <tr><td>12:00</td><td>have lunch</td></tr>
+        <tr><td>3:00</td><td>come home</td></tr>
+        <tr><td>5:00</td><td>watch TV</td></tr>
+        <tr><td>9:00</td><td>go to bed</td></tr>
+    </table>
+    <div class="example">
+        <strong>A:</strong> When do you get up?<br>
+        <strong>B:</strong> At 7 o'clock.
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🪪 Library Card</h2>
+    <table>
+        <tr><td><strong>Name:</strong></td><td>Steve Baxter</td></tr>
+        <tr><td><strong>Age:</strong></td><td>10</td></tr>
+        <tr><td><strong>Class:</strong></td><td>4</td></tr>
+        <tr><td><strong>Phone No:</strong></td><td>2033 587641</td></tr>
+    </table>
+</div>
+
+<div class="subsection">
+    <h2>⭐ My Favourites</h2>
+    <div class="example">
+        1. My favourite food is <em>ice cream</em>.<br>
+        2. My favourite toy is <em>my teddy bear</em>.<br>
+        3. My favourite game is <em>hide-and-seek</em>.<br>
+        4. My favourite day is <em>Saturday</em>.<br>
+        5. My favourite subject is <em>English</em>.<br>
+        6. My favourite hobby is <em>reading</em>.
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🧠 Memory Challenge (6 минут!)</h2>
+    <p>Запиши по памяти:</p>
+    <ul style="margin-left:20px; line-height:1.8;">
+        <li>4 school subjects</li>
+        <li>5 family members</li>
+        <li>5 colours</li>
+        <li>5 food/drink items</li>
+        <li>3 things in your room</li>
+        <li>3 animals with four legs</li>
+        <li>3 things in a kitchen</li>
+        <li>3 activities in the evening</li>
+    </ul>
+</div>
+</section>
+
+<!-- ================= MODULE 1 ================= -->
+<section id="module1" class="content-section">
+<h1 class="module-title">👨‍👩‍👧 Module 1 — Family & Friends!</h1>
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="showTab(this, 'm1-family')">👪 Family</button>
+    <button class="tab-btn" onclick="showTab(this, 'm1-objects')">🎒 Objects</button>
+    <button class="tab-btn" onclick="showTab(this, 'm1-friends')">👫 Friends</button>
+    <button class="tab-btn" onclick="showTab(this, 'm1-numbers')">🔢 Numbers</button>
+    <button class="tab-btn" onclick="showTab(this, 'm1-song')">🎵 Song</button>
+</div>
+
+<div id="m1-family" class="tab-content active">
+    <div class="subsection">
+        <h2>👨‍👩‍👧 Uncle Harry's Family</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">Uncle Harry</span><span class="vocab-translation">дядя Гарри</span></div>
+            <div class="vocab-item"><span class="vocab-word">Aunt Pam</span><span class="vocab-translation">тётя Пэм</span></div>
+            <div class="vocab-item"><span class="vocab-word">Cousin Robbie</span><span class="vocab-translation">двоюродный брат Робби</span></div>
+        </div>
+        <h3>Appearance (внешность):</h3>
+        <table>
+            <tr><th>Person</th><th>Height</th><th>Build</th><th>Hair</th><th>Character</th></tr>
+            <tr><td>Uncle Harry</td><td>tall</td><td>slim</td><td>fair hair</td><td>funny</td></tr>
+            <tr><td>Aunt Pam</td><td>short</td><td>slim</td><td>dark hair</td><td>kind</td></tr>
+            <tr><td>Cousin Robbie</td><td>tall</td><td>slim</td><td>dark hair</td><td>friendly</td></tr>
+        </table>
+        <div class="example">
+            <strong>A:</strong> What does Uncle Harry look like?<br>
+            <strong>B:</strong> He's tall and slim and he's got fair hair.<br>
+            <strong>A:</strong> What is he wearing?<br>
+            <strong>B:</strong> A yellow shirt and brown trousers.<br>
+            <strong>A:</strong> What's he like?<br>
+            <strong>B:</strong> He's very funny!
+        </div>
+    </div>
+</div>
+
+<div id="m1-objects" class="tab-content">
+    <div class="subsection">
+        <h2>🎒 Uncle Harry's Things</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">watch</span><span class="vocab-translation">часы</span></div>
+            <div class="vocab-item"><span class="vocab-word">camera</span><span class="vocab-translation">фотоаппарат</span></div>
+            <div class="vocab-item"><span class="vocab-word">CD</span><span class="vocab-translation">компакт-диск</span></div>
+            <div class="vocab-item"><span class="vocab-word">guitar</span><span class="vocab-translation">гитара</span></div>
+            <div class="vocab-item"><span class="vocab-word">hairbrush</span><span class="vocab-translation">расчёска</span></div>
+            <div class="vocab-item"><span class="vocab-word">helmet</span><span class="vocab-translation">шлем</span></div>
+            <div class="vocab-item"><span class="vocab-word">keys</span><span class="vocab-translation">ключи</span></div>
+            <div class="vocab-item"><span class="vocab-word">mobile phone</span><span class="vocab-translation">мобильный телефон</span></div>
+            <div class="vocab-item"><span class="vocab-word">roller blades</span><span class="vocab-translation">роликовые коньки</span></div>
+            <div class="vocab-item"><span class="vocab-word">gloves</span><span class="vocab-translation">перчатки</span></div>
+        </div>
+        <h3>📍 Prepositions of Place</h3>
+        <table>
+            <tr><th>Preposition</th><th>Example</th></tr>
+            <tr><td>in the box</td><td>The keys are in the box.</td></tr>
+            <tr><td>on the box</td><td>The camera is on the box.</td></tr>
+            <tr><td>under the box</td><td>The ball is under the box.</td></tr>
+            <tr><td>next to the box</td><td>The phone is next to the box.</td></tr>
+            <tr><td>behind the box</td><td>Chuckles is behind the curtain!</td></tr>
+            <tr><td>in front of the box</td><td>The cat is in front of the box.</td></tr>
+            <tr><td>between</td><td>The ball is between the boxes.</td></tr>
+            <tr><td>opposite</td><td>The bank is opposite the school.</td></tr>
+        </table>
+    </div>
+</div>
+
+<div id="m1-friends" class="tab-content">
+    <div class="subsection">
+        <h2>👫 My Best Friend</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">best friend</span><span class="vocab-translation">лучший друг</span></div>
+            <div class="vocab-item"><span class="vocab-word">both</span><span class="vocab-translation">оба</span></div>
+            <div class="vocab-item"><span class="vocab-word">crew</span><span class="vocab-translation">команда</span></div>
+            <div class="vocab-item"><span class="vocab-word">dive</span><span class="vocab-translation">нырять</span></div>
+            <div class="vocab-item"><span class="vocab-word">glue</span><span class="vocab-translation">клей</span></div>
+            <div class="vocab-item"><span class="vocab-word">plump</span><span class="vocab-translation">полный, пухлый</span></div>
+            <div class="vocab-item"><span class="vocab-word">quite</span><span class="vocab-translation">довольно</span></div>
+            <div class="vocab-item"><span class="vocab-word">skate</span><span class="vocab-translation">кататься на коньках</span></div>
+            <div class="vocab-item"><span class="vocab-word">ski</span><span class="vocab-translation">кататься на лыжах</span></div>
+            <div class="vocab-item"><span class="vocab-word">surf</span><span class="vocab-translation">заниматься сёрфингом</span></div>
+            <div class="vocab-item"><span class="vocab-word">stick together</span><span class="vocab-translation">держаться вместе</span></div>
+            <div class="vocab-item"><span class="vocab-word">play the violin</span><span class="vocab-translation">играть на скрипке</span></div>
+        </div>
+        <h3>📖 Reading: "My Best Friend" by James</h3>
+        <div class="story-box">
+            This is my best friend Craig. He's nine years old. Craig has got short dark hair and blue eyes. He's tall for his age and quite plump. Craig is very kind and friendly. In the picture Craig is playing soccer. He likes playing soccer in his free time. Craig is a good friend and we do a lot of things together!
+        </div>
+        <h3>🏖️ At the Seaside — Present Continuous</h3>
+        <div class="example">
+            Larry, Lulu and Chuckles are at the seaside today. The sun is <strong>shining</strong>. Look! What's Chuckles doing? He <strong>is eating</strong> an ice cream! Lulu <strong>isn't eating</strong> an ice cream. She's <strong>making</strong> a sandcastle. Larry <strong>is having</strong> fun too. He <strong>is diving</strong> into the sea!<br><br>
+            <strong>Activities:</strong> William — skiing | Simon — surfing | Dan — sailing | Rose — skating | Bob — diving | Tom — playing the violin
+        </div>
+    </div>
+</div>
+
+<div id="m1-numbers" class="tab-content">
+    <div class="subsection">
+        <h2>🔢 Numbers 30-100</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">30</span><span>thirty</span></div>
+            <div class="vocab-item"><span class="vocab-word">40</span><span>forty</span></div>
+            <div class="vocab-item"><span class="vocab-word">50</span><span>fifty</span></div>
+            <div class="vocab-item"><span class="vocab-word">60</span><span>sixty</span></div>
+            <div class="vocab-item"><span class="vocab-word">70</span><span>seventy</span></div>
+            <div class="vocab-item"><span class="vocab-word">80</span><span>eighty</span></div>
+            <div class="vocab-item"><span class="vocab-word">90</span><span>ninety</span></div>
+            <div class="vocab-item"><span class="vocab-word">100</span><span>a hundred</span></div>
+        </div>
+        <div class="example">
+            <strong>A:</strong> How old is your grandfather?<br>
+            <strong>B:</strong> He's sixty-two.<br><br>
+            Ordinal numbers: <strong>first</strong> (1st), <strong>second</strong> (2nd), <strong>third</strong> (3rd)
+        </div>
+    </div>
+</div>
+
+<div id="m1-song" class="tab-content">
+    <div class="subsection">
+        <h2>🎵 One Big Happy Family</h2>
+        <div class="poem-box">
+            There's Mum and Dad and Lulu.<br>
+            There's Betsy and there's me!<br>
+            One big happy family,<br>
+            One big happy crew,<br>
+            One big happy family,<br>
+            We stick together like glue!<br><br>
+            There's Grandma and there's Grandpa<br>
+            And Uncle Harry, too!<br>
+            Aunt Pam and Cousin Robbie —<br>
+            We stick together like glue!
+        </div>
+        <h3>🎶 Sound Poem</h3>
+        <div class="poem-box">
+            I'm jumping, <em>Boing, boing, boing!</em><br>
+            I'm playing the guitar, <em>Tra-la-la!</em><br>
+            I'm swimming, <em>Splash, splash, splash!</em><br>
+            I'm eating, <em>Shloop, shloop, shloop!</em>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ================= MODULE 2 ================= -->
+<section id="module2" class="content-section">
+<h1 class="module-title">💼 Module 2 — A Working Day!</h1>
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="showTab(this, 'm2-jobs')">👷 Jobs</button>
+    <button class="tab-btn" onclick="showTab(this, 'm2-buildings')">🏢 Buildings</button>
+    <button class="tab-btn" onclick="showTab(this, 'm2-routine')">⏰ Daily Routine</button>
+    <button class="tab-btn" onclick="showTab(this, 'm2-time')">🕐 Time</button>
+    <button class="tab-btn" onclick="showTab(this, 'm2-usa')">🇺🇸 USA</button>
+</div>
+
+<div id="m2-jobs" class="tab-content active">
+    <div class="subsection">
+        <h2>👷 Jobs & Professions</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">vet</span><span class="vocab-translation">ветеринар</span></div>
+            <div class="vocab-item"><span class="vocab-word">nurse</span><span class="vocab-translation">медсестра</span></div>
+            <div class="vocab-item"><span class="vocab-word">doctor</span><span class="vocab-translation">врач</span></div>
+            <div class="vocab-item"><span class="vocab-word">baker</span><span class="vocab-translation">пекарь</span></div>
+            <div class="vocab-item"><span class="vocab-word">mechanic</span><span class="vocab-translation">механик</span></div>
+            <div class="vocab-item"><span class="vocab-word">waiter</span><span class="vocab-translation">официант</span></div>
+            <div class="vocab-item"><span class="vocab-word">greengrocer</span><span class="vocab-translation">продавец овощей/фруктов</span></div>
+            <div class="vocab-item"><span class="vocab-word">postman</span><span class="vocab-translation">почтальон</span></div>
+            <div class="vocab-item"><span class="vocab-word">firefighter</span><span class="vocab-translation">пожарный</span></div>
+            <div class="vocab-item"><span class="vocab-word">police officer</span><span class="vocab-translation">полицейский</span></div>
+            <div class="vocab-item"><span class="vocab-word">taxi driver</span><span class="vocab-translation">водитель такси</span></div>
+            <div class="vocab-item"><span class="vocab-word">bus driver</span><span class="vocab-translation">водитель автобуса</span></div>
+            <div class="vocab-item"><span class="vocab-word">zoo keeper</span><span class="vocab-translation">смотритель зоопарка</span></div>
+        </div>
+        <h3>🏢 Community Helpers — Who does what?</h3>
+        <table>
+            <tr><th>Job</th><th>What they do</th><th>Who they help</th></tr>
+            <tr><td>doctor / nurse</td><td>help sick people get well</td><td>sick people</td></tr>
+            <tr><td>firefighter</td><td>help people in need</td><td>people in danger</td></tr>
+            <tr><td>police officer</td><td>take care of people</td><td>people in cities</td></tr>
+            <tr><td>bus/taxi driver</td><td>drive people around</td><td>passengers</td></tr>
+            <tr><td>greengrocer</td><td>sell food</td><td>shoppers</td></tr>
+            <tr><td>vet</td><td>take care of animals</td><td>animals</td></tr>
+        </table>
+        <div class="example">
+            <strong>A:</strong> What do you do?<br>
+            <strong>B:</strong> I'm a nurse. I help sick people.<br>
+            <strong>A:</strong> Where do you work?<br>
+            <strong>B:</strong> At a hospital.
+        </div>
+    </div>
+</div>
+
+<div id="m2-buildings" class="tab-content">
+    <div class="subsection">
+        <h2>🏢 Buildings in Stonebridge</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">hospital</span><span class="vocab-translation">больница</span></div>
+            <div class="vocab-item"><span class="vocab-word">Animal Hospital</span><span class="vocab-translation">ветеринарная клиника</span></div>
+            <div class="vocab-item"><span class="vocab-word">baker's</span><span class="vocab-translation">булочная</span></div>
+            <div class="vocab-item"><span class="vocab-word">greengrocer's</span><span class="vocab-translation">овощной магазин</span></div>
+            <div class="vocab-item"><span class="vocab-word">post office</span><span class="vocab-translation">почта</span></div>
+            <div class="vocab-item"><span class="vocab-word">garage</span><span class="vocab-translation">гараж/автосервис</span></div>
+            <div class="vocab-item"><span class="vocab-word">cafe</span><span class="vocab-translation">кафе</span></div>
+            <div class="vocab-item"><span class="vocab-word">theatre</span><span class="vocab-translation">театр</span></div>
+            <div class="vocab-item"><span class="vocab-word">station</span><span class="vocab-translation">вокзал</span></div>
+            <div class="vocab-item"><span class="vocab-word">sports centre</span><span class="vocab-translation">спортивный центр</span></div>
+        </div>
+        <h3>🗺️ Streets of Stonebridge</h3>
+        <div class="example">
+            Bridge Street • Castle Street • Hill Street • King Street • Mill Road • Mount Street • New Street • Park Road • Pine Road • Queen Street<br><br>
+            <strong>A:</strong> Excuse me, where's the Animal Hospital?<br>
+            <strong>B:</strong> It's in Bridge Street.<br><br>
+            <strong>A:</strong> Excuse me, where exactly is the animal hospital?<br>
+            <strong>B:</strong> Go along Hill Street and turn left into New Road. It's opposite the garage.
+        </div>
+    </div>
+</div>
+
+<div id="m2-routine" class="tab-content">
+    <div class="subsection">
+        <h2>⏰ Daily Routine & Adverbs of Frequency</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">always</span><span>100% — всегда</span></div>
+            <div class="vocab-item"><span class="vocab-word">usually</span><span>80% — обычно</span></div>
+            <div class="vocab-item"><span class="vocab-word">often</span><span>70% — часто</span></div>
+            <div class="vocab-item"><span class="vocab-word">sometimes</span><span>50% — иногда</span></div>
+            <div class="vocab-item"><span class="vocab-word">never</span><span>0% — никогда</span></div>
+        </div>
+        <table>
+            <tr><th>Adverb</th><th>Example</th></tr>
+            <tr><td>always</td><td>We always play football on Sundays.</td></tr>
+            <tr><td>usually</td><td>We usually wake up late on Saturdays.</td></tr>
+            <tr><td>sometimes</td><td>We sometimes go to the park.</td></tr>
+            <tr><td>never</td><td>We never go to school on Sundays.</td></tr>
+        </table>
+        <h3>🏃 How often?</h3>
+        <div class="example">
+            <strong>A:</strong> How often do they play volleyball at the sports centre?<br>
+            <strong>B:</strong> Twice a week, on Mondays and Thursdays.<br><br>
+            I go to the cinema <strong>once a week</strong>.<br>
+            Gary has guitar lessons <strong>twice a week</strong>.<br>
+            Emma washes her hair <strong>three times a week</strong>.
+        </div>
+        <h3>📖 Reading: Uncle Harry by Larry</h3>
+        <div class="story-box">
+            My uncle Harry's forty years old. He's tall with fair hair and blue eyes. Uncle Harry's a vet. He works at the Animal Hospital in Stonebridge. Uncle Harry doesn't wear a uniform, but he wears a white coat. He helps sick animals. In his free time Uncle Harry likes cooking and playing tennis. I think my uncle Harry is great!
+        </div>
+        <h3>📖 Reading: Aunt Polly the Mechanic</h3>
+        <div class="story-box">
+            Aunt Polly is a mechanic. She works at a garage in Stonebridge. Aunt Polly wears a uniform when she works. She fixes cars. A lot of people take their cars to her garage. I think my aunt Polly is great!
+        </div>
+    </div>
+</div>
+
+<div id="m2-time" class="tab-content">
+    <div class="subsection">
+        <h2>🕐 Telling the Time</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">o'clock</span><span>ровно (3:00)</span></div>
+            <div class="vocab-item"><span class="vocab-word">quarter past</span><span>четверть (3:15)</span></div>
+            <div class="vocab-item"><span class="vocab-word">half past</span><span>половина (3:30)</span></div>
+            <div class="vocab-item"><span class="vocab-word">quarter to</span><span>без четверти (2:45)</span></div>
+        </div>
+        <table>
+            <tr><th>Time</th><th>How to say</th><th>Event</th></tr>
+            <tr><td>8:30</td><td>half past eight</td><td>School starts</td></tr>
+            <tr><td>10:30</td><td>half past ten</td><td>Break time</td></tr>
+            <tr><td>12:15</td><td>quarter past twelve</td><td>Lunch time</td></tr>
+            <tr><td>1:15</td><td>quarter past one</td><td>Volleyball match</td></tr>
+            <tr><td>3:00</td><td>three o'clock</td><td>After school</td></tr>
+            <tr><td>5:15</td><td>quarter past five</td><td>Soccer match</td></tr>
+            <tr><td>8:30</td><td>half past eight</td><td>Piano lesson</td></tr>
+            <tr><td>9:45</td><td>quarter to ten</td><td>Jenny's party</td></tr>
+            <tr><td>10:00</td><td>ten o'clock</td><td>Bedtime</td></tr>
+            <tr><td>11:00</td><td>eleven o'clock / quarter to twelve</td><td>Lunchtime at the zoo</td></tr>
+        </table>
+    </div>
+</div>
+
+<div id="m2-usa" class="tab-content">
+    <div class="subsection">
+        <h2>🇺🇸 A Day in My Life! (Danielle Pearson, Wisconsin, USA)</h2>
+        <div class="story-box">
+            My name is Danielle Pearson. I live in Wisconsin, USA. My school is called Danver Elementary School and I really like it there. School starts at <strong>8:30</strong>. Every day we have Morning Meeting and usually start the day with a game or a song. We have a break at <strong>10:30</strong>, and most of the students go outside. Every Thursday I have a meeting with my teacher, Miss Blake, to talk about my school work and projects.<br><br>
+            We have lunch every day at <strong>12:15</strong>. I usually eat in the school canteen. In the afternoon we usually have Art, PE or Music.<br><br>
+            After school, at <strong>3 o'clock</strong>, I go home and play with my little sister. Then I help my mother to cook dinner. After dinner I always do my homework and then I read or watch TV for a while. I go to bed every night at <strong>10 o'clock</strong>.
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>📚 Grammar — Have to / Don't have to</h2>
+    <div class="grammar-box">
+        <h3>Have to (должен) — необходимость</h3>
+        <p><strong>I/You/We/They have to</strong> + verb<br>
+        <strong>He/She/It has to</strong> + verb</p>
+    </div>
+    <div class="example">
+        ✓ You <strong>have to</strong> wash the dishes.<br>
+        ✓ You <strong>have to</strong> wear a uniform.<br>
+        ✓ You <strong>have to</strong> be polite.<br>
+        ✓ He <strong>has to</strong> get up early every morning.<br>
+        ✗ You <strong>don't have to</strong> work at night.<br>
+        ✗ You <strong>don't have to</strong> pay for your meals.<br>
+        ✗ They <strong>don't have to</strong> go to school on Saturday.<br><br>
+        <strong>A:</strong> Does Kim have to wash the dishes?<br>
+        <strong>B:</strong> Yes, she does. / No, she doesn't.
+    </div>
+    <h3>🎵 Song: Postman Pete</h3>
+    <div class="poem-box">
+        Postman Pete, what's in your bag?<br>
+        A parcel or a letter?<br>
+        Postman Pete, what's in your bag?<br>
+        A card — or something better?<br><br>
+        Oh, my postman's very special,<br>
+        He whistles and he sings!<br>
+        I wait for him each morning,<br>
+        I love the things he brings!<br><br>
+        Postman Pete, what's in your bag?<br>
+        A postcard or a prize?<br>
+        Postman Pete, what's in your bag?<br>
+        Give me a surprise!
+    </div>
+</div>
+</section>
+
+<!-- ================= MODULE 3 ================= -->
+<section id="module3" class="content-section">
+<h1 class="module-title">🍎 Module 3 — Tasty Treats!</h1>
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="showTab(this, 'm3-food')">🍎 Food</button>
+    <button class="tab-btn" onclick="showTab(this, 'm3-containers')">📦 Containers</button>
+    <button class="tab-btn" onclick="showTab(this, 'm3-prices')">💷 Prices</button>
+    <button class="tab-btn" onclick="showTab(this, 'm3-world')">🌍 World Food</button>
+    <button class="tab-btn" onclick="showTab(this, 'm3-pudding')">🍰 Pudding</button>
+    <button class="tab-btn" onclick="showTab(this, 'm3-recipe')">👨‍🍳 Recipes</button>
+</div>
+
+<div id="m3-food" class="tab-content active">
+    <div class="subsection">
+        <h2>🍎 Food Vocabulary</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">flour</span><span class="vocab-translation">мука</span></div>
+            <div class="vocab-item"><span class="vocab-word">butter</span><span class="vocab-translation">масло</span></div>
+            <div class="vocab-item"><span class="vocab-word">sugar</span><span class="vocab-translation">сахар</span></div>
+            <div class="vocab-item"><span class="vocab-word">salt</span><span class="vocab-translation">соль</span></div>
+            <div class="vocab-item"><span class="vocab-word">pepper</span><span class="vocab-translation">перец</span></div>
+            <div class="vocab-item"><span class="vocab-word">olive oil</span><span class="vocab-translation">оливковое масло</span></div>
+            <div class="vocab-item"><span class="vocab-word">lemon</span><span class="vocab-translation">лимон</span></div>
+            <div class="vocab-item"><span class="vocab-word">mango</span><span class="vocab-translation">манго</span></div>
+            <div class="vocab-item"><span class="vocab-word">pineapple</span><span class="vocab-translation">ананас</span></div>
+            <div class="vocab-item"><span class="vocab-word">coconut</span><span class="vocab-translation">кокос</span></div>
+            <div class="vocab-item"><span class="vocab-word">tomato</span><span class="vocab-translation">помидор</span></div>
+            <div class="vocab-item"><span class="vocab-word">beans</span><span class="vocab-translation">фасоль</span></div>
+            <div class="vocab-item"><span class="vocab-word">onion</span><span class="vocab-translation">лук</span></div>
+            <div class="vocab-item"><span class="vocab-word">cherry</span><span class="vocab-translation">вишня</span></div>
+            <div class="vocab-item"><span class="vocab-word">biscuit</span><span class="vocab-translation">печенье</span></div>
+            <div class="vocab-item"><span class="vocab-word">cookie</span><span class="vocab-translation">печенье (амер.)</span></div>
+            <div class="vocab-item"><span class="vocab-word">yogurt</span><span class="vocab-translation">йогурт</span></div>
+            <div class="vocab-item"><span class="vocab-word">cheese</span><span class="vocab-translation">сыр</span></div>
+            <div class="vocab-item"><span class="vocab-word">beef</span><span class="vocab-translation">говядина</span></div>
+            <div class="vocab-item"><span class="vocab-word">lamb</span><span class="vocab-translation">баранина</span></div>
+            <div class="vocab-item"><span class="vocab-word">chicken</span><span class="vocab-translation">курица</span></div>
+        </div>
+        <h3>🥛 Food Groups</h3>
+        <table>
+            <tr><th>Group</th><th>Examples</th></tr>
+            <tr><td>Dairy (молочные)</td><td>yogurt, cheese, milk, butter</td></tr>
+            <tr><td>Meat (мясо)</td><td>chicken, beef, lamb</td></tr>
+            <tr><td>Fruit (фрукты)</td><td>banana, mango, cherry, lemon</td></tr>
+            <tr><td>Vegetable (овощи)</td><td>carrot, potato, onion, tomato</td></tr>
+        </table>
+    </div>
+</div>
+
+<div id="m3-containers" class="tab-content">
+    <div class="subsection">
+        <h2>📦 Containers & Quantities</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">a packet of biscuits</span><span>пачка печенья</span></div>
+            <div class="vocab-item"><span class="vocab-word">a jar of jam</span><span>банка джема</span></div>
+            <div class="vocab-item"><span class="vocab-word">a bar of chocolate</span><span>плитка шоколада</span></div>
+            <div class="vocab-item"><span class="vocab-word">a carton of milk</span><span>пакет молока</span></div>
+            <div class="vocab-item"><span class="vocab-word">a bottle of Coke</span><span>бутылка колы</span></div>
+            <div class="vocab-item"><span class="vocab-word">a tin of beans</span><span>банка фасоли</span></div>
+            <div class="vocab-item"><span class="vocab-word">a loaf of bread</span><span>буханка хлеба</span></div>
+            <div class="vocab-item"><span class="vocab-word">a kilo of potatoes</span><span>килограмм картошки</span></div>
+        </div>
+        <h3>📚 Grammar — Much / Many / A lot of</h3>
+        <div class="grammar-box">
+            <h3>Much — неисчисляемые (вопросы и отрицания)</h3>
+            <p>There isn't <strong>much</strong> butter in the fridge.<br>
+            Is there <strong>much</strong> sugar in the tea?<br>
+            We haven't got <strong>much</strong> sugar.</p>
+        </div>
+        <div class="grammar-box">
+            <h3>Many — исчисляемые мн.ч. (вопросы и отрицания)</h3>
+            <p>There aren't <strong>many</strong> apples in the bag.<br>
+            Are there <strong>many</strong> girls in your class?<br>
+            We haven't got <strong>many</strong> beans.</p>
+        </div>
+        <div class="grammar-box">
+            <h3>A lot of — утверждения (любые сущ.)</h3>
+            <p>She's got <strong>a lot of</strong> friends.<br>
+            There is <strong>a lot of</strong> cheese in the fridge.<br>
+            We've got <strong>a lot of</strong> sugar.</p>
+        </div>
+        <div class="example">
+            <strong>How much</strong> milk have we got? — Not much. / A lot.<br>
+            <strong>How many</strong> mangoes do we need? — Not many. / Only two. / A lot.<br><br>
+            Is there any bread at home? — Yes, there is <strong>some</strong> but there is <strong>no</strong> butter.
+        </div>
+    </div>
+</div>
+
+<div id="m3-prices" class="tab-content">
+    <div class="subsection">
+        <h2>💷 Prices & Shopping (£ — pound, p — pence)</h2>
+        <table>
+            <tr><th>Item</th><th>Price</th><th>How to say</th></tr>
+            <tr><td>a packet of biscuits</td><td>£1.09</td><td>one pound nine (pence)</td></tr>
+            <tr><td>a bar of chocolate</td><td>67p</td><td>sixty-seven pence</td></tr>
+            <tr><td>a jar of jam</td><td>£1.15</td><td>one pound fifteen</td></tr>
+            <tr><td>a carton of milk</td><td>79p</td><td>seventy-nine pence</td></tr>
+            <tr><td>a kilo of potatoes</td><td>£2.15</td><td>two pounds fifteen</td></tr>
+            <tr><td>a bottle of Coke</td><td>£1.20</td><td>one pound twenty</td></tr>
+            <tr><td>a loaf of bread</td><td>62p</td><td>sixty-two pence</td></tr>
+            <tr><td>a tin of beans</td><td>73p</td><td>seventy-three pence</td></tr>
+        </table>
+        <div class="example">
+            <strong>A:</strong> Can I have a packet of biscuits, please?<br>
+            <strong>B:</strong> Yes, of course. Here you are. That's one pound nine pence, please.<br>
+            <strong>A:</strong> Here you are.<br>
+            <strong>B:</strong> Thank you.
+        </div>
+        <h3>📚 Grammar — May (разрешение)</h3>
+        <div class="grammar-box">
+            <h3>May I...? — официальная форма просьбы</h3>
+            <p><strong>May I</strong> leave the table? — Yes, you may. / No, you may not.<br>
+            <strong>May I</strong> have some more potatoes, please? — Sure, here you are.<br>
+            <strong>May I</strong> ask my friend to come for dinner? — Of course you may. What's her name?<br>
+            <strong>May I</strong> taste the apple pie? — Not yet. It's still very hot!<br>
+            <strong>May I</strong> wash my hands, please? — Yes, the bathroom is next to the bedroom.</p>
+        </div>
+    </div>
+</div>
+
+<div id="m3-world" class="tab-content">
+    <div class="subsection">
+        <h2>🌍 Food Around the World — Quiz</h2>
+        <table>
+            <tr><th>Country</th><th>Traditional Food</th></tr>
+            <tr><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td>Fish and chips</td></tr>
+            <tr><td>🇯🇵 Japan</td><td>Sushi (rice + fish)</td></tr>
+            <tr><td>🇮🇹 Italy</td><td>Pizza, mozzarella cheese, cappuccino</td></tr>
+            <tr><td>🇪🇸 Spain</td><td>Paella</td></tr>
+            <tr><td>🇨🇳 China</td><td>Rice</td></tr>
+            <tr><td>🇷🇺 Russia</td><td>Potatoes, sushki, baranki, bubliki</td></tr>
+            <tr><td>🇦🇺 Australia</td><td>Sausages (snaggers) at barbecue</td></tr>
+            <tr><td>🇺🇸 USA</td><td>Cookies, French fries, burgers</td></tr>
+            <tr><td>🇫🇷 France</td><td>Cheddar cheese (orig. England!)</td></tr>
+        </table>
+        <h3>🎵 Song: Food Around the World</h3>
+        <div class="poem-box">
+            Fish and chips is English,<br>
+            Sushi's Japanese.<br>
+            Pizza is Italian,<br>
+            So is mozzarella cheese!<br><br>
+            All around the world<br>
+            People love to eat.<br>
+            All around the world<br>
+            Food is such a treat!<br><br>
+            In Spain they eat paella,<br>
+            In China they eat rice.<br>
+            The Russians think potatoes<br>
+            Are really, really nice!
+        </div>
+    </div>
+</div>
+
+<div id="m3-pudding" class="tab-content">
+    <div class="subsection">
+        <h2>🍰 What's for Pudding? (Spotlight on the UK)</h2>
+        <div class="story-box">
+            Many British families finish their main evening meal with a dessert, or <strong>pudding</strong> as some people call it. Most puddings only need simple ingredients such as <strong>flour, fruit, milk, bread, eggs, sugar and butter</strong>. One question you almost always hear at dinner time is: "<strong>What's for pudding, Mum?</strong>"
+        </div>
+        <h3>🍮 British Puddings</h3>
+        <table>
+            <tr><th>Pudding</th><th>Ingredients</th></tr>
+            <tr><td>Jam tart</td><td>flour, butter, jam</td></tr>
+            <tr><td>Bread pudding</td><td>bread, milk, eggs, sugar, butter</td></tr>
+            <tr><td>Lemon meringue</td><td>lemon, sugar, eggs</td></tr>
+        </table>
+    </div>
+</div>
+
+<div id="m3-recipe" class="tab-content">
+    <div class="subsection">
+        <h2>👨‍🍳 Pirate's Fruit Salad (Larry & Paco)</h2>
+        <div class="recipe-box">
+            <h3>🥗 Ingredients:</h3>
+            <ul>
+                <li>2 mangoes</li>
+                <li>1 lemon</li>
+                <li>a lot of sugar (oops! — or fruit!)</li>
+            </ul>
+            <h3>📝 How to make:</h3>
+            <ol>
+                <li>Ask: "How many mangoes do we need?" — "Not many. Only two."</li>
+                <li>"Can you pass me the lemon, please?" — "Sure. Here you are!"</li>
+                <li>"Make sure you put a lot of sugar in it!"</li>
+                <li>Mix everything together!</li>
+            </ol>
+            <p><strong>⚠️ Larry's mistake:</strong> He put <strong>salt</strong> instead of sugar! Uggh!</p>
+        </div>
+        <h2>🥣 How to Make Porridge</h2>
+        <div class="recipe-box">
+            <ol>
+                <li>Put water and porridge oats in a pot.</li>
+                <li>Heat and stir for 5 minutes.</li>
+                <li>Add some milk and a little salt.</li>
+                <li>Eat it with sugar or honey.</li>
+            </ol>
+            <h3>🎵 Porridge Song:</h3>
+            <div class="poem-box">
+                Please put my porridge<br>
+                In a pretty little pot.<br>
+                I like it for my breakfast<br>
+                And I like it nice and hot.<br><br>
+                Porridge oats, porridge oats,<br>
+                As tasty as can be.<br>
+                Porridge oats, porridge oats,<br>
+                The only food for me!
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ================= MODULE 4 ================= -->
+<section id="module4" class="content-section">
+<h1 class="module-title">🦒 Module 4 — At the Zoo!</h1>
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="showTab(this, 'm4-animals')">🦁 Animals</button>
+    <button class="tab-btn" onclick="showTab(this, 'm4-months')">📅 Months</button>
+    <button class="tab-btn" onclick="showTab(this, 'm4-whale')">🐋 Whales</button>
+    <button class="tab-btn" onclick="showTab(this, 'm4-rules')">📜 Rules</button>
+    <button class="tab-btn" onclick="showTab(this, 'm4-diet')">🥩 Diet</button>
+    <button class="tab-btn" onclick="showTab(this, 'm4-australia')">🇦🇺 Australia</button>
+</div>
+
+<div id="m4-animals" class="tab-content active">
+    <div class="subsection">
+        <h2>🦁 Zoo Animals</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">giraffe</span><span class="vocab-translation">жираф</span></div>
+            <div class="vocab-item"><span class="vocab-word">monkey</span><span class="vocab-translation">обезьяна</span></div>
+            <div class="vocab-item"><span class="vocab-word">dolphin</span><span class="vocab-translation">дельфин</span></div>
+            <div class="vocab-item"><span class="vocab-word">seal</span><span class="vocab-translation">тюлень</span></div>
+            <div class="vocab-item"><span class="vocab-word">lizard</span><span class="vocab-translation">ящерица</span></div>
+            <div class="vocab-item"><span class="vocab-word">whale</span><span class="vocab-translation">кит</span></div>
+            <div class="vocab-item"><span class="vocab-word">hippo</span><span class="vocab-translation">бегемот</span></div>
+            <div class="vocab-item"><span class="vocab-word">crocodile</span><span class="vocab-translation">крокодил</span></div>
+            <div class="vocab-item"><span class="vocab-word">panda</span><span class="vocab-translation">панда</span></div>
+            <div class="vocab-item"><span class="vocab-word">elephant seal</span><span class="vocab-translation">морской слон</span></div>
+            <div class="vocab-item"><span class="vocab-word">parrot</span><span class="vocab-translation">попугай</span></div>
+            <div class="vocab-item"><span class="vocab-word">koala</span><span class="vocab-translation">коала</span></div>
+            <div class="vocab-item"><span class="vocab-word">kangaroo</span><span class="vocab-translation">кенгуру</span></div>
+            <div class="vocab-item"><span class="vocab-word">emu</span><span class="vocab-translation">эму</span></div>
+            <div class="vocab-item"><span class="vocab-word">bison</span><span class="vocab-translation">зубр</span></div>
+        </div>
+        <h3>🎵 Song: When I'm at the Zoo</h3>
+        <div class="poem-box">
+            When I'm at the zoo, what do I see?<br>
+            Lots of funny animals looking at me.<br>
+            I see a tall <strong>giraffe</strong>, eating from a tree.<br>
+            I see a silly <strong>monkey</strong>, laughing at me.<br>
+            I see a clever <strong>dolphin</strong>, swimming in the sea.<br>
+            I see a little <strong>seal</strong>, clapping one, two, three!<br>
+            I see a lazy <strong>lizard</strong>, sitting in the sun.<br>
+            I see a big <strong>whale</strong>, having lots of fun.<br>
+            I see a baby <strong>hippo</strong>, learning how to run.<br>
+            And one <strong>crocodile</strong>, crying on its own!
+        </div>
+        <h3>📖 At the Moscow Zoo</h3>
+        <div class="story-box">
+            This is the kitchen. They make food for all the animals here!<br>
+            Wow! This is a big zoo! Lunchtime! Come on — let me show you!<br>
+            Cool! Who's this fish for?<br>
+            Look! <strong>The seals are clapping!</strong><br>
+            Yes! They <strong>always</strong> clap at lunchtime!<br>
+            Chuckles is clapping, too! They're so clever!<br>
+            He wants fish for lunch!<br><br>
+            Look! She's playing the piano.<br>
+            She <strong>always</strong> plays the piano in the evenings.
+        </div>
+        <h3>📊 Comparatives</h3>
+        <table>
+            <tr><th>Adjective</th><th>Comparative</th><th>Example</th></tr>
+            <tr><td>small</td><td>smaller</td><td>Parrots are <strong>smaller than</strong> pandas.</td></tr>
+            <tr><td>big</td><td>bigger</td><td>Whales are <strong>bigger than</strong> dolphins.</td></tr>
+            <tr><td>tall</td><td>taller</td><td>A giraffe is <strong>taller than</strong> a horse.</td></tr>
+            <tr><td>long</td><td>longer</td><td>A giraffe's neck is <strong>longer than</strong> a dog's.</td></tr>
+            <tr><td>fat</td><td>fatter</td><td>A hippo is <strong>fatter than</strong> a seal.</td></tr>
+            <tr><td>clever</td><td>cleverer</td><td>A dolphin is <strong>cleverer than</strong> a fish.</td></tr>
+            <tr><td>funny</td><td>funnier</td><td>A monkey is <strong>funnier than</strong> a parrot.</td></tr>
+            <tr><td>nice</td><td>nicer</td><td>This zoo is <strong>nicer than</strong> that one.</td></tr>
+            <tr><td>good</td><td>better</td><td>This zoo is <strong>better than</strong> that one.</td></tr>
+            <tr><td>bad</td><td>worse</td><td>The weather is <strong>worse</strong> today.</td></tr>
+            <tr><td>popular</td><td>more popular</td><td>Pandas are <strong>more popular than</strong> lizards.</td></tr>
+        </table>
+        <h3>📖 Hippos — Reading</h3>
+        <div class="story-box">
+            Hippos are very big animals. They live in <strong>Africa</strong>. They are very fat, and can be <strong>3,000-4,500 kilos</strong>! Hippos have their babies during the rainy months of <strong>October and April</strong>. They sleep most of the day and eat at night. They eat <strong>grass</strong> and live for about <strong>40 years</strong>.
+        </div>
+    </div>
+</div>
+
+<div id="m4-months" class="tab-content">
+    <div class="subsection">
+        <h2>📅 Months of the Year</h2>
+        <div class="vocab-grid">
+            <div class="vocab-item"><span class="vocab-word">January</span><span>январь</span></div>
+            <div class="vocab-item"><span class="vocab-word">February</span><span>февраль</span></div>
+            <div class="vocab-item"><span class="vocab-word">March</span><span>март</span></div>
+            <div class="vocab-item"><span class="vocab-word">April</span><span>апрель</span></div>
+            <div class="vocab-item"><span class="vocab-word">May</span><span>май</span></div>
+            <div class="vocab-item"><span class="vocab-word">June</span><span>июнь</span></div>
+            <div class="vocab-item"><span class="vocab-word">July</span><span>июль</span></div>
+            <div class="vocab-item"><span class="vocab-word">August</span><span>август</span></div>
+            <div class="vocab-item"><span class="vocab-word">September</span><span>сентябрь</span></div>
+            <div class="vocab-item"><span class="vocab-word">October</span><span>октябрь</span></div>
+            <div class="vocab-item"><span class="vocab-word">November</span><span>ноябрь</span></div>
+            <div class="vocab-item"><span class="vocab-word">December</span><span>декабрь</span></div>
+        </div>
+        <div class="example">
+            <strong>A:</strong> When's your birthday?<br>
+            <strong>B:</strong> It's in March.<br><br>
+            <strong>Order:</strong> January, <strong>February</strong>, March, <strong>April</strong>, <strong>May</strong>, June, July, <strong>August</strong>, <strong>September</strong>, <strong>October</strong>, <strong>November</strong>, December
+        </div>
+        <h3>🐦 The Cuckoo Poem</h3>
+        <div class="poem-box">
+            The <strong>cuckoo</strong> comes in <strong>April</strong>.<br>
+            It sings its song in <strong>May</strong>.<br>
+            In <strong>June</strong> it changes tune.<br>
+            And in <strong>July</strong> it <strong>flies</strong> away!
+        </div>
+    </div>
+</div>
+
+<div id="m4-whale" class="tab-content">
+    <div class="subsection">
+        <h2>🐋 A Whale of a Time! — Grey Whales</h2>
+        <div class="story-box">
+            Grey whales, often called '<strong>friendly whales</strong>', make the same amazing journey every year!<br><br>
+            🌊 <strong>April to November:</strong> The whales stay in the cold waters of the <strong>Arctic</strong> looking for food.<br><br>
+            🌴 <strong>December to April:</strong> They go to the warmer waters of <strong>Mexico</strong> to have their babies!<br><br>
+            The Grey whale travels <strong>more miles than any other mammal on earth</strong>. They don't need tickets, passports or suitcases — and I'm sure they all have a whale of a time!
+        </div>
+        <h3>🦒 Poem: The YELLOW Giraffe!</h3>
+        <div class="poem-box">
+            The yellow giraffe<br>
+            Is as tall as can be.<br>
+            It can eat the leaves<br>
+            From a very tall tree!<br><br>
+            It's got a long neck<br>
+            And long legs, too.<br>
+            And it can run faster<br>
+            Than me or you!
+        </div>
+    </div>
+</div>
+
+<div id="m4-rules" class="tab-content">
+    <div class="subsection">
+        <h2>📜 Zoo Rules — Must / Mustn't</h2>
+        <div class="grammar-box">
+            <h3>Must — обязательно должен</h3>
+            <p>You <strong>must</strong> feed dogs every day.<br>
+            You <strong>must</strong> put your rubbish in the bin.<br>
+            You <strong>must</strong> do your homework.</p>
+        </div>
+        <div class="grammar-box">
+            <h3>Mustn't — НЕЛЬЗЯ (запрет)</h3>
+            <p>You <strong>mustn't</strong> feed the animals.<br>
+            You <strong>mustn't</strong> give dogs any sweets.<br>
+            You <strong>mustn't</strong> play loud music.<br>
+            You <strong>mustn't</strong> ride bikes in the zoo.</p>
+        </div>
+        <h3>🚫 Zoo Rules Signs:</h3>
+        <div class="rule-card"><span class="sign">🚫</span> DO NOT FEED THE ANIMALS</div>
+        <div class="rule-card"><span class="sign">🚫</span> DO NOT PLAY LOUD MUSIC</div>
+        <div class="rule-card"><span class="sign">🚫</span> DO NOT LEAVE YOUR RUBBISH — PUT IT IN THE BIN</div>
+        <div class="rule-card"><span class="sign">🚫</span> DO NOT RIDE BIKES</div>
+        <div class="rule-card"><span class="sign">🚫</span> DO NOT BRING PETS — PETS AT HOME</div>
+        <h3>🏫 School Rules</h3>
+        <div class="example">
+            1. You <strong>mustn't</strong> run during the break.<br>
+            2. You <strong>have to</strong> wear a uniform at school. All children wear one.<br>
+            3. You're in the library. You <strong>must</strong> be quiet.<br>
+            4. Mr Green, <strong>may</strong> I ask you a question?<br>
+            5. You <strong>don't have to</strong> go to school on Sunday.<br>
+            6. <strong>May</strong> I come in, please?
+        </div>
+    </div>
+</div>
+
+<div id="m4-diet" class="tab-content">
+    <div class="subsection">
+        <h2>🥩 Animal Diets</h2>
+        <table>
+            <tr><th>Type</th><th>What they eat</th><th>Examples</th></tr>
+            <tr><td>🌿 <strong>Herbivore</strong></td><td>only plants</td><td>giraffe, hippo, panda, cow</td></tr>
+            <tr><td>🥩 <strong>Carnivore</strong></td><td>meat from animals</td><td>lion, crocodile, wolf</td></tr>
+            <tr><td>🍎🥩 <strong>Omnivore</strong></td><td>meat AND plants</td><td>bear, monkey, human</td></tr>
+        </table>
+        <div class="example">
+            The wolf is a <strong>wild</strong> animal. It eats meat.<br>
+            The cow is a <strong>domesticated</strong> animal. It eats grass.
+        </div>
+    </div>
+</div>
+
+<div id="m4-australia" class="tab-content">
+    <div class="subsection">
+        <h2>🇦🇺 Spotlight on Australia — Pine Walk Koala Park</h2>
+        <div class="story-box">
+            <strong>TREAT YOURSELF TO A SPECIAL DAY OUT!</strong><br><br>
+            In Pine Walk Koala Park you can:<br>
+            🐨 Hug a cute koala anytime of the day!<br>
+            🦘 Feed friendly kangaroos and emus!<br>
+            🌳 Walk around the beautiful forest in the park!<br>
+            🧺 Have a picnic by the side of the river!<br>
+            🤠 Meet some fun-loving Australians!<br><br>
+            <strong>Opening Times:</strong> 8:30 am — 5:00 pm<br>
+            <strong>Cost:</strong> Adult $15 | Child $11<br><br>
+            WE HOPE TO SEE YOU SOON!
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ================= GOLDILOCKS ================= -->
+<section id="goldilocks" class="content-section">
+<h1 class="module-title">🐻 Goldilocks and the Three Bears</h1>
+
+<div class="subsection">
+    <h2>📖 Vocabulary</h2>
+    <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">golden</span><span class="vocab-translation">золотистый</span></div>
+        <div class="vocab-item"><span class="vocab-word">curl</span><span class="vocab-translation">завиток</span></div>
+        <div class="vocab-item"><span class="vocab-word">naughty</span><span class="vocab-translation">непослушный</span></div>
+        <div class="vocab-item"><span class="vocab-word">lovely</span><span class="vocab-translation">милый</span></div>
+        <div class="vocab-item"><span class="vocab-word">porridge</span><span class="vocab-translation">каша</span></div>
+        <div class="vocab-item"><span class="vocab-word">horrid</span><span class="vocab-translation">ужасный</span></div>
+        <div class="vocab-item"><span class="vocab-word">wood</span><span class="vocab-translation">лес</span></div>
+        <div class="vocab-item"><span class="vocab-word">knock</span><span class="vocab-translation">стучать</span></div>
+        <div class="vocab-item"><span class="vocab-word">luck</span><span class="vocab-translation">удача</span></div>
+        <div class="vocab-item"><span class="vocab-word">in a hurry</span><span class="vocab-translation">в спешке</span></div>
+        <div class="vocab-item"><span class="vocab-word">on my way</span><span class="vocab-translation">по пути</span></div>
+        <div class="vocab-item"><span class="vocab-word">break a rule</span><span class="vocab-translation">нарушить правило</span></div>
+        <div class="vocab-item"><span class="vocab-word">oats</span><span class="vocab-translation">овёс</span></div>
+        <div class="vocab-item"><span class="vocab-word">pot</span><span class="vocab-translation">горшок</span></div>
+        <div class="vocab-item"><span class="vocab-word">soft</span><span class="vocab-translation">мягкий</span></div>
+        <div class="vocab-item"><span class="vocab-word">share</span><span class="vocab-translation">делиться</span></div>
+        <div class="vocab-item"><span class="vocab-word">return</span><span class="vocab-translation">возвращаться</span></div>
+        <div class="vocab-item"><span class="vocab-word">remind</span><span class="vocab-translation">напоминать</span></div>
+        <div class="vocab-item"><span class="vocab-word">tune</span><span class="vocab-translation">мелодия</span></div>
+        <div class="vocab-item"><span class="vocab-word">worry</span><span class="vocab-translation">беспокоиться</span></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎬 Part 1: Goldilocks Goes to the Wood</h2>
+    <div class="story-box">
+        <span class="speaker">Narrator:</span> Goldilocks, a little girl, has got big blue eyes and golden curls. Her mother tells her...<br>
+        <span class="speaker">Mother:</span> Now, be good! Don't go walking in the wood!<br>
+        <span class="speaker">Narrator:</span> She says...<br>
+        <span class="speaker">Goldilocks:</span> Oh, Mummy, please don't worry!<br>
+        <span class="speaker">Narrator:</span> But Goldilocks is in a hurry.<br>
+        <span class="speaker">Goldilocks:</span> The wood is nice. The wood is cool. I can walk there on my way to school.
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎬 Part 2: In the Bears' House</h2>
+    <div class="story-box">
+        <span class="speaker">Goldilocks:</span> No one home.<br>
+        <span class="speaker">Narrator:</span> She says...<br>
+        <span class="speaker">Goldilocks:</span> What luck — I'll go inside and have a look!<br><br>
+        <span class="speaker">Goldilocks:</span> Yum!<br>
+        <span class="speaker">Narrator:</span> She says...<br>
+        <span class="speaker">Goldilocks:</span> I want some porridge. Yuk, not this — and this one's horrid! But this one here is very good — and porridge is my favourite food!
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎬 Part 3: The Chairs</h2>
+    <div class="story-box">
+        <span class="speaker">Narrator:</span> Then she sits upon a chair.<br>
+        <span class="speaker">Goldilocks:</span> Oh, no! Not this one — that one there! It's nice and small — not big at all!<br>
+        <span class="speaker">Narrator:</span> But then, poor Goldie has a fall.
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎬 Part 4: The Three Bears Return</h2>
+    <div class="story-box">
+        <span class="speaker">Narrator:</span> Now in the wood there live three bears! Mummy, Daddy and Baby.<br>
+        <span class="speaker">Daddy:</span> Let's take a walk. Daddy says...<br>
+        <span class="speaker">Narrator:</span> And Mummy says...<br>
+        <span class="speaker">Mummy:</span> Well, maybe. I've got some porridge in this pot. It's very nice — but it's very hot! We can eat it when we all return. Let's go outside and get some sun!
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎵 Song: Goldie, Goldie, Goldilocks</h2>
+    <div class="poem-box">
+        Goldie, Goldie, Goldilocks<br>
+        Is as pretty as can be.<br>
+        Her mother tells her every day:<br>
+        "Now, listen to me!"<br><br>
+        Goldie, Goldie, Goldilocks<br>
+        With long golden curls.<br>
+        Through the wood she takes a walk —<br>
+        The naughty girl!<br><br>
+        Goldie, Goldie, Goldilocks<br>
+        Is on her way to school.<br>
+        She says, "The woods look lovely!"<br>
+        And she breaks her mother's rule!
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>✅ Activities</h2>
+    <div class="example">
+        <strong>1. Match:</strong><br>
+        1. golden — c) curls<br>
+        2. naughty — a) girl<br>
+        3. lovely — d) woods<br>
+        4. hot — b) porridge<br><br>
+        <strong>2. Complete:</strong><br>
+        1. Mother says: "Listen <strong>to</strong> me."<br>
+        2. Goldilocks is a girl <strong>with</strong> long golden curls.<br>
+        3. Goldilocks is <strong>on</strong> her way <strong>to</strong> school.<br>
+        4. Goldilocks takes a walk <strong>through</strong> the woods.<br>
+        5. Three bears live <strong>in</strong> the wood.
+    </div>
+</div>
+</section>
+
+<!-- ================= ARTHUR & RASCAL ================= -->
+<section id="arthur" class="content-section">
+<h1 class="module-title">🐺 Arthur & Rascal — Comic Strip</h1>
+
+<div class="subsection">
+    <h2>📖 Vocabulary</h2>
+    <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">bark</span><span class="vocab-translation">лаять</span></div>
+        <div class="vocab-item"><span class="vocab-word">busy</span><span class="vocab-translation">занятый</span></div>
+        <div class="vocab-item"><span class="vocab-word">celebrate</span><span class="vocab-translation">праздновать</span></div>
+        <div class="vocab-item"><span class="vocab-word">fast food</span><span class="vocab-translation">быстрая еда</span></div>
+        <div class="vocab-item"><span class="vocab-word">hate</span><span class="vocab-translation">ненавидеть</span></div>
+        <div class="vocab-item"><span class="vocab-word">hungry</span><span class="vocab-translation">голодный</span></div>
+        <div class="vocab-item"><span class="vocab-word">kitten</span><span class="vocab-translation">котёнок</span></div>
+        <div class="vocab-item"><span class="vocab-word">programme</span><span class="vocab-translation">программа (ТВ)</span></div>
+        <div class="vocab-item"><span class="vocab-word">scary film</span><span class="vocab-translation">фильм ужасов</span></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎬 Episode 1: I'm Rascal!</h2>
+    <div class="comic-box">
+        <div class="comic-panel" data-num="1">
+            <div class="speech-bubble"><strong>Rascal:</strong> I'm Rascal.</div>
+        </div>
+        <div class="comic-panel" data-num="2">
+            <div class="speech-bubble"><strong>Rascal:</strong> Hello, are you new here?</div>
+            <div class="speech-bubble"><strong>Wolfie:</strong> Yes, it's my first day!</div>
+        </div>
+        <div class="comic-panel" data-num="3">
+            <div class="speech-bubble"><strong>Rascal:</strong> What's your name?</div>
+            <div class="speech-bubble"><strong>Wolfie:</strong> I'm Wolfie.</div>
+        </div>
+        <div class="comic-panel" data-num="4">
+            <div class="speech-bubble"><strong>Rascal:</strong> Wolfie? Yes, it's short for Wolfgang.</div>
+        </div>
+        <div class="comic-panel" data-num="5">
+            <div class="speech-bubble"><strong>Rascal:</strong> Where are you from?</div>
+            <div class="speech-bubble"><strong>Wolfie:</strong> I'm from Germany.</div>
+        </div>
+        <div class="comic-panel" data-num="6">
+            <div class="speech-bubble"><strong>Brutus:</strong> Rascal! Are you ready to go? And this is my dad, Brutus.</div>
+            <div class="speech-bubble"><strong>Wolfie:</strong> Wolfie, this is Arthur.</div>
+        </div>
+        <div class="comic-panel" data-num="7">
+            <div class="speech-bubble"><strong>Rascal:</strong> Oh, oh! Goodbye, Wolfie!</div>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎬 Episode 2: Tricksy!</h2>
+    <div class="comic-box">
+        <div class="comic-panel" data-num="1">
+            <div class="speech-bubble"><strong>Arthur:</strong> Hi, my name's Arthur.</div>
+        </div>
+        <div class="comic-panel" data-num="2">
+            <div class="speech-bubble"><strong>Cookie:</strong> Oh, hello! I'm Cookie. Cookie, meet Rascal!</div>
+        </div>
+        <div class="comic-panel" data-num="3">
+            <div class="speech-bubble"><strong>Arthur:</strong> Nice to meet you, Rascal!</div>
+        </div>
+        <div class="comic-panel" data-num="4">
+            <div class="speech-bubble"><strong>Cookie:</strong> Tricksy! Come back!</div>
+        </div>
+        <div class="comic-panel" data-num="5">
+            <div class="speech-bubble"><strong>Arthur:</strong> Oh, oh!</div>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎬 Episode 3: Fast Food!</h2>
+    <div class="comic-box">
+        <div class="comic-panel" data-num="1">
+            <div class="speech-bubble"><strong>Rascal:</strong> Look! Tricksy's got a lot of food!</div>
+        </div>
+        <div class="comic-panel" data-num="2">
+            <div class="speech-bubble"><strong>Rascal:</strong> Arthur! I'm hungry. Is there any food?</div>
+            <div class="speech-bubble"><strong>Arthur:</strong> Sorry, no, Rascal!</div>
+        </div>
+        <div class="comic-panel" data-num="3">
+            <div class="speech-bubble"><strong>Rascal:</strong> Arthur, do something!</div>
+        </div>
+        <div class="comic-panel" data-num="4">
+            <div class="speech-bubble"><strong>Arthur:</strong> Oh, alright, Rascal!</div>
+            <div class="speech-bubble"><strong>Rascal:</strong> Mmm, fast food! Yum!</div>
+        </div>
+        <div class="comic-panel" data-num="5">
+            <div class="speech-bubble"><strong>Rascal:</strong> Oh, oh! Sushi! I hate sushi!</div>
+        </div>
+        <div class="comic-panel" data-num="6">
+            <div class="speech-bubble"><strong>Arthur:</strong> Bah! Those silly dogs! Hee, hee!</div>
+        </div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎬 Episode 4: Hot Dogs!</h2>
+    <div class="comic-box">
+        <div class="comic-panel" data-num="1">
+            <div class="speech-bubble"><strong>Rascal:</strong> Hello, Cookie! So, you come here too!</div>
+        </div>
+        <div class="comic-panel" data-num="2">
+            <div class="speech-bubble"><strong>Cookie:</strong> Time for a walk!</div>
+            <div class="speech-bubble"><strong>Rascal:</strong> Oh, goody! Yes. My owner works here.</div>
+        </div>
+        <div class="comic-panel" data-num="3">
+            <div class="speech-bubble"><strong>Rascal:</strong> I like the park! Do you want one?</div>
+            <div class="speech-bubble"><strong>Arthur:</strong> Do people eat dogs?</div>
+        </div>
+        <div class="comic-panel" data-num="4">
+            <div class="speech-bubble"><strong>Cookie:</strong> What does he do?</div>
+            <div class="speech-bubble"><strong>Rascal:</strong> He sells hot dogs.</div>
+            <div class="speech-bubble"><strong>Arthur:</strong> Oh, oh!</div>
+        </div>
+        <div class="comic-panel" data-num="5">
+            <div class="speech-bubble"><strong>Rascal:</strong> They're not really dogs, silly!</div>
+            <div class="speech-bubble"><strong>Arthur:</strong> I love hot dogs. Yum! Here you are. Try one!</div>
+        </div>
+        <div class="comic-panel" data-num="6">
+            <div class="speech-bubble"><strong>Brutus:</strong> Arthur! Rascal! Where are you?</div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ================= ENGLISH-SPEAKING COUNTRIES ================= -->
+<section id="countries" class="content-section">
+<h1 class="module-title">🌍 Spotlight on English-Speaking Countries</h1>
+
+<div class="subsection">
+    <h2>🗺️ Countries & Capitals</h2>
+    <div class="vocab-grid">
+        <div class="flag-card"><div class="flag">🇬🇧</div><strong>UK</strong><br>London</div>
+        <div class="flag-card"><div class="flag">🇮🇪</div><strong>Ireland</strong><br>Dublin</div>
+        <div class="flag-card"><div class="flag">🇺🇸</div><strong>USA</strong><br>Washington D.C.</div>
+        <div class="flag-card"><div class="flag">🇨🇦</div><strong>Canada</strong><br>Ottawa</div>
+        <div class="flag-card"><div class="flag">🇦🇺</div><strong>Australia</strong><br>Canberra</div>
+        <div class="flag-card"><div class="flag">🇳🇿</div><strong>New Zealand</strong><br>Wellington</div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🏰 Famous Sights — Quiz</h2>
+    <div class="test-container">
+        <div class="question" data-correct="c">
+            <div class="question-text">1. Where is Big Ben?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) In Oxford</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) In Cambridge</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) In London</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">2. The Tower of London is...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) a palace</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) a museum</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) a zoo</div>
+            </div>
+        </div>
+        <div class="question" data-correct="c">
+            <div class="question-text">3. Who lives in the White House in Washington D.C.?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) The king</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) The queen</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) The president</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">4. The Statue of Liberty is in...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) Washington</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) New York</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) Dublin</div>
+            </div>
+        </div>
+        <div class="question" data-correct="a">
+            <div class="question-text">5. You visit the London Eye...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) to go on a ride</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) to see an eye doctor</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) to have lunch</div>
+            </div>
+        </div>
+        <button class="btn" onclick="showScore(this.parentElement)">Show Results</button>
+        <div class="score-display"></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🎁 Souvenirs</h2>
+    <table>
+        <tr><th>Country</th><th>Souvenirs</th></tr>
+        <tr><td>🇬🇧 UK</td><td>T-shirt, magnet, key-ring, teddy-bear, umbrella, mask, mug</td></tr>
+        <tr><td>🇺🇸 USA</td><td>Statue of Liberty, baseball cap</td></tr>
+        <tr><td>🇨🇦 Canada</td><td>bottle of maple syrup</td></tr>
+        <tr><td>🇦🇺 Australia</td><td>stuffed kangaroo, hat and scarf</td></tr>
+        <tr><td>🇳🇿 New Zealand</td><td>stuffed bird</td></tr>
+    </table>
+</div>
+
+<div class="subsection">
+    <h2>🎉 Happy New Year!</h2>
+    <div class="poem-box">
+        🎊 Happy New Year! Happy New Year!<br>
+        Let's have fun, let's have fun!<br>
+        Goodbye to the old year,<br>
+        Hello to the new year!<br>
+        Hurray, hurray! Hurray, hurray!<br><br>
+        🎈 Make a party hat!<br>
+        🎁 My New Year's resolution is to help my mummy with Betsy.
+    </div>
+</div>
+</section>
+
+<!-- ================= SPOTLIGHT ON RUSSIA ================= -->
+<section id="russia" class="content-section">
+<h1 class="module-title">🇷🇺 Spotlight on Russia</h1>
+
+<div class="subsection">
+    <h2>🏙️ Russian Millionaire Cities</h2>
+    <p>Everybody knows that Moscow and St Petersburg are very big cities. But there are other Russian cities with more than one million people in them. They are called <strong>millionaire cities</strong>. In these pictures you can see famous sights: monuments, theatres, museums, churches and streets.</p>
+    <div class="vocab-grid">
+        <div class="city-card"><h4>Novosibirsk</h4>1,620,162</div>
+        <div class="city-card"><h4>Yekaterinburg</h4>1,495,066</div>
+        <div class="city-card"><h4>Kazan</h4>1,257,341</div>
+        <div class="city-card"><h4>Nizhny Novgorod</h4>1,244,254</div>
+        <div class="city-card"><h4>Chelyabinsk</h4>1,187,960</div>
+        <div class="city-card"><h4>Samara</h4>1,144,759</div>
+        <div class="city-card"><h4>Rostov-on-Don</h4>1,137,704</div>
+        <div class="city-card"><h4>Omsk</h4>1,139,897</div>
+    </div>
+    <h3>📖 Vocabulary</h3>
+    <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">church</span><span class="vocab-translation">церковь, храм</span></div>
+        <div class="vocab-item"><span class="vocab-word">millionaire</span><span class="vocab-translation">миллионер</span></div>
+        <div class="vocab-item"><span class="vocab-word">monument</span><span class="vocab-translation">памятник</span></div>
+        <div class="vocab-item"><span class="vocab-word">sight</span><span class="vocab-translation">достопримечательность</span></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>👨‍👩‍👧 What Russian Children Want to Be</h2>
+    <div class="profile-card">
+        <h4>👧 Tanya wants to be a doctor</h4>
+        My Mum, Dad and uncle are doctors. They help sick people. They wear white uniforms. Sometimes they work at night and I don't like it.
+    </div>
+    <div class="profile-card">
+        <h4>👧 Dasha wants to be a teacher</h4>
+        My dream is to be a teacher like my mum. I think it's an interesting job. I often play school with my friends.
+    </div>
+    <div class="profile-card">
+        <h4>👦 Ilya wants to be an astronaut</h4>
+        I like to watch stars and planets at night. I dream of flying in a spaceship to different planets.
+    </div>
+    <div class="profile-card">
+        <h4>👦 Nikita wants to be a scientist</h4>
+        I love animals, they're so cute! I think I want to study them and become a scientist. I watch a lot of TV programmes about animals.
+    </div>
+    <h3>📖 Vocabulary</h3>
+    <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">astronaut</span><span class="vocab-translation">астронавт, космонавт</span></div>
+        <div class="vocab-item"><span class="vocab-word">scientist</span><span class="vocab-translation">учёный</span></div>
+        <div class="vocab-item"><span class="vocab-word">spaceship</span><span class="vocab-translation">космический корабль</span></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🥨 What Would You Like for Your Tea?</h2>
+    <div class="story-box">
+        <strong>Sushki, baranki, bubliki (bagels)</strong> are traditional Russian products. You need <strong>flour, butter, oil, water, salt and sugar</strong> to make them. They can be round or oval, very big or very small and they can have different colours and flavours.<br><br>
+        They are very popular because they <strong>taste good</strong> and they are <strong>cheap</strong>. Sushki <strong>last a long time</strong> too. People like to take sushki with them when they go <strong>hiking</strong>.<br><br>
+        Everybody loves sushki, baranki and bubliki: from babies to old people. They are a good treat at teatime.
+    </div>
+    <h3>📖 Vocabulary</h3>
+    <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">cheap</span><span class="vocab-translation">дешёвый</span></div>
+        <div class="vocab-item"><span class="vocab-word">hiking</span><span class="vocab-translation">поход</span></div>
+        <div class="vocab-item"><span class="vocab-word">last a long time</span><span class="vocab-translation">храниться долго</span></div>
+        <div class="vocab-item"><span class="vocab-word">oval</span><span class="vocab-translation">овальный</span></div>
+    </div>
+    <h3>🔢 How many in one kilo?</h3>
+    <div class="example">
+        1. Sushki: about <strong>100</strong><br>
+        2. Baranki: <strong>40-60</strong><br>
+        3. Bubliki: up to <strong>20</strong>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>🦬 Animals Need Our Help — WWF</h2>
+    <div class="story-box">
+        <strong>WWF — World Wildlife Fund</strong> — helps to save the wildlife on our planet. In Russia there are <strong>100 reserves</strong> and <strong>33 national parks</strong> where different kinds of animals live.<br><br>
+        Near Ryazan and Moscow there are <strong>bison reserves</strong> where WWF supporters have a special project, called "<strong>Adopt a Bison</strong>". People <strong>donate</strong> money to buy food, pay vets and <strong>raise</strong> a baby bison. They can give a name to it, too. Every adopter gets a <strong>Certificate of Adoption</strong>. <strong>July 2</strong> is "A Day of Adopters" in the bison reserves.
+    </div>
+    <h3>📖 Vocabulary</h3>
+    <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">adopt</span><span class="vocab-translation">усыновлять</span></div>
+        <div class="vocab-item"><span class="vocab-word">bison</span><span class="vocab-translation">зубр</span></div>
+        <div class="vocab-item"><span class="vocab-word">donate</span><span class="vocab-translation">жертвовать</span></div>
+        <div class="vocab-item"><span class="vocab-word">national park</span><span class="vocab-translation">национальный парк</span></div>
+        <div class="vocab-item"><span class="vocab-word">raise</span><span class="vocab-translation">растить</span></div>
+        <div class="vocab-item"><span class="vocab-word">reserve</span><span class="vocab-translation">заповедник</span></div>
+        <div class="vocab-item"><span class="vocab-word">save</span><span class="vocab-translation">спасать</span></div>
+    </div>
+</div>
+</section>
+
+<!-- ================= GRAMMAR ================= -->
+<section id="grammar" class="content-section">
+<h1 class="module-title">📖 Grammar Reference</h1>
+
+<div class="subsection">
+    <h2>1. Present Continuous — Настоящее продолженное</h2>
+    <div class="grammar-box">
+        <p><strong>Formation:</strong> am/is/are + verb-ing</p>
+        <p><strong>Use:</strong> Actions happening now, at the moment</p>
+        <p><strong>Signal words:</strong> now, at the moment, Look!</p>
+    </div>
+    <table>
+        <tr><th>Positive</th><th>Negative</th><th>Question</th></tr>
+        <tr><td>I am playing<br>I'm playing</td><td>I am not playing<br>I'm not playing</td><td>Am I playing?</td></tr>
+        <tr><td>He is playing<br>He's playing</td><td>He is not playing<br>He isn't playing</td><td>Is he playing?<br>Yes, he is. / No, he isn't.</td></tr>
+        <tr><td>They are playing<br>They're playing</td><td>They are not playing<br>They aren't playing</td><td>Are they playing?<br>Yes, they are. / No, they aren't.</td></tr>
+    </table>
+</div>
+
+<div class="subsection">
+    <h2>2. Present Simple — Настоящее простое</h2>
+    <div class="grammar-box">
+        <p><strong>Formation:</strong> verb (add -s/-es for he/she/it)</p>
+        <p><strong>Use:</strong> Regular actions, habits, facts</p>
+        <p><strong>Signal words:</strong> every day, always, usually, often, sometimes, never, on Mondays</p>
+    </div>
+    <h3>Spelling rules (3rd person singular):</h3>
+    <table>
+        <tr><th>Rule</th><th>Example</th></tr>
+        <tr><td>Most verbs: add <strong>-s</strong></td><td>eat → eats, play → plays</td></tr>
+        <tr><td>Verbs in -ss, -sh, -ch, -x, -o: add <strong>-es</strong></td><td>miss → misses, finish → finishes, watch → watches, go → goes</td></tr>
+        <tr><td>Consonant + y → <strong>-ies</strong></td><td>study → studies, cry → cries</td></tr>
+        <tr><td>Vowel + y: add <strong>-s</strong></td><td>play → plays</td></tr>
+    </table>
+    <h3>Pronunciation of -s/-es:</h3>
+    <div class="example">
+        <strong>/s/</strong> — after voiceless sounds: he eats<br>
+        <strong>/iz/</strong> — after sibilants: he watches<br>
+        <strong>/z/</strong> — after vowels and voiced sounds: he goes
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>3. Present Simple vs Present Continuous</h2>
+    <div class="grammar-box">
+        <p><strong>Present Simple:</strong> She works from 9 to 5 every day. (regular)</p>
+        <p><strong>Present Continuous:</strong> George isn't sleeping at the moment. He is at the cinema. He is watching a film with his friends. (now)</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>4. Prepositions of Place</h2>
+    <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">in</span><span>в (внутри)</span></div>
+        <div class="vocab-item"><span class="vocab-word">on</span><span>на (поверхности)</span></div>
+        <div class="vocab-item"><span class="vocab-word">under</span><span>под</span></div>
+        <div class="vocab-item"><span class="vocab-word">next to</span><span>рядом с</span></div>
+        <div class="vocab-item"><span class="vocab-word">behind</span><span>позади</span></div>
+        <div class="vocab-item"><span class="vocab-word">in front of</span><span>перед</span></div>
+        <div class="vocab-item"><span class="vocab-word">between</span><span>между</span></div>
+        <div class="vocab-item"><span class="vocab-word">opposite</span><span>напротив</span></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>5. Have got / Has got</h2>
+    <div class="grammar-box">
+        <p><strong>Use:</strong> Possession, appearance</p>
+        <p>I/You/We/They <strong>have got</strong> (I've got)</p>
+        <p>He/She/It <strong>has got</strong> (He's got)</p>
+        <p>He's got fair hair. She's got blue eyes.</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>6. Can / Can't — Ability</h2>
+    <div class="grammar-box">
+        <p>I <strong>can</strong> swim really well.<br>
+        He <strong>can't</strong> dive.<br>
+        <strong>Can</strong> you ride a bike? — Yes, I can. / No, I can't.</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>7. Have to / Don't have to</h2>
+    <div class="grammar-box">
+        <p><strong>Have to:</strong> Necessity (you must do it)<br>
+        <strong>Don't have to:</strong> No necessity (not required)</p>
+        <p>I have to be at school at 9 o'clock.<br>
+        Peter doesn't have to go to school on Saturday.<br>
+        Does she have to work at night? — Yes, she does. / No, she doesn't.</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>8. Much / Many / A lot of</h2>
+    <div class="grammar-box">
+        <p><strong>Much:</strong> Uncountable nouns (in questions & negatives) — milk, cheese, sugar<br>
+        <strong>Many:</strong> Countable nouns plural (in questions & negatives) — books, apples<br>
+        <strong>A lot of:</strong> Both (in positive sentences)<br>
+        <strong>How much / How many</strong> — for questions</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>9. May — Permission</h2>
+    <div class="grammar-box">
+        <p><strong>May I...?</strong> — formal request for permission<br>
+        Answer: Certainly. / Of course you may. / Yes, you may. / No, you may not.</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>10. Comparatives</h2>
+    <div class="grammar-box">
+        <p><strong>Short adjectives:</strong> add -er (tall → taller, big → bigger, funny → funnier)<br>
+        <strong>Long adjectives:</strong> use more (popular → more popular)<br>
+        <strong>Irregular:</strong> good → better, bad → worse<br>
+        <strong>Use with:</strong> than</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>11. Must / Mustn't</h2>
+    <div class="grammar-box">
+        <p><strong>Must:</strong> Obligation (you have to do it)<br>
+        <strong>Mustn't:</strong> Prohibition (you can't do it)</p>
+        <p>I must put my rubbish in the bin.<br>
+        You mustn't run. / You mustn't feed the animals.</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>12. Adverbs of Frequency</h2>
+    <table>
+        <tr><th>Adverb</th><th>%</th><th>Position</th></tr>
+        <tr><td>always</td><td>100%</td><td>before main verb</td></tr>
+        <tr><td>usually</td><td>80%</td><td>before main verb</td></tr>
+        <tr><td>often</td><td>70%</td><td>before main verb</td></tr>
+        <tr><td>sometimes</td><td>50%</td><td>beginning / middle / end</td></tr>
+        <tr><td>never</td><td>0%</td><td>before main verb</td></tr>
+    </table>
+</div>
+</section>
+
+<!-- ================= PHONETICS ================= -->
+<section id="phonetics" class="content-section">
+<h1 class="module-title">🔤 Phonetics</h1>
+
+<div class="subsection">
+    <h2>📣 Consonants</h2>
+    <table class="phonetics-table">
+        <tr><th>Sound</th><th>Example</th><th>Sound</th><th>Example</th></tr>
+        <tr><td>/p/</td><td>postman</td><td>/b/</td><td>badminton</td></tr>
+        <tr><td>/t/</td><td>tennis</td><td>/d/</td><td>dream</td></tr>
+        <tr><td>/k/</td><td>key</td><td>/g/</td><td>guitar</td></tr>
+        <tr><td>/f/</td><td>funfair</td><td>/v/</td><td>volleyball</td></tr>
+        <tr><td>/θ/</td><td>theatre</td><td>/ð/</td><td>those</td></tr>
+        <tr><td>/s/</td><td>salt</td><td>/z/</td><td>zoo</td></tr>
+        <tr><td>/ʃ/</td><td>usually</td><td>/ʒ/</td><td>jar</td></tr>
+        <tr><td>/tʃ/</td><td>cherry</td><td>/dʒ/</td><td>magic</td></tr>
+        <tr><td>/h/</td><td>hockey</td><td>/m/</td><td>monkey</td></tr>
+        <tr><td>/n/</td><td>nurse</td><td>/ŋ/</td><td>singing</td></tr>
+        <tr><td>/l/</td><td>lemon</td><td>/r/</td><td>ride</td></tr>
+        <tr><td>/w/</td><td>week</td><td>/j/</td><td>yesterday</td></tr>
+    </table>
+</div>
+
+<div class="subsection">
+    <h2>🗣️ Vowels and Diphthongs</h2>
+    <table class="phonetics-table">
+        <tr><th>Sound</th><th>Example</th><th>Sound</th><th>Example</th></tr>
+        <tr><td>/ɪ/</td><td>slim</td><td>/e/</td><td>vet</td></tr>
+        <tr><td>/æ/</td><td>sad</td><td>/ɒ/</td><td>hospital</td></tr>
+        <tr><td>/ʌ/</td><td>butter</td><td>/ɔː/</td><td>tall</td></tr>
+        <tr><td>/ʊ/</td><td>good</td><td>/uː/</td><td>cool</td></tr>
+        <tr><td>/ɜː/</td><td>first</td><td>/ə/</td><td>station</td></tr>
+        <tr><td>/iː/</td><td>beans</td><td>/ɑː/</td><td>last</td></tr>
+        <tr><td>/aɪ/</td><td>diving</td><td>/ɔɪ/</td><td>—</td></tr>
+        <tr><td>/aʊ/</td><td>loud</td><td>/əʊ/</td><td>slow</td></tr>
+        <tr><td>/eə/</td><td>hare</td><td>/ɪə/</td><td>really</td></tr>
+        <tr><td>/eɪ/</td><td>waiter</td><td>/sixty/</td><td>/sɪksti/</td></tr>
+    </table>
+</div>
+
+<div class="subsection">
+    <h2>📚 Special Sounds from the Book</h2>
+    <table>
+        <tr><th>Sound</th><th>Examples</th></tr>
+        <tr><td>/ɑː/ (ar)</td><td>garden, party, farm, dark, star, arm, car</td></tr>
+        <tr><td>/ɔː/ (or)</td><td>horse, popcorn, sport, short, tortoise, uniform, morning</td></tr>
+        <tr><td>/ɜː/ (ir/ur/er)</td><td>birthday, circus, circle, shirt, thirty | nurse, surfing, turn, curtain, turkey | her, serve</td></tr>
+        <tr><td>/ʊ/ (oo)</td><td>good, look, cook, foot</td></tr>
+        <tr><td>/uː/ (oo)</td><td>zoo, afternoon, room, cool</td></tr>
+        <tr><td>/dʒ/ (g/j)</td><td>orange, magic, gym</td></tr>
+        <tr><td>/g/ (g)</td><td>mango, egg, green</td></tr>
+        <tr><td>/ŋ/ (ng)</td><td>singing, morning</td></tr>
+        <tr><td>/ds/</td><td>fridge, orange, magic, gym</td></tr>
+    </table>
+</div>
+</section>
+
+<!-- ================= WORD LIST ================= -->
+<section id="vocab" class="content-section">
+<h1 class="module-title">📝 Word List</h1>
+
+<div class="subsection">
+    <h2>🔍 Search Word</h2>
+    <input type="text" id="wordSearch" placeholder="Type a word..." style="width:100%; padding:10px; border:2px solid #667eea; border-radius:8px; font-size:1em;" oninput="searchWord()">
+</div>
+
+<div class="subsection">
+    <h2>📚 Complete Vocabulary</h2>
+    <div id="fullVocab" class="vocab-grid">
+        <div class="vocab-item" data-word="activity"><span class="vocab-word">activity</span><span class="vocab-translation">деятельность</span></div>
+        <div class="vocab-item" data-word="adopt"><span class="vocab-word">adopt</span><span class="vocab-translation">усыновлять</span></div>
+        <div class="vocab-item" data-word="always"><span class="vocab-word">always</span><span class="vocab-translation">всегда</span></div>
+        <div class="vocab-item" data-word="amazing"><span class="vocab-word">amazing</span><span class="vocab-translation">удивительный</span></div>
+        <div class="vocab-item" data-word="astronaut"><span class="vocab-word">astronaut</span><span class="vocab-translation">космонавт</span></div>
+        <div class="vocab-item" data-word="back together"><span class="vocab-word">back together</span><span class="vocab-translation">снова вместе</span></div>
+        <div class="vocab-item" data-word="baker"><span class="vocab-word">baker</span><span class="vocab-translation">пекарь</span></div>
+        <div class="vocab-item" data-word="beans"><span class="vocab-word">beans</span><span class="vocab-translation">фасоль</span></div>
+        <div class="vocab-item" data-word="best friend"><span class="vocab-word">best friend</span><span class="vocab-translation">лучший друг</span></div>
+        <div class="vocab-item" data-word="bison"><span class="vocab-word">bison</span><span class="vocab-translation">зубр</span></div>
+        <div class="vocab-item" data-word="both"><span class="vocab-word">both</span><span class="vocab-translation">оба</span></div>
+        <div class="vocab-item" data-word="butter"><span class="vocab-word">butter</span><span class="vocab-translation">масло</span></div>
+        <div class="vocab-item" data-word="camera"><span class="vocab-word">camera</span><span class="vocab-translation">фотоаппарат</span></div>
+        <div class="vocab-item" data-word="carnivore"><span class="vocab-word">carnivore</span><span class="vocab-translation">плотоядное</span></div>
+        <div class="vocab-item" data-word="cheap"><span class="vocab-word">cheap</span><span class="vocab-translation">дешёвый</span></div>
+        <div class="vocab-item" data-word="church"><span class="vocab-word">church</span><span class="vocab-translation">церковь</span></div>
+        <div class="vocab-item" data-word="coconut"><span class="vocab-word">coconut</span><span class="vocab-translation">кокос</span></div>
+        <div class="vocab-item" data-word="cookery book"><span class="vocab-word">cookery book</span><span class="vocab-translation">кулинарная книга</span></div>
+        <div class="vocab-item" data-word="cousin"><span class="vocab-word">cousin</span><span class="vocab-translation">двоюродный брат/сестра</span></div>
+        <div class="vocab-item" data-word="crew"><span class="vocab-word">crew</span><span class="vocab-translation">команда</span></div>
+        <div class="vocab-item" data-word="crocodile"><span class="vocab-word">crocodile</span><span class="vocab-translation">крокодил</span></div>
+        <div class="vocab-item" data-word="cuckoo"><span class="vocab-word">cuckoo</span><span class="vocab-translation">кукушка</span></div>
+        <div class="vocab-item" data-word="curl"><span class="vocab-word">curl</span><span class="vocab-translation">завиток</span></div>
+        <div class="vocab-item" data-word="dark hair"><span class="vocab-word">dark hair</span><span class="vocab-translation">тёмные волосы</span></div>
+        <div class="vocab-item" data-word="doctor"><span class="vocab-word">doctor</span><span class="vocab-translation">врач</span></div>
+        <div class="vocab-item" data-word="dolphin"><span class="vocab-word">dolphin</span><span class="vocab-translation">дельфин</span></div>
+        <div class="vocab-item" data-word="donate"><span class="vocab-word">donate</span><span class="vocab-translation">жертвовать</span></div>
+        <div class="vocab-item" data-word="dive"><span class="vocab-word">dive</span><span class="vocab-translation">нырять</span></div>
+        <div class="vocab-item" data-word="elephant seal"><span class="vocab-word">elephant seal</span><span class="vocab-translation">морской слон</span></div>
+        <div class="vocab-item" data-word="fair hair"><span class="vocab-word">fair hair</span><span class="vocab-translation">светлые волосы</span></div>
+        <div class="vocab-item" data-word="feel"><span class="vocab-word">feel</span><span class="vocab-translation">чувствовать</span></div>
+        <div class="vocab-item" data-word="firefighter"><span class="vocab-word">firefighter</span><span class="vocab-translation">пожарный</span></div>
+        <div class="vocab-item" data-word="flour"><span class="vocab-word">flour</span><span class="vocab-translation">мука</span></div>
+        <div class="vocab-item" data-word="friendly"><span class="vocab-word">friendly</span><span class="vocab-translation">дружелюбный</span></div>
+        <div class="vocab-item" data-word="funny"><span class="vocab-word">funny</span><span class="vocab-translation">смешной</span></div>
+        <div class="vocab-item" data-word="garage"><span class="vocab-word">garage</span><span class="vocab-translation">гараж</span></div>
+        <div class="vocab-item" data-word="giraffe"><span class="vocab-word">giraffe</span><span class="vocab-translation">жираф</span></div>
+        <div class="vocab-item" data-word="gloves"><span class="vocab-word">gloves</span><span class="vocab-translation">перчатки</span></div>
+        <div class="vocab-item" data-word="golden"><span class="vocab-word">golden</span><span class="vocab-translation">золотистый</span></div>
+        <div class="vocab-item" data-word="greengrocer"><span class="vocab-word">greengrocer</span><span class="vocab-translation">продавец овощей</span></div>
+        <div class="vocab-item" data-word="guitar"><span class="vocab-word">guitar</span><span class="vocab-translation">гитара</span></div>
+        <div class="vocab-item" data-word="hairbrush"><span class="vocab-word">hairbrush</span><span class="vocab-translation">расчёска</span></div>
+        <div class="vocab-item" data-word="hate"><span class="vocab-word">hate</span><span class="vocab-translation">ненавидеть</span></div>
+        <div class="vocab-item" data-word="helmet"><span class="vocab-word">helmet</span><span class="vocab-translation">шлем</span></div>
+        <div class="vocab-item" data-word="herbivore"><span class="vocab-word">herbivore</span><span class="vocab-translation">травоядное</span></div>
+        <div class="vocab-item" data-word="hippo"><span class="vocab-word">hippo</span><span class="vocab-translation">бегемот</span></div>
+        <div class="vocab-item" data-word="hope"><span class="vocab-word">hope</span><span class="vocab-translation">надеяться</span></div>
+        <div class="vocab-item" data-word="hospital"><span class="vocab-word">hospital</span><span class="vocab-translation">больница</span></div>
+        <div class="vocab-item" data-word="hungry"><span class="vocab-word">hungry</span><span class="vocab-translation">голодный</span></div>
+        <div class="vocab-item" data-word="injection"><span class="vocab-word">injection</span><span class="vocab-translation">укол</span></div>
+        <div class="vocab-item" data-word="jar"><span class="vocab-word">jar</span><span class="vocab-translation">банка</span></div>
+        <div class="vocab-item" data-word="journey"><span class="vocab-word">journey</span><span class="vocab-translation">путешествие</span></div>
+        <div class="vocab-item" data-word="kangaroo"><span class="vocab-word">kangaroo</span><span class="vocab-translation">кенгуру</span></div>
+        <div class="vocab-item" data-word="keys"><span class="vocab-word">keys</span><span class="vocab-translation">ключи</span></div>
+        <div class="vocab-item" data-word="kind"><span class="vocab-word">kind</span><span class="vocab-translation">добрый</span></div>
+        <div class="vocab-item" data-word="koala"><span class="vocab-word">koala</span><span class="vocab-translation">коала</span></div>
+        <div class="vocab-item" data-word="lazy"><span class="vocab-word">lazy</span><span class="vocab-translation">ленивый</span></div>
+        <div class="vocab-item" data-word="lemon"><span class="vocab-word">lemon</span><span class="vocab-translation">лимон</span></div>
+        <div class="vocab-item" data-word="lizard"><span class="vocab-word">lizard</span><span class="vocab-translation">ящерица</span></div>
+        <div class="vocab-item" data-word="lunchtime"><span class="vocab-word">lunchtime</span><span class="vocab-translation">время обеда</span></div>
+        <div class="vocab-item" data-word="mango"><span class="vocab-word">mango</span><span class="vocab-translation">манго</span></div>
+        <div class="vocab-item" data-word="mechanic"><span class="vocab-word">mechanic</span><span class="vocab-translation">механик</span></div>
+        <div class="vocab-item" data-word="mobile phone"><span class="vocab-word">mobile phone</span><span class="vocab-translation">мобильный телефон</span></div>
+        <div class="vocab-item" data-word="monkey"><span class="vocab-word">monkey</span><span class="vocab-translation">обезьяна</span></div>
+        <div class="vocab-item" data-word="monument"><span class="vocab-word">monument</span><span class="vocab-translation">памятник</span></div>
+        <div class="vocab-item" data-word="national park"><span class="vocab-word">national park</span><span class="vocab-translation">нац. парк</span></div>
+        <div class="vocab-item" data-word="naughty"><span class="vocab-word">naughty</span><span class="vocab-translation">непослушный</span></div>
+        <div class="vocab-item" data-word="never"><span class="vocab-word">never</span><span class="vocab-translation">никогда</span></div>
+        <div class="vocab-item" data-word="nurse"><span class="vocab-word">nurse</span><span class="vocab-translation">медсестра</span></div>
+        <div class="vocab-item" data-word="olive oil"><span class="vocab-word">olive oil</span><span class="vocab-translation">оливковое масло</span></div>
+        <div class="vocab-item" data-word="omnivore"><span class="vocab-word">omnivore</span><span class="vocab-translation">всеядное</span></div>
+        <div class="vocab-item" data-word="onion"><span class="vocab-word">onion</span><span class="vocab-translation">лук</span></div>
+        <div class="vocab-item" data-word="panda"><span class="vocab-word">panda</span><span class="vocab-translation">панда</span></div>
+        <div class="vocab-item" data-word="passport"><span class="vocab-word">passport</span><span class="vocab-translation">паспорт</span></div>
+        <div class="vocab-item" data-word="pepper"><span class="vocab-word">pepper</span><span class="vocab-translation">перец</span></div>
+        <div class="vocab-item" data-word="pineapple"><span class="vocab-word">pineapple</span><span class="vocab-translation">ананас</span></div>
+        <div class="vocab-item" data-word="plump"><span class="vocab-word">plump</span><span class="vocab-translation">полный</span></div>
+        <div class="vocab-item" data-word="police officer"><span class="vocab-word">police officer</span><span class="vocab-translation">полицейский</span></div>
+        <div class="vocab-item" data-word="porridge"><span class="vocab-word">porridge</span><span class="vocab-translation">каша</span></div>
+        <div class="vocab-item" data-word="post office"><span class="vocab-word">post office</span><span class="vocab-translation">почта</span></div>
+        <div class="vocab-item" data-word="postman"><span class="vocab-word">postman</span><span class="vocab-translation">почтальон</span></div>
+        <div class="vocab-item" data-word="raise"><span class="vocab-word">raise</span><span class="vocab-translation">растить</span></div>
+        <div class="vocab-item" data-word="remember"><span class="vocab-word">remember</span><span class="vocab-translation">помнить</span></div>
+        <div class="vocab-item" data-word="reserve"><span class="vocab-word">reserve</span><span class="vocab-translation">заповедник</span></div>
+        <div class="vocab-item" data-word="roller blades"><span class="vocab-word">roller blades</span><span class="vocab-translation">ролики</span></div>
+        <div class="vocab-item" data-word="salt"><span class="vocab-word">salt</span><span class="vocab-translation">соль</span></div>
+        <div class="vocab-item" data-word="save"><span class="vocab-word">save</span><span class="vocab-translation">спасать</span></div>
+        <div class="vocab-item" data-word="scientist"><span class="vocab-word">scientist</span><span class="vocab-translation">учёный</span></div>
+        <div class="vocab-item" data-word="seal"><span class="vocab-word">seal</span><span class="vocab-translation">тюлень</span></div>
+        <div class="vocab-item" data-word="sight"><span class="vocab-word">sight</span><span class="vocab-translation">достопримечательность</span></div>
+        <div class="vocab-item" data-word="ski"><span class="vocab-word">ski</span><span class="vocab-translation">кататься на лыжах</span></div>
+        <div class="vocab-item" data-word="slim"><span class="vocab-word">slim</span><span class="vocab-translation">стройный</span></div>
+        <div class="vocab-item" data-word="sometimes"><span class="vocab-word">sometimes</span><span class="vocab-translation">иногда</span></div>
+        <div class="vocab-item" data-word="spaceship"><span class="vocab-word">spaceship</span><span class="vocab-translation">косм. корабль</span></div>
+        <div class="vocab-item" data-word="sporty"><span class="vocab-word">sporty</span><span class="vocab-translation">спортивный</span></div>
+        <div class="vocab-item" data-word="station"><span class="vocab-word">station</span><span class="vocab-translation">вокзал</span></div>
+        <div class="vocab-item" data-word="stick together"><span class="vocab-word">stick together</span><span class="vocab-translation">держаться вместе</span></div>
+        <div class="vocab-item" data-word="sugar"><span class="vocab-word">sugar</span><span class="vocab-translation">сахар</span></div>
+        <div class="vocab-item" data-word="surf"><span class="vocab-word">surf</span><span class="vocab-translation">заниматься сёрфингом</span></div>
+        <div class="vocab-item" data-word="tall"><span class="vocab-word">tall</span><span class="vocab-translation">высокий</span></div>
+        <div class="vocab-item" data-word="taxi driver"><span class="vocab-word">taxi driver</span><span class="vocab-translation">водитель такси</span></div>
+        <div class="vocab-item" data-word="theatre"><span class="vocab-word">theatre</span><span class="vocab-translation">театр</span></div>
+        <div class="vocab-item" data-word="ticket"><span class="vocab-word">ticket</span><span class="vocab-translation">билет</span></div>
+        <div class="vocab-item" data-word="tomato"><span class="vocab-word">tomato</span><span class="vocab-translation">помидор</span></div>
+        <div class="vocab-item" data-word="usually"><span class="vocab-word">usually</span><span class="vocab-translation">обычно</span></div>
+        <div class="vocab-item" data-word="vet"><span class="vocab-word">vet</span><span class="vocab-translation">ветеринар</span></div>
+        <div class="vocab-item" data-word="waiter"><span class="vocab-word">waiter</span><span class="vocab-translation">официант</span></div>
+        <div class="vocab-item" data-word="watch"><span class="vocab-word">watch</span><span class="vocab-translation">часы</span></div>
+        <div class="vocab-item" data-word="whale"><span class="vocab-word">whale</span><span class="vocab-translation">кит</span></div>
+        <div class="vocab-item" data-word="wood"><span class="vocab-word">wood</span><span class="vocab-translation">лес</span></div>
+        <div class="vocab-item" data-word="yogurt"><span class="vocab-word">yogurt</span><span class="vocab-translation">йогурт</span></div>
+        <div class="vocab-item" data-word="zoo"><span class="vocab-word">zoo</span><span class="vocab-translation">зоопарк</span></div>
+        <div class="vocab-item" data-word="zoo keeper"><span class="vocab-word">zoo keeper</span><span class="vocab-translation">смотритель зоопарка</span></div>
+    </div>
+</div>
+</section>
+
+<!-- ================= ALL TESTS ================= -->
+<section id="tests" class="content-section">
+<h1 class="module-title">✅ All Tests</h1>
+
+<div class="subsection">
+    <h2>📝 Starter Unit Test</h2>
+    <div class="test-container">
+        <div class="question" data-correct="a">
+            <div class="question-text">1. What's your name?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) I'm Philip</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) This is Philip</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">2. Do you like playing computer games?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) No, I'm playing now</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) Yes, it's fun</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">3. Whose is this ball?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) It's Peter</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) It's Peter's</div>
+            </div>
+        </div>
+        <button class="btn" onclick="showScore(this.parentElement)">Show Results</button>
+        <div class="score-display"></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>📝 Module 1 Test</h2>
+    <div class="test-container">
+        <div class="question" data-correct="b">
+            <div class="question-text">1. What does Uncle Harry look like?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) He's short and plump</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) He's tall and slim with fair hair</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) He's got dark hair</div>
+            </div>
+        </div>
+        <div class="question" data-correct="a">
+            <div class="question-text">2. Where's the hairbrush?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) It's next to the clock</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) It's under the table</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) It's in the box</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">3. What is William doing?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) He's surfing</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) He's skiing</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) He's diving</div>
+            </div>
+        </div>
+        <div class="question" data-correct="c">
+            <div class="question-text">4. How old is your grandfather if he's sixty-two?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) 52</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) 72</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) 62</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">5. Look! Mary is...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) dance</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) dancing</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) dances</div>
+            </div>
+        </div>
+        <button class="btn" onclick="showScore(this.parentElement)">Show Results</button>
+        <div class="score-display"></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>📝 Module 2 Test</h2>
+    <div class="test-container">
+        <div class="question" data-correct="b">
+            <div class="question-text">1. What does a baker do?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) He fixes cars</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) He bakes bread and makes cakes</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) He serves food</div>
+            </div>
+        </div>
+        <div class="question" data-correct="a">
+            <div class="question-text">2. Where does Uncle Harry work?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) At the Animal Hospital</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) At a garage</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) At a cafe</div>
+            </div>
+        </div>
+        <div class="question" data-correct="c">
+            <div class="question-text">3. What time is it? (1:15)</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) It's quarter to one</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) It's half past one</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) It's quarter past one</div>
+            </div>
+        </div>
+        <div class="question" data-correct="a">
+            <div class="question-text">4. Does Kim have to wash the dishes?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) Yes, she does</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) No, she doesn't</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) She can't</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">5. Aunt Polly is a...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) nurse</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) mechanic</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) baker</div>
+            </div>
+        </div>
+        <button class="btn" onclick="showScore(this.parentElement)">Show Results</button>
+        <div class="score-display"></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>📝 Module 3 Test</h2>
+    <div class="test-container">
+        <div class="question" data-correct="a">
+            <div class="question-text">1. How much sugar is there?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) A lot</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) Many</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) Much</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">2. How many mangoes do we need?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) Much</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) Not many, only two</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) A lot of</div>
+            </div>
+        </div>
+        <div class="question" data-correct="a">
+            <div class="question-text">3. May I have some more potatoes, please?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) Sure, here you are</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) No, you may not</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) Yes, you must</div>
+            </div>
+        </div>
+        <div class="question" data-correct="c">
+            <div class="question-text">4. What's wrong with Larry's salad?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) Sugar</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) Lemon</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) Salt</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">5. In Japan they eat...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) paella</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) sushi</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) pizza</div>
+            </div>
+        </div>
+        <button class="btn" onclick="showScore(this.parentElement)">Show Results</button>
+        <div class="score-display"></div>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>📝 Module 4 Test</h2>
+    <div class="test-container">
+        <div class="question" data-correct="b">
+            <div class="question-text">1. What do the seals always do at lunchtime?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) They swim</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) They clap</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) They eat</div>
+            </div>
+        </div>
+        <div class="question" data-correct="a">
+            <div class="question-text">2. Which is bigger?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) A whale is bigger than a dolphin</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) A dolphin is bigger than a whale</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) They are the same</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">3. When do Grey whales go to Mexico?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) From April to November</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) From December to April</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) In summer</div>
+            </div>
+        </div>
+        <div class="question" data-correct="a">
+            <div class="question-text">4. You mustn't...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) feed the animals</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) watch the animals</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) take photos</div>
+            </div>
+        </div>
+        <div class="question" data-correct="c">
+            <div class="question-text">5. A herbivore eats...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) meat</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) meat and plants</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) only plants</div>
+            </div>
+        </div>
+        <div class="question" data-correct="b">
+            <div class="question-text">6. Hippos live in...</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, 'a')">a) Asia</div>
+                <div class="option" onclick="checkAnswer(this, 'b')">b) Africa</div>
+                <div class="option" onclick="checkAnswer(this, 'c')">c) Australia</div>
+            </div>
+        </div>
+        <button class="btn" onclick="showScore(this.parentElement)">Show Results</button>
+        <div class="score-display"></div>
+    </div>
+</div>
+</section>
+
+<!-- ================= IMAGES ================= -->
+<section id="images" class="content-section">
+<h1 class="module-title">📷 My Images Gallery</h1>
+
+<div class="subsection">
+    <h2>Upload Your Images</h2>
+    <p>Загрузите картинки по темам: семья, животные, еда, профессии, страны и т.д.</p>
+    <div class="image-upload" onclick="document.getElementById('fileInput').click()">
+        <p>📤 Нажмите, чтобы загрузить изображения</p>
+        <p><small>JPG, PNG, GIF • Можно несколько сразу</small></p>
+    </div>
+    <input type="file" id="fileInput" class="hidden-input" accept="image/*" multiple onchange="handleFiles(this.files)">
+</div>
+
+<div class="subsection">
+    <h2>🖼️ My Gallery</h2>
+    <div id="imageGallery" class="vocab-grid">
+        <p style="grid-column: 1/-1; text-align: center; color: #999;">Пока нет изображений</p>
+    </div>
+</div>
+
+<div class="subsection">
+    <h2>✍️ Describe Your Image in English</h2>
+    <p>Напишите описание картинки, чтобы потренироваться в английском:</p>
+    <textarea id="imageDescription" rows="4" style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ddd; font-family: inherit;" placeholder="Example: This is my family. My mum is kind and my dad is funny..."></textarea>
+    <button class="btn" onclick="saveDescription()">💾 Save Description</button>
+    <div id="savedDesc" style="margin-top:10px; padding:10px; background:#d4edda; border-radius:5px; display:none;"></div>
+</div>
+
+<div class="subsection">
+    <h2>💡 Ideas for Descriptions</h2>
+    <div class="example">
+        <strong>Family:</strong> This is my family. My mum's name is... She's got... hair. My dad is... He's wearing...<br><br>
+        <strong>Animals:</strong> This is a... It's... than a... It lives in... It eats...<br><br>
+        <strong>Food:</strong> There is/are a lot of... on the table. I like... but I don't like...<br><br>
+        <strong>My day:</strong> I get up at... I have breakfast at... I go to school at...
+    </div>
+</div>
+</section>
+
+</div>
+
+<script>
+// Navigation
+function showSection(sectionId) {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Tabs
+function showTab(btn, tabId) {
+    const parent = btn.closest('.content-section');
+    parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+}
+
+// Test functionality
+function checkAnswer(option, selectedAnswer) {
+    const question = option.parentElement.parentElement;
+    const correctAnswer = question.getAttribute('data-correct');
+    const allOptions = question.querySelectorAll('.option');
+    
+    allOptions.forEach(opt => {
+        opt.style.pointerEvents = 'none';
+        opt.classList.remove('selected');
+    });
+    
+    if (selectedAnswer === correctAnswer) {
+        option.classList.add('correct');
+    } else {
+        option.classList.add('incorrect');
+        allOptions.forEach(opt => {
+            if (opt.getAttribute('onclick').includes(`'${correctAnswer}'`)) {
+                opt.classList.add('correct');
+            }
+        });
+    }
+    updateProgress();
+}
+
+function showScore(container) {
+    const questions = container.querySelectorAll('.question');
+    const scoreDisplay = container.querySelector('.score-display');
+    
+    let correct = 0;
+    questions.forEach(q => {
+        const correctOpt = q.querySelector('.option.correct');
+        const incorrectOpt = q.querySelector('.option.incorrect');
+        if (correctOpt && !incorrectOpt) correct++;
+    });
+    
+    const percentage = Math.round((correct / questions.length) * 100);
+    scoreDisplay.style.display = 'block';
+    let emoji = '📚 Keep practicing!';
+    if (percentage >= 90) emoji = '🏆 Excellent!';
+    else if (percentage >= 70) emoji = '🌟 Great job!';
+    else if (percentage >= 50) emoji = '👍 Good!';
+    
+    scoreDisplay.innerHTML = `<strong>Score: ${correct}/${questions.length}</strong> (${percentage}%)<br>${emoji}`;
+    scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Image upload
+let uploadedImages = [];
+function handleFiles(files) {
+    const gallery = document.getElementById('imageGallery');
+    if (gallery.querySelector('p')) gallery.innerHTML = '';
+    
+    Array.from(files).forEach(file => {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                uploadedImages.push(imageData);
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'image-container';
+                imgContainer.innerHTML = `
+                    <img src="${imageData}" alt="Uploaded">
+                    <button class="btn" onclick="this.parentElement.remove(); updateGallery();" style="margin-top:8px; background:#dc3545;">🗑️ Delete</button>
+                `;
+                gallery.appendChild(imgContainer);
+                updateProgress();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+function updateGallery() {
+    const gallery = document.getElementById('imageGallery');
+    if (gallery.children.length === 0) {
+        gallery.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">Пока нет изображений</p>';
+    }
+}
+
+function saveDescription() {
+    const desc = document.getElementById('imageDescription').value;
+    const saved = document.getElementById('savedDesc');
+    if (desc.trim()) {
+        saved.style.display = 'block';
+        saved.innerHTML = `✅ <strong>Сохранено:</strong> "${desc}"<br>🌟 Great job practicing English!`;
+        document.getElementById('imageDescription').value = '';
+    } else {
+        alert('Please write a description first!');
+    }
+}
+
+// Word search
+function searchWord() {
+    const query = document.getElementById('wordSearch').value.toLowerCase();
+    document.querySelectorAll('#fullVocab .vocab-item').forEach(item => {
+        const word = item.getAttribute('data-word').toLowerCase();
+        const translation = item.querySelector('.vocab-translation').textContent.toLowerCase();
+        if (word.includes(query) || translation.includes(query)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Progress tracking
+function calculateProgress() {
+    const tests = document.querySelectorAll('.test-container');
+    let total = 0, answered = 0;
+    tests.forEach(test => {
+        const questions = test.querySelectorAll('.question');
+        total += questions.length;
+        questions.forEach(q => {
+            if (q.querySelector('.option.correct, .option.incorrect')) answered++;
+        });
+    });
+    return total > 0 ? Math.round((answered / total) * 100) : 0;
+}
+
+function updateProgress() {
+    const progress = calculateProgress();
+    const fill = document.getElementById('mainProgress');
+    if (fill) {
+        fill.style.width = progress + '%';
+        fill.textContent = `Progress: ${progress}%`;
+    }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const sections = Array.from(document.querySelectorAll('.content-section'));
+    const activeIdx = sections.findIndex(s => s.classList.contains('active'));
+    const buttons = Array.from(document.querySelectorAll('.nav-btn'));
+    
+    if (e.key === 'ArrowRight' && activeIdx < sections.length - 1) {
+        buttons[activeIdx + 1].click();
+    } else if (e.key === 'ArrowLeft' && activeIdx > 0) {
+        buttons[activeIdx - 1].click();
+    }
+});
+
+// LocalStorage
+window.addEventListener('beforeunload', () => {
+    try {
+        localStorage.setItem('spotlight4_images', JSON.stringify(uploadedImages.slice(0, 20)));
+    } catch(e) {}
+});
+
+window.addEventListener('load', () => {
+    try {
+        const saved = localStorage.getItem('spotlight4_images');
+        if (saved) {
+            uploadedImages = JSON.parse(saved);
+            const gallery = document.getElementById('imageGallery');
+            if (uploadedImages.length > 0) {
+                gallery.innerHTML = '';
+                uploadedImages.forEach(imgData => {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'image-container';
+                    imgContainer.innerHTML = `
+                        <img src="${imgData}" alt="Uploaded">
+                        <button class="btn" onclick="this.parentElement.remove(); updateGallery();" style="margin-top:8px; background:#dc3554;">🗑️ Delete</button>
+                    `;
+                    gallery.appendChild(imgContainer);
+                });
+            }
+        }
+    } catch(e) {}
+    updateProgress();
+});
+</script>
+</body>
+</html>
