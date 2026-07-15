@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренажёр английской лексики — 96 тем</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b7a9e;
+            --primary-light: #f0e8f5;
+            --accent: #d4a5b5;
+            --success: #9cb8a5;
+            --error: #c9a8a8;
+            --text-main: #5a4a5a;
+            --text-sec: #8b7a8b;
+            --bg: #faf6f8;
+            --card-bg: #ffffff;
+            --border: #e8dce8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { 
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px; 
+            font-weight: 600; 
+            color: var(--primary);
+            font-style: italic;
+        }
+        .logo span { color: var(--text-main); font-style: normal; }
+        .user-info { font-size: 14px; color: var(--text-sec); }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 30px auto;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            position: sticky;
+            top: 100px;
+        }
+        .sidebar-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(139, 122, 158, 0.08);
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        .sidebar-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        .progress-bar-bg {
+            height: 6px;
+            background: var(--primary-light);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .progress-text { font-size: 13px; color: var(--text-sec); }
+        
+        .topic-list { list-style: none; }
+        .topic-item {
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+        .topic-item:hover { background: var(--primary-light); }
+        .topic-item.active { 
+            background: var(--primary); 
+            color: white; 
+            font-weight: 500; 
+        }
+        .topic-item.completed { color: var(--success); }
+        .topic-item.completed::after { content: "✓"; font-weight: 600; }
+
+        .main-content {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(139, 122, 158, 0.08);
+            min-height: 600px;
+            border: 1px solid var(--border);
+        }
+
+        .theory-box {
+            background: linear-gradient(135deg, var(--primary-light) 0%, #f5f0f8 100%);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 32px;
+        }
+        .theory-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .word-item {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .word-en {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+        .word-ru {
+            color: var(--text-sec);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+        .question-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .question-counter { font-size: 14px; color: var(--text-sec); }
+
+        .question-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+        
+        .context-sentence {
+            font-size: 18px;
+            background: var(--bg);
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 24px;
+            font-style: italic;
+            color: var(--text-main);
+        }
+        .blank { 
+            color: var(--primary); 
+            font-weight: 600; 
+            border-bottom: 2px dashed var(--primary);
+            padding: 0 4px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .option-btn {
+            padding: 18px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: left;
+            transition: all 0.3s;
+            font-family: inherit;
+            color: var(--text-main);
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        .option-btn.correct {
+            border-color: var(--success);
+            background: #e8f0e8;
+            color: #5a7a5a;
+            font-weight: 600;
+        }
+        .option-btn.wrong {
+            border-color: var(--error);
+            background: #f0e8e8;
+            color: #7a5a5a;
+        }
+        .option-btn:disabled { cursor: not-allowed; opacity: 0.7; }
+
+        .explanation-box {
+            display: none;
+            background: linear-gradient(135deg, #fff9f0 0%, #fff5f0 100%);
+            border: 1px solid #f5e5d5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .explanation-box.show { display: block; }
+        .explanation-box strong { color: var(--primary); }
+
+        .btn-next {
+            display: none;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            box-shadow: 0 4px 12px rgba(139, 122, 158, 0.25);
+        }
+        .btn-next:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(139, 122, 158, 0.3);
+        }
+        .btn-next.show { display: block; }
+
+        .results-screen { 
+            text-align: center; 
+            padding: 60px 40px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #f5f0f8 100%);
+            border-radius: 16px;
+        }
+        .results-icon { 
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, var(--success), #b8d4c5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+        }
+        .results-score { 
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px; 
+            font-weight: 600; 
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .results-text {
+            color: var(--text-sec);
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; max-height: none; position: static; }
+            .options-grid { grid-template-columns: 1fr; }
+            .main-content { padding: 24px; }
+            .words-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">English <span>Vocabulary</span></div>
+        <div class="user-info">Тренажёр синонимов и паронимов — 96 тем</div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">Прогресс обучения</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="globalProgress"></div>
+                </div>
+                <div class="progress-text" id="globalProgressText">0 из 96 тем пройдено</div>
+            </div>
+            
+            <div class="sidebar-card">
+                <div class="sidebar-title">Темы для изучения</div>
+                <ul class="topic-list" id="topicList"></ul>
+            </div>
+        </aside>
+
+        <main class="main-content" id="mainContent"></main>
+    </div>
+
+    <script>
+        const quizData = [
+            {id:1,title:"1. Job / Occupation / Work / Employment / Profession",words:[{en:"Job",ru:"Конкретная работа, должность"},{en:"Occupation",ru:"Род занятий (формально)"},{en:"Work",ru:"Труд как процесс (неисчисл.)"},{en:"Employment",ru:"Официальное трудоустройство"},{en:"Profession",ru:"Профессия с образованием"}],questions:[{sentence:"She has a _____ as a barista.",correct:0,explanation:"<strong>Job</strong> — конкретная работа или должность."},{sentence:"Her _____ is architect.",correct:1,explanation:"<strong>Occupation</strong> — род занятий (формально)."},{sentence:"He loves his _____.",correct:2,explanation:"<strong>Work</strong> — труд как процесс (неисчисляемое)."},{sentence:"She is looking for _____.",correct:3,explanation:"<strong>Employment</strong> — официальное трудоустройство."},{sentence:"Law is a respected _____.",correct:4,explanation:"<strong>Profession</strong> — профессия с образованием."}]},
+            {id:2,title:"2. Task / Course / Duty",words:[{en:"Task",ru:"Задание"},{en:"Course",ru:"Курс обучения"},{en:"Duty",ru:"Обязанность"}],questions:[{sentence:"Finish this _____ before the deadline.",correct:0,explanation:"<strong>Task</strong> — конкретное задание."},{sentence:"She enrolled in an English _____.",correct:1,explanation:"<strong>Course</strong> — курс обучения."},{sentence:"It's my _____ to help.",correct:2,explanation:"<strong>Duty</strong> — обязанность, долг."}]},
+            {id:3,title:"3. Employer / Employee / Colleague / Assistant / Clerk / Officer / Attendant",words:[{en:"Employer",ru:"Нанимает"},{en:"Employee",ru:"Работник"},{en:"Colleague",ru:"Коллега"},{en:"Assistant",ru:"Помощник"},{en:"Clerk",ru:"Офисный служащий"},{en:"Officer",ru:"Офицер/госслужащий"},{en:"Attendant",ru:"Обслуживающий персонал"}],questions:[{sentence:"My _____ is very fair.",correct:0,explanation:"<strong>Employer</strong> — наниматель, работодатель."},{sentence:"She was named _____ of the month.",correct:1,explanation:"<strong>Employee</strong> — работник, сотрудник."},{sentence:"My _____ helped me with the project.",correct:2,explanation:"<strong>Colleague</strong> — коллега."},{sentence:"She works as a personal _____.",correct:3,explanation:"<strong>Assistant</strong> — помощник."},{sentence:"He works as a bank _____.",correct:4,explanation:"<strong>Clerk</strong> — офисный служащий."},{sentence:"He is a customs _____.",correct:5,explanation:"<strong>Officer</strong> — офицер/госслужащий."},{sentence:"The parking _____ directed us.",correct:6,explanation:"<strong>Attendant</strong> — обслуживающий персонал."}]},
+            {id:4,title:"4. Party / Crew / Staff",words:[{en:"Party",ru:"Группа (делегация)"},{en:"Crew",ru:"Команда (экипаж)"},{en:"Staff",ru:"Персонал компании"}],questions:[{sentence:"The tour _____ visited the museum.",correct:0,explanation:"<strong>Party</strong> — группа (делегация)."},{sentence:"The film _____ worked tirelessly.",correct:1,explanation:"<strong>Crew</strong> — команда (экипаж)."},{sentence:"All _____ members are present.",correct:2,explanation:"<strong>Staff</strong> — персонал компании."}]},
+            {id:5,title:"5. Aim / Goal / Intention / Challenge / Success / Ambition",words:[{en:"Aim",ru:"Общая цель"},{en:"Goal",ru:"Конкретная цель"},{en:"Intention",ru:"Намерение"},{en:"Challenge",ru:"Вызов"},{en:"Success",ru:"Результат"},{en:"Ambition",ru:"Грандиозная мечта"}],questions:[{sentence:"Our _____ is to achieve peace.",correct:0,explanation:"<strong>Aim</strong> — общая цель."},{sentence:"Her _____ is to lose 5 kg.",correct:1,explanation:"<strong>Goal</strong> — конкретная цель."},{sentence:"I have no _____ to leave.",correct:2,explanation:"<strong>Intention</strong> — намерение."},{sentence:"Math is a real _____ for me.",correct:3,explanation:"<strong>Challenge</strong> — вызов, сложная задача."},{sentence:"The project was a great _____.",correct:4,explanation:"<strong>Success</strong> — результат, успех."},{sentence:"Her _____ is to become famous.",correct:5,explanation:"<strong>Ambition</strong> — грандиозная мечта."}]},
+            {id:6,title:"6. Achieve / Fulfil / Cope / Deal / Face / Succeed",words:[{en:"Achieve",ru:"Достичь цели"},{en:"Fulfil",ru:"Выполнить (обязанность)"},{en:"Cope",ru:"Справляться"},{en:"Deal",ru:"Решать"},{en:"Face",ru:"Столкнуться"},{en:"Succeed",ru:"Преуспеть"}],questions:[{sentence:"She managed to _____ her dreams.",correct:0,explanation:"<strong>Achieve</strong> — достичь цели."},{sentence:"He promised to _____ his promise.",correct:1,explanation:"<strong>Fulfil</strong> — выполнить (обещание, обязанность)."},{sentence:"She learned to _____ with stress.",correct:2,explanation:"<strong>Cope (with)</strong> — справляться."},{sentence:"He knows how to _____ with clients.",correct:3,explanation:"<strong>Deal (with)</strong> — решать, иметь дело."},{sentence:"You must _____ the consequences.",correct:4,explanation:"<strong>Face</strong> — столкнуться."},{sentence:"She managed to _____ in her exams.",correct:5,explanation:"<strong>Succeed (in)</strong> — преуспеть."}]},
+            {id:7,title:"7. Manage / Run / Operate / Undertake",words:[{en:"Manage",ru:"Управлять (формально)"},{en:"Run",ru:"Вести (неформ.)"},{en:"Operate",ru:"Управлять техникой"},{en:"Undertake",ru:"Предпринять"}],questions:[{sentence:"She knows how to _____ a project.",correct:0,explanation:"<strong>Manage</strong> — управлять (формально)."},{sentence:"He decided to _____ a shop.",correct:1,explanation:"<strong>Run</strong> — вести (неформально)."},{sentence:"He knows how to _____ a machine.",correct:2,explanation:"<strong>Operate</strong> — управлять техникой."},{sentence:"They decided to _____ the risks.",correct:3,explanation:"<strong>Undertake</strong> — предпринять."}]},
+            {id:8,title:"8. Skills / Qualities / Qualifications / Experience",words:[{en:"Skills",ru:"Навыки"},{en:"Qualities",ru:"Черты характера"},{en:"Qualifications",ru:"Дипломы/сертификаты"},{en:"Experience",ru:"Опыт (неисч.)"}],questions:[{sentence:"She has excellent communication _____.",correct:0,explanation:"<strong>Skills</strong> — навыки."},{sentence:"Leadership _____ are important.",correct:1,explanation:"<strong>Qualities</strong> — черты характера."},{sentence:"The job requires specific _____.",correct:2,explanation:"<strong>Qualifications</strong> — дипломы/сертификаты."},{sentence:"He has 10 years' _____.",correct:3,explanation:"<strong>Experience</strong> — опыт (неисчисляемое)."}]},
+            {id:9,title:"9. Look / See / Watch / Notice / Regard / Stare / Glance / Observe",words:[{en:"Look",ru:"Смотреть (намеренно)"},{en:"See",ru:"Видеть (пассивно)"},{en:"Watch",ru:"Наблюдать (движение)"},{en:"Notice",ru:"Заметить"},{en:"Regard",ru:"Рассматривать как"},{en:"Stare",ru:"Пялиться"},{en:"Glance",ru:"Взглянуть мельком"},{en:"Observe",ru:"Наблюдать (внимательно)"}],questions:[{sentence:"_____ at me when I'm talking!",correct:0,explanation:"<strong>Look</strong> — смотреть намеренно."},{sentence:"I _____ a bird in the tree.",correct:1,explanation:"<strong>See</strong> — видеть (пассивно)."},{sentence:"Let's _____ a film tonight.",correct:2,explanation:"<strong>Watch</strong> — наблюдать (движение)."},{sentence:"Did you _____ the change?",correct:3,explanation:"<strong>Notice</strong> — заметить."},{sentence:"He is _____ as a smart person.",correct:4,explanation:"<strong>Regard</strong> — рассматривать как."},{sentence:"Don't _____ at people!",correct:5,explanation:"<strong>Stare</strong> — пялиться."},{sentence:"She took a _____ at the clock.",correct:6,explanation:"<strong>Glance</strong> — взглянуть мельком."},{sentence:"Scientists _____ the behavior.",correct:7,explanation:"<strong>Observe</strong> — наблюдать (внимательно)."}]},
+            {id:10,title:"10. Find out / Invent / Discover / Detect",words:[{en:"Find out",ru:"Узнать"},{en:"Invent",ru:"Создать новое"},{en:"Discover",ru:"Найти существующее"},{en:"Detect",ru:"Обнаружить скрытое"}],questions:[{sentence:"I need to _____ the truth.",correct:0,explanation:"<strong>Find out</strong> — узнать."},{sentence:"Edison managed to _____ the light bulb.",correct:1,explanation:"<strong>Invent</strong> — создать новое."},{sentence:"Scientists _____ a new planet.",correct:2,explanation:"<strong>Discover</strong> — найти существующее."},{sentence:"The device can _____ a lie.",correct:3,explanation:"<strong>Detect</strong> — обнаружить скрытое."}]},
+            {id:11,title:"11. Explore / Investigate / Look for / Look up / Do research",words:[{en:"Explore",ru:"Исследовать (место/идею)"},{en:"Investigate",ru:"Расследовать"},{en:"Look for",ru:"Искать"},{en:"Look up",ru:"Искать в источнике"},{en:"Do research",ru:"Проводить исследование"}],questions:[{sentence:"They want to _____ space.",correct:0,explanation:"<strong>Explore</strong> — исследовать (место/идею)."},{sentence:"Police will _____ the crime.",correct:1,explanation:"<strong>Investigate</strong> — расследовать."},{sentence:"I need to _____ my keys.",correct:2,explanation:"<strong>Look for</strong> — искать."},{sentence:"_____ the word in a dictionary.",correct:3,explanation:"<strong>Look up</strong> — искать в источнике."},{sentence:"Scientists _____ on cancer.",correct:4,explanation:"<strong>Do research</strong> — проводить исследование."}]},
+            {id:12,title:"12. Attempt / Effort / Trial / Experiment",words:[{en:"Attempt",ru:"Попытка"},{en:"Effort",ru:"Усилие"},{en:"Trial",ru:"Пробный запуск"},{en:"Experiment",ru:"Научный опыт"}],questions:[{sentence:"It was a failed _____.",correct:0,explanation:"<strong>Attempt</strong> — попытка."},{sentence:"She made a great _____.",correct:1,explanation:"<strong>Effort</strong> — усилие."},{sentence:"Download the software _____.",correct:2,explanation:"<strong>Trial</strong> — пробный запуск."},{sentence:"They conducted a chemistry _____.",correct:3,explanation:"<strong>Experiment</strong> — научный опыт."}]},
+            {id:13,title:"13. Audience / Spectators / Viewers / Sightseers / Onlookers / Witnesses",words:[{en:"Audience",ru:"Зрители (театр/лекция)"},{en:"Spectators",ru:"Зрители (событие)"},{en:"Viewers",ru:"Телезрители"},{en:"Sightseers",ru:"Туристы"},{en:"Onlookers",ru:"Прохожие при ЧП"},{en:"Witnesses",ru:"Свидетели (юрид.)"}],questions:[{sentence:"The theatre _____ applauded loudly.",correct:0,explanation:"<strong>Audience</strong> — зрители (театр/лекция)."},{sentence:"The race _____ cheered.",correct:1,explanation:"<strong>Spectators</strong> — зрители (событие)."},{sentence:"TV _____ watched the show.",correct:2,explanation:"<strong>Viewers</strong> — телезрители."},{sentence:"London is full of _____.",correct:3,explanation:"<strong>Sightseers</strong> — туристы."},{sentence:"_____ called the police.",correct:4,explanation:"<strong>Onlookers</strong> — прохожие при ЧП."},{sentence:"Key _____ testified in court.",correct:5,explanation:"<strong>Witnesses</strong> — свидетели (юрид.)."}]},
+            {id:14,title:"14. Memorise / Remind / Recall / Recognise",words:[{en:"Memorise",ru:"Заучить"},{en:"Remind",ru:"Напомнить"},{en:"Recall",ru:"Вспомнить"},{en:"Recognise",ru:"Узнать"}],questions:[{sentence:"I need to _____ a poem.",correct:0,explanation:"<strong>Memorise</strong> — заучить."},{sentence:"This song _____ me of you.",correct:1,explanation:"<strong>Remind</strong> — напомнить."},{sentence:"I _____ your face from somewhere.",correct:2,explanation:"<strong>Recall</strong> — вспомнить."},{sentence:"I _____ her voice immediately.",correct:3,explanation:"<strong>Recognise</strong> — узнать."}]},
+            {id:15,title:"15. View / Sight / Image / Vision / Scene",words:[{en:"View",ru:"Вид / мнение"},{en:"Sight",ru:"Достопримечательность"},{en:"Image",ru:"Изображение"},{en:"Vision",ru:"Зрение / видение"},{en:"Scene",ru:"Место действия"}],questions:[{sentence:"The mountain _____ is beautiful.",correct:0,explanation:"<strong>View</strong> — вид."},{sentence:"The Eiffel Tower is a famous _____.",correct:1,explanation:"<strong>Sight</strong> — достопримечательность."},{sentence:"The photo has a blurry _____.",correct:2,explanation:"<strong>Image</strong> — изображение."},{sentence:"She has a clear _____ for the future.",correct:3,explanation:"<strong>Vision</strong> — видение."},{sentence:"Police arrived at the accident _____.",correct:4,explanation:"<strong>Scene</strong> — место действия."}]},
+            {id:16,title:"16. Rise / Raise / Arise / Lift",words:[{en:"Rise",ru:"Подниматься сам (непереход.)"},{en:"Raise",ru:"Поднимать что-то (переход.)"},{en:"Arise",ru:"Возникать (абстрактно)"},{en:"Lift",ru:"Поднимать с усилием"}],questions:[{sentence:"The sun _____ in the east.",correct:0,explanation:"<strong>Rise</strong> — подниматься сам (непереходный)."},{sentence:"Please _____ your hand.",correct:1,explanation:"<strong>Raise</strong> — поднимать что-то (переходный)."},{sentence:"Problems may _____ at any time.",correct:2,explanation:"<strong>Arise</strong> — возникать (абстрактно)."},{sentence:"Can you help me _____ this box?",correct:3,explanation:"<strong>Lift</strong> — поднимать с усилием."}]},
+            {id:17,title:"17. Grow / Grow up / Bring up / Be born / Become",words:[{en:"Grow",ru:"Расти (растения)"},{en:"Grow up",ru:"Взрослеть"},{en:"Bring up",ru:"Воспитывать"},{en:"Be born",ru:"Рождаться"},{en:"Become",ru:"Становиться (профессия)"}],questions:[{sentence:"Plants _____ quickly in summer.",correct:0,explanation:"<strong>Grow</strong> — расти (растения)."},{sentence:"She _____ in Paris.",correct:1,explanation:"<strong>Grew up</strong> — взрослеть."},{sentence:"She was _____ by her aunt.",correct:2,explanation:"<strong>Brought up</strong> — воспитывать."},{sentence:"He was _____ in 1995.",correct:3,explanation:"<strong>Born</strong> — рождаться."},{sentence:"She _____ a doctor.",correct:4,explanation:"<strong>Became</strong> — становиться (профессия)."}]},
+            {id:18,title:"18. Educate / Learn / Teach / Study / Read / Instruct",words:[{en:"Educate",ru:"Давать образование"},{en:"Learn",ru:"Учиться"},{en:"Teach",ru:"Учить кого-то"},{en:"Study",ru:"Изучать (углублённо)"},{en:"Read",ru:"Читать"},{en:"Instruct",ru:"Инструктировать"}],questions:[{sentence:"School should _____ children properly.",correct:0,explanation:"<strong>Educate</strong> — давать образование (формально)."},{sentence:"I _____ Spanish at school.",correct:1,explanation:"<strong>Learn</strong> — учиться (воспринимать знания)."},{sentence:"She _____ math at university.",correct:2,explanation:"<strong>Teaches</strong> — учить кого-то."},{sentence:"He _____ physics at university.",correct:3,explanation:"<strong>Studies</strong> — изучать (углублённо)."},{sentence:"I _____ novels every evening.",correct:4,explanation:"<strong>Read</strong> — читать."},{sentence:"The manager will _____ the staff.",correct:5,explanation:"<strong>Instruct</strong> — инструктировать (официально)."}]},
+            {id:19,title:"19. Behavior / Attitude / Temper / Mood / Manner / Manners",words:[{en:"Behavior",ru:"Поведение (общее)"},{en:"Attitude",ru:"Отношение"},{en:"Temper",ru:"Характер (вспыльчивость)"},{en:"Mood",ru:"Настроение"},{en:"Manner",ru:"Способ действия"},{en:"Manners",ru:"Манеры (вежливость)"}],questions:[{sentence:"The child showed good _____.",correct:0,explanation:"<strong>Behavior</strong> — поведение (общее)."},{sentence:"She has a positive _____ to life.",correct:1,explanation:"<strong>Attitude</strong> — отношение."},{sentence:"He has a short _____.",correct:2,explanation:"<strong>Temper</strong> — характер (вспыльчивость)."},{sentence:"She's in a bad _____ today.",correct:3,explanation:"<strong>Mood</strong> — настроение."},{sentence:"He spoke in a calm _____.",correct:4,explanation:"<strong>Manner</strong> — способ действия."},{sentence:"The child has good _____.",correct:5,explanation:"<strong>Manners</strong> — манеры (вежливость)."}]},
+            {id:20,title:"20. Familiar / Accustomed / Aware",words:[{en:"Familiar",ru:"Знакомый (объект/лицо)"},{en:"Accustomed",ru:"Привыкший"},{en:"Aware",ru:"Осознающий"}],questions:[{sentence:"This song is _____ to me.",correct:0,explanation:"<strong>Familiar</strong> — знакомый (объект/лицо)."},{sentence:"I'm _____ to the noise.",correct:1,explanation:"<strong>Accustomed</strong> — привыкший."},{sentence:"Are you _____ of the risk?",correct:2,explanation:"<strong>Aware</strong> — осознающий."}]},
+            {id:21,title:"21. Custom / Habit / Fashion / Trend / Routine",words:[{en:"Custom",ru:"Традиция (культура)"},{en:"Habit",ru:"Привычка (личная)"},{en:"Fashion",ru:"Мода"},{en:"Trend",ru:"Тенденция (временная)"},{en:"Routine",ru:"Распорядок дня"}],questions:[{sentence:"Japanese _____ are interesting.",correct:0,explanation:"<strong>Custom</strong> — традиция (культура)."},{sentence:"Biting nails is a bad _____.",correct:1,explanation:"<strong>Habit</strong> — привычка (личная)."},{sentence:"1980s _____ was colorful.",correct:2,explanation:"<strong>Fashion</strong> — мода."},{sentence:"There's a new social media _____.",correct:3,explanation:"<strong>Trend</strong> — тенденция (временная)."},{sentence:"My morning _____ includes coffee.",correct:4,explanation:"<strong>Routine</strong> — распорядок дня."}]},
+            {id:22,title:"22. Common / Ordinary / Usual / Normal / Regular",words:[{en:"Common",ru:"Распространённый"},{en:"Ordinary",ru:"Обычный (простой)"},{en:"Usual",ru:"Привычный"},{en:"Normal",ru:"Нормальный"},{en:"Regular",ru:"Регулярный/постоянный"}],questions:[{sentence:"This is a _____ mistake.",correct:0,explanation:"<strong>Common</strong> — распространённый."},{sentence:"He's just an _____ person.",correct:1,explanation:"<strong>Ordinary</strong> — обычный (простой)."},{sentence:"Let's meet at the _____ place.",correct:2,explanation:"<strong>Usual</strong> — привычный."},{sentence:"The temperature is _____.",correct:3,explanation:"<strong>Normal</strong> — нормальный."},{sentence:"She's a _____ customer.",correct:4,explanation:"<strong>Regular</strong> — регулярный/постоянный."}]},
+            {id:23,title:"23. Eager / Keen / Enthusiastic / Interested / Willing",words:[{en:"Eager",ru:"Жаждущий"},{en:"Keen",ru:"Увлечённый"},{en:"Enthusiastic",ru:"В восторге"},{en:"Interested",ru:"Интересуется"},{en:"Willing",ru:"Готовый"}],questions:[{sentence:"She's _____ to start her new job.",correct:0,explanation:"<strong>Eager</strong> — жаждущий (очень хочет)."},{sentence:"He's _____ on football.",correct:1,explanation:"<strong>Keen</strong> — увлечённый (брит.)."},{sentence:"The audience was _____.",correct:2,explanation:"<strong>Enthusiastic</strong> — в восторге."},{sentence:"She's _____ in art.",correct:3,explanation:"<strong>Interested</strong> — интересуется."},{sentence:"I'm _____ to help you.",correct:4,explanation:"<strong>Willing</strong> — готовый (согласен помочь)."}]},
+            {id:24,title:"24. Travel / Transfer / Transport / Transmit",words:[{en:"Travel",ru:"Путешествовать"},{en:"Transfer",ru:"Перемещать (людей/данные)"},{en:"Transport",ru:"Перевозить (груз/людей)"},{en:"Transmit",ru:"Передавать (сигнал, болезнь)"}],questions:[{sentence:"I _____ often for work.",correct:0,explanation:"<strong>Travel</strong> — путешествовать."},{sentence:"I need to _____ money to your account.",correct:1,explanation:"<strong>Transfer</strong> — перемещать (данные/счёт)."},{sentence:"Trucks _____ goods across the country.",correct:2,explanation:"<strong>Transport</strong> — перевозить (груз/людей)."},{sentence:"The satellite can _____ data.",correct:3,explanation:"<strong>Transmit</strong> — передавать (сигнал)."}]},
+            {id:25,title:"25. Arrive / Get / Reach / Come / Approach / Appear",words:[{en:"Arrive",ru:"Прибыть (офиц.)"},{en:"Get",ru:"Добраться (разг.)"},{en:"Reach",ru:"Достичь (цели/места)"},{en:"Come",ru:"Прийти (к говорящему)"},{en:"Approach",ru:"Приближаться"},{en:"Appear",ru:"Появиться"}],questions:[{sentence:"The plane _____ at 3 PM.",correct:0,explanation:"<strong>Arrive</strong> — прибыть (официально)."},{sentence:"How do I _____ to work?",correct:1,explanation:"<strong>Get (to)</strong> — добраться (разговорно)."},{sentence:"We managed to _____ the summit.",correct:2,explanation:"<strong>Reach</strong> — достичь (цели/места)."},{sentence:"Please _____ here!",correct:3,explanation:"<strong>Come</strong> — прийти (к говорящему)."},{sentence:"A storm is _____.",correct:4,explanation:"<strong>Approaching</strong> — приближаться."},{sentence:"A ghost _____ suddenly.",correct:5,explanation:"<strong>Appeared</strong> — появиться."}]},
+            {id:26,title:"26. Carry / Fetch / Deliver",words:[{en:"Carry",ru:"Нести/везти"},{en:"Fetch",ru:"Сходить и принести"},{en:"Deliver",ru:"Доставить (заказ, речь)"}],questions:[{sentence:"Can you help me _____ this bag?",correct:0,explanation:"<strong>Carry</strong> — нести/везти."},{sentence:"Could you _____ the dog from the park?",correct:1,explanation:"<strong>Fetch</strong> — сходить и принести."},{sentence:"They will _____ the package tomorrow.",correct:2,explanation:"<strong>Deliver</strong> — доставить (заказ)."}]},
+            {id:27,title:"27. Voyage / Journey / Trip / Tour / Excursion / Travel / Expedition / Cruise / Flight",words:[{en:"Voyage",ru:"Морское/космическое путешествие"},{en:"Journey",ru:"Поездка (часто долгая)"},{en:"Trip",ru:"Короткая поездка"},{en:"Tour",ru:"Тур (с программой)"},{en:"Excursion",ru:"Экскурсия"},{en:"Travel",ru:"Путешествия вообще"},{en:"Expedition",ru:"Экспедиция (цель)"},{en:"Cruise",ru:"Круиз"},{en:"Flight",ru:"Перелёт"}],questions:[{sentence:"They went on a sea _____.",correct:0,explanation:"<strong>Voyage</strong> — морское путешествие."},{sentence:"The train _____ took 5 hours.",correct:1,explanation:"<strong>Journey</strong> — поездка (долгая)."},{sentence:"We went on a weekend _____.",correct:2,explanation:"<strong>Trip</strong> — короткая поездка."},{sentence:"The band is on a concert _____.",correct:3,explanation:"<strong>Tour</strong> — тур (с программой)."},{sentence:"The school organised an _____.",correct:4,explanation:"<strong>Excursion</strong> — экскурсия."},{sentence:"I love to _____.",correct:5,explanation:"<strong>Travel</strong> — путешествия вообще."},{sentence:"They joined a scientific _____.",correct:6,explanation:"<strong>Expedition</strong> — экспедиция (с целью)."},{sentence:"We went on a Mediterranean _____.",correct:7,explanation:"<strong>Cruise</strong> — круиз."},{sentence:"The direct _____ takes 2 hours.",correct:8,explanation:"<strong>Flight</strong> — перелёт."}]},
+            {id:28,title:"28. Guide / Direct / Lead / Ride",words:[{en:"Guide",ru:"Вести как гид"},{en:"Direct",ru:"Указывать путь"},{en:"Lead",ru:"Вести за собой"},{en:"Ride",ru:"Кататься/ездить верхом"}],questions:[{sentence:"The tour guide will _____ the tourists.",correct:0,explanation:"<strong>Guide</strong> — вести как гид."},{sentence:"Can you _____ me to the door?",correct:1,explanation:"<strong>Direct</strong> — указывать путь."},{sentence:"She _____ the team to victory.",correct:2,explanation:"<strong>Led</strong> — вести за собой."},{sentence:"I like to _____ a bike.",correct:3,explanation:"<strong>Ride</strong> — кататься/ездить верхом."}]},
+            {id:29,title:"29. Address / Road / Street / Way / Direction / Route / Path",words:[{en:"Address",ru:"Почтовый адрес"},{en:"Road",ru:"Дорога (межгород)"},{en:"Street",ru:"Улица (в городе)"},{en:"Way",ru:"Путь, дорога (разг.)"},{en:"Direction",ru:"Направление"},{en:"Route",ru:"Маршрут"},{en:"Path",ru:"Тропинка"}],questions:[{sentence:"What's your _____?",correct:0,explanation:"<strong>Address</strong> — почтовый адрес."},{sentence:"The highway is a big _____.",correct:1,explanation:"<strong>Road</strong> — дорога (межгород)."},{sentence:"She lives on Main _____.",correct:2,explanation:"<strong>Street</strong> — улица (в городе)."},{sentence:"Is this the right _____?",correct:3,explanation:"<strong>Way</strong> — путь, дорога (разговорно)."},{sentence:"Go in this _____.",correct:4,explanation:"<strong>Direction</strong> — направление."},{sentence:"The bus _____ is long.",correct:5,explanation:"<strong>Route</strong> — маршрут."},{sentence:"We walked on a forest _____.",correct:6,explanation:"<strong>Path</strong> — тропинка."}]},
+            {id:30,title:"30. Site / Position / Location / Point / Place / Room / Space",words:[{en:"Site",ru:"Место (строит., события)"},{en:"Position",ru:"Положение/должность"},{en:"Location",ru:"Географическое место"},{en:"Point",ru:"Точка / смысл"},{en:"Place",ru:"Место (общее)"},{en:"Room",ru:"Комната / место (физич.)"},{en:"Space",ru:"Пространство / место (абстракт.)"}],questions:[{sentence:"The construction _____ is noisy.",correct:0,explanation:"<strong>Site</strong> — место (строительства, события)."},{sentence:"The _____ is vacant.",correct:1,explanation:"<strong>Position</strong> — положение/должность."},{sentence:"This is a perfect _____.",correct:2,explanation:"<strong>Location</strong> — географическое место."},{sentence:"What's your _____?",correct:3,explanation:"<strong>Point</strong> — точка / смысл."},{sentence:"This is a nice _____.",correct:4,explanation:"<strong>Place</strong> — место (общее)."},{sentence:"Is there enough _____?",correct:5,explanation:"<strong>Room</strong> — комната / место (физическое)."},{sentence:"I need personal _____.",correct:6,explanation:"<strong>Space</strong> — пространство / место (абстрактное)."}]},
+            {id:31,title:"31. Foreign / Strange / Different / Peculiar / Curious",words:[{en:"Foreign",ru:"Иностранный"},{en:"Strange",ru:"Странный (непонятный)"},{en:"Different",ru:"Отличный"},{en:"Peculiar",ru:"Своеобразный (редко)"},{en:"Curious",ru:"Любопытный / странный (брит.)"}],questions:[{sentence:"She speaks a _____ language.",correct:0,explanation:"<strong>Foreign</strong> — иностранный."},{sentence:"I heard a _____ noise.",correct:1,explanation:"<strong>Strange</strong> — странный (непонятный)."},{sentence:"I have a _____ opinion.",correct:2,explanation:"<strong>Different</strong> — отличный."},{sentence:"There's a _____ smell.",correct:3,explanation:"<strong>Peculiar</strong> — своеобразный (редко)."},{sentence:"It was a _____ incident.",correct:4,explanation:"<strong>Curious</strong> — любопытный / странный (брит.)."}]},
+            {id:32,title:"32. Borrow / Lend / Let / Hire / Rent",words:[{en:"Borrow",ru:"Брать взаймы"},{en:"Lend",ru:"Давать взаймы"},{en:"Let",ru:"Сдавать в аренду (брит.)"},{en:"Hire",ru:"Нанимать / арендовать"},{en:"Rent",ru:"Арендовать (жильё, вещи)"}],questions:[{sentence:"Can I _____ a book from you?",correct:0,explanation:"<strong>Borrow</strong> — брать взаймы."},{sentence:"Can you _____ me some cash?",correct:1,explanation:"<strong>Lend</strong> — давать взаймы."},{sentence:"They _____ a flat to students.",correct:2,explanation:"<strong>Let</strong> — сдавать в аренду (брит.)."},{sentence:"We need to _____ a car.",correct:3,explanation:"<strong>Hire</strong> — нанимать / арендовать."},{sentence:"They _____ an apartment downtown.",correct:4,explanation:"<strong>Rent</strong> — арендовать (жильё, вещи)."}]},
+            {id:33,title:"33. Spend / Waste / Save / Afford",words:[{en:"Spend",ru:"Тратить (деньги/время)"},{en:"Waste",ru:"Тратить впустую"},{en:"Save",ru:"Экономить"},{en:"Afford",ru:"Позволить себе"}],questions:[{sentence:"I _____ money on books.",correct:0,explanation:"<strong>Spend</strong> — тратить (деньги/время)."},{sentence:"Don't _____ time on social media.",correct:1,explanation:"<strong>Waste</strong> — тратить впустую."},{sentence:"I need to _____ for vacation.",correct:2,explanation:"<strong>Save</strong> — экономить."},{sentence:"I can't _____ a new car.",correct:3,explanation:"<strong>Afford</strong> — позволить себе."}]},
+            {id:34,title:"34. Bill / Fare / Fee / Fine / Ticket / Receipt / Account / Discount / Tax",words:[{en:"Bill",ru:"Счёт (ресторан/услуги)"},{en:"Fare",ru:"Плата за транспорт"},{en:"Fee",ru:"Плата за услуги"},{en:"Fine",ru:"Штраф"},{en:"Ticket",ru:"Билет / штраф"},{en:"Receipt",ru:"Чек"},{en:"Account",ru:"Счёт (банк)"},{en:"Discount",ru:"Скидка"},{en:"Tax",ru:"Налог"}],questions:[{sentence:"Can I have the _____, please?",correct:0,explanation:"<strong>Bill</strong> — счёт (ресторан/услуги)."},{sentence:"The bus _____ is £2.50.",correct:1,explanation:"<strong>Fare</strong> — плата за транспорт."},{sentence:"There's a registration _____.",correct:2,explanation:"<strong>Fee</strong> — плата за услуги."},{sentence:"He got a parking _____.",correct:3,explanation:"<strong>Fine</strong> — штраф."},{sentence:"I bought a train _____.",correct:4,explanation:"<strong>Ticket</strong> — билет."},{sentence:"Keep the _____, please.",correct:5,explanation:"<strong>Receipt</strong> — чек."},{sentence:"Check your bank _____.",correct:6,explanation:"<strong>Account</strong> — счёт (банк)."},{sentence:"There's a 20% _____.",correct:7,explanation:"<strong>Discount</strong> — скидка."},{sentence:"You need to pay income _____.",correct:8,explanation:"<strong>Tax</strong> — налог."}]},
+            {id:35,title:"35. Salary / Wage / Payment / Income / Bonus / Allowance / Award / Reward / Donation",words:[{en:"Salary",ru:"Оклад (ежемесячно)"},{en:"Wage",ru:"Почасовая оплата"},{en:"Payment",ru:"Платёж"},{en:"Income",ru:"Доход (общий)"},{en:"Bonus",ru:"Премия"},{en:"Allowance",ru:"Карманные / пособие"},{en:"Award",ru:"Награда (офиц.)"},{en:"Reward",ru:"Вознаграждение"},{en:"Donation",ru:"Пожертвование"}],questions:[{sentence:"She earns a high _____.",correct:0,explanation:"<strong>Salary</strong> — оклад (ежемесячно)."},{sentence:"He receives an hourly _____.",correct:1,explanation:"<strong>Wage</strong> — почасовая оплата."},{sentence:"The monthly _____ is due.",correct:2,explanation:"<strong>Payment</strong> — платёж."},{sentence:"His annual _____ is £50,000.",correct:3,explanation:"<strong>Income</strong> — доход (общий)."},{sentence:"She got a Christmas _____.",correct:4,explanation:"<strong>Bonus</strong> — премия."},{sentence:"The child receives an _____.",correct:5,explanation:"<strong>Allowance</strong> — карманные / пособие."},{sentence:"She won an Oscar _____.",correct:6,explanation:"<strong>Award</strong> — награда (официальная)."},{sentence:"There's a _____ for help.",correct:7,explanation:"<strong>Reward</strong> — вознаграждение."},{sentence:"She made a charity _____.",correct:8,explanation:"<strong>Donation</strong> — пожертвование."}]},
+            {id:36,title:"36. Owe / Own / Possess / Keep / Belong",words:[{en:"Owe",ru:"Быть должным"},{en:"Own",ru:"Владеть (обычно имущество)"},{en:"Possess",ru:"Владеть (формально/юрид.)"},{en:"Keep",ru:"Хранить / оставить"},{en:"Belong",ru:"Принадлежать"}],questions:[{sentence:"I _____ you $10.",correct:0,explanation:"<strong>Owe</strong> — быть должным."},{sentence:"She _____ a house.",correct:1,explanation:"<strong>Owns</strong> — владеть (обычно имущество)."},{sentence:"He _____ rare skills.",correct:2,explanation:"<strong>Possesses</strong> — владеть (формально/юридически)."},{sentence:"You can _____ the change.",correct:3,explanation:"<strong>Keep</strong> — хранить / оставить."},{sentence:"This book _____ to me.",correct:4,explanation:"<strong>Belongs</strong> — принадлежать."}]},
+            {id:37,title:"37. Price / Prize / Charge / Value / Bargain / Worth / Tip",words:[{en:"Price",ru:"Цена"},{en:"Prize",ru:"Приз"},{en:"Charge",ru:"Плата (за услугу)"},{en:"Value",ru:"Ценность"},{en:"Bargain",ru:"Выгодная покупка"},{en:"Worth",ru:"Стоимость (стоит того)"},{en:"Tip",ru:"Чаевые"}],questions:[{sentence:"The _____ is too high.",correct:0,explanation:"<strong>Price</strong> — цена."},{sentence:"She won the Nobel _____.",correct:1,explanation:"<strong>Prize</strong> — приз."},{sentence:"There's a service _____.",correct:2,explanation:"<strong>Charge</strong> — плата (за услугу)."},{sentence:"The painting has historical _____.",correct:3,explanation:"<strong>Value</strong> — ценность."},{sentence:"This dress is a great _____.",correct:4,explanation:"<strong>Bargain</strong> — выгодная покупка."},{sentence:"It's _____ it.",correct:5,explanation:"<strong>Worth</strong> — стоимость (стоит того)."},{sentence:"Don't forget to leave a _____.",correct:6,explanation:"<strong>Tip</strong> — чаевые."}]},
+            {id:38,title:"38. Precious / Valuable / Priceless / Worthless / Economic / Economical / Financial",words:[{en:"Precious",ru:"Драгоценный (эмоц./матер.)"},{en:"Valuable",ru:"Ценный (материально)"},{en:"Priceless",ru:"Бесценный"},{en:"Worthless",ru:"Бесполезный"},{en:"Economic",ru:"Экономический"},{en:"Economical",ru:"Экономичный"},{en:"Financial",ru:"Финансовый"}],questions:[{sentence:"Time is _____.",correct:0,explanation:"<strong>Precious</strong> — драгоценный (эмоционально/материально)."},{sentence:"The painting is _____.",correct:1,explanation:"<strong>Valuable</strong> — ценный (материально)."},{sentence:"The relic is _____.",correct:2,explanation:"<strong>Priceless</strong> — бесценный."},{sentence:"The advice was _____.",correct:3,explanation:"<strong>Worthless</strong> — бесполезный."},{sentence:"There's an _____ crisis.",correct:4,explanation:"<strong>Economic</strong> — экономический."},{sentence:"She drives an _____ car.",correct:5,explanation:"<strong>Economical</strong> — экономичный."},{sentence:"He's a _____ advisor.",correct:6,explanation:"<strong>Financial</strong> — финансовый."}]},
+            {id:39,title:"39. Loan / Debt / Sum / Amount / Deposit / Instalment / Budget",words:[{en:"Loan",ru:"Заём"},{en:"Debt",ru:"Долг"},{en:"Sum",ru:"Сумма (часто крупная)"},{en:"Amount",ru:"Количество (денег, неисч.)"},{en:"Deposit",ru:"Депозит / залог"},{en:"Instalment",ru:"Рассрочка (платёж)"},{en:"Budget",ru:"Бюджет"}],questions:[{sentence:"She took a _____ from the bank.",correct:0,explanation:"<strong>Loan</strong> — заём."},{sentence:"He needs to pay off his _____.",correct:1,explanation:"<strong>Debt</strong> — долг."},{sentence:"It costs a large _____.",correct:2,explanation:"<strong>Sum</strong> — сумма (часто крупная)."},{sentence:"A small _____ of money.",correct:3,explanation:"<strong>Amount</strong> — количество (денег, неисчисляемое)."},{sentence:"You need to pay a _____.",correct:4,explanation:"<strong>Deposit</strong> — депозит / залог."},{sentence:"Pay in monthly _____.",correct:5,explanation:"<strong>Instalments</strong> — рассрочка (платёж)."},{sentence:"We have a family _____.",correct:6,explanation:"<strong>Budget</strong> — бюджет."}]},
+            {id:40,title:"40. Cheque / Cash / Coins / Currency / Notes / Change",words:[{en:"Cheque",ru:"Чек"},{en:"Cash",ru:"Наличные"},{en:"Coins",ru:"Монеты"},{en:"Currency",ru:"Валюта"},{en:"Notes",ru:"Бумажные деньги"},{en:"Change",ru:"Сдача / монеты"}],questions:[{sentence:"Can I pay by _____?",correct:0,explanation:"<strong>Cheque</strong> — чек."},{sentence:"Do you accept _____?",correct:1,explanation:"<strong>Cash</strong> — наличные."},{sentence:"I collect _____.",correct:2,explanation:"<strong>Coins</strong> — монеты."},{sentence:"What's the local _____?",correct:3,explanation:"<strong>Currency</strong> — валюта."},{sentence:"I have £20 _____.",correct:4,explanation:"<strong>Notes</strong> — бумажные деньги."},{sentence:"Keep the _____.",correct:5,explanation:"<strong>Change</strong> — сдача / монеты."}]},
+            {id:41,title:"41. Think / Consider / Regard / Believe / Mean",words:[{en:"Think",ru:"Общее мнение"},{en:"Consider",ru:"Обдумывать или считать"},{en:"Regard",ru:"Рассматривать с точки зрения"},{en:"Believe",ru:"Верить (субъективно)"},{en:"Mean",ru:"Иметь в виду"}],questions:[{sentence:"I _____ it's true.",correct:0,explanation:"<strong>Think</strong> — общее мнение."},{sentence:"She's _____ an expert.",correct:1,explanation:"<strong>Considered</strong> — обдумывать или считать."},{sentence:"He's _____ as honest.",correct:2,explanation:"<strong>Regarded</strong> — рассматривать с точки зрения."},{sentence:"I _____ you.",correct:3,explanation:"<strong>Believe</strong> — верить (субъективно)."},{sentence:"What do you _____?",correct:4,explanation:"<strong>Mean</strong> — иметь в виду."}]},
+            {id:42,title:"42. Realise / Understand / Recognise / Meet / Introduce / Present / Appreciate",words:[{en:"Realise",ru:"Осознавать"},{en:"Understand",ru:"Понимать смысл"},{en:"Recognise",ru:"Узнавать или признавать"},{en:"Meet",ru:"Встречать"},{en:"Introduce",ru:"Знакомить"},{en:"Present",ru:"Представлять (официально)"},{en:"Appreciate",ru:"Ценить или осознавать важность"}],questions:[{sentence:"I _____ my mistake.",correct:0,explanation:"<strong>Realised</strong> — осознавать."},{sentence:"Do you _____?",correct:1,explanation:"<strong>Understand</strong> — понимать смысл."},{sentence:"I _____ her voice.",correct:2,explanation:"<strong>Recognised</strong> — узнавать или признавать."},{sentence:"Nice to _____ you.",correct:3,explanation:"<strong>Meet</strong> — встречать."},{sentence:"Let me _____ Anna.",correct:4,explanation:"<strong>Introduce</strong> — знакомить."},{sentence:"She _____ her findings.",correct:5,explanation:"<strong>Presented</strong> — представлять (официально)."},{sentence:"I _____ your help.",correct:6,explanation:"<strong>Appreciate</strong> — ценить или осознавать важность."}]},
+            {id:43,title:"43. Assume / Guess / Suppose / Estimate / Calculate / Predict",words:[{en:"Assume",ru:"Предполагать без доказательств"},{en:"Guess",ru:"Угадывать"},{en:"Suppose",ru:"Предполагать (разг.)"},{en:"Estimate",ru:"Оценивать приблизительно"},{en:"Calculate",ru:"Считать точно"},{en:"Predict",ru:"Предсказывать"}],questions:[{sentence:"I _____ he'd come.",correct:0,explanation:"<strong>Assumed</strong> — предполагать без доказательств."},{sentence:"I _____ it's 5 km.",correct:1,explanation:"<strong>Guess</strong> — угадывать."},{sentence:"I _____ you're right.",correct:2,explanation:"<strong>Suppose</strong> — предполагать (разговорно)."},{sentence:"We _____ the costs.",correct:3,explanation:"<strong>Estimated</strong> — оценивать приблизительно."},{sentence:"He _____ the total.",correct:4,explanation:"<strong>Calculated</strong> — считать точно."},{sentence:"Scientists _____ rain.",correct:5,explanation:"<strong>Predict</strong> — предсказывать."}]},
+            {id:44,title:"44. Idea / View / Thought / Point / Aspect / Respect / Matter",words:[{en:"Idea",ru:"Мысль/предложение"},{en:"View",ru:"Мнение"},{en:"Thought",ru:"Внутреннее размышление"},{en:"Point",ru:"Аргумент"},{en:"Aspect",ru:"Сторона вопроса"},{en:"Respect",ru:"Уважение или аспект"},{en:"Matter",ru:"Вопрос/проблема"}],questions:[{sentence:"That's a great _____!",correct:0,explanation:"<strong>Idea</strong> — мысль/предложение."},{sentence:"My _____ differs.",correct:1,explanation:"<strong>View</strong> — мнение."},{sentence:"Just a _____.",correct:2,explanation:"<strong>Thought</strong> — внутреннее размышление."},{sentence:"That's a good _____.",correct:3,explanation:"<strong>Point</strong> — аргумент."},{sentence:"One _____ is cost.",correct:4,explanation:"<strong>Aspect</strong> — сторона вопроса."},{sentence:"In many _____, it's true.",correct:5,explanation:"<strong>Respects</strong> — уважение или аспект."},{sentence:"It's a serious _____.",correct:6,explanation:"<strong>Matter</strong> — вопрос/проблема."}]},
+            {id:45,title:"45. Queue / Line / Aisle / Corridor / Hall / Row",words:[{en:"Queue/Line",ru:"Очередь (BrE/AmE)"},{en:"Aisle",ru:"Проход между рядами"},{en:"Corridor",ru:"Коридор"},{en:"Hall",ru:"Холл/зал"},{en:"Row",ru:"Ряд (сидений, домов)"}],questions:[{sentence:"Stand in the _____.",correct:0,explanation:"<strong>Queue/Line</strong> — очередь (BrE/AmE)."},{sentence:"Walk down the _____.",correct:1,explanation:"<strong>Aisle</strong> — проход между рядами."},{sentence:"The _____ is dark.",correct:2,explanation:"<strong>Corridor</strong> — коридор."},{sentence:"The _____ is full.",correct:3,explanation:"<strong>Hall</strong> — холл/зал."},{sentence:"Sit in _____ 5.",correct:4,explanation:"<strong>Row</strong> — ряд (сидений, домов)."}]},
+            {id:46,title:"46. Available / Spare / Free / Convenient / Handy / Usable",words:[{en:"Available",ru:"Доступный"},{en:"Spare",ru:"Запасной/свободное время"},{en:"Free",ru:"Бесплатный или не занят"},{en:"Convenient",ru:"Удобный по времени/месту"},{en:"Handy",ru:"Под рукой"},{en:"Usable",ru:"Пригодный к использованию"}],questions:[{sentence:"Tickets are _____.",correct:0,explanation:"<strong>Available</strong> — доступный."},{sentence:"I have _____ time.",correct:1,explanation:"<strong>Spare</strong> — запасной/свободное время."},{sentence:"Is this seat _____?",correct:2,explanation:"<strong>Free</strong> — бесплатный или не занят."},{sentence:"Let's find a _____ time.",correct:3,explanation:"<strong>Convenient</strong> — удобный по времени/месту."},{sentence:"Keep a pen _____.",correct:4,explanation:"<strong>Handy</strong> — под рукой."},{sentence:"The file is _____.",correct:5,explanation:"<strong>Usable</strong> — пригодный к использованию."}]},
+            {id:47,title:"47. Absence / Lack / Shortage / Loss",words:[{en:"Absence",ru:"Отсутствие (кого-то/чего-то)"},{en:"Lack",ru:"Нехватка (обобщённо)"},{en:"Shortage",ru:"Дефицит (часто товаров)"},{en:"Loss",ru:"Утрата/потеря"}],questions:[{sentence:"His _____ was noted.",correct:0,explanation:"<strong>Absence</strong> — отсутствие (кого-то/чего-то)."},{sentence:"There's a _____ of sleep.",correct:1,explanation:"<strong>Lack</strong> — нехватка (обобщённо)."},{sentence:"There's a food _____.",correct:2,explanation:"<strong>Shortage</strong> — дефицит (часто товаров)."},{sentence:"The _____ of her keys.",correct:3,explanation:"<strong>Loss</strong> — утрата/потеря."}]},
+            {id:48,title:"48. Short / Scarce / Rare / Inadequate / Insufficient",words:[{en:"Short",ru:"В нехватке (often + of)"},{en:"Scarce",ru:"Дефицитный"},{en:"Rare",ru:"Редкий"},{en:"Inadequate/Insufficient",ru:"Недостаточный"}],questions:[{sentence:"We're _____ of time.",correct:0,explanation:"<strong>Short</strong> — в нехватке (часто + of)."},{sentence:"Water is _____.",correct:1,explanation:"<strong>Scarce</strong> — дефицитный."},{sentence:"Diamonds are _____.",correct:2,explanation:"<strong>Rare</strong> — редкий."},{sentence:"The lighting is _____.",correct:3,explanation:"<strong>Inadequate</strong> — недостаточный."},{sentence:"There's _____ evidence.",correct:4,explanation:"<strong>Insufficient</strong> — недостаточный."}]},
+            {id:49,title:"49. Choose / Pick / Gather / Collect",words:[{en:"Choose",ru:"Выбирать"},{en:"Pick",ru:"Выбирать (менее формально)"},{en:"Gather",ru:"Собирать (физически)"},{en:"Collect",ru:"Собирать (систематически)"}],questions:[{sentence:"_____ a book from the shelf.",correct:0,explanation:"<strong>Choose</strong> — выбирать."},{sentence:"_____ a card, any card.",correct:1,explanation:"<strong>Pick</strong> — выбирать (менее формально)."},{sentence:"_____ flowers in the field.",correct:2,explanation:"<strong>Gather</strong> — собирать (физически)."},{sentence:"_____ stamps as a hobby.",correct:3,explanation:"<strong>Collect</strong> — собирать (систематически)."}]},
+            {id:50,title:"50. Choice / Collection / Selection / Election / Variety / Option",words:[{en:"Choice",ru:"Выбор"},{en:"Collection",ru:"Коллекция"},{en:"Selection",ru:"Отобранное"},{en:"Election",ru:"Выборы"},{en:"Variety",ru:"Разнообразие"},{en:"Option",ru:"Вариант"}],questions:[{sentence:"You have a _____.",correct:0,explanation:"<strong>Choice</strong> — выбор."},{sentence:"He has a coin _____.",correct:1,explanation:"<strong>Collection</strong> — коллекция."},{sentence:"There's a wide _____.",correct:2,explanation:"<strong>Selection</strong> — отобранное."},{sentence:"The presidential _____ is next month.",correct:3,explanation:"<strong>Election</strong> — выборы."},{sentence:"A _____ of colors.",correct:4,explanation:"<strong>Variety</strong> — разнообразие."},{sentence:"What's the best _____?",correct:5,explanation:"<strong>Option</strong> — вариант."}]},
+            {id:51,title:"51. Consult / Advise / Suggest / Propose / Recommend",words:[{en:"Consult",ru:"Обращаться за советом"},{en:"Advise",ru:"Давать совет (форм.)"},{en:"Suggest",ru:"Предлагать идею"},{en:"Propose",ru:"Предлагать (план/идею)"},{en:"Recommend",ru:"Рекомендовать"}],questions:[{sentence:"_____ a lawyer for help.",correct:0,explanation:"<strong>Consult</strong> — обращаться за советом."},{sentence:"I _____ caution.",correct:1,explanation:"<strong>Advise</strong> — давать совет (формально)."},{sentence:"She _____ coffee.",correct:2,explanation:"<strong>Suggested</strong> — предлагать идею."},{sentence:"He _____ a toast.",correct:3,explanation:"<strong>Proposed</strong> — предлагать (план/идею)."},{sentence:"I _____ this film.",correct:4,explanation:"<strong>Recommend</strong> — рекомендовать."}]},
+            {id:52,title:"52. Tip / Clue / Advice / Information",words:[{en:"Tip",ru:"Совет/подсказка"},{en:"Clue",ru:"Улика/намёк"},{en:"Advice",ru:"Совет (неисчисл.)"},{en:"Information",ru:"Информация (неисчисл.)"}],questions:[{sentence:"That's a useful _____.",correct:0,explanation:"<strong>Tip</strong> — совет/подсказка."},{sentence:"The _____ solved the case.",correct:1,explanation:"<strong>Clue</strong> — улика/намёк."},{sentence:"Give me a piece of _____.",correct:2,explanation:"<strong>Advice</strong> — совет (неисчисляемое)."},{sentence:"I need new _____.",correct:3,explanation:"<strong>Information</strong> — информация (неисчисляемое)."}]},
+            {id:53,title:"53. Reliable / Responsible / Reasonable / Respectable",words:[{en:"Reliable",ru:"Надёжный"},{en:"Responsible",ru:"Ответственный"},{en:"Reasonable",ru:"Разумный/умеренный"},{en:"Respectable",ru:"Уважаемый/приличный"}],questions:[{sentence:"This is a _____ car.",correct:0,explanation:"<strong>Reliable</strong> — надёжный."},{sentence:"He's a _____ adult.",correct:1,explanation:"<strong>Responsible</strong> — ответственный."},{sentence:"It's a _____ price.",correct:2,explanation:"<strong>Reasonable</strong> — разумный/умеренный."},{sentence:"It's a _____ job.",correct:3,explanation:"<strong>Respectable</strong> — уважаемый/приличный."}]},
+            {id:54,title:"54. Mention / Refer / Express / Comment / Report",words:[{en:"Mention",ru:"Упомянуть"},{en:"Refer",ru:"Ссылаться"},{en:"Express",ru:"Выразить (мысль/эмоцию)"},{en:"Comment",ru:"Комментировать"},{en:"Report",ru:"Сообщать/докладывать"}],questions:[{sentence:"He _____ your name.",correct:0,explanation:"<strong>Mentioned</strong> — упомянуть."},{sentence:"She _____ to the article.",correct:1,explanation:"<strong>Referred</strong> — ссылаться."},{sentence:"_____ your feelings.",correct:2,explanation:"<strong>Express</strong> — выразить (мысль/эмоцию)."},{sentence:"Don't _____ on that.",correct:3,explanation:"<strong>Comment</strong> — комментировать."},{sentence:"The news _____ the accident.",correct:4,explanation:"<strong>Reported</strong> — сообщать/докладывать."}]},
+            {id:55,title:"55. Announce / Inform / Confess / Introduce / Reveal / Publish",words:[{en:"Announce",ru:"Объявлять публично"},{en:"Inform",ru:"Сообщать"},{en:"Confess",ru:"Признаваться"},{en:"Introduce",ru:"Представлять"},{en:"Reveal",ru:"Раскрывать"},{en:"Publish",ru:"Публиковать"}],questions:[{sentence:"They _____ the winner.",correct:0,explanation:"<strong>Announced</strong> — объявлять публично."},{sentence:"I _____ him about the news.",correct:1,explanation:"<strong>Informed</strong> — сообщать."},{sentence:"She _____ the truth.",correct:2,explanation:"<strong>Confessed</strong> — признаваться."},{sentence:"Let me _____ my friend.",correct:3,explanation:"<strong>Introduce</strong> — представлять."},{sentence:"The report _____ the facts.",correct:4,explanation:"<strong>Revealed</strong> — раскрывать."},{sentence:"They will _____ a book.",correct:5,explanation:"<strong>Publish</strong> — публиковать."}]},
+            {id:56,title:"56. Ensure / Insure / Reassure / Make sure / Confirm",words:[{en:"Ensure",ru:"Обеспечить (чтобы что-то случилось)"},{en:"Insure",ru:"Страховать"},{en:"Reassure",ru:"Успокоить"},{en:"Make sure",ru:"Убедиться"},{en:"Confirm",ru:"Подтвердить"}],questions:[{sentence:"_____ safety first.",correct:0,explanation:"<strong>Ensure</strong> — обеспечить (чтобы что-то случилось)."},{sentence:"_____ your car against theft.",correct:1,explanation:"<strong>Insure</strong> — страховать."},{sentence:"_____ the child.",correct:2,explanation:"<strong>Reassure</strong> — успокоить."},{sentence:"_____ it's locked.",correct:3,explanation:"<strong>Make sure</strong> — убедиться."},{sentence:"_____ the booking.",correct:4,explanation:"<strong>Confirm</strong> — подтвердить."}]},
+            {id:57,title:"57. Agree / Accept / Admit / Approve",words:[{en:"Agree",ru:"Соглашаться"},{en:"Accept",ru:"Принимать (предложение/факт)"},{en:"Admit",ru:"Признавать (часто неохотно)"},{en:"Approve",ru:"Одобрять (официально)"}],questions:[{sentence:"I _____ with you.",correct:0,explanation:"<strong>Agree</strong> — соглашаться."},{sentence:"She _____ the offer.",correct:1,explanation:"<strong>Accepted</strong> — принимать (предложение/факт)."},{sentence:"He _____ the mistake.",correct:2,explanation:"<strong>Admitted</strong> — признавать (часто неохотно)."},{sentence:"The board _____ the plan.",correct:3,explanation:"<strong>Approved</strong> — одобрять (официально)."}]},
+            {id:58,title:"58. Say / Tell / Speak / Talk / Discuss / Debate",words:[{en:"Say",ru:"Сказать что-то"},{en:"Tell",ru:"Сказать кому-то"},{en:"Speak",ru:"Говорить (о языке/публично)"},{en:"Talk",ru:"Разговаривать"},{en:"Discuss",ru:"Обсуждать"},{en:"Debate",ru:"Дебатировать"}],questions:[{sentence:"_____ 'hello' to her.",correct:0,explanation:"<strong>Say</strong> — сказать что-то."},{sentence:"_____ me the truth.",correct:1,explanation:"<strong>Tell</strong> — сказать кому-то."},{sentence:"I _____ English fluently.",correct:2,explanation:"<strong>Speak</strong> — говорить (о языке/публично)."},{sentence:"Let's _____ about it.",correct:3,explanation:"<strong>Talk</strong> — разговаривать."},{sentence:"We need to _____ the issue.",correct:4,explanation:"<strong>Discuss</strong> — обсуждать."},{sentence:"They _____ politics.",correct:5,explanation:"<strong>Debate</strong> — дебатировать."}]},
+            {id:59,title:"59. Ask / Demand / Wonder / Question / Apply",words:[{en:"Ask",ru:"Спрашивать/просить"},{en:"Demand",ru:"Требовать"},{en:"Wonder",ru:"Интересоваться (внутренне)"},{en:"Question",ru:"Ставить под сомнение"},{en:"Apply",ru:"Подавать заявку"}],questions:[{sentence:"_____ a question.",correct:0,explanation:"<strong>Ask</strong> — спрашивать/просить."},{sentence:"_____ justice!",correct:1,explanation:"<strong>Demand</strong> — требовать."},{sentence:"I _____ why.",correct:2,explanation:"<strong>Wonder</strong> — интересоваться (внутренне)."},{sentence:"_____ the evidence.",correct:3,explanation:"<strong>Question</strong> — ставить под сомнение."},{sentence:"_____ for a job.",correct:4,explanation:"<strong>Apply</strong> — подавать заявку."}]},
+            {id:60,title:"60. Require / Request / Order / Beg / Inquire / Command / Appeal",words:[{en:"Require",ru:"Требовать (обязательно)"},{en:"Request",ru:"Вежливо просить"},{en:"Order",ru:"Приказывать"},{en:"Beg",ru:"Умолять"},{en:"Inquire",ru:"Осведомляться"},{en:"Command",ru:"Командовать"},{en:"Appeal",ru:"Призывать"}],questions:[{sentence:"The job _____ skill.",correct:0,explanation:"<strong>Requires</strong> — требовать (обязательно)."},{sentence:"I _____ your help.",correct:1,explanation:"<strong>Request</strong> — вежливо просить."},{sentence:"He _____ silence.",correct:2,explanation:"<strong>Ordered</strong> — приказывать."},{sentence:"She _____ for mercy.",correct:3,explanation:"<strong>Begged</strong> — умолять."},{sentence:"_____ at reception.",correct:4,explanation:"<strong>Inquire</strong> — осведомляться."},{sentence:"The officer _____ attention.",correct:5,explanation:"<strong>Commanded</strong> — командовать."},{sentence:"They _____ for donations.",correct:6,explanation:"<strong>Appealed</strong> — призывать."}]},
+            {id:61,title:"61. Advice / Directions / Guide / Instructions / Manual / Plan / Recipe",words:[{en:"Advice",ru:"Совет"},{en:"Directions",ru:"Указания (как добраться/сделать)"},{en:"Guide",ru:"Руководство"},{en:"Instructions",ru:"Инструкция"},{en:"Manual",ru:"Техническое руководство"},{en:"Plan",ru:"План"},{en:"Recipe",ru:"Рецепт"}],questions:[{sentence:"That's good _____.",correct:0,explanation:"<strong>Advice</strong> — совет."},{sentence:"Give me _____.",correct:1,explanation:"<strong>Directions</strong> — указания (как добраться/сделать)."},{sentence:"Read a travel _____.",correct:2,explanation:"<strong>Guide</strong> — руководство."},{sentence:"Read the _____ carefully.",correct:3,explanation:"<strong>Instructions</strong> — инструкция."},{sentence:"Read the car _____.",correct:4,explanation:"<strong>Manual</strong> — техническое руководство."},{sentence:"Make a business _____.",correct:5,explanation:"<strong>Plan</strong> — план."},{sentence:"Follow the cake _____.",correct:6,explanation:"<strong>Recipe</strong> — рецепт."}]},
+            {id:62,title:"62. Brochure / Leaflet / Handbook / Catalogue / List / Menu",words:[{en:"Brochure",ru:"Красочный буклет"},{en:"Leaflet",ru:"Информационный листок"},{en:"Handbook",ru:"Справочник"},{en:"Catalogue",ru:"Каталог товаров"},{en:"List",ru:"Список"},{en:"Menu",ru:"Меню"}],questions:[{sentence:"Pick up a hotel _____.",correct:0,explanation:"<strong>Brochure</strong> — красочный буклет."},{sentence:"Read the health _____.",correct:1,explanation:"<strong>Leaflet</strong> — информационный листок."},{sentence:"Check the employee _____.",correct:2,explanation:"<strong>Handbook</strong> — справочник."},{sentence:"Browse the fashion _____.",correct:3,explanation:"<strong>Catalogue</strong> — каталог товаров."},{sentence:"Make a shopping _____.",correct:4,explanation:"<strong>List</strong> — список."},{sentence:"Look at the restaurant _____.",correct:5,explanation:"<strong>Menu</strong> — меню."}]},
+            {id:63,title:"63. Refuse / Deny / Regret / Resist / Reject",words:[{en:"Refuse",ru:"Отказываться (от действия)"},{en:"Deny",ru:"Отрицать (факт)"},{en:"Regret",ru:"Сожалеть"},{en:"Resist",ru:"Сопротивляться"},{en:"Reject",ru:"Отвергать (предложение/кандидатуру)"}],questions:[{sentence:"_____ to go.",correct:0,explanation:"<strong>Refuse</strong> — отказываться (от действия)."},{sentence:"_____ the accusation.",correct:1,explanation:"<strong>Deny</strong> — отрицать (факт)."},{sentence:"I _____ leaving.",correct:2,explanation:"<strong>Regret</strong> — сожалеть."},{sentence:"_____ temptation.",correct:3,explanation:"<strong>Resist</strong> — сопротивляться."},{sentence:"_____ the offer.",correct:4,explanation:"<strong>Reject</strong> — отвергать (предложение/кандидатуру)."}]},
+            {id:64,title:"64. Complain / Criticise / Object / Discourage / Disapprove / Protest / Argue / Quarrel / Fight",words:[{en:"Complain",ru:"Жаловаться"},{en:"Criticise",ru:"Критиковать"},{en:"Object",ru:"Возражать"},{en:"Discourage",ru:"Отговаривать"},{en:"Disapprove",ru:"Не одобрять"},{en:"Protest",ru:"Протестовать"},{en:"Argue",ru:"Спорить"},{en:"Quarrel",ru:"Ссориться"},{en:"Fight",ru:"Драться"}],questions:[{sentence:"_____ about the noise.",correct:0,explanation:"<strong>Complain</strong> — жаловаться."},{sentence:"_____ the policy.",correct:1,explanation:"<strong>Criticise</strong> — критиковать."},{sentence:"I _____!",correct:2,explanation:"<strong>Object</strong> — возражать."},{sentence:"Don't _____ him.",correct:3,explanation:"<strong>Discourage</strong> — отговаривать."},{sentence:"Parents _____.",correct:4,explanation:"<strong>Disapprove</strong> — не одобрять."},{sentence:"_____ the law.",correct:5,explanation:"<strong>Protest</strong> — протестовать."},{sentence:"They _____.",correct:6,explanation:"<strong>Argued</strong> — спорить."},{sentence:"They _____.",correct:7,explanation:"<strong>Quarrelled</strong> — ссориться."},{sentence:"They _____.",correct:8,explanation:"<strong>Fought</strong> — драться."}]},
+            {id:65,title:"65. Worry / Mind / Bother / Annoy / Trouble / Doubt",words:[{en:"Worry",ru:"Волноваться"},{en:"Mind",ru:"Возражать (Do you mind?)"},{en:"Bother",ru:"Беспокоить/тревожить"},{en:"Annoy",ru:"Раздражать"},{en:"Trouble",ru:"Причинять хлопоты"},{en:"Doubt",ru:"Сомневаться"}],questions:[{sentence:"Don't _____.",correct:0,explanation:"<strong>Worry</strong> — волноваться."},{sentence:"Do you _____?",correct:1,explanation:"<strong>Mind</strong> — возражать (Do you mind?)."},{sentence:"It _____ me.",correct:2,explanation:"<strong>Bothers</strong> — беспокоить/тревожить."},{sentence:"He _____ me.",correct:3,explanation:"<strong>Annoys</strong> — раздражать."},{sentence:"Sorry to _____ you.",correct:4,explanation:"<strong>Trouble</strong> — причинять хлопоты."},{sentence:"I _____ it.",correct:5,explanation:"<strong>Doubt</strong> — сомневаться."}]},
+            {id:66,title:"66. Stop / Avoid / Forbid / Prohibit / Ban / Prevent / Escape",words:[{en:"Stop",ru:"Остановить"},{en:"Avoid",ru:"Избегать"},{en:"Forbid",ru:"Запрещать (личный)"},{en:"Prohibit",ru:"Запрещать (официальный)"},{en:"Ban",ru:"Запрещать (официальный)"},{en:"Prevent",ru:"Предотвращать"},{en:"Escape",ru:"Избежать (опасности)"}],questions:[{sentence:"_____ talking!",correct:0,explanation:"<strong>Stop</strong> — остановить."},{sentence:"_____ sugar.",correct:1,explanation:"<strong>Avoid</strong> — избегать."},{sentence:"I _____ you!",correct:2,explanation:"<strong>Forbid</strong> — запрещать (личный)."},{sentence:"Smoking is _____.",correct:3,explanation:"<strong>Prohibited</strong> — запрещать (официальный)."},{sentence:"There's a _____ on alcohol.",correct:4,explanation:"<strong>Ban</strong> — запрещать (официальный)."},{sentence:"_____ accidents.",correct:5,explanation:"<strong>Prevent</strong> — предотвращать."},{sentence:"_____ danger.",correct:6,explanation:"<strong>Escape</strong> — избежать (опасности)."}]},
+            {id:67,title:"67. Blame / Accuse / Arrest / Charge / Convict / Sentence",words:[{en:"Blame",ru:"Винить"},{en:"Accuse",ru:"Обвинять (в чём-то)"},{en:"Arrest",ru:"Арестовывать"},{en:"Charge",ru:"Предъявлять обвинение"},{en:"Convict",ru:"Признавать виновным"},{en:"Sentence",ru:"Приговаривать"}],questions:[{sentence:"_____ him for the mistake.",correct:0,explanation:"<strong>Blame</strong> — винить."},{sentence:"_____ of theft.",correct:1,explanation:"<strong>Accuse</strong> — обвинять (в чём-то)."},{sentence:"Police _____ him.",correct:2,explanation:"<strong>Arrested</strong> — арестовывать."},{sentence:"_____ with murder.",correct:3,explanation:"<strong>Charged</strong> — предъявлять обвинение."},{sentence:"_____ in court.",correct:4,explanation:"<strong>Convicted</strong> — признавать виновным."},{sentence:"_____ to 5 years.",correct:5,explanation:"<strong>Sentenced</strong> — приговаривать."}]},
+            {id:68,title:"68. Complaint / Annoyance / Accusation / Disappointment",words:[{en:"Complaint",ru:"Жалоба"},{en:"Annoyance",ru:"Раздражение"},{en:"Accusation",ru:"Обвинение"},{en:"Disappointment",ru:"Разочарование"}],questions:[{sentence:"File a _____.",correct:0,explanation:"<strong>Complaint</strong> — жалоба."},{sentence:"_____ at the noise.",correct:1,explanation:"<strong>Annoyance</strong> — раздражение."},{sentence:"False _____.",correct:2,explanation:"<strong>Accusation</strong> — обвинение."},{sentence:"Deep _____.",correct:3,explanation:"<strong>Disappointment</strong> — разочарование."}]},
+            {id:69,title:"69. Chase / Pursue / Hunt / Follow",words:[{en:"Chase",ru:"Гнаться (быстро)"},{en:"Pursue",ru:"Преследовать (цель/человека)"},{en:"Hunt",ru:"Охотиться"},{en:"Follow",ru:"Следовать (идти за)"}],questions:[{sentence:"_____ the thief!",correct:0,explanation:"<strong>Chase</strong> — гнаться (быстро)."},{sentence:"_____ a career.",correct:1,explanation:"<strong>Pursue</strong> — преследовать (цель/человека)."},{sentence:"_____ deer.",correct:2,explanation:"<strong>Hunt</strong> — охотиться."},{sentence:"_____ me.",correct:3,explanation:"<strong>Follow</strong> — следовать (идти за)."}]},
+            {id:70,title:"70. Cause / Excuse / Reason / Purpose / Aim",words:[{en:"Cause",ru:"Причина события"},{en:"Excuse",ru:"Оправдание"},{en:"Reason",ru:"Логическое основание"},{en:"Purpose",ru:"Цель"},{en:"Aim",ru:"Цель"}],questions:[{sentence:"The _____ of the fire.",correct:0,explanation:"<strong>Cause</strong> — причина события."},{sentence:"A weak _____.",correct:1,explanation:"<strong>Excuse</strong> — оправдание."},{sentence:"The _____ is clear.",correct:2,explanation:"<strong>Reason</strong> — логическое основание."},{sentence:"For what _____?",correct:3,explanation:"<strong>Purpose</strong> — цель."},{sentence:"Her _____ is success.",correct:4,explanation:"<strong>Aim</strong> — цель."}]},
+            {id:71,title:"71. Rob / Steal / Burgle / Hijack / Deceive / Cheat / Lie / Shoplift / Blackmail",words:[{en:"Rob",ru:"Грабить (кого-то/банк)"},{en:"Steal",ru:"Красть (что-то)"},{en:"Burgle",ru:"Совершать кражу со взломом"},{en:"Hijack",ru:"Угнать (самолёт/машину)"},{en:"Deceive",ru:"Обманывать"},{en:"Cheat",ru:"Обманывать"},{en:"Lie",ru:"Обманывать"},{en:"Shoplift",ru:"Красть в магазине"},{en:"Blackmail",ru:"Шантажировать"}],questions:[{sentence:"They _____ the bank.",correct:0,explanation:"<strong>Robbed</strong> — грабить (кого-то/банк)."},{sentence:"He _____ my phone.",correct:1,explanation:"<strong>Stole</strong> — красть (что-то)."},{sentence:"They _____ the house.",correct:2,explanation:"<strong>Burgled</strong> — совершать кражу со взломом."},{sentence:"_____ a plane.",correct:3,explanation:"<strong>Hijack</strong> — угнать (самолёт/машину)."},{sentence:"_____ customers.",correct:4,explanation:"<strong>Deceive</strong> — обманывать."},{sentence:"_____ in an exam.",correct:5,explanation:"<strong>Cheat</strong> — обманывать."},{sentence:"_____ to parents.",correct:6,explanation:"<strong>Lie</strong> — обманывать."},{sentence:"_____ a shirt.",correct:7,explanation:"<strong>Shoplifted</strong> — красть в магазине."},{sentence:"_____ with photos.",correct:8,explanation:"<strong>Blackmail</strong> — шантажировать."}]},
+            {id:72,title:"72. Attack / Knock / Hit / Beat / Blow / Strike",words:[{en:"Attack",ru:"Нападать"},{en:"Knock",ru:"Стучать/сбивать"},{en:"Hit",ru:"Ударить (один раз)"},{en:"Beat",ru:"Избивать (многократно)"},{en:"Blow",ru:"Удар (существительное)"},{en:"Strike",ru:"Нанести удар (форм. или воен.)"}],questions:[{sentence:"Terrorists _____.",correct:0,explanation:"<strong>Attacked</strong> — нападать."},{sentence:"_____ on the door.",correct:1,explanation:"<strong>Knock</strong> — стучать/сбивать."},{sentence:"_____ the ball.",correct:2,explanation:"<strong>Hit</strong> — ударить (один раз)."},{sentence:"_____ the enemy.",correct:3,explanation:"<strong>Beat</strong> — избивать (многократно)."},{sentence:"A heavy _____.",correct:4,explanation:"<strong>Blow</strong> — удар (существительное)."},{sentence:"_____ the enemy.",correct:5,explanation:"<strong>Strike</strong> — нанести удар (формально или военный)."}]},
+            {id:73,title:"73. Robber / Thief / Burglar / Kidnapper / Convict / Criminal / Pickpocket / Victim / Hostage",words:[{en:"Robber",ru:"Грабитель"},{en:"Thief",ru:"Вор"},{en:"Burglar",ru:"Взломщик"},{en:"Kidnapper",ru:"Похититель"},{en:"Convict",ru:"Осуждённый"},{en:"Criminal",ru:"Преступник"},{en:"Pickpocket",ru:"Карманник"},{en:"Victim",ru:"Жертва"},{en:"Hostage",ru:"Заложник"}],questions:[{sentence:"Bank _____.",correct:0,explanation:"<strong>Robber</strong> — грабитель."},{sentence:"A _____ stole my wallet.",correct:1,explanation:"<strong>Thief</strong> — вор."},{sentence:"A _____ entered at night.",correct:2,explanation:"<strong>Burglar</strong> — взломщик."},{sentence:"A _____ took the child.",correct:3,explanation:"<strong>Kidnapper</strong> — похититель."},{sentence:"An ex-_____.",correct:4,explanation:"<strong>Convict</strong> — осуждённый."},{sentence:"A dangerous _____.",correct:5,explanation:"<strong>Criminal</strong> — преступник."},{sentence:"A _____ in the crowd.",correct:6,explanation:"<strong>Pickpocket</strong> — карманник."},{sentence:"A _____ of fraud.",correct:7,explanation:"<strong>Victim</strong> — жертва."},{sentence:"A _____ in siege.",correct:8,explanation:"<strong>Hostage</strong> — заложник."}]},
+            {id:74,title:"74. Forget / Leave / Ignore / Neglect / Omit",words:[{en:"Forget",ru:"Забыть (в голове)"},{en:"Leave",ru:"Оставить (предмет где-то)"},{en:"Ignore",ru:"Игнорировать сознательно"},{en:"Neglect",ru:"Пренебрегать (обязанностью)"},{en:"Omit",ru:"Пропустить (в тексте/списке)"}],questions:[{sentence:"I _____ his name.",correct:0,explanation:"<strong>Forgot</strong> — забыть (в голове)."},{sentence:"I _____ my keys.",correct:1,explanation:"<strong>Left</strong> — оставить (предмет где-то)."},{sentence:"_____ the noise.",correct:2,explanation:"<strong>Ignore</strong> — игнорировать сознательно."},{sentence:"_____ duties.",correct:3,explanation:"<strong>Neglect</strong> — пренебрегать (обязанностью)."},{sentence:"_____ this sentence.",correct:4,explanation:"<strong>Omit</strong> — пропустить (в тексте/списке)."}]},
+            {id:75,title:"75. Protect / Rescue / Save / Support / Secure / Defend / Guard",words:[{en:"Protect",ru:"Защищать от вреда"},{en:"Rescue",ru:"Спасать из опасности"},{en:"Save",ru:"Спасать (жизнь/ситуацию)"},{en:"Support",ru:"Поддерживать (морально/финансово)"},{en:"Secure",ru:"Обеспечивать безопасность"},{en:"Defend",ru:"Защищать (от нападения)"},{en:"Guard",ru:"Охранять (часто физически)"}],questions:[{sentence:"_____ children.",correct:0,explanation:"<strong>Protect</strong> — защищать от вреда."},{sentence:"_____ from fire.",correct:1,explanation:"<strong>Rescued</strong> — спасать из опасности."},{sentence:"_____ a life.",correct:2,explanation:"<strong>Save</strong> — спасать (жизнь/ситуацию)."},{sentence:"_____ a friend.",correct:3,explanation:"<strong>Support</strong> — поддерживать (морально/финансово)."},{sentence:"_____ the building.",correct:4,explanation:"<strong>Secure</strong> — обеспечивать безопасность."},{sentence:"_____ your opinion.",correct:5,explanation:"<strong>Defend</strong> — защищать (от нападения/в споре)."},{sentence:"_____ the entrance.",correct:6,explanation:"<strong>Guard</strong> — охранять (часто физически)."}]},
+            {id:76,title:"76. Injure / Wound / Hurt / Collapse / Harm",words:[{en:"Injure",ru:"Получить травму (телесную)"},{en:"Wound",ru:"Ранить (часто в бою)"},{en:"Hurt",ru:"Причинить боль (физ./эмоц.)"},{en:"Collapse",ru:"Упасть без сил"},{en:"Harm",ru:"Навредить (широко)"}],questions:[{sentence:"He _____ his leg.",correct:0,explanation:"<strong>Injured</strong> — получить травму (телесную)."},{sentence:"Soldiers were _____.",correct:1,explanation:"<strong>Wounded</strong> — ранить (часто в бою)."},{sentence:"That _____ my feelings.",correct:2,explanation:"<strong>Hurt</strong> — причинить боль (физически/эмоционально)."},{sentence:"She _____ from exhaustion.",correct:3,explanation:"<strong>Collapsed</strong> — упасть без сил."},{sentence:"Smoking _____ health.",correct:4,explanation:"<strong>Harms</strong> — навредить (широко)."}]},
+            {id:77,title:"77. Damage / Injury / Wound / Pain / Ache",words:[{en:"Damage",ru:"Повреждение (объектов)"},{en:"Injury",ru:"Травма (телесная)"},{en:"Wound",ru:"Рана (от оружия)"},{en:"Pain",ru:"Боль (острая)"},{en:"Ache",ru:"Ноющая боль"}],questions:[{sentence:"Fire caused _____.",correct:0,explanation:"<strong>Damage</strong> — повреждение (объектов)."},{sentence:"Suffered a serious _____.",correct:1,explanation:"<strong>Injury</strong> — травма (телесная)."},{sentence:"A gunshot _____.",correct:2,explanation:"<strong>Wound</strong> — рана (от оружия)."},{sentence:"Sharp _____.",correct:3,explanation:"<strong>Pain</strong> — боль (острая)."},{sentence:"A tooth_____.",correct:4,explanation:"<strong>Ache</strong> — ноющая боль (headache, backache)."}]},
+            {id:78,title:"78. Endanger / Risk / Threaten / Warn",words:[{en:"Endanger",ru:"Подвергать опасности"},{en:"Risk",ru:"Рисковать (чем-то)"},{en:"Threaten",ru:"Угрожать"},{en:"Warn",ru:"Предупреждать"}],questions:[{sentence:"Don't _____ lives.",correct:0,explanation:"<strong>Endanger</strong> — подвергать опасности."},{sentence:"_____ your reputation.",correct:1,explanation:"<strong>Risk</strong> — рисковать (чем-то)."},{sentence:"He _____ violence.",correct:2,explanation:"<strong>Threatened</strong> — угрожать."},{sentence:"_____ of danger.",correct:3,explanation:"<strong>Warned</strong> — предупреждать."}]},
+            {id:79,title:"79. Illness / Disease / Infection / Sickness / Weakness / Accident / Incident",words:[{en:"Illness",ru:"Болезнь (общее)"},{en:"Disease",ru:"Заболевание (медицинское)"},{en:"Infection",ru:"Инфекция"},{en:"Sickness",ru:"Недомогание/тошнота"},{en:"Weakness",ru:"Слабость"},{en:"Accident",ru:"Несчастный случай"},{en:"Incident",ru:"Происшествие (менее серьёзное)"}],questions:[{sentence:"Recover from _____.",correct:0,explanation:"<strong>Illness</strong> — болезнь (общее)."},{sentence:"Heart _____.",correct:1,explanation:"<strong>Disease</strong> — заболевание (медицинское)."},{sentence:"Viral _____.",correct:2,explanation:"<strong>Infection</strong> — инфекция."},{sentence:"Morning _____.",correct:3,explanation:"<strong>Sickness</strong> — недомогание/тошнота."},{sentence:"Muscle _____.",correct:4,explanation:"<strong>Weakness</strong> — слабость."},{sentence:"Car _____.",correct:5,explanation:"<strong>Accident</strong> — несчастный случай."},{sentence:"Security _____.",correct:6,explanation:"<strong>Incident</strong> — происшествие (менее серьёзное)."}]},
+            {id:80,title:"80. Cure / Heal / Treat / Recover / Overcome",words:[{en:"Cure",ru:"Излечить (окончательно)"},{en:"Heal",ru:"Заживать (рана/организм)"},{en:"Treat",ru:"Лечить (процесс)"},{en:"Recover",ru:"Выздоравливать"},{en:"Overcome",ru:"Преодолеть (болезнь/проблему)"}],questions:[{sentence:"No _____ for this.",correct:0,explanation:"<strong>Cure</strong> — излечить (окончательно)."},{sentence:"The wound _____.",correct:1,explanation:"<strong>Healed</strong> — заживать (рана/организм)."},{sentence:"_____ for cancer.",correct:2,explanation:"<strong>Treated</strong> — лечить (процесс)."},{sentence:"_____ fully.",correct:3,explanation:"<strong>Recovered</strong> — выздоравливать."},{sentence:"_____ fear.",correct:4,explanation:"<strong>Overcame</strong> — преодолеть (болезнь/проблему)."}]},
+            {id:81,title:"81. Sensible / Sensitive / Sensation / Emotional",words:[{en:"Sensible",ru:"Разумный, практичный"},{en:"Sensitive",ru:"Чувствительный (к критике/эмоциям)"},{en:"Sensation",ru:"Ощущение/сенсация"},{en:"Emotional",ru:"Эмоциональный"}],questions:[{sentence:"A _____ decision.",correct:0,explanation:"<strong>Sensible</strong> — разумный, практичный."},{sentence:"_____ skin.",correct:1,explanation:"<strong>Sensitive</strong> — чувствительный (к критике/эмоциям)."},{sentence:"A strange _____.",correct:2,explanation:"<strong>Sensation</strong> — ощущение/сенсация."},{sentence:"An _____ speech.",correct:3,explanation:"<strong>Emotional</strong> — эмоциональный."}]},
+            {id:82,title:"82. Produce / Develop / Increase / Build up / Create / Progress / Advance / Improve",words:[{en:"Produce",ru:"Производить"},{en:"Develop",ru:"Разрабатывать/развивать"},{en:"Increase",ru:"Увеличивать (количественно)"},{en:"Build up",ru:"Наращивать"},{en:"Create",ru:"Создавать"},{en:"Progress",ru:"Продвигаться"},{en:"Advance",ru:"Продвигаться"},{en:"Improve",ru:"Улучшать"}],questions:[{sentence:"_____ cars.",correct:0,explanation:"<strong>Produce</strong> — производить."},{sentence:"_____ software.",correct:1,explanation:"<strong>Develop</strong> — разрабатывать/развивать."},{sentence:"_____ sales.",correct:2,explanation:"<strong>Increase</strong> — увеличивать (количественно)."},{sentence:"_____ trust.",correct:3,explanation:"<strong>Build up</strong> — наращивать."},{sentence:"_____ art.",correct:4,explanation:"<strong>Create</strong> — создавать."},{sentence:"Technology _____.",correct:5,explanation:"<strong>Progresses</strong> — продвигаться."},{sentence:"Technology _____.",correct:6,explanation:"<strong>Advances</strong> — продвигаться."},{sentence:"_____ skills.",correct:7,explanation:"<strong>Improve</strong> — улучшать."}]},
+            {id:83,title:"83. Reduce / Decrease / Destroy / Drop / Lower / Demolish / Fail",words:[{en:"Reduce",ru:"Уменьшать (по объёму/уровню)"},{en:"Decrease",ru:"Уменьшать (по объёму/уровню)"},{en:"Destroy",ru:"Уничтожать"},{en:"Drop",ru:"Уменьшать (по объёму/уровню)"},{en:"Lower",ru:"Уменьшать (по объёму/уровню)"},{en:"Demolish",ru:"Сносить"},{en:"Fail",ru:"Терпеть неудачу"}],questions:[{sentence:"_____ cost.",correct:0,explanation:"<strong>Reduce</strong> — уменьшать (по объёму/уровню)."},{sentence:"_____ speed.",correct:1,explanation:"<strong>Decrease</strong> — уменьшать (по объёму/уровню)."},{sentence:"_____ evidence.",correct:2,explanation:"<strong>Destroy</strong> — уничтожать."},{sentence:"Prices _____.",correct:3,explanation:"<strong>Dropped</strong> — уменьшать (по объёму/уровню)."},{sentence:"_____ expectations.",correct:4,explanation:"<strong>Lower</strong> — уменьшать (по объёму/уровню)."},{sentence:"_____ a building.",correct:5,explanation:"<strong>Demolish</strong> — сносить."},{sentence:"The plan _____.",correct:6,explanation:"<strong>Failed</strong> — терпеть неудачу."}]},
+            {id:84,title:"84. Attention / Care / Notice / Warning / Signal / Caution",words:[{en:"Attention",ru:"Внимание"},{en:"Care",ru:"Забота/осторожность"},{en:"Notice",ru:"Уведомление/замечание"},{en:"Warning",ru:"Предупреждение"},{en:"Signal",ru:"Сигнал"},{en:"Caution",ru:"Предостережение/осторожность"}],questions:[{sentence:"Pay _____.",correct:0,explanation:"<strong>Attention</strong> — внимание."},{sentence:"Handle with _____.",correct:1,explanation:"<strong>Care</strong> — забота/осторожность."},{sentence:"Take _____.",correct:2,explanation:"<strong>Notice</strong> — уведомление/замечание."},{sentence:"Storm _____.",correct:3,explanation:"<strong>Warning</strong> — предупреждение."},{sentence:"Traffic _____.",correct:4,explanation:"<strong>Signal</strong> — сигнал."},{sentence:"Exercise _____.",correct:5,explanation:"<strong>Caution</strong> — предостережение/осторожность."}]},
+            {id:85,title:"85. Insist / Persist / Continue / Last / Remain / Maintain / Protect / Keep",words:[{en:"Insist",ru:"Настаивать"},{en:"Persist",ru:"Упорно продолжать"},{en:"Continue",ru:"Продолжать"},{en:"Last",ru:"Длиться"},{en:"Remain",ru:"Оставаться"},{en:"Maintain",ru:"Поддерживать (в состоянии)"},{en:"Protect",ru:"Сохранять/защищать"},{en:"Keep",ru:"Сохранять/защищать"}],questions:[{sentence:"_____ on leaving.",correct:0,explanation:"<strong>Insist</strong> — настаивать."},{sentence:"_____ in efforts.",correct:1,explanation:"<strong>Persist</strong> — упорно продолжать."},{sentence:"_____ working.",correct:2,explanation:"<strong>Continue</strong> — продолжать."},{sentence:"The film _____ 2 hours.",correct:3,explanation:"<strong>Lasted</strong> — длиться."},{sentence:"_____ calm.",correct:4,explanation:"<strong>Remain</strong> — оставаться."},{sentence:"_____ silence.",correct:5,explanation:"<strong>Maintain</strong> — поддерживать (в состоянии)."},{sentence:"_____ safe.",correct:6,explanation:"<strong>Protect</strong> — сохранять/защищать."},{sentence:"_____ safe.",correct:7,explanation:"<strong>Keep</strong> — сохранять/защищать."}]},
+            {id:86,title:"86. Convince / Persuade / Urge / Impress / Attract / Appeal",words:[{en:"Convince",ru:"Убедить (в чём-то)"},{en:"Persuade",ru:"Уговорить (сделать что-то)"},{en:"Urge",ru:"Настоятельно просить"},{en:"Impress",ru:"Произвести впечатление"},{en:"Attract",ru:"Привлекать"},{en:"Appeal",ru:"Привлекать"}],questions:[{sentence:"_____ him it's true.",correct:0,explanation:"<strong>Convince</strong> — убедить (в чём-то)."},{sentence:"_____ her to stay.",correct:1,explanation:"<strong>Persuaded</strong> — уговорить (сделать что-то)."},{sentence:"_____ you to act.",correct:2,explanation:"<strong>Urge</strong> — настоятельно просить."},{sentence:"_____ the jury.",correct:3,explanation:"<strong>Impress</strong> — произвести впечатление."},{sentence:"_____ attention.",correct:4,explanation:"<strong>Attract</strong> — привлекать."},{sentence:"This _____ to me.",correct:5,explanation:"<strong>Appeals</strong> — привлекать."}]},
+            {id:87,title:"87. Win / Beat / Gain / Earn / Defeat / Fail",words:[{en:"Win",ru:"Выиграть (соревнование/приз)"},{en:"Beat",ru:"Победить (оппонента)"},{en:"Gain",ru:"Получить/заработать"},{en:"Earn",ru:"Получить/заработать"},{en:"Defeat",ru:"Победить (оппонента)"},{en:"Fail",ru:"Не справиться"}],questions:[{sentence:"_____ a medal.",correct:0,explanation:"<strong>Win</strong> — выиграть (соревнование/приз)."},{sentence:"_____ the champion.",correct:1,explanation:"<strong>Beat</strong> — победить (оппонента)."},{sentence:"_____ experience.",correct:2,explanation:"<strong>Gain</strong> — получить/заработать."},{sentence:"_____ a salary.",correct:3,explanation:"<strong>Earn</strong> — получить/заработать."},{sentence:"_____ the enemy.",correct:4,explanation:"<strong>Defeat</strong> — победить (оппонента)."},{sentence:"_____ an exam.",correct:5,explanation:"<strong>Fail</strong> — не справиться."}]},
+            {id:88,title:"88. Appeal / Application / Attraction / Interest",words:[{en:"Appeal",ru:"Привлекательность/апелляция"},{en:"Application",ru:"Заявка/применение"},{en:"Attraction",ru:"Достопримечательность/притяжение"},{en:"Interest",ru:"Интерес"}],questions:[{sentence:"The job has _____.",correct:0,explanation:"<strong>Appeal</strong> — привлекательность/апелляция."},{sentence:"Submit an _____.",correct:1,explanation:"<strong>Application</strong> — заявка/применение."},{sentence:"Tourist _____.",correct:2,explanation:"<strong>Attraction</strong> — достопримечательность/притяжение."},{sentence:"Show _____.",correct:3,explanation:"<strong>Interest</strong> — интерес."}]},
+            {id:89,title:"89. Result / Effect / Affect / Consequence / Influence",words:[{en:"Result",ru:"Результат/последствие (сущ.)"},{en:"Effect",ru:"Результат/последствие (сущ.)"},{en:"Affect",ru:"Влиять (глагол)"},{en:"Consequence",ru:"Результат/последствие (сущ.)"},{en:"Influence",ru:"Оказывать влияние (глаг. и сущ.)"}],questions:[{sentence:"The _____ was good.",correct:0,explanation:"<strong>Result</strong> — результат/последствие (существительное)."},{sentence:"Side _____.",correct:1,explanation:"<strong>Effect</strong> — результат/последствие (существительное)."},{sentence:"Pollution _____ health.",correct:2,explanation:"<strong>Affects</strong> — влиять (глагол)."},{sentence:"Serious _____.",correct:3,explanation:"<strong>Consequences</strong> — результат/последствие (существительное)."},{sentence:"Positive _____.",correct:4,explanation:"<strong>Influence</strong> — оказывать влияние (глагол и существительное)."}]},
+            {id:90,title:"90. Allow / Let / Permit / Accept / Make / Oblige / Force",words:[{en:"Allow",ru:"Разрешать"},{en:"Let",ru:"Позволить (разг.)"},{en:"Permit",ru:"Разрешать (форм.)"},{en:"Accept",ru:"Принимать"},{en:"Make",ru:"Заставлять"},{en:"Oblige",ru:"Обязывать"},{en:"Force",ru:"Заставлять"}],questions:[{sentence:"_____ smoking.",correct:0,explanation:"<strong>Allow</strong> — разрешать."},{sentence:"_____ me go.",correct:1,explanation:"<strong>Let</strong> — позволить (разговорно)."},{sentence:"_____ entry.",correct:2,explanation:"<strong>Permit</strong> — разрешать (формально)."},{sentence:"_____ an offer.",correct:3,explanation:"<strong>Accept</strong> — принимать."},{sentence:"_____ him leave.",correct:4,explanation:"<strong>Make</strong> — заставлять."},{sentence:"Law _____ you.",correct:5,explanation:"<strong>Obliges</strong> — обязывать."},{sentence:"_____ to resign.",correct:6,explanation:"<strong>Forced</strong> — заставлять."}]},
+            {id:91,title:"91. Postpone / Cancel / Delay",words:[{en:"Postpone",ru:"Откладывать (на другое время)"},{en:"Cancel",ru:"Отменять"},{en:"Delay",ru:"Задерживать"}],questions:[{sentence:"_____ the meeting.",correct:0,explanation:"<strong>Postpone</strong> — откладывать (на другое время)."},{sentence:"_____ the flight.",correct:1,explanation:"<strong>Cancel</strong> — отменять."},{sentence:"_____ the launch.",correct:2,explanation:"<strong>Delay</strong> — задерживать (не обязательно отменять)."}]},
+            {id:92,title:"92. Guest / Host / Visitor / Client / Customer",words:[{en:"Guest",ru:"Гость (частный/в отеле)"},{en:"Host",ru:"Принимающая сторона"},{en:"Visitor",ru:"Посетитель"},{en:"Client",ru:"Клиент (услуги)"},{en:"Customer",ru:"Покупатель"}],questions:[{sentence:"Hotel _____.",correct:0,explanation:"<strong>Guest</strong> — гость (частный/в отеле)."},{sentence:"TV show _____.",correct:1,explanation:"<strong>Host</strong> — принимающая сторона."},{sentence:"Museum _____.",correct:2,explanation:"<strong>Visitor</strong> — посетитель."},{sentence:"Legal _____.",correct:3,explanation:"<strong>Client</strong> — клиент (услуги)."},{sentence:"Supermarket _____.",correct:4,explanation:"<strong>Customer</strong> — покупатель."}]},
+            {id:93,title:"93. Like / Alike / Unlike / Likely / As / Same / Similar / Common",words:[{en:"Like",ru:"Как/подобный (предлог/сущ.)"},{en:"Alike",ru:"Похожие между собой"},{en:"Unlike",ru:"В отличие от"},{en:"Likely",ru:"Вероятный"},{en:"As",ru:"Как (в сравнениях)"},{en:"Same",ru:"Тот же самый"},{en:"Similar",ru:"Схожий"},{en:"Common",ru:"Общий/распространённый"}],questions:[{sentence:"She looks _____ her mom.",correct:0,explanation:"<strong>Like</strong> — как/подобный (предлог/существительное)."},{sentence:"They are _____.",correct:1,explanation:"<strong>Alike</strong> — похожие между собой."},{sentence:"_____ me, he's tall.",correct:2,explanation:"<strong>Unlike</strong> — в отличие от."},{sentence:"It's _____ to rain.",correct:3,explanation:"<strong>Likely</strong> — вероятный."},{sentence:"Work _____ a teacher.",correct:4,explanation:"<strong>As</strong> — как (в сравнениях)."},{sentence:"The _____ book.",correct:5,explanation:"<strong>Same</strong> — тот же самый."},{sentence:"_____ ideas.",correct:6,explanation:"<strong>Similar</strong> — схожий."},{sentence:"_____ mistake.",correct:7,explanation:"<strong>Common</strong> — общий/распространённый."}]},
+            {id:94,title:"94. Suit / Fit / Match / Combine / Compare",words:[{en:"Suit",ru:"Идти (о цвете/стиле)"},{en:"Fit",ru:"Подходить по размеру"},{en:"Match",ru:"Сочетаться (цвет/стиль)"},{en:"Combine",ru:"Сочетать"},{en:"Compare",ru:"Сравнивать"}],questions:[{sentence:"This shirt _____ you.",correct:0,explanation:"<strong>Suits</strong> — идти (о цвете/стиле)."},{sentence:"Shoes _____ well.",correct:1,explanation:"<strong>Fit</strong> — подходить по размеру."},{sentence:"Tie _____ suit.",correct:2,explanation:"<strong>Matches</strong> — сочетаться (цвет/стиль)."},{sentence:"_____ colors.",correct:3,explanation:"<strong>Combine</strong> — сочетать."},{sentence:"_____ prices.",correct:4,explanation:"<strong>Compare</strong> — сравнивать."}]},
+            {id:95,title:"95. Punctual / Accurate / Correct / Exact / Sharp",words:[{en:"Punctual",ru:"Пунктуальный"},{en:"Accurate",ru:"Точный (измерения)"},{en:"Correct",ru:"Правильный (ответ)"},{en:"Exact",ru:"Точный (значение/время)"},{en:"Sharp",ru:"Ровно (о времени)"}],questions:[{sentence:"Always _____.",correct:0,explanation:"<strong>Punctual</strong> — пунктуальный."},{sentence:"_____ data.",correct:1,explanation:"<strong>Accurate</strong> — точный (измерения)."},{sentence:"_____ answer.",correct:2,explanation:"<strong>Correct</strong> — правильный (ответ)."},{sentence:"_____ time.",correct:3,explanation:"<strong>Exact</strong> — точный (значение/время)."},{sentence:"9 a.m. _____.",correct:4,explanation:"<strong>Sharp</strong> — ровно (о времени)."}]},
+            {id:96,title:"96. Stand / Resist / Tolerate / Suffer",words:[{en:"Stand",ru:"Выносить (разг.)"},{en:"Resist",ru:"Сопротивляться"},{en:"Tolerate",ru:"Терпеть (форм.)"},{en:"Suffer",ru:"Страдать"}],questions:[{sentence:"I can't _____ noise.",correct:0,explanation:"<strong>Stand</strong> — выносить (разговорно)."},{sentence:"_____ temptation.",correct:1,explanation:"<strong>Resist</strong> — сопротивляться."},{sentence:"_____ differences.",correct:2,explanation:"<strong>Tolerate</strong> — терпеть (формально)."},{sentence:"_____ from pain.",correct:3,explanation:"<strong>Suffer</strong> — страдать."}]}
+        ];
+
+        let currentTopicIndex = 0;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let completedTopics = new Set();
+
+        const mainContent = document.getElementById('mainContent');
+        const topicList = document.getElementById('topicList');
+        const globalProgress = document.getElementById('globalProgress');
+        const globalProgressText = document.getElementById('globalProgressText');
+
+        function init() {
+            renderSidebar();
+            loadTopic(0);
+        }
+
+        function renderSidebar() {
+            topicList.innerHTML = '';
+            quizData.forEach((topic, index) => {
+                const li = document.createElement('li');
+                li.className = 'topic-item';
+                if (index === currentTopicIndex) li.classList.add('active');
+                if (completedTopics.has(topic.id)) li.classList.add('completed');
+                
+                li.innerHTML = `<span>${topic.title}</span>`;
+                li.onclick = () => {
+                    currentTopicIndex = index;
+                    currentQuestionIndex = 0;
+                    renderSidebar();
+                    loadTopic(index);
+                };
+                topicList.appendChild(li);
+            });
+            
+            updateGlobalProgress();
+        }
+
+        function updateGlobalProgress() {
+            const percent = (completedTopics.size / quizData.length) * 100;
+            globalProgress.style.width = `${percent}%`;
+            globalProgressText.textContent = `${completedTopics.size} из ${quizData.length} тем пройдено`;
+        }
+
+        function loadTopic(index) {
+            const topic = quizData[index];
+            if (currentQuestionIndex >= topic.questions.length) {
+                showTopicResults(topic);
+                return;
+            }
+
+            let theoryHtml = '';
+            if (currentQuestionIndex === 0) {
+                theoryHtml = `
+                    <div class="theory-box">
+                        <div class="theory-title">Теория: ${topic.title}</div>
+                        <div class="words-grid">
+                            ${topic.words.map(word => `
+                                <div class="word-item">
+                                    <div class="word-en">${word.en}</div>
+                                    <div class="word-ru">${word.ru}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            const q = topic.questions[currentQuestionIndex];
+            const sentenceHtml = q.sentence.replace('_____', '<span class="blank">......</span>');
+            
+            let html = theoryHtml + `
+                <div class="question-header">
+                    <span class="question-tag">${topic.title}</span>
+                    <span class="question-counter">Вопрос ${currentQuestionIndex + 1} из ${topic.questions.length}</span>
+                </div>
+                <div class="question-text">Выберите правильное слово:</div>
+                <div class="context-sentence">${sentenceHtml}</div>
+                <div class="options-grid" id="optionsGrid">
+                    ${topic.words.map((word, i) => `
+                        <button class="option-btn" onclick="checkAnswer(${i})">${word.en.split('/')[0].trim()}</button>
+                    `).join('')}
+                </div>
+                <div class="explanation-box" id="explanationBox">
+                    ${q.explanation}
+                </div>
+                <button class="btn-next" id="btnNext" onclick="nextQuestion()">
+                    ${currentQuestionIndex + 1 === topic.questions.length ? 'Завершить тему' : 'Следующий вопрос'}
+                </button>
+            `;
+
+            mainContent.innerHTML = html;
+            mainContent.scrollTop = 0;
+        }
+
+        function checkAnswer(selectedIndex) {
+            const topic = quizData[currentTopicIndex];
+            const q = topic.questions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            buttons.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === q.correct) btn.classList.add('correct');
+                if (i === selectedIndex && i !== q.correct) btn.classList.add('wrong');
+            });
+
+            if (selectedIndex === q.correct) score++;
+
+            document.getElementById('explanationBox').classList.add('show');
+            document.getElementById('btnNext').classList.add('show');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            const topic = quizData[currentTopicIndex];
+            
+            if (currentQuestionIndex >= topic.questions.length) {
+                completedTopics.add(topic.id);
+                renderSidebar();
+                showTopicResults(topic);
+            } else {
+                loadTopic(currentTopicIndex);
+            }
+        }
+
+        function showTopicResults(topic) {
+            mainContent.innerHTML = `
+                <div class="results-screen">
+                    <div class="results-icon">✓</div>
+                    <div class="results-score">Тема завершена!</div>
+                    <p class="results-text">Вы успешно завершили тему «${topic.title}». Переходите к следующей теме или вернитесь к пройденным для повторения.</p>
+                    <button class="btn-next show" style="max-width: 300px; margin: 0 auto;" onclick="goToNextTopic()">
+                        ${currentTopicIndex + 1 < quizData.length ? 'Следующая тема' : 'В начало'}
+                    </button>
+                </div>
+            `;
+        }
+
+        function goToNextTopic() {
+            if (currentTopicIndex + 1 < quizData.length) {
+                currentTopicIndex++;
+                currentQuestionIndex = 0;
+                renderSidebar();
+                loadTopic(currentTopicIndex);
+            } else {
+                currentTopicIndex = 0;
+                currentQuestionIndex = 0;
+                renderSidebar();
+                loadTopic(0);
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
