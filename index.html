@@ -1,49 +1,21 @@
-// Скрипт массового обновления уровней сложности
-async function massUpdateDifficulty() {
-  console.log('🔄 Начинаю анализ и обновление тренажёров...');
+<section id="programs" class="page" role="region" aria-label="Программы и тренажёры">
+  <h2 class="section-title">Программы и тренажёры</h2>
+  <p class="section-subtitle">My teaching programs & interactive trainers</p>
   
-  // Динамически подгружаем нужные функции Firestore
-  const { collection, getDocs, doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
-  const db = window.db; // Берем уже подключенную базу из вашего сайта
-
-  // Ключевые слова для автоматического определения уровня (можете редактировать этот список)
-  const keywords = {
-    'beginner': ['beginner', 'начальный', '1 класс', '2 класс', 'spotlight 2', 'spotlight 3', 'a1'],
-    'elementary': ['elementary', '3 класс', '4 класс', 'spotlight 4', 'spotlight 5', 'a2'],
-    'pre-intermediate': ['pre-intermediate', '5 класс', '6 класс', 'spotlight 6', 'spotlight 7', 'b1'],
-    'intermediate': ['intermediate', '7 класс', '8 класс', 'spotlight 8', 'spotlight 9', '1001 questions', 'b1+'],
-    'upper-intermediate': ['upper-intermediate', '9 класс', '10 класс', 'spotlight 10', 'oge', 'огэ', 'b2'],
-    'advanced': ['advanced', '11 класс', 'егэ', 'ege', 'c1', 'c2']
-  };
-
-  const snap = await getDocs(collection(db, 'trainers'));
-  let updatedCount = 0;
-
-  for (const d of snap.docs) {
-    const data = d.data();
-    // Объединяем название и описание для поиска ключевых слов
-    const text = (data.title + ' ' + (data.description || '')).toLowerCase();
-    
-    let newDiff = data.difficulty || 'intermediate'; // Уровень по умолчанию, если не найдено
-    
-    // Ищем совпадения
-    for (const [level, words] of Object.entries(keywords)) {
-      if (words.some(w => text.includes(w))) {
-        newDiff = level;
-        break;
-      }
-    }
-
-    // Обновляем только если уровень изменился или его не было
-    if (data.difficulty !== newDiff) {
-      await updateDoc(doc(db, 'trainers', d.id), { difficulty: newDiff });
-      console.log(`✅ Обновлено: "${data.title}" → ${newDiff}`);
-      updatedCount++;
-    }
-  }
+  <!-- ДОБАВЬТЕ ЭТОТ БЛОК -->
+  <div style="max-width:1200px;margin:0 auto 30px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center">
+    <label style="color:var(--deep);font-weight:500">Сортировать по:</label>
+    <select id="sortSelect" style="padding:10px 20px;border-radius:25px;border:2px solid var(--lavender);background:#fff;color:var(--deep);font-family:inherit;cursor:pointer">
+      <option value="date-desc">Дате добавления (новые)</option>
+      <option value="date-asc">Дате добавления (старые)</option>
+      <option value="name-asc">Названию (А-Я)</option>
+      <option value="name-desc">Названию (Я-А)</option>
+      <option value="difficulty-asc">Сложности (легкие → сложные)</option>
+      <option value="difficulty-desc">Сложности (сложные → легкие)</option>
+      <option value="popularity-desc">Популярности (популярные)</option>
+    </select>
+  </div>
+  <!-- КОНЕЦ БЛОКА -->
   
-  console.log(`🎉 Готово! Успешно обновлено ${updatedCount} тренажёров. Перезагрузите страницу, чтобы увидеть изменения.`);
-}
-
-// Запуск функции
-massUpdateDifficulty();
+  <div id="programs-list" class="grid"><div class="loader"></div></div>
+</section>
