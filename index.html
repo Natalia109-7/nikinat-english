@@ -384,24 +384,15 @@
         
         el.innerHTML = html;
         
+        // ✅ Обработчик клика БЕЗ вызова incrementViews
         el.querySelectorAll('[data-trainer-file]').forEach(card => {
             card.addEventListener('click', function() {
-                incrementViews(this.dataset.trainerId);
                 window.open(this.dataset.trainerFile, '_blank');
             });
         });
     }).catch(err => {
         console.error('Ошибка загрузки программ:', err);
         el.innerHTML = '<div class="empty">Ошибка загрузки данных</div>';
-    });
-  }
-
-  function incrementViews(trainerId) {
-    if (!trainerId) return;
-    // Увеличиваем счетчик просмотров в фоне
-    import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js').then(({ doc, updateDoc, increment }) => {
-        const trainerRef = doc(db, 'trainers', trainerId);
-        updateDoc(trainerRef, { views: increment(1) }).catch(e => console.log('Не удалось обновить просмотры', e));
     });
   }
 
