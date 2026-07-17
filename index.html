@@ -124,6 +124,26 @@
   .empty{text-align:center;padding:60px 20px;color:var(--soft);font-style:italic}
   .loader::after{content:'';display:inline-block;width:24px;height:24px;border:3px solid var(--lavender);border-top-color:var(--deep);border-radius:50%;animation:spin 1s linear infinite;margin-left:10px}
   @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Стили для сортировки */
+  .sort-controls {
+    max-width: 1200px; margin: 0 auto 30px; display: flex; gap: 12px;
+    flex-wrap: wrap; align-items: center; justify-content: center;
+  }
+  .sort-select {
+    padding: 10px 20px; border-radius: 25px; border: 2px solid var(--lavender);
+    background: rgba(255,255,255,0.8); color: var(--deep); font-family: inherit;
+    cursor: pointer; font-size: 15px; backdrop-filter: blur(5px);
+    transition: all 0.3s ease; outline: none;
+  }
+  .sort-select:hover, .sort-select:focus { border-color: var(--soft); background: #fff; }
+  
+  .badge {
+    display: inline-block; padding: 4px 12px; border-radius: 15px;
+    font-size: 12px; margin-bottom: 8px; font-weight: 500; vertical-align: middle;
+  }
+  .badge-diff { background: var(--lavender); color: var(--deep); }
+  .badge-views { background: var(--peach); color: var(--deep); margin-left: 8px; }
   
   @media(max-width:768px){
     .hero{grid-template-columns:1fr;text-align:center;padding:0 20px}
@@ -135,6 +155,8 @@
     .contacts{padding:30px 20px}
     body{background:var(--cream)}
     .hero-img{max-width:300px;margin:0 auto}
+    .sort-controls { flex-direction: column; align-items: stretch; }
+    .sort-select { width: 100%; text-align: center; }
   }
 </style>
 </head>
@@ -197,6 +219,22 @@
 <section id="programs" class="page" role="region" aria-label="Программы и тренажёры">
   <h2 class="section-title">Программы и тренажёры</h2>
   <p class="section-subtitle">My teaching programs & interactive trainers</p>
+  
+  <!-- БЛОК СОРТИРОВКИ -->
+  <div class="sort-controls">
+    <label for="sortSelect" style="color:var(--deep);font-weight:500">Сортировать по:</label>
+    <select id="sortSelect" class="sort-select">
+      <option value="date-desc">Дате добавления (сначала новые)</option>
+      <option value="date-asc">Дате добавления (сначала старые)</option>
+      <option value="name-asc">Названию (А-Я)</option>
+      <option value="name-desc">Названию (Я-А)</option>
+      <option value="difficulty-asc">Сложности (от простого к сложному)</option>
+      <option value="difficulty-desc">Сложности (от сложного к простому)</option>
+      <option value="popularity-desc">Популярности (по просмотрам)</option>
+    </select>
+  </div>
+  <!-- КОНЕЦ БЛОКА СОРТИРОВКИ -->
+  
   <div id="programs-list" class="grid"><div class="loader"></div></div>
 </section>
 
@@ -237,7 +275,7 @@
 <p>© 2026 Наталья Николаева · English with love</p>
 </footer>
 
-<!-- МОДУЛЬНЫЙ FIREBASE - загружается АСИНХРОННО -->
+<!-- МОДУЛЬНЫЙ FIREBASE -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
   import { getFirestore, collection, query, orderBy, onSnapshot, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
@@ -257,113 +295,189 @@
   window.db = db;
   document.body.classList.add('loaded');
   
-  initFirebaseData();
-  
-  function initFirebaseData() {
-    renderPrograms();
-    loadArticles();
-    loadVideos();
-    loadGallery();
+  // Словари для сложности
+  const diffMap = {
+    'beginner': 1, 'elementary': 2, 'pre-intermediate': 3,
+    'intermediate': 4, 'upper-intermediate': 5, 'advanced': 6
+  };
+  const diffLabels = {
+    'beginner': '🌱 Beginner', 'elementary': '🌿 Elementary',
+    'pre-intermediate': '🌳 Pre-Intermediate', 'intermediate': '🌲 Intermediate',
+    'upper-intermediate': '🌴 Upper-Intermediate', 'advanced': '🌵 Advanced'
+  };
+
+  function getDifficultyLabel(diff) {
+    if (!diff) return '';
+    return diffLabels[diff.toLowerCase().trim()] || diff;
   }
 
-  function renderPrograms(){
-    const el = document.getElementById('programs-list');
-    if (!el) return;
-    Promise.all([
-        getDocs(query(collection(db, 'programs'), orderBy('createdAt','desc'))),
-        getDocs(query(collection(db, 'trainers'), orderBy('createdAt','desc')))
-    ]).then(([progSnap, trainSnap]) => {
-        const programs = progSnap.docs.map(d=>({id:d.id, ...d.data()}));
-        const trainers = trainSnap.docs.map(d=>({id:d.id, ...d.data()}));
-        if(!programs.length && !trainers.length){
-            el.innerHTML='<div class="empty">Программы и тренажёры скоро появятся</div>';
-            return;
-        }
-        let html = '';
-        programs.forEach((p,i)=>{
-            html += '<article class="card">' +
-                (p.imageUrl?'<img src="'+p.imageUrl+'" alt="'+p.title+'">':'') +
-                '<h3>'+p.title+'</h3>' +
-                '<p>'+(p.description||'').replace(/\n/g,'<br>')+'</p></article>';
-        });
-        trainers.forEach((t,i)=>{
-            html += '<article class="card" style="cursor:pointer" data-trainer-file="'+t.file+'" data-trainer-title="'+t.title+'">' +
-                '<div style="font-size:48px;text-align:center;margin-bottom:16px" aria-hidden="true">🎮</div>' +
-                '<h3>'+t.title+'</h3>' +
-                '<p>'+(t.description||'').replace(/\n/g,'<br>')+'</p>' +
-                '<button class="btn" style="margin-top:12px">Открыть тренажёр →</button></article>';
-        });
-        el.innerHTML = html;
-        el.querySelectorAll('[data-trainer-file]').forEach(card => {
-          card.addEventListener('click', function() {
-            window.open(this.dataset.trainerFile, '_blank');
-          });
-        });
-    }).catch(err=>{
-        console.error('Ошибка:', err);
-        el.innerHTML='<div class="empty">Ошибка загрузки</div>';
+  function sortItems(items, field, direction) {
+    return items.sort((a, b) => {
+      let valA = a[field] !== undefined ? a[field] : '';
+      let valB = b[field] !== undefined ? b[field] : '';
+      
+      if (field === 'title' || field === 'name') {
+        valA = String(valA).toLowerCase();
+        valB = String(valB).toLowerCase();
+      } else if (field === 'difficulty') {
+        valA = diffMap[String(valA).toLowerCase().trim()] || 0;
+        valB = diffMap[String(valB).toLowerCase().trim()] || 0;
+      } else if (field === 'createdAt') {
+        valA = valA?.toDate ? valA.toDate().getTime() : new Date(valA || 0).getTime();
+        valB = valB?.toDate ? valB.toDate().getTime() : new Date(valB || 0).getTime();
+      } else if (field === 'views' || field === 'popularity') {
+        valA = Number(valA) || 0;
+        valB = Number(valB) || 0;
+      }
+      
+      if (valA < valB) return direction === 'asc' ? -1 : 1;
+      if (valA > valB) return direction === 'asc' ? 1 : -1;
+      return 0;
     });
   }
 
-  function renderArticles(items){
-    const el = document.getElementById('articles-list');
+  function renderPrograms(sortBy = 'date-desc') {
+    const el = document.getElementById('programs-list');
     if (!el) return;
-    if(!items.length){ el.innerHTML='<div class="empty">Статьи скоро появятся</div>'; return; }
-    el.innerHTML = items.map((a,i)=>'<article class="card">' +
-        (a.imageUrl?'<img src="'+a.imageUrl+'" alt="'+a.title+'">':'') +
-        '<div class="date">'+(a.date||'')+'</div>' +
-        '<h3>'+a.title+'</h3>' +
-        '<p>'+(a.content||'').replace(/\n/g,'<br>')+'</p></article>').join('');
+    
+    const [field, direction] = sortBy.split('-');
+    const dbField = field === 'date' ? 'createdAt' : field;
+    
+    // Показываем лоадер при смене сортировки
+    el.innerHTML = '<div class="loader"></div>';
+
+    Promise.all([
+        getDocs(query(collection(db, 'programs'))),
+        getDocs(query(collection(db, 'trainers')))
+    ]).then(([progSnap, trainSnap]) => {
+        let programs = progSnap.docs.map(d => ({id: d.id, ...d.data()}));
+        let trainers = trainSnap.docs.map(d => ({id: d.id, ...d.data()}));
+        
+        // Сортируем массивы
+        programs = sortItems(programs, dbField, direction);
+        trainers = sortItems(trainers, dbField, direction);
+        
+        if (!programs.length && !trainers.length) {
+            el.innerHTML = '<div class="empty">Программы и тренажёры скоро появятся</div>';
+            return;
+        }
+        
+        let html = '';
+        
+        programs.forEach(p => {
+            html += '<article class="card">' +
+                (p.imageUrl ? '<img src="' + p.imageUrl + '" alt="' + p.title + '">' : '') +
+                '<h3>' + p.title + '</h3>' +
+                (p.difficulty ? '<span class="badge badge-diff">' + getDifficultyLabel(p.difficulty) + '</span>' : '') +
+                '<p>' + (p.description || '').replace(/\n/g, '<br>') + '</p></article>';
+        });
+        
+        trainers.forEach(t => {
+            html += '<article class="card" style="cursor:pointer" data-trainer-file="' + t.file + '" data-trainer-id="' + t.id + '">' +
+                '<div style="font-size:48px;text-align:center;margin-bottom:16px" aria-hidden="true">🎮</div>' +
+                '<h3>' + t.title + '</h3>' +
+                (t.difficulty ? '<span class="badge badge-diff">' + getDifficultyLabel(t.difficulty) + '</span>' : '') +
+                (t.views ? '<span class="badge badge-views">👁 ' + t.views + '</span>' : '') +
+                '<p>' + (t.description || '').replace(/\n/g, '<br>') + '</p>' +
+                '<button class="btn" style="margin-top:12px">Открыть тренажёр →</button></article>';
+        });
+        
+        el.innerHTML = html;
+        
+        el.querySelectorAll('[data-trainer-file]').forEach(card => {
+            card.addEventListener('click', function() {
+                incrementViews(this.dataset.trainerId);
+                window.open(this.dataset.trainerFile, '_blank');
+            });
+        });
+    }).catch(err => {
+        console.error('Ошибка загрузки программ:', err);
+        el.innerHTML = '<div class="empty">Ошибка загрузки данных</div>';
+    });
   }
 
-  function renderVideos(items){
+  function incrementViews(trainerId) {
+    if (!trainerId) return;
+    // Увеличиваем счетчик просмотров в фоне
+    import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js').then(({ doc, updateDoc, increment }) => {
+        const trainerRef = doc(db, 'trainers', trainerId);
+        updateDoc(trainerRef, { views: increment(1) }).catch(e => console.log('Не удалось обновить просмотры', e));
+    });
+  }
+
+  function renderArticles(items) {
+    const el = document.getElementById('articles-list');
+    if (!el) return;
+    if (!items.length) { el.innerHTML = '<div class="empty">Статьи скоро появятся</div>'; return; }
+    el.innerHTML = items.map(a => '<article class="card">' +
+        (a.imageUrl ? '<img src="' + a.imageUrl + '" alt="' + a.title + '">' : '') +
+        '<div style="font-size:13px;color:var(--soft);margin-bottom:8px">' + (a.date || '') + '</div>' +
+        '<h3>' + a.title + '</h3>' +
+        '<p>' + (a.content || '').replace(/\n/g, '<br>') + '</p></article>').join('');
+  }
+
+  function renderVideos(items) {
     const el = document.getElementById('videos-list');
     if (!el) return;
-    if(!items.length){ el.innerHTML='<div class="empty">Видео скоро появятся</div>'; return; }
-    el.innerHTML = items.map((v,i)=>{
-      const id = v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
-      const embed = id ? '<iframe src="https://www.youtube.com/embed/'+id[1]+'" allowfullscreen loading="lazy"></iframe>' : '';
-      return '<article class="video-card">' + embed + '<div class="info"><h3>'+v.title+'</h3><p>'+(v.description||'')+'</p></div></article>';
+    if (!items.length) { el.innerHTML = '<div class="empty">Видео скоро появятся</div>'; return; }
+    el.innerHTML = items.map(v => {
+      const id = v.url ? v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/) : null;
+      const embed = id ? '<iframe src="https://www.youtube.com/embed/' + id[1] + '" allowfullscreen loading="lazy"></iframe>' : '';
+      return '<article class="video-card">' + embed + '<div class="info"><h3>' + v.title + '</h3><p>' + (v.description || '') + '</p></div></article>';
     }).join('');
   }
 
-  function renderGallery(items){
+  function renderGallery(items) {
     const el = document.getElementById('gallery-list');
     if (!el) return;
-    if(!items.length){ el.innerHTML='<div class="empty">Фото скоро появятся</div>'; return; }
-    el.innerHTML = items.map((g,i)=>'<div class="gallery-item" onclick="openModal(\''+g.imageUrl+'\')" role="button" tabindex="0" aria-label="Открыть изображение: '+(g.caption||'')+'">' +
-        '<img src="'+g.imageUrl+'" alt="'+(g.caption||'')+'"></div>').join('');
+    if (!items.length) { el.innerHTML = '<div class="empty">Фото скоро появятся</div>'; return; }
+    el.innerHTML = items.map(g => '<div class="gallery-item" onclick="openModal(\'' + g.imageUrl + '\')" role="button" tabindex="0" aria-label="Открыть изображение">' +
+        '<img src="' + g.imageUrl + '" alt="' + (g.caption || '') + '"></div>').join('');
   }
 
-  function loadArticles(){
-    onSnapshot(query(collection(db, 'articles'), orderBy('createdAt','desc')), snap=>{
-      renderArticles(snap.docs.map(d=>({id:d.id, ...d.data()})));
-    }, err=>{
+  function loadArticles() {
+    onSnapshot(query(collection(db, 'articles'), orderBy('createdAt', 'desc')), snap => {
+      renderArticles(snap.docs.map(d => ({id: d.id, ...d.data()})));
+    }, err => {
       const el = document.getElementById('articles-list');
-      if (el) el.innerHTML='<div class="empty">Ошибка</div>';
+      if (el) el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
     });
   }
 
-  function loadVideos(){
-    onSnapshot(query(collection(db, 'videos'), orderBy('createdAt','desc')), snap=>{
-      renderVideos(snap.docs.map(d=>({id:d.id, ...d.data()})));
-    }, err=>{
+  function loadVideos() {
+    onSnapshot(query(collection(db, 'videos'), orderBy('createdAt', 'desc')), snap => {
+      renderVideos(snap.docs.map(d => ({id: d.id, ...d.data()})));
+    }, err => {
       const el = document.getElementById('videos-list');
-      if (el) el.innerHTML='<div class="empty">Ошибка</div>';
+      if (el) el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
     });
   }
 
-  function loadGallery(){
-    onSnapshot(query(collection(db, 'gallery'), orderBy('createdAt','desc')), snap=>{
-      renderGallery(snap.docs.map(d=>({id:d.id, ...d.data()})));
-    }, err=>{
+  function loadGallery() {
+    onSnapshot(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')), snap => {
+      renderGallery(snap.docs.map(d => ({id: d.id, ...d.data()})));
+    }, err => {
       const el = document.getElementById('gallery-list');
-      if (el) el.innerHTML='<div class="empty">Ошибка</div>';
+      if (el) el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
+    });
+  }
+
+  // Инициализация
+  renderPrograms('date-desc');
+  loadArticles();
+  loadVideos();
+  loadGallery();
+
+  // Обработчик смены сортировки
+  const sortSelect = document.getElementById('sortSelect');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      renderPrograms(e.target.value);
     });
   }
 </script>
 
-<!-- Навигация -->
+<!-- Навигация и модальные окна -->
 <script>
   function showPage(pageId) {
     document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
@@ -400,13 +514,13 @@
     if (e.target.id === 'imgModal') closeModal();
   });
 
-  function openModal(src){
+  function openModal(src) {
     const modal = document.getElementById('imgModal');
     const img = document.getElementById('modalImg');
     if (modal && img) { img.src = src; modal.classList.add('active'); }
   }
 
-  function closeModal(){
+  function closeModal() {
     const modal = document.getElementById('imgModal');
     if (modal) modal.classList.remove('active');
   }
