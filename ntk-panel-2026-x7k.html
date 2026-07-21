@@ -132,20 +132,22 @@
 
 </div>
 
-<!-- Firebase SDK - ЭТО САМОЕ ВАЖНОЕ! -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <script>
-   const firebaseConfig = {
-    apiKey: "AIzaSyD2Afq5twG43lEAYeCp09CG8ZUlHxE",
+  // ⚠️ ВНИМАНИЕ: Скопируйте этот блок ТОЧНО из Firebase Console (Project Settings -> General -> Your apps)
+  const firebaseConfig = {
+    apiKey: "AIzaSyD2aFq5trW543lEAYoCr09COG8ZUIjHIzE", 
     authDomain: "nikinat-english.firebaseapp.com",
     projectId: "nikinat-english",
-   storageBucket: "nikinat-english.appspot.com",
+    storageBucket: "nikinat-english.firebasestorage.app",
     messagingSenderId: "828094083136",
     appId: "1:828094083136:web:24ba3bddbe4f1ba719d7a5"
   };
+  
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();
