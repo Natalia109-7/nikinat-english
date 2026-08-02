@@ -703,11 +703,11 @@ body {
   <button onclick="setMode('practiceA')" id="btn-practiceA">✅ Practice A (True/False)</button>
   <button onclick="setMode('practiceB')" id="btn-practiceB">✏️ Practice B (Fill gaps)</button>
   <button onclick="setMode('randomTest')" id="btn-randomTest" class="special">🎲 Случайный тест</button>
-  <h2 style="margin-top:20px;">️ Tools</h2>
+  <h2 style="margin-top:20px;">🛠️ Tools</h2>
   <button onclick="exportProgress()">💾 Экспорт прогресса</button>
   <button onclick="document.getElementById('import-file').click()">📂 Импорт прогресса</button>
   <input type="file" id="import-file" accept=".json" style="display:none" onchange="importProgress(event)">
-  <button onclick="resetProgress()" style="background:linear-gradient(135deg, var(--danger), #b56870); color:white;">️ Сбросить прогресс</button>
+  <button onclick="resetProgress()" style="background:linear-gradient(135deg, var(--danger), #b56870); color:white;">🗑️ Сбросить прогресс</button>
   <div class="sidebar-info">
     💡 <strong>Картинки:</strong><br>
     Изображения загружаются из Cloudinary и отображаются в каждой карточке правил.
@@ -770,20 +770,19 @@ const DATA = {
     practiceB: {
       text: "I had decided to go into town (1) ___ car, hoping that it would be easy to find a free parking place. The streets were full of cars, even though there seemed to be (2) ___ people in the town centre, and so I had to go to a car park. I found the ticket machine, but it was out (3) ___ . I didn't want to leave the car without a ticket because York is full of bored traffic wardens, who (4) ___ all the cars to make sure that the owners have paid. I think it's probably easier to (5) ___ a bank than park your car without paying! I tried (find) (6) ___ a traffic warden so that I could explain my problem, but of course, you can never find one if you want to! I had very (7) ___ time, so in the end I decided to leave some money on top of the car and hope that no one would (8) ___ it. It was 2.00 p.m. by now, and I had arranged to meet my friend Alastair in an Indian restaurant at 1.45 p.m., so I hoped he hadn't arrived (9) ___ time. I tried (phone) (10) ___ the restaurant to let him know that I would be late. One of the (11) ___ who worked in the restaurant kitchen answered the phone, but he said he couldn't see anyone in the restaurant who looked like Alastair. When I got to the restaurant, Alastair wasn't there yet. I was standing next to two men, who were having an argument at the bar. One of them threw his drink (12) ___ the other and I thought they were going to start hitting (13) ___ , but the manager came over (14) ___ time to stop them. As the manager was throwing them out, I saw Alastair standing in the doorway, looking for me. I shouted (15) ___ him, and once the waiter had brought us our food and drinks, I finally began to relax.",
       answers: ["by", "few", "of order", "check", "rob", "to find", "little", "steal", "on", "phoning", "cooks", "at", "each other", "in", "to"]
-    }
-  },
+      },
   2: {
     theory: [
-      {w:"wish you would be taller", e:"would для изменений в поведении. Для неизменного (рост) = Past Simple (were).", c:"wish you were taller", emoji:"🚹", img1:"", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_815,w_975,x_1252,y_251/c_scale,h_350,w_350/page15_img1_qmyohw.png"},
-      {w:"stop to sleep", e:"stop to do = остановиться, чтобы сделать. stop doing = прекратить делать.", c:"stop sleeping", emoji:"💤", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_804,w_853,x_247,y_241/c_scale,h_350,w_350/page16_img1_u3s27n.png", img2:""},
-      {w:"I am very boring", e:"boring = вызывающий скуку. bored = чувствующий скуку.", c:"I am very bored", emoji:"😐", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_885,w_951,x_184,y_217/c_scale,h_350,w_350/page17_img1_dcbzwx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_899,w_983,x_1234,y_170/c_scale,h_350,w_350/page17_img1_dcbzwx.png"},
-      {w:"change the train", e:"change trains = делать пересадку (множ. число).", c:"change trains", emoji:"🔄", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_769,w_826,x_252,y_280/c_scale,h_350,w_350/page18_img1_lnufa5.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_848,w_1051,x_1262,y_243/c_scale,h_350,w_350/page18_img1_lnufa5.png"},
-      {w:"so that", e:"so that = чтобы (цель). so = поэтому (результат).", c:"so", emoji:"☔🌧️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_851,w_932,x_185,y_268/c_scale,h_350,w_350/page20_img1_xzqhlo.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_865,w_1009,x_1239,y_233/c_scale,h_350,w_350/page19_img1_ajzqsq.png"},
-      {w:"grown up", e:"grow up = взрослеть. grow = расти (о растениях/размере).", c:"grown", emoji:"", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_751,w_894,x_214,y_337/c_scale,h_350,w_350/page21_img1_zw6erk.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_889,w_1001,x_1246,y_224/c_scale,h_350,w_350/page21_img1_zw6erk.png"},
-      {w:"educate their children", e:"educate = давать академические знания (школа). bring up = воспитывать.", c:"bring up", emoji:"👨‍👦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_764,w_958,x_195,y_340/c_scale,h_350,w_350/page22_img1_glamik.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_843,w_985,x_1245,y_239/c_scale,h_350,w_350/page22_img1_glamik.png"},
-      {w:"careless", e:"careless = неосторожный. carefree = беззаботный.", c:"carefree", emoji:"☁️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_916,w_967,x_177,y_192/c_scale,h_350,w_350/page23_img1_wedknn.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_923,w_1021,x_1226,y_192/c_scale,h_350,w_350/page23_img1_wedknn.png"},
-      {w:"on the platform", e:"on the platform = на платформе (жд). at the platform = прибыть к платформе.", c:"at the platform", emoji:"🚆", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_776,w_955,x_176,y_324/c_auto,h_350,w_350/page24_img1_e5mkvm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_894,w_1011,x_1257,y_177/c_auto,h_350,w_350/page24_img1_e5mkvm.png"},
-      {w:"died with pneumonia", e:"die of = от внутренней болезни. die from = от внешней причины (травма).", c:"died of pneumonia", emoji:"🕊️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_799,w_1006,x_83,y_244/c_scale,h_350,w_350/page25_img1_yjstmm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_858,w_988,x_1275,y_241/c_scale,h_350,w_350/page20_img1_xzqhlo.png"}
+      {w:"wish you would be taller", e:"would для изменений в поведении. Для неизменного (рост) = Past Simple (were).", c:"wish you were taller", emoji:"📏🚹", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_815,w_975,x_1252,y_251/c_scale,h_350,w_350/page15_img1_qmyohw.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_804,w_853,x_247,y_241/c_scale,h_350,w_350/page16_img1_u3s27n.png"},
+      {w:"stop to sleep", e:"stop to do = остановиться, чтобы сделать. stop doing = прекратить делать.", c:"stop sleeping", emoji:"💤", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_924,w_1007,x_1247,y_189/c_scale,h_350,w_350/page16_img1_u3s27n.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_885,w_951,x_184,y_217/c_scale,h_350,w_350/page17_img1_dcbzwx.png"},
+      {w:"I am very boring", e:"boring = вызывающий скуку. bored = чувствующий скуку.", c:"I am very bored", emoji:"😐", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_899,w_983,x_1234,y_170/c_scale,h_350,w_350/page17_img1_dcbzwx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_769,w_826,x_252,y_280/c_scale,h_350,w_350/page18_img1_lnufa5.png"},
+      {w:"change the train", e:"change trains = делать пересадку (множ. число).", c:"change trains", emoji:"🔄", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_848,w_1051,x_1262,y_243/c_scale,h_350,w_350/page18_img1_lnufa5.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_806,w_1055,x_102,y_291/c_scale,h_350,w_350/page19_img1_ajzqsq.png"},
+      {w:"so that", e:"so that = чтобы (цель). so = поэтому (результат).", c:"so", emoji:"☔🌧️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_865,w_1009,x_1239,y_233/c_scale,h_350,w_350/page19_img1_ajzqsq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_851,w_932,x_185,y_268/c_scale,h_350,w_350/page20_img1_xzqhlo.png"},
+      {w:"grown up", e:"grow up = взрослеть. grow = расти (о растениях/размере).", c:"grown", emoji:"🌱", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_858,w_988,x_1275,y_241/c_scale,h_350,w_350/page20_img1_xzqhlo.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_751,w_894,x_214,y_337/c_scale,h_350,w_350/page21_img1_zw6erk.png"},
+      {w:"educate their children", e:"educate = давать академические знания (школа). bring up = воспитывать.", c:"bring up", emoji:"👨‍👦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_889,w_1001,x_1246,y_224/c_scale,h_350,w_350/page21_img1_zw6erk.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_764,w_958,x_195,y_340/c_scale,h_350,w_350/page22_img1_glamik.png"},
+      {w:"careless", e:"careless = неосторожный. carefree = беззаботный.", c:"carefree", emoji:"☁️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_843,w_985,x_1245,y_239/c_scale,h_350,w_350/page22_img1_glamik.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_916,w_967,x_177,y_192/c_scale,h_350,w_350/page23_img1_wedknn.png"},
+      {w:"on the platform", e:"on the platform = на платформе (жд). at the platform = прибыть к платформе.", c:"at the platform", emoji:"🚆", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_923,w_1021,x_1226,y_192/c_scale,h_350,w_350/page23_img1_wedknn.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_776,w_955,x_176,y_324/c_auto,h_350,w_350/page24_img1_e5mkvm.png"},
+      {w:"died with pneumonia", e:"die of = от внутренней болезни. die from = от внешней причины (травма).", c:"died of pneumonia", emoji:"🤒🕊️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_894,w_1011,x_1257,y_177/c_auto,h_350,w_350/page24_img1_e5mkvm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_799,w_1006,x_83,y_244/c_scale,h_350,w_350/page25_img1_yjstmm.png"}
     ],
     practiceA: [
       {s:"Dan wishes Joanna would spend less time in the bathroom.", ans:true, fix:"", ref:"p.23"},
@@ -819,16 +818,16 @@ const DATA = {
   },
   3: {
     theory: [
-      {w:"been smoking thirty", e:"Present Perfect Continuous для процесса. Для результата (30 сигарет) = Present Perfect Simple.", c:"smoked thirty", emoji:"🚬🔢", img1:"", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_874,w_993,x_1236,y_254/c_auto,h_350,w_350/page37_img1_cl9vdu.png"},
-      {w:"After putting... my husband", e:"Если subjekty разные, нельзя использовать -ing после after. Нужно: After I put...", c:"After I put", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_842,w_973,x_167,y_295/c_auto,h_350,w_350/page38_img1_m4zcmi.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_864,w_933,x_1272,y_213/c_scale,h_350,w_350/page38_img1_m4zcmi.png"},
-      {w:"paid the car", e:"pay someone / pay FOR something.", c:"paid for the car", emoji:"", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_820,w_897,x_218,y_309/c_scale,h_350,w_350/page39_img1_iacmej.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_992,w_1044,x_1223,y_142/c_auto,h_350,w_350/page39_img1_iacmej.png"},
-      {w:"beautiful hairs", e:"hair на голове = неисчисляемое. hairs = отдельные волосинки (в супе).", c:"beautiful hair", emoji:"✨", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_802,w_980,x_183,y_334/c_scale,h_350,w_350/page40_img1_rjoitv.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_918,w_967,x_1255,y_218/c_auto,h_350,w_350/page40_img1_rjoitv.png"},
-      {w:"a paper", e:"paper = бумага (неисч.) или газета. Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_815,w_930,x_191,y_312/c_auto,h_350,w_350/page41_img1_md89mh.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_901,w_1016,x_1252,y_206/c_scale,h_350,w_350/page41_img1_md89mh.png"},
-      {w:"matches you", e:"match = подходить по цвету/стилю к ДРУГОЙ вещи. suit = идти к ЧЕЛОВЕКУ.", c:"suits you", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_903,w_935,x_189,y_224/c_scale,h_350,w_350/page42_img1_qvsyc7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_891,w_1006,x_1233,y_217/c_scale,h_350,w_350/page42_img1_qvsyc7.png"},
-      {w:"make a picture", e:"make = создавать. Фотографировать = take a picture.", c:"take a picture", emoji:"🖼️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_938,x_223,y_232/c_auto,h_350,w_350/page43_img1_okcsxa.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_811,w_997,x_1258,y_278/c_auto,h_350,w_350/page43_img1_okcsxa.png"},
-      {w:"borrow the money", e:"borrow = брать взаймы (к себе). lend = давать взаймы (от себя).", c:"lend the money", emoji:"🏦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_906,x_241,y_239/c_auto,h_350,w_350/page44_img1_sostqx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_872,w_979,x_1238,y_244/c_auto,h_350,w_350/page44_img1_sostqx.png"},
-      {w:"married with", e:"get married TO someone.", c:"married to", emoji:"💍", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_833,w_963,x_160,y_310/c_scale,h_350,w_350/page45_img1_dthptp.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_890,w_995,x_1232,y_224/c_scale,h_350,w_350/page45_img1_dthptp.png"},
-      {w:"good in Italian", e:"good AT = хорош в навыке/предмете. good IN = хорош в классе/месте.", c:"good at", emoji:"", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_778,w_916,x_220,y_339/c_scale,h_350,w_350/page46_img1_qkbyeg.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_918,w_965,x_1286,y_224/c_auto,h_350,w_350/page46_img1_qkbyeg.png"}
+      {w:"been smoking thirty", e:"Present Perfect Continuous для процесса. Для результата (30 сигарет) = Present Perfect Simple.", c:"smoked thirty", emoji:"🚬🔢", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_865,w_961,x_1285,y_210/c_scale,h_350,w_350/page26_img1_bjhdqq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_881,w_948,x_151,y_241/c_scale,h_350,w_350/page27_img1_uzw3fx.png"},
+      {w:"After putting... my husband", e:"Если subjekty разные, нельзя использовать -ing после after. Нужно: After I put...", c:"After I put", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_869,w_1011,x_1227,y_219/c_scale,h_350,w_350/page27_img1_uzw3fx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_888,w_966,x_146,y_233/c_scale,h_350,w_350/page28_img1_etacd5.png"},
+      {w:"paid the car", e:"pay someone / pay FOR something.", c:"paid for the car", emoji:"💸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_878,w_991,x_1243,y_226/c_scale,h_350,w_350/page28_img1_etacd5.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_834,w_969,x_172,y_285/c_scale,h_350,w_350/page29_img1_pk44es.png"},
+      {w:"beautiful hairs", e:"hair на голове = неисчисляемое. hairs = отдельные волосинки (в супе).", c:"beautiful hair", emoji:"✨", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_859,w_986,x_1259,y_241/c_auto,h_350,w_350/page29_img1_pk44es.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_787,w_932,x_174,y_289/c_auto,h_350,w_350/page30_img1_un9shr.png"},
+      {w:"a paper", e:"paper = бумага (неисч.) или газета. Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_917,w_1006,x_1238,y_233/c_auto,h_350,w_350/page30_img1_un9shr.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_768,w_941,x_223,y_332/c_auto,h_350,w_350/page31_img1_nxd6mq.png"},
+      {w:"matches you", e:"match = подходить по цвету/стилю к ДРУГОЙ вещи. suit = идти к ЧЕЛОВЕКУ.", c:"suits you", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_844,w_965,x_1264,y_221/c_scale,h_350,w_400/page31_img1_nxd6mq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_772,w_890,x_240,y_313/c_auto,h_350,w_350/page32_img1_evyodn.png"},
+      {w:"make a picture", e:"make = создавать. Фотографировать = take a picture.", c:"take a picture", emoji:"📸🖼️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_898,w_977,x_1273,y_224/c_scale,h_350,w_350/page32_img1_evyodn.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_813,w_891,x_225,y_302/c_auto,h_350,w_350/page33_img1_zdqy2p.png"},
+      {w:"borrow the money", e:"borrow = брать взаймы (к себе). lend = давать взаймы (от себя).", c:"lend the money", emoji:"🏦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_891,w_1006,x_1254,y_214/c_auto,h_350,w_350/page33_img1_zdqy2p.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_808,w_967,x_196,y_302/c_auto,h_350,w_350/page34_img1_yemgw5.png"},
+      {w:"married with", e:"get married TO someone.", c:"married to", emoji:"💍", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_881,w_962,x_1235,y_209/c_auto,h_350,w_350/page34_img1_yemgw5.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_771,w_982,x_161,y_319/c_auto,h_350,w_350/page35_img1_j3k5ln.png"},
+      {w:"good in Italian", e:"good AT = хорош в навыке/предмете. good IN = хорош в классе/месте.", c:"good at", emoji:"🍝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_911,w_938,x_1254,y_211/c_auto,h_350,w_350/page35_img1_j3k5ln.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_783,w_927,x_206,y_327/c_auto,h_350,w_350/page36_img1_qrkns5.png"}
     ],
     practiceA: [
       {s:"Madge has been cleaning thirty windows today.", ans:false, fix:"has cleaned", ref:"p.45"},
@@ -864,16 +863,61 @@ const DATA = {
   },
   4: {
     theory: [
-      {w:"cut my hair", e:"have something done = делать что-то в салоне (have my hair cut).", c:"have my hair cut", emoji:"‍♀️", img1:"", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_897,w_1101,x_77,y_292/c_scale,h_350,w_350/page47_img1_vlcq07.png"},
-      {w:"played tennis when", e:"Длительное действие прерывается кратким: were playing ... when it started.", c:"were playing tennis", emoji:"🎾️", img1:"", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_928,w_986,x_1262,y_199/c_scale,h_350,w_350/page48_img1_k0vjjj.png"},
-      {w:"In case the weather gets", e:"in case = на случай (подготовка). if = условие.", c:"If the weather gets", emoji:"🧥❄️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_807,w_876,x_232,y_328/c_scale,h_350,w_350/page49_img1_q3rplm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_832,w_993,x_1244,y_233/c_scale,h_350,w_350/page49_img1_q3rplm.png"},
-      {w:"go to prison", e:"go to prison = как заключенный. go to THE prison = как посетитель.", c:"go to the prison", emoji:"👮♂️🔒", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_776,w_897,x_219,y_380/c_auto,h_350,w_350/page50_img1_hmhrld.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_835,w_990,x_1294,y_309/c_auto,h_350,w_350/page50_img1_hmhrld.png"},
-      {w:"few friends", e:"few = мало (негатив). a few = несколько (позитив).", c:"a few friends", emoji:"🎉", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_833,w_979,x_190,y_295/c_scale,h_350,w_350/page51_img1_mcdkob.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_783,w_916,x_1326,y_317/c_auto,h_350,w_350/page51_img1_mcdkob.png"},
-      {w:"laying on the sofa", e:"lay = класть (с объектом). lie = лежать (без объекта).", c:"lying on the sofa", emoji:"🛋️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_739,w_912,x_253,y_376/c_scale,h_350,w_350/page52_img1_lyjgsa.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_890,w_959,x_1258,y_240/c_scale,h_350,w_350/page52_img1_lyjgsa.png"},
-      {w:"says the truth", e:"tell the truth (устойчивое выражение).", c:"tells the truth", emoji:"🤐", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1120,x_97,y_227/c_scale,h_350,w_350/page53_img1_z3xlc7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1046,x_1270,y_234/c_scale,h_350,w_350/page53_img1_z3xlc7.png"},
-      {w:"At last, I will end", e:"at last = наконец-то (после долгого ожидания). finally = последним пунктом.", c:"Finally", emoji:"🏁", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_876,w_1045,x_130,y_249/c_scale,h_350,w_350/page54_img1_gw7hds.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_856,w_1060,x_1230,y_244/c_scale,h_350,w_350/page54_img1_gw7hds.png"},
-      {w:"look for his plants", e:"look for = искать (потерянное). look after = присматривать/ухаживать.", c:"look after", emoji:"🌿", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_735,w_927,x_213,y_379/c_scale,h_350,w_350/page55_img1_eslddr.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1008,x_1259,y_220/c_scale,h_350,w_350/page55_img1_eslddr.png"},
-      {w:"backside", e:"backside = неформ. 'пятая точка'. Обратная сторона фото = back.", c:"back", emoji:"📸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_816,w_853,x_226,y_313/c_scale,h_350,w_350/page56_img1_jp0jis.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_873,w_963,x_1289,y_227/c_scale,h_350,w_350/page56_img1_jp0jis.png"}
+      {w:"been smoking thirty", e:"Present Perfect Continuous для процесса. Для результата (30 сигарет) = Present Perfect Simple.", c:"smoked thirty", emoji:"🚬", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_874,w_993,x_1236,y_254/c_auto,h_350,w_350/page37_img1_cl9vdu.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_842,w_973,x_167,y_295/c_auto,h_350,w_350/page38_img1_m4zcmi.png"},
+      {w:"After putting... my husband", e:"Если subjekty разные, нельзя использовать -ing после after. Нужно: After I put...", c:"After I put", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_864,w_933,x_1272,y_213/c_scale,h_350,w_350/page38_img1_m4zcmi.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_820,w_897,x_218,y_309/c_scale,h_350,w_350/page39_img1_iacmej.png"},
+      {w:"paid the car", e:"pay someone / pay FOR something.", c:"paid for the car", emoji:"💸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_992,w_1044,x_1223,y_142/c_auto,h_350,w_350/page39_img1_iacmej.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_802,w_980,x_183,y_334/c_scale,h_350,w_350/page40_img1_rjoitv.png"},
+      {w:"beautiful hairs", e:"hair на голове = неисчисляемое. hairs = отдельные волосинки (в супе).", c:"beautiful hair", emoji:"✨", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_918,w_967,x_1255,y_218/c_auto,h_350,w_350/page40_img1_rjoitv.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_815,w_930,x_191,y_312/c_auto,h_350,w_350/page41_img1_md89mh.png"},
+      {w:"a paper", e:"paper = бумага (неисч.) или газета. Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📄", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_901,w_1016,x_1252,y_206/c_scale,h_350,w_350/page41_img1_md89mh.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_903,w_935,x_189,y_224/c_scale,h_350,w_350/page42_img1_qvsyc7.png"},
+      {w:"matches you", e:"match = подходить по цвету/стилю к ДРУГОЙ вещи. suit = идти к ЧЕЛОВЕКУ.", c:"suits you", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_891,w_1006,x_1233,y_217/c_scale,h_350,w_350/page42_img1_qvsyc7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_938,x_223,y_232/c_auto,h_350,w_350/page43_img1_okcsxa.png"},
+      {w:"make a picture", e:"make = создавать. Фотографировать = take a picture.", c:"take a picture", emoji:"📸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_811,w_997,x_1258,y_278/c_auto,h_350,w_350/page43_img1_okcsxa.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_906,x_241,y_239/c_auto,h_350,w_350/page44_img1_sostqx.png"},
+      {w:"borrow the money", e:"borrow = брать взаймы (к себе). lend = давать взаймы (от себя).", c:"lend the money", emoji:"🏦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_872,w_979,x_1238,y_244/c_auto,h_350,w_350/page44_img1_sostqx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_833,w_963,x_160,y_310/c_scale,h_350,w_350/page45_img1_dthptp.png"},
+      {w:"married with", e:"get married TO someone.", c:"married to", emoji:"💍", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_890,w_995,x_1232,y_224/c_scale,h_350,w_350/page45_img1_dthptp.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_778,w_916,x_220,y_339/c_scale,h_350,w_350/page46_img1_qkbyeg.png"},
+      {w:"good in Italian", e:"good AT = хорош в навыке/предмете. good IN = хорош в классе/месте.", c:"good at", emoji:"🍝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_918,w_965,x_1286,y_224/c_auto,h_350,w_350/page46_img1_qkbyeg.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_897,w_1101,x_77,y_292/c_scale,h_350,w_350/page47_img1_vlcq07.png"}
+    ],
+    practiceA: [
+      {s:"Madge has been cleaning thirty windows today.", ans:false, fix:"has cleaned", ref:"p.45"},
+      {s:"The police have been watching those three men for two hours.", ans:true, fix:"", ref:"p.45"},
+      {s:"Tony has been playing the cello for four hours.", ans:true, fix:"", ref:"p.45"},
+      {s:"Diana has played three piano sonatas by Beethoven this evening.", ans:true, fix:"", ref:"p.46"},
+      {s:"After spending three hours working in the garden, Olwyn went shopping.", ans:true, fix:"", ref:"p.47"},
+      {s:"After cooking a meal with fish in it, my cat Jemima likes licking the plates.", ans:false, fix:"After I cook", ref:"p.47"},
+      {s:"After reading a lot of English books, my English became much better.", ans:false, fix:"After I read/I had read", ref:"p.47"},
+      {s:"Before we left, Penny went to pay the hotel room.", ans:false, fix:"pay for the hotel room", ref:"p.49"},
+      {s:"When he comes, can you pay the waiter?", ans:true, fix:"", ref:"p.49"},
+      {s:"Your grandfather's very old, but he has a beautiful hair.", ans:false, fix:"has beautiful hair", ref:"p.52"},
+      {s:"Wanda changes the colour of her hairs every month.", ans:false, fix:"her hair", ref:"p.52"},
+      {s:"Can you give me a paper to write Maggie's telephone number on?", ans:false, fix:"a piece of paper/some paper", ref:"p.54"},
+      {s:"I don't read much in the week, but I often buy a paper on Sunday.", ans:true, fix:"", ref:"p.53"},
+      {s:"That red skirt really suits your shoes Pat.", ans:false, fix:"matches your shoes", ref:"p.55"},
+      {s:"The new carpet in the living room doesn't match the walls.", ans:true, fix:"", ref:"p.55"},
+      {s:"It's so easy to make pictures with some of the new Japanese cameras.", ans:false, fix:"take pictures", ref:"p.58"},
+      {s:"Would you like Mark to take a picture of you?", ans:true, fix:"", ref:"p.58"},
+      {s:"Jack's just going down to the library to lend some books.", ans:false, fix:"to borrow", ref:"p.59"},
+      {s:"Do you think you could borrow me your bicycle for the afternoon?", ans:false, fix:"lend me", ref:"p.60"},
+      {s:"I can't play you my favourite cassette because Ege has borrowed it.", ans:true, fix:"", ref:"p.59"},
+      {s:"Honor got married with two of her friends.", ans:true, fix:"", ref:"p.61"},
+      {s:"Maria was engaged with Jimmy for six months before they got married.", ans:false, fix:"engaged to", ref:"p.62"},
+      {s:"I didn't know that Paul was married with Holly. I thought they were just good friends.", ans:false, fix:"married to", ref:"p.62"},
+      {s:"Saraita's class are very good in prepositions.", ans:false, fix:"good at", ref:"p.64"},
+      {s:"Anthony is very clever at inventing new games.", ans:true, fix:"", ref:"p.64"}
+    ],
+    practiceB: {
+      text: "'I'm so tired!' said Mrs Airey, 'I've (make) (1) ___ eleven phone calls this morning.' Mrs Airey was busy preparing for her daughter's wedding. Her daughter, Sue, was getting married (2) ___ a Frenchman, but the wedding was going to be typically English, in a small village church. Mrs Airey had (worry) (3) ___ all morning - first about the weather. She had heard the weather forecast on the radio and they said it might rain later. Then she had to go to the hairdresser's at 11.00 a.m. to have her (4) ___ done. After (5) ___ to the hairdresser's, she went round to her neighbour's to (6) ___ a umbrella, because she'd lost hers the week before. At 12.00 a.m. she started to get ready. She put on her new green dress and a pair of green shoes that (7) ___ it perfectly. She looked very smart, and everyone agreed that green (8) ___ her. After (put on) (9) ___ her make-up, Mr Airey arrived. He'd been organizing all the arrangements for getting to the church. 'Have you got the money to (10) ___ the taxis?' Mrs Airey asked him. 'Oh no! I forgot! It's OK, your brother Martin always has lots of cash. He'll (11) ___ me the money and I can (12) ___ him back on Monday.' 'You're not very good (13) ___ remembering things, are you? Did you phone the restaurant to make sure they've got an extra table?' 'No. I didn't forget, but I wrote the phone number on (14) ___ paper and I've lost it.' 'Don't worry,' said Mrs Airey, noticing how tired he looked. 'I hope you'll be able to smile later, or no one will want to (15) ___ a picture of you.'",
+      answers: ["made", "to", "been worrying", "hair", "going/having been", "borrow", "matched", "suited", "she put on/she'd put on", "pay for", "lend", "pay", "at", "a piece of", "take"]
+    }
+  },
+  5: {
+    theory: [
+      {w:"cut my hair", e:"have something done = делать что-то в салоне (have my hair cut).", c:"have my hair cut", emoji:"💇‍♀️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_928,w_986,x_1262,y_199/c_scale,h_350,w_350/page48_img1_k0vjjj.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_807,w_876,x_232,y_328/c_scale,h_350,w_350/page49_img1_q3rplm.png"},
+      {w:"played tennis when", e:"Длительное действие прерывается кратким: were playing ... when it started.", c:"were playing tennis", emoji:"🎾⏱️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_832,w_993,x_1244,y_233/c_scale,h_350,w_350/page49_img1_q3rplm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_776,w_897,x_219,y_380/c_auto,h_350,w_350/page50_img1_hmhrld.png"},
+      {w:"In case the weather gets", e:"in case = на случай (подготовка). if = условие.", c:"If the weather gets", emoji:"🧥❄️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_835,w_990,x_1294,y_309/c_auto,h_350,w_350/page50_img1_hmhrld.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_833,w_979,x_190,y_295/c_scale,h_350,w_350/page51_img1_mcdkob.png"},
+      {w:"go to prison", e:"go to prison = как заключенный. go to THE prison = как посетитель.", c:"go to the prison", emoji:"👮‍♂️🔒", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_783,w_916,x_1326,y_317/c_auto,h_350,w_350/page51_img1_mcdkob.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_739,w_912,x_253,y_376/c_scale,h_350,w_350/page52_img1_lyjgsa.png"},
+      {w:"few friends", e:"few = мало (негатив). a few = несколько (позитив).", c:"a few friends", emoji:"🎉", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_890,w_959,x_1258,y_240/c_scale,h_350,w_350/page52_img1_lyjgsa.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1120,x_97,y_227/c_scale,h_350,w_350/page53_img1_z3xlc7.png"},
+      {w:"laying on the sofa", e:"lay = класть (с объектом). lie = лежать (без объекта).", c:"lying on the sofa", emoji:"🛋️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1046,x_1270,y_234/c_scale,h_350,w_350/page53_img1_z3xlc7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_876,w_1045,x_130,y_249/c_scale,h_350,w_350/page54_img1_gw7hds.png"},
+      {w:"says the truth", e:"tell the truth (устойчивое выражение).", c:"tells the truth", emoji:"🤐", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_856,w_1060,x_1230,y_244/c_scale,h_350,w_350/page54_img1_gw7hds.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_735,w_927,x_213,y_379/c_scale,h_350,w_350/page55_img1_eslddr.png"},
+      {w:"At last, I will end", e:"at last = наконец-то (после долгого ожидания). finally = последним пунктом.", c:"Finally", emoji:"🏁", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1008,x_1259,y_220/c_scale,h_350,w_350/page55_img1_eslddr.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_816,w_853,x_226,y_313/c_scale,h_350,w_350/page56_img1_jp0jis.png"},
+      {w:"look for his plants", e:"look for = искать (потерянное). look after = присматривать/ухаживать.", c:"look after", emoji:"🌿", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_873,w_963,x_1289,y_227/c_scale,h_350,w_350/page56_img1_jp0jis.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_765,w_923,x_205,y_330/c_scale,h_350,w_350/page57_img1_mtpcrq.png"},
+      {w:"backside", e:"backside = неформ. 'пятая точка'. Обратная сторона фото = back.", c:"back", emoji:"📸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_960,w_1009,x_1212,y_186/c_scale,h_350,w_350/page57_img1_mtpcrq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_859,w_819,x_276,y_281/c_scale,h_350,w_350/page58_img1_oicmrb.png"}
     ],
     practiceA: [
       {s:"Satoko is going to the hairdresser's this afternoon to cut her hair.", ans:false, fix:"to have her hair cut", ref:"p.68"},
@@ -905,51 +949,6 @@ const DATA = {
     practiceB: {
       text: "Phillip Marlowe (sleep) (1) ___ when the telephone (ring) (2) ___ . 'Hello, is that Phillip Marlowe, private detective?' a voice asked. 'I wish it wasn't,' he replied. 'But to (3) ___ the truth, it is.' There were (4) ___ times when he didn't want offers of work, but this was one of them. 'I wonder if you can help me. Are you busy at the moment?' 'I'm (5) ___ in bed at the moment,' Marlowe said. 'In two hours I'm going to the hairdresser's to (6) ___ , but for the rest of the year I'm not busy.' 'Good. Let me introduce myself. I'm Dirk Phillips, and I'm afraid I've got (7) ___ problems.' 'What are your problems - apart from having a name like Dirk?' 'Well, a friend of mine who sells unusual pets is away on holiday, and she asked me to look (8) ___ her collection of snakes. Unfortunately one of them has escaped. I think I should find it as soon as possible (9) ___ it bites someone.' 'And why are you asking me to help?' Marlowe asked. 'Because I've tried everyone else. I (call) (10) ___ the police when I noticed it was missing, but they wouldn't be able to find an elephant. I've tried the zoo. I even went (11) ___ university to ask someone in the Zoology department to help, but no luck. (12) ___ I decided to try you.' 'Well, I never went (13) ___ university - I left school when I was five. But you want me to look (14) ___ your snake. How do you expect me to find it?' 'I don't know. You're the detective. I'll send you a photograph of the snake and I'll write my address and phone number on the (15) ___ . Give me a call when you find it. Goodbye.'",
       answers: ["was sleeping", "rang", "tell", "few", "lying", "have my hair cut", "a few", "after", "in case", "called", "to the", "Finally", "to", "for", "back"]
-    }
-  },
-  5: {
-    theory: [
-      {w:"suggested going", e:"suggest + -ing (для всех). suggest + that + subject + verb (без s).", c:"suggested she go", emoji:"🗣️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_765,w_923,x_205,y_330/c_scale,h_350,w_350/page57_img1_mtpcrq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_960,w_1009,x_1212,y_186/c_scale,h_350,w_350/page57_img1_mtpcrq.png"},
-      {w:"coming from Colombia", e:"coming = в процессе пути. comes from = родился/происходит.", c:"comes from", emoji:"🇨🇴", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_859,w_819,x_276,y_281/c_scale,h_350,w_350/page58_img1_oicmrb.png", img2:""},
-      {w:"searching the boy", e:"search someone = обыскивать человека. search FOR = искать.", c:"searching for", emoji:"🔦🐕", img1:"", img2:""},
-      {w:"a toast", e:"toast (напиток) = неисч. a piece of toast (еда).", c:"toast", emoji:"🥂", img1:"", img2:""},
-      {w:"in the bed", e:"in bed = спать/болеть. in THE bed = физически на конкретной кровати.", c:"in bed", emoji:"🛌💤", img1:"", img2:""},
-      {w:"wounded", e:"wounded = от оружия (война/драка). injured = в аварии/несчастном случае.", c:"injured", emoji:"🚑", img1:"", img2:""},
-      {w:"won Liverpool", e:"win = выиграть ПРИЗ/СОРЕВНОВАНИЕ. beat = победить КОМАНДУ/ЧЕЛОВЕКА.", c:"beat Liverpool", emoji:"⚽", img1:"", img2:""},
-      {w:"discovered", e:"discover = найти то, что уже есть. invent = изобрести новое.", c:"invented", emoji:"💡", img1:"", img2:""},
-      {w:"killed by a knife", e:"by = кем/чем (субъект). with = с помощью инструмента.", c:"killed with a knife", emoji:"🔪🩸", img1:"", img2:""},
-      {w:"reminded me of them", e:"remind of = вызывать воспоминание (сходство). remind about = напомнить о деле.", c:"reminded me about", emoji:"", img1:"", img2:""}
-    ],
-    practiceA: [
-      {s:"'I suggest going by train,' the travel agent said to Sarah.", ans:false, fix:"I suggest you go", ref:"p.90"},
-      {s:"It was so hot that our teacher suggested having a lesson in the garden.", ans:true, fix:"", ref:"p.89"},
-      {s:"'I suggest getting off at the next stop and walking to the station,' the bus driver said.", ans:false, fix:"I suggest you get off", ref:"p.90"},
-      {s:"Can I introduce you to my friend Huang-Mei. She's coming from Taiwan.", ans:false, fix:"She comes from", ref:"p.92"},
-      {s:"That was Chris telephoning from the railway station. She's coming up from London to visit us.", ans:true, fix:"", ref:"p.91"},
-      {s:"When Janis speaks, you can hear that she comes from London.", ans:true, fix:"", ref:"p.92"},
-      {s:"When Ron drove into Germany, the customs men searched for his car.", ans:false, fix:"searched his car", ref:"p.93"},
-      {s:"Fran couldn't remember where she'd parked her car and spent two hours searching it.", ans:false, fix:"searching for it", ref:"p.94"},
-      {s:"When Andrea went to Florence, she spent all day searching for a room.", ans:true, fix:"", ref:"p.94"},
-      {s:"Pam, would you like to have a toast with your coffee?", ans:false, fix:"have toast/a piece of toast", ref:"p.96"},
-      {s:"I'd like to propose a toast to John for all the help he's given me.", ans:true, fix:"", ref:"p.95"},
-      {s:"When Norbert was in hospital he had to stay in the bed all day.", ans:false, fix:"in bed", ref:"p.98"},
-      {s:"It was a single room, so I slept on the floor and she slept in the bed.", ans:true, fix:"", ref:"p.97"},
-      {s:"No one died in the plane crash, but many people were wounded.", ans:false, fix:"were injured", ref:"p.100"},
-      {s:"The police caught the robbers, but two policemen were wounded in the fighting.", ans:true, fix:"", ref:"p.99"},
-      {s:"The petrol tanker exploded in the street and thirty-five people were injured.", ans:true, fix:"", ref:"p.100"},
-      {s:"I like playing tennis with Shige, but he often wins me.", ans:false, fix:"beats me", ref:"p.102"},
-      {s:"Keith won a lot of money at the horse races last Saturday.", ans:true, fix:"", ref:"p.101"},
-      {s:"Richard has trained so hard for the race that no one can beat him.", ans:true, fix:"", ref:"p.102"},
-      {s:"It would be really exciting to discover a new planet.", ans:true, fix:"", ref:"p.104"},
-      {s:"I hope you enjoyed the soup. Juliet invented the recipe herself!", ans:true, fix:"", ref:"p.103"},
-      {s:"Anja was hit with a horse that was running away.", ans:false, fix:"hit by a horse", ref:"p.105"},
-      {s:"This lock can only be opened by a very large key.", ans:false, fix:"with a very large key", ref:"p.106"},
-      {s:"If you see me tomorrow morning, could you remind me of the phone bill?", ans:false, fix:"remind me about", ref:"p.108"},
-      {s:"When I hear this music it reminds me of being in Greece.", ans:true, fix:"", ref:"p.107"}
-    ],
-    practiceB: {
-      text: "Chris was telling me about his planned trip to Australia in December and I told him that I didn't know what to do at Christmas. 'I suggest (1) ___ skiing,' he said, and I laughed. I explained that whenever I heard anything about skiing it reminded me (2) ___ a very strange man called Urs, who I met when I was working in Switzerland. He lived in Switzerland and worked for a company that made skis, but he actually (3) ___ from Germany. He was crazy about skiing, and every year he entered the men's skiing competition, but he'd never managed to (4) ___ it. I saw him working in the factory one day and he told me that he'd (5) ___ a new type of ski that could go faster than any other. He was going to try using his new skis in the competition that year and was sure that he could (6) ___ the other skiers easily. Just before the race began, I tried to remind him (7) ___ the change they'd made in the race course, but he wasn't listening to me. In fact he went the wrong way and he was going so fast that he disappeared off the side of the mountain! He landed in the forest below and was hit on the head (8) ___ one of his skis that came down after him. We spent a couple of hours (9) ___ the forest, and there were even mountain dogs (10) ___ him in the snow. Eventually we found him, unconscious. Luckily he wasn't badly (11) ___ and we took him home. The doctor examined him and said that he should spend a few days (12) ___ bed. I went to visit him and took him a bottle of his favourite whisky. He suggested (have) (13) ___ a drink immediately, and soon our glasses were filled (14) ___ whisky. 'Let's drink (15) ___ ,' he said, raising his glass. 'To next year's competition, and an even better type of ski - with brakes!'",
-      answers: ["you go", "of", "came", "win", "invented", "beat", "about", "by", "searching", "searching for", "injured", "in", "having", "with", "a toast"]
     }
   }
 };
@@ -1019,7 +1018,7 @@ function renderContent() {
     filterBar.innerHTML = '';
 
     const modeNames = {
-        theory: ' Theory',
+        theory: '📖 Theory',
         flashcards: '🎴 Flashcards',
         practiceA: '✅ Practice A',
         practiceB: '✏️ Practice B',
@@ -1117,7 +1116,7 @@ function renderFlashcards(area) {
             <button class="btn btn-primary" onclick="nextCard()">Вперёд ➡️</button>
         </div>
         <div style="text-align:center; margin-top:18px; color:var(--text-light); font-size:0.9em; font-style:italic;">
-             Кликните на карточку, чтобы перевернуть
+            💡 Кликните на карточку, чтобы перевернуть
         </div>
     `;
 }
@@ -1254,7 +1253,7 @@ function renderPracticeB(area) {
         <div style="line-height: 2.5; font-size: 1.05em;">${textHtml}</div>
         <div style="margin-top:25px; text-align:right;">
             <button class="btn btn-primary" onclick="checkB()">✓ Проверить ответы</button>
-            <button class="btn btn-warning" onclick="showAllB()">️ Показать все</button>
+            <button class="btn btn-warning" onclick="showAllB()">👁️ Показать все</button>
             <button class="btn btn-wrong" onclick="resetB()">🔄 Сбросить</button>
         </div>
     `;
@@ -1399,7 +1398,7 @@ function updateStats() {
         <div class="stat-box"><div class="label">✅ Верно</div><div class="value" style="color:var(--success);">${s.correct}</div></div>
         <div class="stat-box"><div class="label">❌ Ошибки</div><div class="value" style="color:var(--danger);">${s.wrong}</div></div>
         <div class="stat-box"><div class="label">📊 Точность</div><div class="value">${pct}%</div></div>
-        <div class="stat-box"><div class="label"> Всего вопросов</div><div class="value">${totalQuestions}</div></div>
+        <div class="stat-box"><div class="label">📝 Всего вопросов</div><div class="value">${totalQuestions}</div></div>
     `;
 
     if (total > 0) {
@@ -1425,7 +1424,7 @@ function exportProgress() {
     a.download = `trainer_progress_${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast(' Прогресс экспортирован!');
+    showToast('💾 Прогресс экспортирован!');
 }
 
 function importProgress(event) {
