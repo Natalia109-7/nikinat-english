@@ -94,6 +94,19 @@ body {
 }
 .logo span { color: var(--soft); font-style: italic; }
 
+.back-btn {
+  padding: 8px 20px;
+  background: linear-gradient(135deg, var(--deep), var(--soft));
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+  transition: all 0.3s;
+}
+.back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+
 .theme-toggle {
   background: rgba(255,255,255,0.6);
   border: 1px solid rgba(232,223,245,0.8);
@@ -188,6 +201,18 @@ body {
   line-height: 1.6;
 }
 
+.sidebar-info kbd {
+  background: var(--card-solid);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-family: monospace;
+  font-size: 0.9em;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+.sidebar-info strong { color: var(--deep); }
+
 .main {
   flex: 1;
   padding: 100px 30px 30px;
@@ -219,8 +244,16 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.wrong { color: var(--danger); font-weight: 500; font-size: 1.1em; }
-.correct { color: var(--success); font-weight: 500; font-size: 1.1em; }
+.wrong {
+  color: var(--danger);
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.correct {
+  color: var(--success);
+  font-weight: 500;
+  font-size: 1.1em;
+}
 .explain {
   background: rgba(232,223,245,0.4);
   padding: 14px;
@@ -319,6 +352,7 @@ body {
   transition: all 0.3s;
   font-size: 0.9em;
   font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.3px;
 }
 .btn-right {
   background: linear-gradient(135deg, var(--success), #5a9678);
@@ -340,8 +374,15 @@ body {
   color: white;
   box-shadow: 0 4px 12px rgba(212,165,116,0.3);
 }
-.btn:hover { opacity: 0.95; transform: translateY(-2px); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
 
 .answer-box {
   margin-top: 12px;
@@ -366,7 +407,10 @@ body {
   font-family: 'Montserrat', sans-serif;
   transition: all 0.3s;
 }
-.fill-blank:focus { outline: none; border-bottom-color: var(--deep); }
+.fill-blank:focus {
+  outline: none;
+  border-bottom-color: var(--deep);
+}
 .fill-blank.correct {
   border-bottom-color: var(--success);
   background: rgba(212,241,232,0.4);
@@ -396,7 +440,12 @@ body {
   letter-spacing: 0.5px;
 }
 
-.stats { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+.stats {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
 .stat-box {
   background: rgba(255,255,255,0.7);
   backdrop-filter: blur(10px);
@@ -435,7 +484,11 @@ body {
   border-radius: 4px;
 }
 
-.flashcard { perspective: 1000px; height: 380px; margin: 25px 0; }
+.flashcard {
+  perspective: 1000px;
+  height: 380px;
+  margin: 25px 0;
+}
 .flashcard-inner {
   position: relative;
   width: 100%;
@@ -459,8 +512,15 @@ body {
   text-align: center;
   box-shadow: var(--shadow);
 }
-.flashcard-front { background: linear-gradient(135deg, var(--rose), var(--peach)); color: var(--deep); }
-.flashcard-back { background: linear-gradient(135deg, var(--mint), var(--lavender)); color: var(--deep); transform: rotateY(180deg); }
+.flashcard-front {
+  background: linear-gradient(135deg, var(--rose), var(--peach));
+  color: var(--deep);
+}
+.flashcard-back {
+  background: linear-gradient(135deg, var(--mint), var(--lavender));
+  color: var(--deep);
+  transform: rotateY(180deg);
+}
 .flashcard .emoji { font-size: 4em; margin-bottom: 18px; }
 .flashcard .sentence {
   font-family: 'Cormorant Garamond', serif;
@@ -469,7 +529,11 @@ body {
   margin-bottom: 18px;
   line-height: 1.3;
 }
-.flashcard .explanation { font-size: 1em; line-height: 1.6; opacity: 0.9; }
+.flashcard .explanation {
+  font-size: 1em;
+  line-height: 1.6;
+  opacity: 0.9;
+}
 .flashcard-controls {
   display: flex;
   justify-content: center;
@@ -484,7 +548,12 @@ body {
   padding: 8px 16px;
 }
 
-.filter-bar { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
 .filter-bar button {
   padding: 8px 16px;
   font-size: 0.85em;
@@ -496,7 +565,9 @@ body {
   transition: all 0.3s;
   font-family: 'Montserrat', sans-serif;
 }
-.filter-bar button:hover { background: rgba(232,223,245,0.8); }
+.filter-bar button:hover {
+  background: rgba(232,223,245,0.8);
+}
 .filter-bar button.active {
   background: linear-gradient(135deg, var(--deep), var(--soft));
   color: white;
@@ -516,12 +587,75 @@ body {
   animation: slideIn 0.4s;
   font-weight: 500;
 }
-.toast.error { background: linear-gradient(135deg, var(--danger), #b56870); }
+.toast.error { background: linear-gradient(135deg, var(--danger), #b56870); box-shadow: 0 10px 30px rgba(201,123,132,0.4); }
+.toast.info { background: linear-gradient(135deg, var(--deep), var(--soft)); box-shadow: 0 10px 30px rgba(90,74,122,0.4); }
 
 @keyframes slideIn {
   from { transform: translateX(400px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(42,36,56,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal {
+  background: var(--card-solid);
+  border-radius: 24px;
+  padding: 35px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 25px 80px rgba(90,74,122,0.3);
+  animation: scaleIn 0.3s;
+  text-align: center;
+}
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.modal h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--deep);
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+.modal p {
+  color: var(--text-light);
+  margin-bottom: 20px;
+  font-size: 0.95em;
+}
+.modal input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  font-size: 1.2em;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 8px;
+  color: var(--deep);
+  background: rgba(253,246,240,0.5);
+  transition: all 0.3s;
+  margin-bottom: 18px;
+}
+.modal input:focus {
+  outline: none;
+  border-color: var(--deep);
+  box-shadow: 0 0 0 3px rgba(90,74,122,0.15);
+}
+.modal .btn { margin: 5px; }
 
 @media (max-width: 900px) {
   body { flex-direction: column; }
@@ -533,11 +667,19 @@ body {
     position: relative;
     top: 0;
   }
-  .main { max-width: 100%; padding: 20px; }
-  .top-nav { width: calc(100% - 20px); justify-content: space-between; }
+  .main {
+    max-width: 100%;
+    padding: 20px;
+  }
+  .top-nav {
+    width: calc(100% - 20px);
+    justify-content: space-between;
+  }
   .logo { font-size: 18px; }
   .header h1 { font-size: 1.5em; }
-  .images-container { grid-template-columns: 1fr; }
+  .images-container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
@@ -556,16 +698,20 @@ body {
   <h2>📚 Units</h2>
   <div id="unit-buttons"></div>
   <h2 style="margin-top:20px;">📝 Mode</h2>
-  <button onclick="setMode('theory')" id="btn-theory" class="active">📖 Theory</button>
+  <button onclick="setMode('theory')" id="btn-theory" class="active">📖 Theory (Правила)</button>
   <button onclick="setMode('flashcards')" id="btn-flashcards">🎴 Flashcards</button>
-  <button onclick="setMode('practiceA')" id="btn-practiceA">✅ Practice A</button>
-  <button onclick="setMode('practiceB')" id="btn-practiceB">✏️ Practice B</button>
+  <button onclick="setMode('practiceA')" id="btn-practiceA">✅ Practice A (True/False)</button>
+  <button onclick="setMode('practiceB')" id="btn-practiceB">✏️ Practice B (Fill gaps)</button>
   <button onclick="setMode('randomTest')" id="btn-randomTest" class="special">🎲 Случайный тест</button>
   <h2 style="margin-top:20px;">🛠️ Tools</h2>
-  <button onclick="exportProgress()">💾 Экспорт</button>
-  <button onclick="document.getElementById('import-file').click()">📂 Импорт</button>
+  <button onclick="exportProgress()">💾 Экспорт прогресса</button>
+  <button onclick="document.getElementById('import-file').click()">📂 Импорт прогресса</button>
   <input type="file" id="import-file" accept=".json" style="display:none" onchange="importProgress(event)">
-  <button onclick="resetProgress()" style="background:linear-gradient(135deg, var(--danger), #b56870); color:white;">🗑️ Сброс</button>
+  <button onclick="resetProgress()" style="background:linear-gradient(135deg, var(--danger), #b56870); color:white;">🗑️ Сбросить прогресс</button>
+  <div class="sidebar-info">
+    💡 <strong>Картинки:</strong><br>
+    Изображения загружаются из Cloudinary и отображаются в каждой карточке правил.
+  </div>
 </div>
 
 <div class="main">
@@ -579,10 +725,11 @@ body {
 </div>
 
 <script>
+// ==================== DATA ====================
 const DATA = {
   1: {
     theory: [
-      {w:"Try to phone", e:"try + to = difficult action. try + -ing = experiment.", c:"Try phoning", emoji:"🤔", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_886,w_976,x_143,y_194/c_scale,h_350,w_350/page5_img1_jdhry7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_902,w_950,x_1264,y_203/c_scale,h_350,w_350/page5_img1_jdhry7.png"},
+     {w:"Try to phone", e:"try + to = difficult action. try + -ing = experiment.", c:"Try phoning", emoji:"🤔", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_886,w_976,x_143,y_194/c_scale,h_350,w_350/page5_img1_jdhry7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_902,w_950,x_1264,y_203/c_scale,h_350,w_350/page5_img1_jdhry7.png"},
       {w:"very little people", e:"little используется с неисчисляемыми. Для people нужно few.", c:"very few people", emoji:"👥", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_902,w_950,x_1264,y_203/c_scale,h_350,w_350/page5_img1_jdhry7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_843,w_892,x_197,y_264/c_scale,h_350,w_350/page6_img1_j1jxgd.png"},
       {w:"hitting themselves", e:"themselves = каждый сам себя. Если бьют друг друга = each other.", c:"hitting each other", emoji:"🥊🔄", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_975,x_1239,y_237/c_scale,h_350,w_350/page6_img1_j1jxgd.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_843,w_967,x_157,y_269/c_scale,h_350,w_350/page7_img1_k4xthc.png"},
       {w:"out of work", e:"out of work = без работы. Сломанный механизм = out of order.", c:"out of order", emoji:"☕", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_853,w_975,x_1247,y_232/c_scale,h_350,w_350/page7_img1_k4xthc.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_852,w_842,x_245,y_255/c_scale,h_350,w_350/page8_img1_y0gah2.png"},
@@ -632,11 +779,11 @@ const DATA = {
       {w:"I am very boring", e:"boring = вызывающий скуку. bored = чувствующий скуку.", c:"I am very bored", emoji:"😐", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_899,w_983,x_1234,y_170/c_scale,h_350,w_350/page17_img1_dcbzwx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_769,w_826,x_252,y_280/c_scale,h_350,w_350/page18_img1_lnufa5.png"},
       {w:"change the train", e:"change trains = делать пересадку (множ. число).", c:"change trains", emoji:"🔄", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_848,w_1051,x_1262,y_243/c_scale,h_350,w_350/page18_img1_lnufa5.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_806,w_1055,x_102,y_291/c_scale,h_350,w_350/page19_img1_ajzqsq.png"},
       {w:"so that", e:"so that = чтобы (цель). so = поэтому (результат).", c:"so", emoji:"☔🌧️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_865,w_1009,x_1239,y_233/c_scale,h_350,w_350/page19_img1_ajzqsq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_851,w_932,x_185,y_268/c_scale,h_350,w_350/page20_img1_xzqhlo.png"},
-      {w:"grown up", e:"grow up = взрослеть. grow = расти.", c:"grown", emoji:"🌱", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_858,w_988,x_1275,y_241/c_scale,h_350,w_350/page20_img1_xzqhlo.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_751,w_894,x_214,y_337/c_scale,h_350,w_350/page21_img1_zw6erk.png"},
-      {w:"educate their children", e:"educate = давать академические знания. bring up = воспитывать.", c:"bring up", emoji:"👨‍👦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_889,w_1001,x_1246,y_224/c_scale,h_350,w_350/page21_img1_zw6erk.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_764,w_958,x_195,y_340/c_scale,h_350,w_350/page22_img1_glamik.png"},
+      {w:"grown up", e:"grow up = взрослеть. grow = расти (о растениях/размере).", c:"grown", emoji:"🌱", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_858,w_988,x_1275,y_241/c_scale,h_350,w_350/page20_img1_xzqhlo.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_751,w_894,x_214,y_337/c_scale,h_350,w_350/page21_img1_zw6erk.png"},
+      {w:"educate their children", e:"educate = давать академические знания (школа). bring up = воспитывать.", c:"bring up", emoji:"👨‍👦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_889,w_1001,x_1246,y_224/c_scale,h_350,w_350/page21_img1_zw6erk.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_764,w_958,x_195,y_340/c_scale,h_350,w_350/page22_img1_glamik.png"},
       {w:"careless", e:"careless = неосторожный. carefree = беззаботный.", c:"carefree", emoji:"☁️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_843,w_985,x_1245,y_239/c_scale,h_350,w_350/page22_img1_glamik.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_916,w_967,x_177,y_192/c_scale,h_350,w_350/page23_img1_wedknn.png"},
-      {w:"on the platform", e:"on the platform = на платформе. at the platform = прибыть к платформе.", c:"at the platform", emoji:"🚆", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_923,w_1021,x_1226,y_192/c_scale,h_350,w_350/page23_img1_wedknn.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_776,w_955,x_176,y_324/c_auto,h_350,w_350/page24_img1_e5mkvm.png"},
-      {w:"died with pneumonia", e:"die of = от внутренней болезни. die from = от внешней причины.", c:"died of pneumonia", emoji:"🤒🕊️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_894,w_1011,x_1257,y_177/c_auto,h_350,w_350/page24_img1_e5mkvm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_799,w_1006,x_83,y_244/c_scale,h_350,w_350/page25_img1_yjstmm.png"}
+      {w:"on the platform", e:"on the platform = на платформе (жд). at the platform = прибыть к платформе.", c:"at the platform", emoji:"🚆", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_923,w_1021,x_1226,y_192/c_scale,h_350,w_350/page23_img1_wedknn.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_776,w_955,x_176,y_324/c_auto,h_350,w_350/page24_img1_e5mkvm.png"},
+      {w:"died with pneumonia", e:"die of = от внутренней болезни. die from = от внешней причины (травма).", c:"died of pneumonia", emoji:"🤒🕊️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_894,w_1011,x_1257,y_177/c_auto,h_350,w_350/page24_img1_e5mkvm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_799,w_1006,x_83,y_244/c_scale,h_350,w_350/page25_img1_yjstmm.png"}
     ],
     practiceA: [
       {s:"Dan wishes Joanna would spend less time in the bathroom.", ans:true, fix:"", ref:"p.23"},
@@ -672,16 +819,16 @@ const DATA = {
   },
   3: {
     theory: [
-      {w:"been smoking thirty", e:"Present Perfect Continuous для процесса. Для результата = Present Perfect Simple.", c:"smoked thirty", emoji:"🚬🔢", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_865,w_961,x_1285,y_210/c_scale,h_350,w_350/page26_img1_bjhdqq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_881,w_948,x_151,y_241/c_scale,h_350,w_350/page27_img1_uzw3fx.png"},
-      {w:"After putting... my husband", e:"Если субъекты разные, нельзя использовать -ing после after.", c:"After I put", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_869,w_1011,x_1227,y_219/c_scale,h_350,w_350/page27_img1_uzw3fx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_888,w_966,x_146,y_233/c_scale,h_350,w_350/page28_img1_etacd5.png"},
+      {w:"been smoking thirty", e:"Present Perfect Continuous для процесса. Для результата (30 сигарет) = Present Perfect Simple.", c:"smoked thirty", emoji:"🚬🔢", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_865,w_961,x_1285,y_210/c_scale,h_350,w_350/page26_img1_bjhdqq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_881,w_948,x_151,y_241/c_scale,h_350,w_350/page27_img1_uzw3fx.png"},
+      {w:"After putting... my husband", e:"Если subjekty разные, нельзя использовать -ing после after. Нужно: After I put...", c:"After I put", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_869,w_1011,x_1227,y_219/c_scale,h_350,w_350/page27_img1_uzw3fx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_888,w_966,x_146,y_233/c_scale,h_350,w_350/page28_img1_etacd5.png"},
       {w:"paid the car", e:"pay someone / pay FOR something.", c:"paid for the car", emoji:"💸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_878,w_991,x_1243,y_226/c_scale,h_350,w_350/page28_img1_etacd5.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_834,w_969,x_172,y_285/c_scale,h_350,w_350/page29_img1_pk44es.png"},
-      {w:"beautiful hairs", e:"hair на голове = неисчисляемое. hairs = отдельные волосинки.", c:"beautiful hair", emoji:"✨", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_859,w_986,x_1259,y_241/c_auto,h_350,w_350/page29_img1_pk44es.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_787,w_932,x_174,y_289/c_auto,h_350,w_350/page30_img1_un9shr.png"},
-      {w:"a paper", e:"paper = бумага (неисч.). Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_917,w_1006,x_1238,y_233/c_auto,h_350,w_350/page30_img1_un9shr.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_768,w_941,x_223,y_332/c_auto,h_350,w_350/page31_img1_nxd6mq.png"},
-      {w:"matches you", e:"match = подходить по цвету к вещи. suit = идти к человеку.", c:"suits you", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_844,w_965,x_1264,y_221/c_scale,h_350,w_400/page31_img1_nxd6mq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_772,w_890,x_240,y_313/c_auto,h_350,w_350/page32_img1_evyodn.png"},
+      {w:"beautiful hairs", e:"hair на голове = неисчисляемое. hairs = отдельные волосинки (в супе).", c:"beautiful hair", emoji:"✨", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_859,w_986,x_1259,y_241/c_auto,h_350,w_350/page29_img1_pk44es.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_787,w_932,x_174,y_289/c_auto,h_350,w_350/page30_img1_un9shr.png"},
+      {w:"a paper", e:"paper = бумага (неисч.) или газета. Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_917,w_1006,x_1238,y_233/c_auto,h_350,w_350/page30_img1_un9shr.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_768,w_941,x_223,y_332/c_auto,h_350,w_350/page31_img1_nxd6mq.png"},
+      {w:"matches you", e:"match = подходить по цвету/стилю к ДРУГОЙ вещи. suit = идти к ЧЕЛОВЕКУ.", c:"suits you", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_844,w_965,x_1264,y_221/c_scale,h_350,w_400/page31_img1_nxd6mq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_772,w_890,x_240,y_313/c_auto,h_350,w_350/page32_img1_evyodn.png"},
       {w:"make a picture", e:"make = создавать. Фотографировать = take a picture.", c:"take a picture", emoji:"📸🖼️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_898,w_977,x_1273,y_224/c_scale,h_350,w_350/page32_img1_evyodn.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_813,w_891,x_225,y_302/c_auto,h_350,w_350/page33_img1_zdqy2p.png"},
-      {w:"borrow the money", e:"borrow = брать взаймы. lend = давать взаймы.", c:"lend the money", emoji:"🏦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_891,w_1006,x_1254,y_214/c_auto,h_350,w_350/page33_img1_zdqy2p.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_808,w_967,x_196,y_302/c_auto,h_350,w_350/page34_img1_yemgw5.png"},
+      {w:"borrow the money", e:"borrow = брать взаймы (к себе). lend = давать взаймы (от себя).", c:"lend the money", emoji:"🏦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_891,w_1006,x_1254,y_214/c_auto,h_350,w_350/page33_img1_zdqy2p.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_808,w_967,x_196,y_302/c_auto,h_350,w_350/page34_img1_yemgw5.png"},
       {w:"married with", e:"get married TO someone.", c:"married to", emoji:"💍", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_881,w_962,x_1235,y_209/c_auto,h_350,w_350/page34_img1_yemgw5.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_771,w_982,x_161,y_319/c_auto,h_350,w_350/page35_img1_j3k5ln.png"},
-      {w:"good in Italian", e:"good AT = хорош в навыке. good IN = хорош в классе/месте.", c:"good at", emoji:"🍝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_911,w_938,x_1254,y_211/c_auto,h_350,w_350/page35_img1_j3k5ln.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_783,w_927,x_206,y_327/c_auto,h_350,w_350/page36_img1_qrkns5.png"}
+      {w:"good in Italian", e:"good AT = хорош в навыке/предмете. good IN = хорош в классе/месте.", c:"good at", emoji:"🍝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_911,w_938,x_1254,y_211/c_auto,h_350,w_350/page35_img1_j3k5ln.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_783,w_927,x_206,y_327/c_auto,h_350,w_350/page36_img1_qrkns5.png"}
     ],
     practiceA: [
       {s:"Madge has been cleaning thirty windows today.", ans:false, fix:"has cleaned", ref:"p.45"},
@@ -717,16 +864,61 @@ const DATA = {
   },
   4: {
     theory: [
-      {w:"cut my hair", e:"have something done = делать что-то в салоне (have my hair cut).", c:"have my hair cut", emoji:"💇‍♀️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_874,w_993,x_1236,y_254/c_auto,h_350,w_350/page37_img1_cl9vdu.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_842,w_973,x_167,y_295/c_auto,h_350,w_350/page38_img1_m4zcmi.png"},
-      {w:"played tennis when", e:"Длительное действие прерывается кратким: were playing ... when it started.", c:"were playing tennis", emoji:"🎾⏱️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_864,w_933,x_1272,y_213/c_scale,h_350,w_350/page38_img1_m4zcmi.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_820,w_897,x_218,y_309/c_scale,h_350,w_350/page39_img1_iacmej.png"},
-      {w:"In case the weather gets", e:"in case = на случай (подготовка). if = условие.", c:"If the weather gets", emoji:"🧥❄️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_992,w_1044,x_1223,y_142/c_auto,h_350,w_350/page39_img1_iacmej.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_802,w_980,x_183,y_334/c_scale,h_350,w_350/page40_img1_rjoitv.png"},
-      {w:"go to prison", e:"go to prison = как заключенный. go to THE prison = как посетитель.", c:"go to the prison", emoji:"👮‍♂️🔒", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_918,w_967,x_1255,y_218/c_auto,h_350,w_350/page40_img1_rjoitv.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_815,w_930,x_191,y_312/c_auto,h_350,w_350/page41_img1_md89mh.png"},
-      {w:"few friends", e:"few = мало (негатив). a few = несколько (позитив).", c:"a few friends", emoji:"🎉", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_901,w_1016,x_1252,y_206/c_scale,h_350,w_350/page41_img1_md89mh.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_903,w_935,x_189,y_224/c_scale,h_350,w_350/page42_img1_qvsyc7.png"},
-      {w:"laying on the sofa", e:"lay = класть (с объектом). lie = лежать (без объекта).", c:"lying on the sofa", emoji:"🛋️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_891,w_1006,x_1233,y_217/c_scale,h_350,w_350/page42_img1_qvsyc7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_938,x_223,y_232/c_auto,h_350,w_350/page43_img1_okcsxa.png"},
-      {w:"says the truth", e:"tell the truth (устойчивое выражение).", c:"tells the truth", emoji:"🤐", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_811,w_997,x_1258,y_278/c_auto,h_350,w_350/page43_img1_okcsxa.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_906,x_241,y_239/c_auto,h_350,w_350/page44_img1_sostqx.png"},
-      {w:"At last, I will end", e:"at last = наконец-то. finally = последним пунктом.", c:"Finally", emoji:"🏁", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_872,w_979,x_1238,y_244/c_auto,h_350,w_350/page44_img1_sostqx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_833,w_963,x_160,y_310/c_scale,h_350,w_350/page45_img1_dthptp.png"},
-      {w:"look for his plants", e:"look for = искать. look after = присматривать/ухаживать.", c:"look after", emoji:"🌿", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_890,w_995,x_1232,y_224/c_scale,h_350,w_350/page45_img1_dthptp.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_778,w_916,x_220,y_339/c_scale,h_350,w_350/page46_img1_qkbyeg.png"},
-      {w:"backside", e:"backside = неформ. 'пятая точка'. Обратная сторона фото = back.", c:"back", emoji:"📸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_918,w_965,x_1286,y_224/c_auto,h_350,w_350/page46_img1_qkbyeg.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_897,w_1101,x_77,y_292/c_scale,h_350,w_350/page47_img1_vlcq07.png"}
+      {w:"been smoking thirty", e:"Present Perfect Continuous для процесса. Для результата (30 сигарет) = Present Perfect Simple.", c:"smoked thirty", emoji:"🚬", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_874,w_993,x_1236,y_254/c_auto,h_350,w_350/page37_img1_cl9vdu.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_842,w_973,x_167,y_295/c_auto,h_350,w_350/page38_img1_m4zcmi.png"},
+      {w:"After putting... my husband", e:"Если subjekty разные, нельзя использовать -ing после after. Нужно: After I put...", c:"After I put", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_864,w_933,x_1272,y_213/c_scale,h_350,w_350/page38_img1_m4zcmi.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_820,w_897,x_218,y_309/c_scale,h_350,w_350/page39_img1_iacmej.png"},
+      {w:"paid the car", e:"pay someone / pay FOR something.", c:"paid for the car", emoji:"💸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_992,w_1044,x_1223,y_142/c_auto,h_350,w_350/page39_img1_iacmej.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_802,w_980,x_183,y_334/c_scale,h_350,w_350/page40_img1_rjoitv.png"},
+      {w:"beautiful hairs", e:"hair на голове = неисчисляемое. hairs = отдельные волосинки (в супе).", c:"beautiful hair", emoji:"✨", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_918,w_967,x_1255,y_218/c_auto,h_350,w_350/page40_img1_rjoitv.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_815,w_930,x_191,y_312/c_auto,h_350,w_350/page41_img1_md89mh.png"},
+      {w:"a paper", e:"paper = бумага (неисч.) или газета. Лист бумаги = a piece of paper.", c:"a piece of paper", emoji:"📄", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_901,w_1016,x_1252,y_206/c_scale,h_350,w_350/page41_img1_md89mh.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_903,w_935,x_189,y_224/c_scale,h_350,w_350/page42_img1_qvsyc7.png"},
+      {w:"matches you", e:"match = подходить по цвету/стилю к ДРУГОЙ вещи. suit = идти к ЧЕЛОВЕКУ.", c:"suits you", emoji:"👗", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_891,w_1006,x_1233,y_217/c_scale,h_350,w_350/page42_img1_qvsyc7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_938,x_223,y_232/c_auto,h_350,w_350/page43_img1_okcsxa.png"},
+      {w:"make a picture", e:"make = создавать. Фотографировать = take a picture.", c:"take a picture", emoji:"📸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_811,w_997,x_1258,y_278/c_auto,h_350,w_350/page43_img1_okcsxa.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_862,w_906,x_241,y_239/c_auto,h_350,w_350/page44_img1_sostqx.png"},
+      {w:"borrow the money", e:"borrow = брать взаймы (к себе). lend = давать взаймы (от себя).", c:"lend the money", emoji:"🏦", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_872,w_979,x_1238,y_244/c_auto,h_350,w_350/page44_img1_sostqx.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_833,w_963,x_160,y_310/c_scale,h_350,w_350/page45_img1_dthptp.png"},
+      {w:"married with", e:"get married TO someone.", c:"married to", emoji:"💍", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_890,w_995,x_1232,y_224/c_scale,h_350,w_350/page45_img1_dthptp.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_778,w_916,x_220,y_339/c_scale,h_350,w_350/page46_img1_qkbyeg.png"},
+      {w:"good in Italian", e:"good AT = хорош в навыке/предмете. good IN = хорош в классе/месте.", c:"good at", emoji:"🍝", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_918,w_965,x_1286,y_224/c_auto,h_350,w_350/page46_img1_qkbyeg.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_897,w_1101,x_77,y_292/c_scale,h_350,w_350/page47_img1_vlcq07.png"}
+    ],
+    practiceA: [
+      {s:"Madge has been cleaning thirty windows today.", ans:false, fix:"has cleaned", ref:"p.45"},
+      {s:"The police have been watching those three men for two hours.", ans:true, fix:"", ref:"p.45"},
+      {s:"Tony has been playing the cello for four hours.", ans:true, fix:"", ref:"p.45"},
+      {s:"Diana has played three piano sonatas by Beethoven this evening.", ans:true, fix:"", ref:"p.46"},
+      {s:"After spending three hours working in the garden, Olwyn went shopping.", ans:true, fix:"", ref:"p.47"},
+      {s:"After cooking a meal with fish in it, my cat Jemima likes licking the plates.", ans:false, fix:"After I cook", ref:"p.47"},
+      {s:"After reading a lot of English books, my English became much better.", ans:false, fix:"After I read/I had read", ref:"p.47"},
+      {s:"Before we left, Penny went to pay the hotel room.", ans:false, fix:"pay for the hotel room", ref:"p.49"},
+      {s:"When he comes, can you pay the waiter?", ans:true, fix:"", ref:"p.49"},
+      {s:"Your grandfather's very old, but he has a beautiful hair.", ans:false, fix:"has beautiful hair", ref:"p.52"},
+      {s:"Wanda changes the colour of her hairs every month.", ans:false, fix:"her hair", ref:"p.52"},
+      {s:"Can you give me a paper to write Maggie's telephone number on?", ans:false, fix:"a piece of paper/some paper", ref:"p.54"},
+      {s:"I don't read much in the week, but I often buy a paper on Sunday.", ans:true, fix:"", ref:"p.53"},
+      {s:"That red skirt really suits your shoes Pat.", ans:false, fix:"matches your shoes", ref:"p.55"},
+      {s:"The new carpet in the living room doesn't match the walls.", ans:true, fix:"", ref:"p.55"},
+      {s:"It's so easy to make pictures with some of the new Japanese cameras.", ans:false, fix:"take pictures", ref:"p.58"},
+      {s:"Would you like Mark to take a picture of you?", ans:true, fix:"", ref:"p.58"},
+      {s:"Jack's just going down to the library to lend some books.", ans:false, fix:"to borrow", ref:"p.59"},
+      {s:"Do you think you could borrow me your bicycle for the afternoon?", ans:false, fix:"lend me", ref:"p.60"},
+      {s:"I can't play you my favourite cassette because Ege has borrowed it.", ans:true, fix:"", ref:"p.59"},
+      {s:"Honor got married with two of her friends.", ans:true, fix:"", ref:"p.61"},
+      {s:"Maria was engaged with Jimmy for six months before they got married.", ans:false, fix:"engaged to", ref:"p.62"},
+      {s:"I didn't know that Paul was married with Holly. I thought they were just good friends.", ans:false, fix:"married to", ref:"p.62"},
+      {s:"Saraita's class are very good in prepositions.", ans:false, fix:"good at", ref:"p.64"},
+      {s:"Anthony is very clever at inventing new games.", ans:true, fix:"", ref:"p.64"}
+    ],
+    practiceB: {
+      text: "'I'm so tired!' said Mrs Airey, 'I've (make) (1) ___ eleven phone calls this morning.' Mrs Airey was busy preparing for her daughter's wedding. Her daughter, Sue, was getting married (2) ___ a Frenchman, but the wedding was going to be typically English, in a small village church. Mrs Airey had (worry) (3) ___ all morning - first about the weather. She had heard the weather forecast on the radio and they said it might rain later. Then she had to go to the hairdresser's at 11.00 a.m. to have her (4) ___ done. After (5) ___ to the hairdresser's, she went round to her neighbour's to (6) ___ a umbrella, because she'd lost hers the week before. At 12.00 a.m. she started to get ready. She put on her new green dress and a pair of green shoes that (7) ___ it perfectly. She looked very smart, and everyone agreed that green (8) ___ her. After (put on) (9) ___ her make-up, Mr Airey arrived. He'd been organizing all the arrangements for getting to the church. 'Have you got the money to (10) ___ the taxis?' Mrs Airey asked him. 'Oh no! I forgot! It's OK, your brother Martin always has lots of cash. He'll (11) ___ me the money and I can (12) ___ him back on Monday.' 'You're not very good (13) ___ remembering things, are you? Did you phone the restaurant to make sure they've got an extra table?' 'No. I didn't forget, but I wrote the phone number on (14) ___ paper and I've lost it.' 'Don't worry,' said Mrs Airey, noticing how tired he looked. 'I hope you'll be able to smile later, or no one will want to (15) ___ a picture of you.'",
+      answers: ["made", "to", "been worrying", "hair", "going/having been", "borrow", "matched", "suited", "she put on/she'd put on", "pay for", "lend", "pay", "at", "a piece of", "take"]
+    }
+  },
+  5: {
+    theory: [
+      {w:"cut my hair", e:"have something done = делать что-то в салоне (have my hair cut).", c:"have my hair cut", emoji:"💇‍♀️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_928,w_986,x_1262,y_199/c_scale,h_350,w_350/page48_img1_k0vjjj.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_807,w_876,x_232,y_328/c_scale,h_350,w_350/page49_img1_q3rplm.png"},
+      {w:"played tennis when", e:"Длительное действие прерывается кратким: were playing ... when it started.", c:"were playing tennis", emoji:"🎾⏱️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_832,w_993,x_1244,y_233/c_scale,h_350,w_350/page49_img1_q3rplm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_776,w_897,x_219,y_380/c_auto,h_350,w_350/page50_img1_hmhrld.png"},
+      {w:"In case the weather gets", e:"in case = на случай (подготовка). if = условие.", c:"If the weather gets", emoji:"🧥❄️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_835,w_990,x_1294,y_309/c_auto,h_350,w_350/page50_img1_hmhrld.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_833,w_979,x_190,y_295/c_scale,h_350,w_350/page51_img1_mcdkob.png"},
+      {w:"go to prison", e:"go to prison = как заключенный. go to THE prison = как посетитель.", c:"go to the prison", emoji:"👮‍♂️🔒", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_783,w_916,x_1326,y_317/c_auto,h_350,w_350/page51_img1_mcdkob.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_739,w_912,x_253,y_376/c_scale,h_350,w_350/page52_img1_lyjgsa.png"},
+      {w:"few friends", e:"few = мало (негатив). a few = несколько (позитив).", c:"a few friends", emoji:"🎉", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_890,w_959,x_1258,y_240/c_scale,h_350,w_350/page52_img1_lyjgsa.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1120,x_97,y_227/c_scale,h_350,w_350/page53_img1_z3xlc7.png"},
+      {w:"laying on the sofa", e:"lay = класть (с объектом). lie = лежать (без объекта).", c:"lying on the sofa", emoji:"🛋️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1046,x_1270,y_234/c_scale,h_350,w_350/page53_img1_z3xlc7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_876,w_1045,x_130,y_249/c_scale,h_350,w_350/page54_img1_gw7hds.png"},
+      {w:"says the truth", e:"tell the truth (устойчивое выражение).", c:"tells the truth", emoji:"🤐", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_856,w_1060,x_1230,y_244/c_scale,h_350,w_350/page54_img1_gw7hds.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_735,w_927,x_213,y_379/c_scale,h_350,w_350/page55_img1_eslddr.png"},
+      {w:"At last, I will end", e:"at last = наконец-то (после долгого ожидания). finally = последним пунктом.", c:"Finally", emoji:"🏁", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1008,x_1259,y_220/c_scale,h_350,w_350/page55_img1_eslddr.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_816,w_853,x_226,y_313/c_scale,h_350,w_350/page56_img1_jp0jis.png"},
+      {w:"look for his plants", e:"look for = искать (потерянное). look after = присматривать/ухаживать.", c:"look after", emoji:"🌿", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_873,w_963,x_1289,y_227/c_scale,h_350,w_350/page56_img1_jp0jis.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_765,w_923,x_205,y_330/c_scale,h_350,w_350/page57_img1_mtpcrq.png"},
+      {w:"backside", e:"backside = неформ. 'пятая точка'. Обратная сторона фото = back.", c:"back", emoji:"📸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_960,w_1009,x_1212,y_186/c_scale,h_350,w_350/page57_img1_mtpcrq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_859,w_819,x_276,y_281/c_scale,h_350,w_350/page58_img1_oicmrb.png"}
     ],
     practiceA: [
       {s:"Satoko is going to the hairdresser's this afternoon to cut her hair.", ans:false, fix:"to have her hair cut", ref:"p.68"},
@@ -759,54 +951,10 @@ const DATA = {
       text: "Phillip Marlowe (sleep) (1) ___ when the telephone (ring) (2) ___ . 'Hello, is that Phillip Marlowe, private detective?' a voice asked. 'I wish it wasn't,' he replied. 'But to (3) ___ the truth, it is.' There were (4) ___ times when he didn't want offers of work, but this was one of them. 'I wonder if you can help me. Are you busy at the moment?' 'I'm (5) ___ in bed at the moment,' Marlowe said. 'In two hours I'm going to the hairdresser's to (6) ___ , but for the rest of the year I'm not busy.' 'Good. Let me introduce myself. I'm Dirk Phillips, and I'm afraid I've got (7) ___ problems.' 'What are your problems - apart from having a name like Dirk?' 'Well, a friend of mine who sells unusual pets is away on holiday, and she asked me to look (8) ___ her collection of snakes. Unfortunately one of them has escaped. I think I should find it as soon as possible (9) ___ it bites someone.' 'And why are you asking me to help?' Marlowe asked. 'Because I've tried everyone else. I (call) (10) ___ the police when I noticed it was missing, but they wouldn't be able to find an elephant. I've tried the zoo. I even went (11) ___ university to ask someone in the Zoology department to help, but no luck. (12) ___ I decided to try you.' 'Well, I never went (13) ___ university - I left school when I was five. But you want me to look (14) ___ your snake. How do you expect me to find it?' 'I don't know. You're the detective. I'll send you a photograph of the snake and I'll write my address and phone number on the (15) ___ . Give me a call when you find it. Goodbye.'",
       answers: ["was sleeping", "rang", "tell", "few", "lying", "have my hair cut", "a few", "after", "in case", "called", "to the", "Finally", "to", "for", "back"]
     }
-  },
-  5: {
-    theory: [
-      {w:"suggested going", e:"suggest + -ing (для всех). suggest + that + subject + verb.", c:"suggested she go", emoji:"🗣️", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_928,w_986,x_1262,y_199/c_scale,h_350,w_350/page48_img1_k0vjjj.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_807,w_876,x_232,y_328/c_scale,h_350,w_350/page49_img1_q3rplm.png"},
-      {w:"coming from Colombia", e:"coming = в процессе пути. comes from = родился/происходит.", c:"comes from", emoji:"🇨🇴", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_832,w_993,x_1244,y_233/c_scale,h_350,w_350/page49_img1_q3rplm.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_776,w_897,x_219,y_380/c_auto,h_350,w_350/page50_img1_hmhrld.png"},
-      {w:"searching the boy", e:"search someone = обыскивать человека. search FOR = искать.", c:"searching for", emoji:"🔦🐕", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_835,w_990,x_1294,y_309/c_auto,h_350,w_350/page50_img1_hmhrld.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_833,w_979,x_190,y_295/c_scale,h_350,w_350/page51_img1_mcdkob.png"},
-      {w:"a toast", e:"toast (напиток) = неисч. a piece of toast (еда).", c:"toast", emoji:"🍞🥂", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_783,w_916,x_1326,y_317/c_auto,h_350,w_350/page51_img1_mcdkob.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_739,w_912,x_253,y_376/c_scale,h_350,w_350/page52_img1_lyjgsa.png"},
-      {w:"in the bed", e:"in bed = спать/болеть. in THE bed = физически на конкретной кровати.", c:"in bed", emoji:"🛌💤", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_890,w_959,x_1258,y_240/c_scale,h_350,w_350/page52_img1_lyjgsa.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1120,x_97,y_227/c_scale,h_350,w_350/page53_img1_z3xlc7.png"},
-      {w:"wounded", e:"wounded = от оружия. injured = в аварии/несчастном случае.", c:"injured", emoji:"🚑", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1046,x_1270,y_234/c_scale,h_350,w_350/page53_img1_z3xlc7.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_876,w_1045,x_130,y_249/c_scale,h_350,w_350/page54_img1_gw7hds.png"},
-      {w:"won Liverpool", e:"win = выиграть приз/соревнование. beat = победить команду/человека.", c:"beat Liverpool", emoji:"⚽", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_856,w_1060,x_1230,y_244/c_scale,h_350,w_350/page54_img1_gw7hds.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_735,w_927,x_213,y_379/c_scale,h_350,w_350/page55_img1_eslddr.png"},
-      {w:"discovered", e:"discover = найти то, что уже есть. invent = изобрести новое.", c:"invented", emoji:"💡", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_895,w_1008,x_1259,y_220/c_scale,h_350,w_350/page55_img1_eslddr.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_816,w_853,x_226,y_313/c_scale,h_350,w_350/page56_img1_jp0jis.png"},
-      {w:"killed by a knife", e:"by = кем/чем (субъект). with = с помощью инструмента.", c:"killed with a knife", emoji:"🔪🩸", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_873,w_963,x_1289,y_227/c_scale,h_350,w_350/page56_img1_jp0jis.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_765,w_923,x_205,y_330/c_scale,h_350,w_350/page57_img1_mtpcrq.png"},
-      {w:"reminded me of them", e:"remind of = вызывать воспоминание. remind about = напомнить о деле.", c:"reminded me about", emoji:"💭", img1:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_960,w_1009,x_1212,y_186/c_scale,h_350,w_350/page57_img1_mtpcrq.png", img2:"https://res.cloudinary.com/yj7birud/image/upload/c_crop,g_north_west,h_859,w_819,x_276,y_281/c_scale,h_350,w_350/page58_img1_oicmrb.png"}
-    ],
-    practiceA: [
-      {s:"'I suggest going by train,' the travel agent said to Sarah.", ans:false, fix:"I suggest you go", ref:"p.90"},
-      {s:"It was so hot that our teacher suggested having a lesson in the garden.", ans:true, fix:"", ref:"p.89"},
-      {s:"'I suggest getting off at the next stop and walking to the station,' the bus driver said.", ans:false, fix:"I suggest you get off", ref:"p.90"},
-      {s:"Can I introduce you to my friend Huang-Mei. She's coming from Taiwan.", ans:false, fix:"She comes from", ref:"p.92"},
-      {s:"That was Chris telephoning from the railway station. She's coming up from London to visit us.", ans:true, fix:"", ref:"p.91"},
-      {s:"When Janis speaks, you can hear that she comes from London.", ans:true, fix:"", ref:"p.92"},
-      {s:"When Ron drove into Germany, the customs men searched for his car.", ans:false, fix:"searched his car", ref:"p.93"},
-      {s:"Fran couldn't remember where she'd parked her car and spent two hours searching it.", ans:false, fix:"searching for it", ref:"p.94"},
-      {s:"When Andrea went to Florence, she spent all day searching for a room.", ans:true, fix:"", ref:"p.94"},
-      {s:"Pam, would you like to have a toast with your coffee?", ans:false, fix:"have toast/a piece of toast", ref:"p.96"},
-      {s:"I'd like to propose a toast to John for all the help he's given me.", ans:true, fix:"", ref:"p.95"},
-      {s:"When Norbert was in hospital he had to stay in the bed all day.", ans:false, fix:"in bed", ref:"p.98"},
-      {s:"It was a single room, so I slept on the floor and she slept in the bed.", ans:true, fix:"", ref:"p.97"},
-      {s:"No one died in the plane crash, but many people were wounded.", ans:false, fix:"were injured", ref:"p.100"},
-      {s:"The police caught the robbers, but two policemen were wounded in the fighting.", ans:true, fix:"", ref:"p.99"},
-      {s:"The petrol tanker exploded in the street and thirty-five people were injured.", ans:true, fix:"", ref:"p.100"},
-      {s:"I like playing tennis with Shige, but he often wins me.", ans:false, fix:"beats me", ref:"p.102"},
-      {s:"Keith won a lot of money at the horse races last Saturday.", ans:true, fix:"", ref:"p.101"},
-      {s:"Richard has trained so hard for the race that no one can beat him.", ans:true, fix:"", ref:"p.102"},
-      {s:"It would be really exciting to discover a new planet.", ans:true, fix:"", ref:"p.104"},
-      {s:"I hope you enjoyed the soup. Juliet invented the recipe herself!", ans:true, fix:"", ref:"p.103"},
-      {s:"Anja was hit with a horse that was running away.", ans:false, fix:"hit by a horse", ref:"p.105"},
-      {s:"This lock can only be opened by a very large key.", ans:false, fix:"with a very large key", ref:"p.106"},
-      {s:"If you see me tomorrow morning, could you remind me of the phone bill?", ans:false, fix:"remind me about", ref:"p.108"},
-      {s:"When I hear this music it reminds me of being in Greece.", ans:true, fix:"", ref:"p.107"}
-    ],
-    practiceB: {
-      text: "Chris was telling me about his planned trip to Australia in December and I told him that I didn't know what to do at Christmas. 'I suggest (1) ___ skiing,' he said, and I laughed. I explained that whenever I heard anything about skiing it reminded me (2) ___ a very strange man called Urs, who I met when I was working in Switzerland. He lived in Switzerland and worked for a company that made skis, but he actually (3) ___ from Germany. He was crazy about skiing, and every year he entered the men's skiing competition, but he'd never managed to (4) ___ it. I saw him working in the factory one day and he told me that he'd (5) ___ a new type of ski that could go faster than any other. He was going to try using his new skis in the competition that year and was sure that he could (6) ___ the other skiers easily. Just before the race began, I tried to remind him (7) ___ the change they'd made in the race course, but he wasn't listening to me. In fact he went the wrong way and he was going so fast that he disappeared off the side of the mountain! He landed in the forest below and was hit on the head (8) ___ one of his skis that came down after him. We spent a couple of hours (9) ___ the forest, and there were even mountain dogs (10) ___ him in the snow. Eventually we found him, unconscious. Luckily he wasn't badly (11) ___ and we took him home. The doctor examined him and said that he should spend a few days (12) ___ bed. I went to visit him and took him a bottle of his favourite whisky. He suggested (have) (13) ___ a drink immediately, and soon our glasses were filled (14) ___ whisky. 'Let's drink (15) ___ ,' he said, raising his glass. 'To next year's competition, and an even better type of ski - with brakes!'",
-      answers: ["you go", "of", "came", "win", "invented", "beat", "about", "by", "searching", "searching for", "injured", "in", "having", "with", "a toast"]
-    }
   }
 };
 
+// ==================== STATE ====================
 let currentUnit = 1;
 let currentMode = 'theory';
 let currentFlashcard = 0;
@@ -814,10 +962,17 @@ let stats = JSON.parse(localStorage.getItem('trainer_stats') || '{}');
 let userAnswers = JSON.parse(localStorage.getItem('trainer_answers') || '{}');
 let filterMode = 'all';
 
+// ==================== INIT ====================
 function init() {
     renderUnitButtons();
     setMode('theory');
     if (localStorage.getItem('trainer_theme') === 'dark') document.body.classList.add('dark');
+
+    if (window.self !== window.top) {
+        document.querySelectorAll('a').forEach(link => {
+            if (!link.target) link.target = '_top';
+        });
+    }
 }
 
 function renderUnitButtons() {
@@ -851,6 +1006,7 @@ function toggleTheme() {
     localStorage.setItem('trainer_theme', document.body.classList.contains('dark') ? 'dark' : 'light');
 }
 
+// ==================== RENDER ====================
 function renderContent() {
     const title = document.getElementById('main-title');
     const area = document.getElementById('content-area');
@@ -862,8 +1018,20 @@ function renderContent() {
     statsArea.innerHTML = '';
     filterBar.innerHTML = '';
 
-    const modeNames = { theory: '📖 Theory', flashcards: '🎴 Flashcards', practiceA: '✅ Practice A', practiceB: '✏️ Practice B', randomTest: '🎲 Случайный тест' };
-    title.innerText = currentMode === 'randomTest' ? '🎲 Случайный тест (все юниты)' : `Unit ${currentUnit} — ${modeNames[currentMode]}`;
+    const modeNames = {
+        theory: '📖 Theory',
+        flashcards: '🎴 Flashcards',
+        practiceA: '✅ Practice A',
+        practiceB: '✏️ Practice B',
+        randomTest: '🎲 Случайный тест'
+    };
+
+    if (currentMode === 'randomTest') {
+        title.innerText = '🎲 Случайный тест (все юниты)';
+    } else {
+        title.innerText = `Unit ${currentUnit} — ${modeNames[currentMode]}`;
+    }
+
     controls.innerHTML = '';
 
     if (currentMode === 'theory') renderTheory(area);
@@ -875,137 +1043,300 @@ function renderContent() {
     updateStats();
 }
 
+// ==================== THEORY ====================
 function renderTheory(area) {
-    DATA[currentUnit].theory.forEach((t, idx) => {
+    const theories = DATA[currentUnit].theory;
+    theories.forEach((t, idx) => {
+        const id = idx + 1;
         const card = document.createElement('div');
         card.className = 'card';
         card.style.animationDelay = (idx * 0.08) + 's';
+
         let imagesHtml = '';
         for (let imgNum = 1; imgNum <= 2; imgNum++) {
             const imgUrl = t[`img${imgNum}`];
             if (imgUrl && imgUrl.trim() !== '') {
-                imagesHtml += `<div class="img-box"><div class="img-label">Картинка ${imgNum}</div><img src="${imgUrl}" alt="Image ${imgNum}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="placeholder" style="display:none">${t.emoji}</div></div>`;
+                imagesHtml += `
+                    <div class="img-box" id="img-box-${currentUnit}-${id}-${imgNum}">
+                        <div class="img-label">Картинка ${imgNum}</div>
+                        <img src="${imgUrl}" alt="Image ${imgNum}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="placeholder" style="display:none">${t.emoji}</div>
+                    </div>
+                `;
             } else {
-                imagesHtml += `<div class="img-box"><div class="img-label">Картинка ${imgNum}</div><div class="placeholder">${t.emoji}</div><div class="hint">Нет изображения</div></div>`;
+                imagesHtml += `
+                    <div class="img-box" id="img-box-${currentUnit}-${id}-${imgNum}">
+                        <div class="img-label">Картинка ${imgNum}</div>
+                        <div class="placeholder">${t.emoji}</div>
+                        <div class="hint">
+                            Нет изображения
+                        </div>
+                    </div>
+                `;
             }
         }
-        card.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center;"><strong style="color:var(--deep); font-family:'Cormorant Garamond',serif; font-size:1.3em;">Правило #${idx + 1}</strong></div><div class="wrong" style="margin-top:12px;">❌ ${t.w}</div><div class="explain">💡 ${t.e}</div><div class="correct">✅ ${t.c}</div><div class="images-container">${imagesHtml}</div>`;
+
+        card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:var(--deep); font-family:'Cormorant Garamond',serif; font-size:1.3em;">Правило #${id}</strong>
+            </div>
+            <div class="wrong" style="margin-top:12px;">❌ ${t.w}</div>
+            <div class="explain">💡 ${t.e}</div>
+            <div class="correct">✅ ${t.c}</div>
+            <div class="images-container">
+                ${imagesHtml}
+            </div>
+        `;
         area.appendChild(card);
     });
 }
 
+// ==================== FLASHCARDS ====================
 function renderFlashcards(area) {
-    const t = DATA[currentUnit].theory[currentFlashcard];
-    area.innerHTML = `<div class="flashcard" id="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><div class="emoji">${t.emoji}</div><div class="sentence">❌ ${t.w}</div><div style="font-size:0.9em; opacity:0.8;">Нажмите, чтобы увидеть ответ</div></div><div class="flashcard-back"><div class="emoji">${t.emoji}</div><div class="sentence">✅ ${t.c}</div><div class="explanation">${t.e}</div></div></div></div><div class="flashcard-controls"><button class="btn btn-primary" onclick="prevCard()">️ Назад</button><span>${currentFlashcard + 1} / ${DATA[currentUnit].theory.length}</span><button class="btn btn-primary" onclick="nextCard()">Вперёд ➡️</button></div>`;
+    const theories = DATA[currentUnit].theory;
+    const t = theories[currentFlashcard];
+
+    area.innerHTML = `
+        <div class="flashcard" id="flashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <div class="emoji">${t.emoji}</div>
+                    <div class="sentence">❌ ${t.w}</div>
+                    <div style="font-size:0.9em; opacity:0.8;">Нажмите, чтобы увидеть ответ</div>
+                </div>
+                <div class="flashcard-back">
+                    <div class="emoji">${t.emoji}</div>
+                    <div class="sentence">✅ ${t.c}</div>
+                    <div class="explanation"> ${t.e}</div>
+                </div>
+            </div>
+        </div>
+        <div class="flashcard-controls">
+            <button class="btn btn-primary" onclick="prevCard()">️ Назад</button>
+            <span>${currentFlashcard + 1} / ${theories.length}</span>
+            <button class="btn btn-primary" onclick="nextCard()">Вперёд ➡️</button>
+        </div>
+        <div style="text-align:center; margin-top:18px; color:var(--text-light); font-size:0.9em; font-style:italic;">
+            💡 Кликните на карточку, чтобы перевернуть
+        </div>
+    `;
 }
 
-function nextCard() { currentFlashcard = (currentFlashcard + 1) % DATA[currentUnit].theory.length; renderContent(); }
-function prevCard() { currentFlashcard = (currentFlashcard - 1 + DATA[currentUnit].theory.length) % DATA[currentUnit].theory.length; renderContent(); }
+function nextCard() {
+    const theories = DATA[currentUnit].theory;
+    currentFlashcard = (currentFlashcard + 1) % theories.length;
+    renderContent();
+}
 
+function prevCard() {
+    const theories = DATA[currentUnit].theory;
+    currentFlashcard = (currentFlashcard - 1 + theories.length) % theories.length;
+    renderContent();
+}
+
+// ==================== PRACTICE A ====================
 function renderPracticeA(area) {
     const practices = DATA[currentUnit].practiceA;
-    document.getElementById('filter-bar').innerHTML = `<button onclick="setFilter('all')" class="${filterMode==='all'?'active':''}">Все</button><button onclick="setFilter('wrong')" class="${filterMode==='wrong'?'active':''}">❌ Ошибки</button><button onclick="setFilter('correct')" class="${filterMode==='correct'?'active':''}">✅ Верные</button>`;
-    document.getElementById('header-controls').innerHTML = `<button class="btn btn-warning" onclick="showAllAnswers()">👁️ Показать все</button><button class="btn btn-primary" onclick="resetUnitAnswers()">🔄 Сброс</button>`;
-    
+    if (!practices) {
+        area.innerHTML = `<div class="card">Practice A для этого юнита недоступен.</div>`;
+        return;
+    }
+
+    const filterBar = document.getElementById('filter-bar');
+    filterBar.innerHTML = `
+        <button onclick="setFilter('all')" class="${filterMode==='all'?'active':''}">Все (${practices.length})</button>
+        <button onclick="setFilter('wrong')" class="${filterMode==='wrong'?'active':''}">❌ Ошибки</button>
+        <button onclick="setFilter('correct')" class="${filterMode==='correct'?'active':''}">✅ Верные</button>
+        <button onclick="setFilter('unanswered')" class="${filterMode==='unanswered'?'active':''}">⚪ Без ответа</button>
+    `;
+
+    const controls = document.getElementById('header-controls');
+    controls.innerHTML = `
+        <button class="btn btn-warning" onclick="showAllAnswers()">👁️ Показать все ответы</button>
+        <button class="btn btn-primary" onclick="resetUnitAnswers()">🔄 Сбросить</button>
+    `;
+
     practices.forEach((p, idx) => {
         const key = `${currentUnit}_A_${idx}`;
         const userAns = userAnswers[key];
         const isAnswered = userAns !== undefined;
         const isCorrect = isAnswered && (userAns === p.ans);
+
         let itemClass = 'practice-a-item';
         if (isAnswered) itemClass += isCorrect ? ' answered-correct' : ' answered-wrong';
+
         if (filterMode === 'wrong' && (!isAnswered || isCorrect)) itemClass += ' hidden-item';
         if (filterMode === 'correct' && (!isAnswered || !isCorrect)) itemClass += ' hidden-item';
+        if (filterMode === 'unanswered' && isAnswered) itemClass += ' hidden-item';
 
         const item = document.createElement('div');
         item.className = itemClass;
-        item.innerHTML = `<div style="margin-bottom:12px;"><strong>${idx + 1}.</strong> ${p.s}</div><button class="btn btn-right" onclick="checkA(this, true, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', '${p.ref}', ${idx})" ${isAnswered?'disabled':''}>✅ Right</button><button class="btn btn-wrong" onclick="checkA(this, false, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', '${p.ref}', ${idx})" ${isAnswered?'disabled':''}>❌ Wrong</button><div class="answer-box" id="ans-${idx}" style="display:${isAnswered?'block':'none'};">${isAnswered ? (isCorrect ? `<span style="color:var(--success); font-weight:600;">🎉 Верно!</span>${!p.ans ? `<br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>` : ''}` : `<span style="color:var(--danger); font-weight:600;">❌ Ошибка.</span><br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>`) : ''}<div style="margin-top:8px; font-size:0.85em; color:var(--text-light);">📖 См. правило ${p.ref}</div></div>`;
+        item.id = `item-${idx}`;
+        item.innerHTML = `
+            <div style="margin-bottom:12px;"><strong style="color:var(--deep);">${idx + 1}.</strong> ${p.s}</div>
+            <button class="btn btn-right" onclick="checkA(this, true, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', '${p.ref}', ${idx})" ${isAnswered?'disabled':''}>✅ Right</button>
+            <button class="btn btn-wrong" onclick="checkA(this, false, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', '${p.ref}', ${idx})" ${isAnswered?'disabled':''}>❌ Wrong</button>
+            <div class="answer-box" id="ans-${idx}" style="display:${isAnswered?'block':'none'};">
+                ${isAnswered ? (isCorrect ?
+                    `<span style="color:var(--success); font-weight:600;">🎉 Верно!</span>${!p.ans ? `<br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>` : ''}` :
+                    `<span style="color:var(--danger); font-weight:600;">❌ Ошибка.</span><br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>`) : ''}
+                <div style="margin-top:8px; font-size:0.85em; color:var(--text-light);">📖 См. правило ${p.ref}</div>
+            </div>
+        `;
         area.appendChild(item);
     });
 }
 
-function setFilter(mode) { filterMode = mode; renderContent(); }
+function setFilter(mode) {
+    filterMode = mode;
+    renderContent();
+}
 
 function checkA(btn, userAns, correctAns, fix, ref, idx) {
-    userAnswers[`${currentUnit}_A_${idx}`] = userAns;
+    const key = `${currentUnit}_A_${idx}`;
+    userAnswers[key] = userAns;
     localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
+
     if (!stats[currentUnit]) stats[currentUnit] = {correct: 0, wrong: 0};
-    if (userAns === correctAns) stats[currentUnit].correct++; else stats[currentUnit].wrong++;
+    const isCorrect = (userAns === correctAns);
+    if (isCorrect) stats[currentUnit].correct++;
+    else stats[currentUnit].wrong++;
     localStorage.setItem('trainer_stats', JSON.stringify(stats));
+
     renderContent();
 }
 
 function showAllAnswers() {
-    DATA[currentUnit].practiceA.forEach((p, idx) => {
+    const practices = DATA[currentUnit].practiceA;
+    practices.forEach((p, idx) => {
         const ansBox = document.getElementById(`ans-${idx}`);
         if (ansBox) {
             ansBox.style.display = 'block';
-            if (!ansBox.innerHTML.trim()) ansBox.innerHTML = `<strong>Ответ:</strong> ${p.ans ? '✅ Right' : '❌ Wrong'}${!p.ans ? `<br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>` : ''}<div style="margin-top:8px; font-size:0.85em; color:var(--text-light);">📖 См. правило ${p.ref}</div>`;
+            if (!ansBox.innerHTML.trim()) {
+                ansBox.innerHTML = `
+                    <strong>Ответ:</strong> ${p.ans ? '✅ Right' : '❌ Wrong'}
+                    ${!p.ans ? `<br><strong>Правильный вариант:</strong> <span class="correct">${p.fix}</span>` : ''}
+                    <div style="margin-top:8px; font-size:0.85em; color:var(--text-light);">📖 См. правило ${p.ref}</div>
+                `;
+            }
         }
     });
 }
 
 function resetUnitAnswers() {
-    if (!confirm('Сбросить ответы?')) return;
-    Object.keys(userAnswers).forEach(k => { if (k.startsWith(`${currentUnit}_`)) delete userAnswers[k]; });
+    if (!confirm('Сбросить все ответы Unit ' + currentUnit + '?')) return;
+    Object.keys(userAnswers).forEach(k => {
+        if (k.startsWith(`${currentUnit}_`)) delete userAnswers[k];
+    });
     stats[currentUnit] = {correct: 0, wrong: 0};
     localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
     localStorage.setItem('trainer_stats', JSON.stringify(stats));
     renderContent();
 }
 
+// ==================== PRACTICE B ====================
 function renderPracticeB(area) {
     const p = DATA[currentUnit].practiceB;
+    if (!p) {
+        area.innerHTML = `<div class="card">Practice B для этого юнита недоступен.</div>`;
+        return;
+    }
+
     let textHtml = p.text.replace(/\((\d+)\) ___/g, (match, num) => {
-        const savedVal = userAnswers[`${currentUnit}_B_${num}`] || '';
+        const savedKey = `${currentUnit}_B_${num}`;
+        const savedVal = userAnswers[savedKey] || '';
         return `<input type="text" class="fill-blank" id="blank-${num}" data-ans="${p.answers[num-1]}" data-num="${num}" value="${savedVal}" placeholder="(${num})">`;
     });
+
     const card = document.createElement('div');
     card.className = 'card';
-    card.innerHTML = `<div style="line-height: 2.5; font-size: 1.05em;">${textHtml}</div><div style="margin-top:25px; text-align:right;"><button class="btn btn-primary" onclick="checkB()">✓ Проверить</button><button class="btn btn-warning" onclick="showAllB()">👁️ Показать все</button><button class="btn btn-wrong" onclick="resetB()">🔄 Сброс</button></div>`;
+    card.innerHTML = `
+        <div style="line-height: 2.5; font-size: 1.05em;">${textHtml}</div>
+        <div style="margin-top:25px; text-align:right;">
+            <button class="btn btn-primary" onclick="checkB()">✓ Проверить ответы</button>
+            <button class="btn btn-warning" onclick="showAllB()">👁️ Показать все</button>
+            <button class="btn btn-wrong" onclick="resetB()">🔄 Сбросить</button>
+        </div>
+    `;
     area.appendChild(card);
+
     document.querySelectorAll('.fill-blank').forEach(inp => {
         inp.addEventListener('input', (e) => {
-            userAnswers[`${currentUnit}_B_${e.target.dataset.num}`] = e.target.value;
+            const num = e.target.dataset.num;
+            userAnswers[`${currentUnit}_B_${num}`] = e.target.value;
             localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
         });
     });
 }
 
 function checkB() {
+    const inputs = document.querySelectorAll('.fill-blank');
     let score = 0;
-    document.querySelectorAll('.fill-blank').forEach(inp => {
+    let total = inputs.length;
+    inputs.forEach(inp => {
         const userVal = inp.value.trim().toLowerCase();
-        const correctOptions = inp.dataset.ans.toLowerCase().split('/').map(s => s.trim());
+        const correctVal = inp.dataset.ans.toLowerCase();
         inp.classList.remove('correct', 'wrong');
-        if (correctOptions.includes(userVal)) { inp.classList.add('correct'); score++; } 
-        else { inp.classList.add('wrong'); inp.title = `Правильный ответ: ${inp.dataset.ans}`; }
+
+        const correctOptions = correctVal.split('/').map(s => s.trim());
+        const isCorrect = correctOptions.includes(userVal);
+
+        if (isCorrect) {
+            inp.classList.add('correct');
+            score++;
+        } else {
+            inp.classList.add('wrong');
+            inp.title = `Правильный ответ: ${inp.dataset.ans}`;
+        }
     });
-    alert(`Результат: ${score} из ${document.querySelectorAll('.fill-blank').length}`);
+    alert(`Ваш результат: ${score} из ${total} (${Math.round(score/total*100)}%)`);
 }
 
 function showAllB() {
-    document.querySelectorAll('.fill-blank').forEach(inp => { inp.value = inp.dataset.ans; inp.classList.remove('wrong'); inp.classList.add('correct'); });
+    document.querySelectorAll('.fill-blank').forEach(inp => {
+        inp.value = inp.dataset.ans;
+        inp.classList.remove('wrong');
+        inp.classList.add('correct');
+    });
 }
 
 function resetB() {
-    if (!confirm('Сбросить ответы?')) return;
+    if (!confirm('Сбросить все ответы?')) return;
     document.querySelectorAll('.fill-blank').forEach(inp => {
-        inp.value = ''; inp.classList.remove('correct', 'wrong');
+        inp.value = '';
+        inp.classList.remove('correct', 'wrong');
         delete userAnswers[`${currentUnit}_B_${inp.dataset.num}`];
     });
     localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
 }
 
+// ==================== RANDOM TEST ====================
 function renderRandomTest(area) {
     let allQuestions = [];
-    for (let u = 1; u <= 5; u++) DATA[u].practiceA.forEach((p, idx) => allQuestions.push({...p, unit: u}));
+    for (let u = 1; u <= 5; u++) {
+        DATA[u].practiceA.forEach((p, idx) => {
+            allQuestions.push({...p, unit: u, origIdx: idx});
+        });
+    }
+
     allQuestions = allQuestions.sort(() => Math.random() - 0.5).slice(0, 15);
-    area.innerHTML = `<div class="card"><h3 style="font-family:'Cormorant Garamond',serif; color:var(--deep); font-size:1.6em; margin-bottom:10px;">🎲 Случайный тест</h3><p style="color:var(--text-light);">Определите, верны ли следующие предложения.</p></div>`;
+
+    area.innerHTML = `
+        <div class="card">
+            <h3 style="font-family:'Cormorant Garamond',serif; color:var(--deep); font-size:1.6em; margin-bottom:10px;">🎲 Случайный тест из всех юнитов</h3>
+            <p style="color:var(--text-light);">Определите, верны ли следующие предложения. Если нет — исправьте ошибку.</p>
+        </div>
+    `;
+
     allQuestions.forEach((p, idx) => {
         const item = document.createElement('div');
         item.className = 'practice-a-item';
-        item.innerHTML = `<div style="margin-bottom:12px;"><strong>[Unit ${p.unit}]</strong> ${idx + 1}. ${p.s}</div><button class="btn btn-right" onclick="checkRandom(this, true, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', ${p.unit})">✅ Right</button><button class="btn btn-wrong" onclick="checkRandom(this, false, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', ${p.unit})">❌ Wrong</button><div class="answer-box"></div>`;
+        item.innerHTML = `
+            <div style="margin-bottom:12px;"><strong style="color:var(--deep);">[Unit ${p.unit}]</strong> ${idx + 1}. ${p.s}</div>
+            <button class="btn btn-right" onclick="checkRandom(this, true, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', ${p.unit})">✅ Right</button>
+            <button class="btn btn-wrong" onclick="checkRandom(this, false, ${p.ans}, '${p.fix.replace(/'/g, "\\'")}', ${p.unit})">❌ Wrong</button>
+            <div class="answer-box"></div>
+        `;
         area.appendChild(item);
     });
 }
@@ -1014,31 +1345,86 @@ function checkRandom(btn, userAns, correctAns, fix, unit) {
     const item = btn.parentElement;
     const ansBox = item.querySelector('.answer-box');
     const isCorrect = (userAns === correctAns);
-    ansBox.innerHTML = isCorrect ? `<span style="color:var(--success); font-weight:600;">🎉 Верно!</span>` : `<span style="color:var(--danger); font-weight:600;">❌ Ошибка.</span><br><strong>Правильный вариант:</strong> <span class="correct">${fix}</span>`;
+
+    let html = '';
+    if (isCorrect) {
+        html = `<span style="color:var(--success); font-weight:600;">🎉 Верно!</span>`;
+        item.classList.add('answered-correct');
+    } else {
+        html = `<span style="color:var(--danger); font-weight:600;">❌ Ошибка.</span><br>`;
+        item.classList.add('answered-wrong');
+    }
+
+    if (!correctAns && fix) {
+        html += `<strong>Правильный вариант:</strong> <span class="correct">${fix}</span>`;
+    }
+
+    ansBox.innerHTML = html;
     ansBox.style.display = 'block';
-    item.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
-    item.querySelectorAll('button').forEach(b => b.disabled = true);
+    btn.parentElement.querySelectorAll('button').forEach(b => b.disabled = true);
+
     if (!stats['random']) stats['random'] = {correct: 0, wrong: 0};
-    if (isCorrect) stats['random'].correct++; else stats['random'].wrong++;
+    if (isCorrect) stats['random'].correct++;
+    else stats['random'].wrong++;
     localStorage.setItem('trainer_stats', JSON.stringify(stats));
     updateStats();
 }
 
+// ==================== STATS ====================
 function updateStats() {
     const statsArea = document.getElementById('stats-area');
-    if (currentMode !== 'practiceA' && currentMode !== 'practiceB' && currentMode !== 'randomTest') { statsArea.innerHTML = ''; return; }
-    const s = stats[currentMode === 'randomTest' ? 'random' : currentUnit] || {correct: 0, wrong: 0};
+    if (currentMode === 'randomTest') {
+        const s = stats['random'] || {correct: 0, wrong: 0};
+        const total = s.correct + s.wrong;
+        const pct = total ? Math.round(s.correct / total * 100) : 0;
+        statsArea.innerHTML = `
+            <div class="stat-box"><div class="label">✅ Верно</div><div class="value" style="color:var(--success);">${s.correct}</div></div>
+            <div class="stat-box"><div class="label">❌ Ошибки</div><div class="value" style="color:var(--danger);">${s.wrong}</div></div>
+            <div class="stat-box"><div class="label">📊 Точность</div><div class="value">${pct}%</div></div>
+        `;
+        return;
+    }
+
+    if (currentMode !== 'practiceA' && currentMode !== 'practiceB') {
+        statsArea.innerHTML = '';
+        return;
+    }
+
+    const s = stats[currentUnit] || {correct: 0, wrong: 0};
     const total = s.correct + s.wrong;
     const pct = total ? Math.round(s.correct / total * 100) : 0;
-    statsArea.innerHTML = `<div class="stat-box"><div class="label">✅ Верно</div><div class="value" style="color:var(--success);">${s.correct}</div></div><div class="stat-box"><div class="label">❌ Ошибки</div><div class="value" style="color:var(--danger);">${s.wrong}</div></div><div class="stat-box"><div class="label">📊 Точность</div><div class="value">${pct}%</div></div>${total > 0 ? `<div style="width:100%;"><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div>` : ''}`;
+    const totalQuestions = DATA[currentUnit].practiceA ? DATA[currentUnit].practiceA.length : 0;
+
+    statsArea.innerHTML = `
+        <div class="stat-box"><div class="label">✅ Верно</div><div class="value" style="color:var(--success);">${s.correct}</div></div>
+        <div class="stat-box"><div class="label">❌ Ошибки</div><div class="value" style="color:var(--danger);">${s.wrong}</div></div>
+        <div class="stat-box"><div class="label">📊 Точность</div><div class="value">${pct}%</div></div>
+        <div class="stat-box"><div class="label">📝 Всего вопросов</div><div class="value">${totalQuestions}</div></div>
+    `;
+
+    if (total > 0) {
+        statsArea.innerHTML += `
+            <div style="width:100%;">
+                <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+            </div>
+        `;
+    }
 }
 
+// ==================== EXPORT/IMPORT ====================
 function exportProgress() {
-    const blob = new Blob([JSON.stringify({stats, userAnswers, exportDate: new Date().toISOString()}, null, 2)], {type: 'application/json'});
+    const data = {
+        stats: stats,
+        userAnswers: userAnswers,
+        exportDate: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = `trainer_progress_${new Date().toISOString().split('T')[0]}.json`;
     a.click();
+    URL.revokeObjectURL(url);
     showToast('💾 Прогресс экспортирован!');
 }
 
@@ -1049,18 +1435,29 @@ function importProgress(event) {
     reader.onload = function(e) {
         try {
             const data = JSON.parse(e.target.result);
-            if (data.stats) { stats = data.stats; localStorage.setItem('trainer_stats', JSON.stringify(stats)); }
-            if (data.userAnswers) { userAnswers = data.userAnswers; localStorage.setItem('trainer_answers', JSON.stringify(userAnswers)); }
-            showToast('✅ Прогресс импортирован!');
+            if (data.stats) {
+                stats = data.stats;
+                localStorage.setItem('trainer_stats', JSON.stringify(stats));
+            }
+            if (data.userAnswers) {
+                userAnswers = data.userAnswers;
+                localStorage.setItem('trainer_answers', JSON.stringify(userAnswers));
+            }
+            showToast('✅ Прогресс успешно импортирован!');
             renderContent();
-        } catch (err) { showToast('❌ Ошибка импорта', true); }
+        } catch (err) {
+            showToast('❌ Ошибка импорта: ' + err.message, true);
+        }
     };
     reader.readAsText(file);
 }
 
 function resetProgress() {
-    if (!confirm('Удалить весь прогресс?')) return;
-    localStorage.clear(); stats = {}; userAnswers = {};
+    if (!confirm('Удалить весь прогресс и ответы?')) return;
+    if (!confirm('Вы уверены? Все данные будут потеряны!')) return;
+    localStorage.clear();
+    stats = {};
+    userAnswers = {};
     showToast('✅ Прогресс сброшен.');
     setTimeout(() => location.reload(), 1000);
 }
@@ -1070,9 +1467,14 @@ function showToast(message, isError = false) {
     toast.className = 'toast' + (isError ? ' error' : '');
     toast.textContent = message;
     document.body.appendChild(toast);
-    setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 2500);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
 }
 
+// Start
 init();
 </script>
 </body>
