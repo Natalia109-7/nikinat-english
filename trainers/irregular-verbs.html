@@ -332,19 +332,41 @@ h2 {
   font-weight: 500;
 }
 
+/* Блок с двумя формами */
+.forms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-label {
+  font-size: 0.85em;
+  color: var(--text-light);
+  margin-bottom: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .answer-input {
   width: 100%;
-  max-width: 400px;
   padding: 15px 22px;
   border: 2px solid var(--lavender);
   border-radius: 25px;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-family: 'Montserrat', sans-serif;
   background: rgba(255,255,255,0.9);
   color: var(--text);
   text-align: center;
   transition: all 0.3s;
-  margin-bottom: 15px;
 }
 
 .answer-input:focus {
@@ -365,6 +387,12 @@ h2 {
   background: rgba(247,214,224,0.5);
   color: var(--danger);
   animation: shake 0.4s ease;
+}
+
+.answer-input.partial {
+  border-color: var(--warning);
+  background: rgba(212,165,116,0.15);
+  color: var(--warning);
 }
 
 @keyframes shake {
@@ -436,6 +464,12 @@ h2 {
   background: linear-gradient(135deg, rgba(247,214,224,0.7), rgba(201,123,132,0.3));
   color: var(--danger);
   border-left: 4px solid var(--danger);
+}
+
+.feedback.partial {
+  background: linear-gradient(135deg, rgba(212,165,116,0.2), rgba(212,165,116,0.3));
+  color: var(--warning);
+  border-left: 4px solid var(--warning);
 }
 
 /* Статистика */
@@ -527,7 +561,6 @@ h2 {
   width: 0%;
 }
 
-/* Сложные глаголы */
 .hard-verbs {
   margin-top: 25px;
 }
@@ -575,6 +608,7 @@ h2 {
   .verbs-table thead th, .verbs-table tbody td { padding: 10px 8px; }
   .top-nav { padding: 12px 18px; }
   .logo { font-size: 18px; }
+  .forms-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -591,15 +625,13 @@ h2 {
 
 <div class="container">
   <header>
-    <h1> Irregular Verbs Trainer </h1>
+    <h1>Irregular Verbs Trainer</h1>
     <p>Тренажёр неправильных глаголов английского языка</p>
   </header>
 
   <div class="tabs">
     <button class="tab-btn active" onclick="showTab('table', this)">📖 Таблица</button>
-    <button class="tab-btn" onclick="showTab('past', this)">🔄 Past Tense</button>
-    <button class="tab-btn" onclick="showTab('participle', this)">📝 Participle</button>
-    <button class="tab-btn" onclick="showTab('conjugation', this)">🎯 Спряжение</button>
+    <button class="tab-btn" onclick="showTab('practice', this)">✏️ Практика</button>
     <button class="tab-btn" onclick="showTab('test', this)">🏆 Тест</button>
     <button class="tab-btn" onclick="showTab('stats', this)">📊 Статистика</button>
   </div>
@@ -620,9 +652,8 @@ h2 {
           <thead>
             <tr>
               <th>Infinitive</th>
-              <th>Present (he/she)</th>
-              <th>Past</th>
-              <th>Participle</th>
+              <th>Past Simple (V2)</th>
+              <th>Past Participle (V3)</th>
               <th>Перевод</th>
             </tr>
           </thead>
@@ -631,63 +662,33 @@ h2 {
       </div>
     </div>
 
-    <!-- PAST TENSE -->
-    <div class="tab-content" id="past">
-      <h2>🔄 Past Tense</h2>
-      <p class="subtitle">Введите прошедшую форму глагола</p>
+    <!-- ПРАКТИКА: Past + Participle в одном -->
+    <div class="tab-content" id="practice">
+      <h2>✏️ Все формы глагола</h2>
+      <p class="subtitle">Введите Past Simple (V2) и Past Participle (V3)</p>
       
       <div class="exercise-box">
-        <div class="exercise-type">Past Tense</div>
-        <div class="verb-display" id="pastVerb">—</div>
-        <div class="verb-translation" id="pastTranslation"></div>
-        <div class="prompt-text">Введите форму Past Simple:</div>
-        <input type="text" class="answer-input" id="pastInput" placeholder="..." onkeypress="if(event.key==='Enter')checkPast()">
-        <div>
-          <button class="btn btn-success" onclick="checkPast()">✓ Проверить</button>
-          <button class="btn btn-secondary" onclick="showAnswer('past')">💡 Ответ</button>
-          <button class="btn" onclick="nextVerb('past')">Следующий ➡️</button>
+        <div class="exercise-type">All Forms</div>
+        <div class="verb-display" id="practiceVerb">—</div>
+        <div class="verb-translation" id="practiceTranslation"></div>
+        
+        <div class="forms-grid">
+          <div class="form-group">
+            <label class="form-label">Past Simple (V2)</label>
+            <input type="text" class="answer-input" id="pastInput" placeholder="...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Past Participle (V3)</label>
+            <input type="text" class="answer-input" id="participleInput" placeholder="...">
+          </div>
         </div>
-        <div class="feedback" id="pastFeedback"></div>
-      </div>
-    </div>
-
-    <!-- PARTICIPLE -->
-    <div class="tab-content" id="participle">
-      <h2>📝 Past Participle</h2>
-      <p class="subtitle">Введите форму причастия (3-я форма)</p>
-      
-      <div class="exercise-box">
-        <div class="exercise-type">Past Participle</div>
-        <div class="verb-display" id="participleVerb">—</div>
-        <div class="verb-translation" id="participleTranslation"></div>
-        <div class="prompt-text">Введите форму Past Participle:</div>
-        <input type="text" class="answer-input" id="participleInput" placeholder="..." onkeypress="if(event.key==='Enter')checkParticiple()">
+        
         <div>
-          <button class="btn btn-success" onclick="checkParticiple()">✓ Проверить</button>
-          <button class="btn btn-secondary" onclick="showAnswer('participle')">💡 Ответ</button>
-          <button class="btn" onclick="nextVerb('participle')">Следующий ➡️</button>
+          <button class="btn btn-success" onclick="checkPractice()">✓ Проверить</button>
+          <button class="btn btn-secondary" onclick="showPracticeAnswer()">💡 Ответ</button>
+          <button class="btn" onclick="nextPractice()">Следующий ➡️</button>
         </div>
-        <div class="feedback" id="participleFeedback"></div>
-      </div>
-    </div>
-
-    <!-- СПРЯЖЕНИЕ -->
-    <div class="tab-content" id="conjugation">
-      <h2>🎯 Спряжение в Past Tense</h2>
-      <p class="subtitle">Проспрягайте глагол для указанного лица</p>
-      
-      <div class="exercise-box">
-        <div class="exercise-type">Conjugation</div>
-        <div class="prompt-text" id="conjugationPrompt">Past Tense: I</div>
-        <div class="verb-display" id="conjugationVerb">—</div>
-        <div class="verb-translation" id="conjugationTranslation"></div>
-        <input type="text" class="answer-input" id="conjugationInput" placeholder="..." onkeypress="if(event.key==='Enter')checkConjugation()">
-        <div>
-          <button class="btn btn-success" onclick="checkConjugation()">✓ Проверить</button>
-          <button class="btn btn-secondary" onclick="showAnswer('conjugation')">💡 Ответ</button>
-          <button class="btn" onclick="nextConjugation()">Следующий ➡️</button>
-        </div>
-        <div class="feedback" id="conjugationFeedback"></div>
+        <div class="feedback" id="practiceFeedback"></div>
       </div>
     </div>
 
@@ -716,9 +717,19 @@ h2 {
       </div>
       
       <div class="exercise-box" id="testExercise" style="display:none;">
-        <div class="exercise-type">Past Tense</div>
+        <div class="exercise-type">Past + Participle</div>
         <div class="verb-display" id="testVerb">—</div>
-        <input type="text" class="answer-input" id="testInput" placeholder="..." onkeypress="if(event.key==='Enter')checkTest()">
+        <div class="verb-translation" id="testTranslation"></div>
+        <div class="forms-grid">
+          <div class="form-group">
+            <label class="form-label">Past Simple (V2)</label>
+            <input type="text" class="answer-input" id="testPastInput" placeholder="...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Past Participle (V3)</label>
+            <input type="text" class="answer-input" id="testPartInput" placeholder="...">
+          </div>
+        </div>
         <div>
           <button class="btn btn-success" onclick="checkTest()">✓ Ответ</button>
         </div>
@@ -730,7 +741,7 @@ h2 {
       </div>
       
       <div id="testResult" style="display:none; text-align:center; padding:30px;">
-        <h3 style="font-family:'Cormorant Garamond',serif; color:var(--deep); font-size:2em; margin-bottom:15px;"> Тест завершён!</h3>
+        <h3 style="font-family:'Cormorant Garamond',serif; color:var(--deep); font-size:2em; margin-bottom:15px;">Тест завершён!</h3>
         <p style="font-size:1.2em; margin-bottom:20px;">Результат: <strong id="testFinalScore">0/10</strong></p>
         <p style="font-size:1.1em; margin-bottom:25px; color:var(--text-light);">Время: <strong id="testFinalTime">0</strong> сек</p>
         <button class="btn" onclick="startTest()">🔄 Пройти ещё раз</button>
@@ -778,259 +789,243 @@ h2 {
 <script>
 // База неправильных глаголов
 const verbs = [
-  { inf: "be", pres: "is", past: "was/were", part: "been", ru: "быть" },
-  { inf: "become", pres: "becomes", past: "became", part: "become", ru: "становиться" },
-  { inf: "begin", pres: "begins", past: "began", part: "begun", ru: "начинать" },
-  { inf: "break", pres: "breaks", past: "broke", part: "broken", ru: "ломать" },
-  { inf: "bring", pres: "brings", past: "brought", part: "brought", ru: "приносить" },
-  { inf: "build", pres: "builds", past: "built", part: "built", ru: "строить" },
-  { inf: "buy", pres: "buys", past: "bought", part: "bought", ru: "покупать" },
-  { inf: "catch", pres: "catches", past: "caught", part: "caught", ru: "ловить" },
-  { inf: "choose", pres: "chooses", past: "chose", part: "chosen", ru: "выбирать" },
-  { inf: "come", pres: "comes", past: "came", part: "come", ru: "приходить" },
-  { inf: "cost", pres: "costs", past: "cost", part: "cost", ru: "стоить" },
-  { inf: "cut", pres: "cuts", past: "cut", part: "cut", ru: "резать" },
-  { inf: "do", pres: "does", past: "did", part: "done", ru: "делать" },
-  { inf: "draw", pres: "draws", past: "drew", part: "drawn", ru: "рисовать" },
-  { inf: "drink", pres: "drinks", past: "drank", part: "drunk", ru: "пить" },
-  { inf: "drive", pres: "drives", past: "drove", part: "driven", ru: "водить" },
-  { inf: "eat", pres: "eats", past: "ate", part: "eaten", ru: "есть" },
-  { inf: "fall", pres: "falls", past: "fell", part: "fallen", ru: "падать" },
-  { inf: "feel", pres: "feels", past: "felt", part: "felt", ru: "чувствовать" },
-  { inf: "find", pres: "finds", past: "found", part: "found", ru: "находить" },
-  { inf: "fly", pres: "flies", past: "flew", part: "flown", ru: "летать" },
-  { inf: "forget", pres: "forgets", past: "forgot", part: "forgotten", ru: "забывать" },
-  { inf: "get", pres: "gets", past: "got", part: "got/gotten", ru: "получать" },
-  { inf: "give", pres: "gives", past: "gave", part: "given", ru: "давать" },
-  { inf: "go", pres: "goes", past: "went", part: "gone", ru: "идти" },
-  { inf: "grow", pres: "grows", past: "grew", part: "grown", ru: "расти" },
-  { inf: "have", pres: "has", past: "had", part: "had", ru: "иметь" },
-  { inf: "hear", pres: "hears", past: "heard", part: "heard", ru: "слышать" },
-  { inf: "hide", pres: "hides", past: "hid", part: "hidden", ru: "прятать" },
-  { inf: "hit", pres: "hits", past: "hit", part: "hit", ru: "ударять" },
-  { inf: "hold", pres: "holds", past: "held", part: "held", ru: "держать" },
-  { inf: "keep", pres: "keeps", past: "kept", part: "kept", ru: "держать, хранить" },
-  { inf: "know", pres: "knows", past: "knew", part: "known", ru: "знать" },
-  { inf: "lead", pres: "leads", past: "led", part: "led", ru: "вести" },
-  { inf: "learn", pres: "learns", past: "learned/learnt", part: "learned/learnt", ru: "учиться" },
-  { inf: "leave", pres: "leaves", past: "left", part: "left", ru: "покидать" },
-  { inf: "lend", pres: "lends", past: "lent", part: "lent", ru: "одалживать" },
-  { inf: "let", pres: "lets", past: "let", part: "let", ru: "позволять" },
-  { inf: "lie", pres: "lies", past: "lay", part: "lain", ru: "лежать" },
-  { inf: "lose", pres: "loses", past: "lost", part: "lost", ru: "терять" },
-  { inf: "make", pres: "makes", past: "made", part: "made", ru: "делать, создавать" },
-  { inf: "mean", pres: "means", past: "meant", part: "meant", ru: "означать" },
-  { inf: "meet", pres: "meets", past: "met", part: "met", ru: "встречать" },
-  { inf: "pay", pres: "pays", past: "paid", part: "paid", ru: "платить" },
-  { inf: "put", pres: "puts", past: "put", part: "put", ru: "класть" },
-  { inf: "read", pres: "reads", past: "read", part: "read", ru: "читать" },
-  { inf: "ride", pres: "rides", past: "rode", part: "ridden", ru: "ездить верхом" },
-  { inf: "run", pres: "runs", past: "ran", part: "run", ru: "бегать" },
-  { inf: "say", pres: "says", past: "said", part: "said", ru: "говорить" },
-  { inf: "see", pres: "sees", past: "saw", part: "seen", ru: "видеть" },
-  { inf: "sell", pres: "sells", past: "sold", part: "sold", ru: "продавать" },
-  { inf: "send", pres: "sends", past: "sent", part: "sent", ru: "посылать" },
-  { inf: "show", pres: "shows", past: "showed", part: "shown", ru: "показывать" },
-  { inf: "sing", pres: "sings", past: "sang", part: "sung", ru: "петь" },
-  { inf: "sit", pres: "sits", past: "sat", part: "sat", ru: "сидеть" },
-  { inf: "sleep", pres: "sleeps", past: "slept", part: "slept", ru: "спать" },
-  { inf: "speak", pres: "speaks", past: "spoke", part: "spoken", ru: "говорить" },
-  { inf: "spend", pres: "spends", past: "spent", part: "spent", ru: "тратить" },
-  { inf: "stand", pres: "stands", past: "stood", part: "stood", ru: "стоять" },
-  { inf: "steal", pres: "steals", past: "stole", part: "stolen", ru: "воровать" },
-  { inf: "swim", pres: "swims", past: "swam", part: "swum", ru: "плавать" },
-  { inf: "take", pres: "takes", past: "took", part: "taken", ru: "брать" },
-  { inf: "teach", pres: "teaches", past: "taught", part: "taught", ru: "учить" },
-  { inf: "tell", pres: "tells", past: "told", part: "told", ru: "рассказывать" },
-  { inf: "think", pres: "thinks", past: "thought", part: "thought", ru: "думать" },
-  { inf: "understand", pres: "understands", past: "understood", part: "understood", ru: "понимать" },
-  { inf: "wear", pres: "wears", past: "wore", part: "worn", ru: "носить (одежду)" },
-  { inf: "win", pres: "wins", past: "won", part: "won", ru: "побеждать" },
-  { inf: "write", pres: "writes", past: "wrote", part: "written", ru: "писать" }
+  { inf: "be", past: "was/were", part: "been", ru: "быть" },
+  { inf: "become", past: "became", part: "become", ru: "становиться" },
+  { inf: "begin", past: "began", part: "begun", ru: "начинать" },
+  { inf: "break", past: "broke", part: "broken", ru: "ломать" },
+  { inf: "bring", past: "brought", part: "brought", ru: "приносить" },
+  { inf: "build", past: "built", part: "built", ru: "строить" },
+  { inf: "buy", past: "bought", part: "bought", ru: "покупать" },
+  { inf: "catch", past: "caught", part: "caught", ru: "ловить" },
+  { inf: "choose", past: "chose", part: "chosen", ru: "выбирать" },
+  { inf: "come", past: "came", part: "come", ru: "приходить" },
+  { inf: "cost", past: "cost", part: "cost", ru: "стоить" },
+  { inf: "cut", past: "cut", part: "cut", ru: "резать" },
+  { inf: "do", past: "did", part: "done", ru: "делать" },
+  { inf: "draw", past: "drew", part: "drawn", ru: "рисовать" },
+  { inf: "drink", past: "drank", part: "drunk", ru: "пить" },
+  { inf: "drive", past: "drove", part: "driven", ru: "водить" },
+  { inf: "eat", past: "ate", part: "eaten", ru: "есть" },
+  { inf: "fall", past: "fell", part: "fallen", ru: "падать" },
+  { inf: "feel", past: "felt", part: "felt", ru: "чувствовать" },
+  { inf: "find", past: "found", part: "found", ru: "находить" },
+  { inf: "fly", past: "flew", part: "flown", ru: "летать" },
+  { inf: "forget", past: "forgot", part: "forgotten", ru: "забывать" },
+  { inf: "get", past: "got/gotten", part: "got/gotten", ru: "получать" },
+  { inf: "give", past: "gave", part: "given", ru: "давать" },
+  { inf: "go", past: "went", part: "gone", ru: "идти" },
+  { inf: "grow", past: "grew", part: "grown", ru: "расти" },
+  { inf: "have", past: "had", part: "had", ru: "иметь" },
+  { inf: "hear", past: "heard", part: "heard", ru: "слышать" },
+  { inf: "hide", past: "hid", part: "hidden", ru: "прятать" },
+  { inf: "hit", past: "hit", part: "hit", ru: "ударять" },
+  { inf: "hold", past: "held", part: "held", ru: "держать" },
+  { inf: "keep", past: "kept", part: "kept", ru: "хранить" },
+  { inf: "know", past: "knew", part: "known", ru: "знать" },
+  { inf: "lead", past: "led", part: "led", ru: "вести" },
+  { inf: "learn", past: "learned/learnt", part: "learned/learnt", ru: "учиться" },
+  { inf: "leave", past: "left", part: "left", ru: "покидать" },
+  { inf: "lend", past: "lent", part: "lent", ru: "одалживать" },
+  { inf: "let", past: "let", part: "let", ru: "позволять" },
+  { inf: "lie", past: "lay", part: "lain", ru: "лежать" },
+  { inf: "lose", past: "lost", part: "lost", ru: "терять" },
+  { inf: "make", past: "made", part: "made", ru: "делать" },
+  { inf: "mean", past: "meant", part: "meant", ru: "означать" },
+  { inf: "meet", past: "met", part: "met", ru: "встречать" },
+  { inf: "pay", past: "paid", part: "paid", ru: "платить" },
+  { inf: "put", past: "put", part: "put", ru: "класть" },
+  { inf: "read", past: "read", part: "read", ru: "читать" },
+  { inf: "ride", past: "rode", part: "ridden", ru: "ездить верхом" },
+  { inf: "run", past: "ran", part: "run", ru: "бегать" },
+  { inf: "say", past: "said", part: "said", ru: "говорить" },
+  { inf: "see", past: "saw", part: "seen", ru: "видеть" },
+  { inf: "sell", past: "sold", part: "sold", ru: "продавать" },
+  { inf: "send", past: "sent", part: "sent", ru: "посылать" },
+  { inf: "show", past: "showed", part: "shown", ru: "показывать" },
+  { inf: "sing", past: "sang", part: "sung", ru: "петь" },
+  { inf: "sit", past: "sat", part: "sat", ru: "сидеть" },
+  { inf: "sleep", past: "slept", part: "slept", ru: "спать" },
+  { inf: "speak", past: "spoke", part: "spoken", ru: "говорить" },
+  { inf: "spend", past: "spent", part: "spent", ru: "тратить" },
+  { inf: "stand", past: "stood", part: "stood", ru: "стоять" },
+  { inf: "steal", past: "stole", part: "stolen", ru: "воровать" },
+  { inf: "swim", past: "swam", part: "swum", ru: "плавать" },
+  { inf: "take", past: "took", part: "taken", ru: "брать" },
+  { inf: "teach", past: "taught", part: "taught", ru: "учить" },
+  { inf: "tell", past: "told", part: "told", ru: "рассказывать" },
+  { inf: "think", past: "thought", part: "thought", ru: "думать" },
+  { inf: "understand", past: "understood", part: "understood", ru: "понимать" },
+  { inf: "wear", past: "wore", part: "worn", ru: "носить" },
+  { inf: "win", past: "won", part: "won", ru: "побеждать" },
+  { inf: "write", past: "wrote", part: "written", ru: "писать" }
 ];
 
 // Состояние
 let currentVerbIndex = 0;
-let currentConjugation = { pronoun: 'I', verbIndex: 0 };
 let stats = JSON.parse(localStorage.getItem('verbsStats') || '{"attempts":0,"correct":0,"mistakes":{},"bestTest":null}');
 
 // Тест
 let testState = { active: false, verbs: [], index: 0, correct: 0, startTime: 0, timer: null };
 
+// Fisher-Yates shuffle (честное перемешивание)
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 // Переключение вкладок
 function showTab(tabId, btnElement) {
-  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
-  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(tabId).classList.add('active');
   if (btnElement) btnElement.classList.add('active');
-  
   if (tabId === 'stats') updateStatsDisplay();
 }
 
 // Заполнение таблицы
 function renderTable() {
-  var tbody = document.getElementById('verbsTableBody');
+  const tbody = document.getElementById('verbsTableBody');
   tbody.innerHTML = '';
-  verbs.forEach(function(v) {
-    var tr = document.createElement('tr');
-    tr.innerHTML = '<td>' + v.inf + '</td>' +
-                   '<td class="form-cell">' + v.pres + '</td>' +
-                   '<td class="form-cell">' + v.past + '</td>' +
-                   '<td class="form-cell">' + v.part + '</td>' +
-                   '<td class="translation">' + v.ru + '</td>';
+  verbs.forEach(v => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = 
+      `<td>${v.inf}</td>` +
+      `<td class="form-cell">${v.past}</td>` +
+      `<td class="form-cell">${v.part}</td>` +
+      `<td class="translation">${v.ru}</td>`;
     tbody.appendChild(tr);
   });
 }
 
 function filterTable() {
-  var search = document.getElementById('searchInput').value.toLowerCase();
-  var rows = document.querySelectorAll('#verbsTableBody tr');
-  rows.forEach(function(row) {
-    var text = row.textContent.toLowerCase();
-    row.style.display = text.indexOf(search) !== -1 ? '' : 'none';
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('#verbsTableBody tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(search) ? '' : 'none';
   });
 }
 
-// Случайный глагол
 function getRandomVerbIndex() {
   return Math.floor(Math.random() * verbs.length);
 }
 
-// Следующий глагол
-function nextVerb(mode) {
-  currentVerbIndex = getRandomVerbIndex();
-  var v = verbs[currentVerbIndex];
-  
-  if (mode === 'past') {
-    document.getElementById('pastVerb').textContent = v.inf;
-    document.getElementById('pastTranslation').textContent = v.ru;
-    document.getElementById('pastInput').value = '';
-    document.getElementById('pastInput').className = 'answer-input';
-    document.getElementById('pastFeedback').classList.remove('show');
-    document.getElementById('pastInput').focus();
-  } else if (mode === 'participle') {
-    document.getElementById('participleVerb').textContent = v.inf;
-    document.getElementById('participleTranslation').textContent = v.ru;
-    document.getElementById('participleInput').value = '';
-    document.getElementById('participleInput').className = 'answer-input';
-    document.getElementById('participleFeedback').classList.remove('show');
-    document.getElementById('participleInput').focus();
-  }
-}
-
-// Следующее спряжение
-function nextConjugation() {
-  var pronouns = ['I', 'You', 'He', 'She', 'It', 'We', 'They'];
-  currentConjugation.pronoun = pronouns[Math.floor(Math.random() * pronouns.length)];
-  currentConjugation.verbIndex = getRandomVerbIndex();
-  var v = verbs[currentConjugation.verbIndex];
-  
-  document.getElementById('conjugationPrompt').textContent = 'Past Tense: ' + currentConjugation.pronoun;
-  document.getElementById('conjugationVerb').textContent = v.inf;
-  document.getElementById('conjugationTranslation').textContent = v.ru;
-  document.getElementById('conjugationInput').value = '';
-  document.getElementById('conjugationInput').className = 'answer-input';
-  document.getElementById('conjugationFeedback').classList.remove('show');
-  document.getElementById('conjugationInput').focus();
-}
-
-// Проверка ответа
 function normalizeAnswer(str) {
   return str.trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
-function checkAnswer(userInput, correctAnswer, verbInf, mode) {
-  var user = normalizeAnswer(userInput);
-  var correct = normalizeAnswer(correctAnswer);
-  var correctOptions = correct.split('/').map(function(s) { return s.trim(); });
-  var isCorrect = correctOptions.indexOf(user) !== -1;
+function isCorrectAnswer(userInput, correctAnswer) {
+  const user = normalizeAnswer(userInput);
+  const options = correctAnswer.split('/').map(s => s.trim().toLowerCase());
+  return options.includes(user);
+}
+
+// ПРАКТИКА
+function nextPractice() {
+  currentVerbIndex = getRandomVerbIndex();
+  const v = verbs[currentVerbIndex];
+  document.getElementById('practiceVerb').textContent = v.inf;
+  document.getElementById('practiceTranslation').textContent = v.ru;
   
-  var feedbackEl, inputEl;
-  if (mode === 'past') {
-    feedbackEl = document.getElementById('pastFeedback');
-    inputEl = document.getElementById('pastInput');
-  } else if (mode === 'participle') {
-    feedbackEl = document.getElementById('participleFeedback');
-    inputEl = document.getElementById('participleInput');
-  } else if (mode === 'conjugation') {
-    feedbackEl = document.getElementById('conjugationFeedback');
-    inputEl = document.getElementById('conjugationInput');
-  }
+  const pastInput = document.getElementById('pastInput');
+  const partInput = document.getElementById('participleInput');
+  pastInput.value = '';
+  partInput.value = '';
+  pastInput.className = 'answer-input';
+  partInput.className = 'answer-input';
+  
+  const feedback = document.getElementById('practiceFeedback');
+  feedback.classList.remove('show', 'correct', 'incorrect', 'partial');
+  pastInput.focus();
+}
+
+function checkPractice() {
+  const pastInput = document.getElementById('pastInput');
+  const partInput = document.getElementById('participleInput');
+  
+  if (!pastInput.value.trim() && !partInput.value.trim()) return;
+  
+  const v = verbs[currentVerbIndex];
+  const pastOk = isCorrectAnswer(pastInput.value, v.past);
+  const partOk = isCorrectAnswer(partInput.value, v.part);
+  
+  const feedback = document.getElementById('practiceFeedback');
+  feedback.className = 'feedback show';
   
   stats.attempts++;
   
-  if (isCorrect) {
+  if (pastOk && partOk) {
+    pastInput.classList.add('correct');
+    partInput.classList.add('correct');
+    feedback.classList.add('correct');
+    feedback.textContent = '✓ Отлично! Обе формы верны!';
     stats.correct++;
-    inputEl.className = 'answer-input correct';
-    feedbackEl.className = 'feedback correct show';
-    feedbackEl.textContent = '✓ Правильно! Отличная работа!';
+  } else if (pastOk || partOk) {
+    pastInput.classList.add(pastOk ? 'correct' : 'incorrect');
+    partInput.classList.add(partOk ? 'correct' : 'incorrect');
+    feedback.classList.add('partial');
+    const wrong = !pastOk ? `Past: ${v.past}` : `Participle: ${v.part}`;
+    feedback.textContent = `⚠ Частично верно. Правильный ответ для ${wrong}`;
+    stats.mistakes[v.inf] = (stats.mistakes[v.inf] || 0) + 1;
   } else {
-    inputEl.className = 'answer-input incorrect';
-    feedbackEl.className = 'feedback incorrect show';
-    feedbackEl.textContent = '✗ Неправильно. Правильный ответ: ' + correctAnswer;
-    stats.mistakes[verbInf] = (stats.mistakes[verbInf] || 0) + 1;
+    pastInput.classList.add('incorrect');
+    partInput.classList.add('incorrect');
+    feedback.classList.add('incorrect');
+    feedback.textContent = `✗ Правильно: ${v.past} / ${v.part}`;
+    stats.mistakes[v.inf] = (stats.mistakes[v.inf] || 0) + 1;
   }
   
   saveStats();
 }
 
-function checkPast() {
-  var input = document.getElementById('pastInput').value;
-  if (!input.trim()) return;
-  var v = verbs[currentVerbIndex];
-  checkAnswer(input, v.past, v.inf, 'past');
+function showPracticeAnswer() {
+  const v = verbs[currentVerbIndex];
+  const feedback = document.getElementById('practiceFeedback');
+  feedback.className = 'feedback correct show';
+  feedback.textContent = `💡 ${v.past} / ${v.part}`;
 }
 
-function checkParticiple() {
-  var input = document.getElementById('participleInput').value;
-  if (!input.trim()) return;
-  var v = verbs[currentVerbIndex];
-  checkAnswer(input, v.part, v.inf, 'participle');
-}
-
-function checkConjugation() {
-  var input = document.getElementById('conjugationInput').value;
-  if (!input.trim()) return;
-  var v = verbs[currentConjugation.verbIndex];
-  checkAnswer(input, v.past, v.inf, 'conjugation');
-}
-
-function showAnswer(mode) {
-  var v, feedbackEl;
-  if (mode === 'past') {
-    v = verbs[currentVerbIndex];
-    feedbackEl = document.getElementById('pastFeedback');
-  } else if (mode === 'participle') {
-    v = verbs[currentVerbIndex];
-    feedbackEl = document.getElementById('participleFeedback');
-  } else if (mode === 'conjugation') {
-    v = verbs[currentConjugation.verbIndex];
-    feedbackEl = document.getElementById('conjugationFeedback');
-  }
+// Enter для перехода между полями в практике
+document.addEventListener('DOMContentLoaded', () => {
+  const pastInput = document.getElementById('pastInput');
+  const partInput = document.getElementById('participleInput');
+  const testPastInput = document.getElementById('testPastInput');
+  const testPartInput = document.getElementById('testPartInput');
   
-  feedbackEl.className = 'feedback correct show';
-  feedbackEl.textContent = '💡 Ответ: ' + v.past + ' / ' + v.part;
-}
+  pastInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') { e.preventDefault(); partInput.focus(); }
+  });
+  partInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') { e.preventDefault(); checkPractice(); }
+  });
+  
+  testPastInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') { e.preventDefault(); testPartInput.focus(); }
+  });
+  testPartInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') { e.preventDefault(); checkTest(); }
+  });
+});
 
-// Тест
+// ТЕСТ
 function startTest() {
+  if (testState.timer) clearInterval(testState.timer); // защита от утечки
+  
   testState.active = true;
   testState.index = 0;
   testState.correct = 0;
   testState.startTime = Date.now();
   
-  // Выбираем 10 случайных глаголов
-  var shuffled = verbs.slice().sort(function() { return Math.random() - 0.5; });
-  testState.verbs = shuffled.slice(0, 10);
+  testState.verbs = shuffle(verbs.slice()).slice(0, 10);
   
   document.getElementById('testStart').style.display = 'none';
   document.getElementById('testResult').style.display = 'none';
   document.getElementById('testExercise').style.display = 'block';
   
-  // Таймер
-  testState.timer = setInterval(function() {
-    var elapsed = Math.floor((Date.now() - testState.startTime) / 1000);
-    document.getElementById('testTime').textContent = elapsed;
+  testState.timer = setInterval(() => {
+    document.getElementById('testTime').textContent = 
+      Math.floor((Date.now() - testState.startTime) / 1000);
   }, 1000);
   
   showTestQuestion();
@@ -1042,63 +1037,74 @@ function showTestQuestion() {
     return;
   }
   
-  var v = testState.verbs[testState.index];
+  const v = testState.verbs[testState.index];
   document.getElementById('testVerb').textContent = v.inf;
-  document.getElementById('testInput').value = '';
-  document.getElementById('testInput').className = 'answer-input';
-  document.getElementById('testFeedback').classList.remove('show');
+  document.getElementById('testTranslation').textContent = v.ru;
+  
+  const pastInput = document.getElementById('testPastInput');
+  const partInput = document.getElementById('testPartInput');
+  pastInput.value = '';
+  partInput.value = '';
+  pastInput.className = 'answer-input';
+  partInput.className = 'answer-input';
+  
+  document.getElementById('testFeedback').className = 'feedback';
   document.getElementById('testCorrect').textContent = testState.correct;
-  document.getElementById('testProgress').textContent = testState.index + '/10';
-  document.getElementById('testProgressFill').style.width = (testState.index / 10 * 100) + '%';
-  document.getElementById('testInput').focus();
+  document.getElementById('testProgress').textContent = `${testState.index + 1}/10`;
+  document.getElementById('testProgressFill').style.width = 
+    `${(testState.index / 10) * 100}%`;
+  
+  pastInput.focus();
 }
 
 function checkTest() {
-  var input = document.getElementById('testInput').value;
-  if (!input.trim()) return;
+  const pastInput = document.getElementById('testPastInput');
+  const partInput = document.getElementById('testPartInput');
   
-  var v = testState.verbs[testState.index];
-  var user = normalizeAnswer(input);
-  var correct = normalizeAnswer(v.past);
-  var correctOptions = correct.split('/').map(function(s) { return s.trim(); });
-  var isCorrect = correctOptions.indexOf(user) !== -1;
+  if (!pastInput.value.trim() && !partInput.value.trim()) return;
   
-  var feedbackEl = document.getElementById('testFeedback');
-  var inputEl = document.getElementById('testInput');
+  const v = testState.verbs[testState.index];
+  const pastOk = isCorrectAnswer(pastInput.value, v.past);
+  const partOk = isCorrectAnswer(partInput.value, v.part);
   
-  if (isCorrect) {
+  const feedback = document.getElementById('testFeedback');
+  feedback.className = 'feedback show';
+  
+  stats.attempts++;
+  
+  if (pastOk && partOk) {
     testState.correct++;
-    inputEl.className = 'answer-input correct';
-    feedbackEl.className = 'feedback correct show';
-    feedbackEl.textContent = '✓ Верно!';
+    pastInput.classList.add('correct');
+    partInput.classList.add('correct');
+    feedback.classList.add('correct');
+    feedback.textContent = '✓ Верно!';
+    stats.correct++;
   } else {
-    inputEl.className = 'answer-input incorrect';
-    feedbackEl.className = 'feedback incorrect show';
-    feedbackEl.textContent = '✗ Правильно: ' + v.past;
+    pastInput.classList.add(pastOk ? 'correct' : 'incorrect');
+    partInput.classList.add(partOk ? 'correct' : 'incorrect');
+    feedback.classList.add('incorrect');
+    feedback.textContent = `✗ Правильно: ${v.past} / ${v.part}`;
     stats.mistakes[v.inf] = (stats.mistakes[v.inf] || 0) + 1;
   }
   
-  stats.attempts++;
-  if (isCorrect) stats.correct++;
   saveStats();
   
-  setTimeout(function() {
+  setTimeout(() => {
     testState.index++;
     showTestQuestion();
-  }, 1200);
+  }, 1400);
 }
 
 function endTest() {
   clearInterval(testState.timer);
-  var totalTime = Math.floor((Date.now() - testState.startTime) / 1000);
+  const totalTime = Math.floor((Date.now() - testState.startTime) / 1000);
   
   document.getElementById('testExercise').style.display = 'none';
   document.getElementById('testResult').style.display = 'block';
-  document.getElementById('testFinalScore').textContent = testState.correct + '/10';
+  document.getElementById('testFinalScore').textContent = `${testState.correct}/10`;
   document.getElementById('testFinalTime').textContent = totalTime;
   document.getElementById('testProgressFill').style.width = '100%';
   
-  // Обновляем лучший результат
   if (!stats.bestTest || totalTime < stats.bestTest) {
     stats.bestTest = totalTime;
     saveStats();
@@ -1113,24 +1119,24 @@ function saveStats() {
 function updateStatsDisplay() {
   document.getElementById('statAttempts').textContent = stats.attempts;
   document.getElementById('statCorrect').textContent = stats.correct;
-  var accuracy = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
-  document.getElementById('statAccuracy').textContent = accuracy + '%';
+  const accuracy = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
+  document.getElementById('statAccuracy').textContent = `${accuracy}%`;
   document.getElementById('statBestTest').textContent = stats.bestTest || '—';
   
-  // Сложные глаголы
-  var hardList = document.getElementById('hardVerbsList');
-  var mistakes = stats.mistakes;
-  var sorted = Object.keys(mistakes).sort(function(a, b) { return mistakes[b] - mistakes[a]; });
+  const hardList = document.getElementById('hardVerbsList');
+  const mistakes = stats.mistakes;
+  const sorted = Object.keys(mistakes).sort((a, b) => mistakes[b] - mistakes[a]);
   
   if (sorted.length === 0) {
     hardList.innerHTML = '<div class="empty-state">Пока нет данных</div>';
   } else {
     hardList.innerHTML = '';
-    sorted.slice(0, 10).forEach(function(verb) {
-      var item = document.createElement('div');
+    sorted.slice(0, 10).forEach(verb => {
+      const item = document.createElement('div');
       item.className = 'hard-verb-item';
-      item.innerHTML = '<span class="hard-verb-name">' + verb + '</span>' +
-                       '<span class="hard-verb-errors">' + mistakes[verb] + ' ошибок</span>';
+      item.innerHTML = 
+        `<span class="hard-verb-name">${verb}</span>` +
+        `<span class="hard-verb-errors">${mistakes[verb]} ошибок</span>`;
       hardList.appendChild(item);
     });
   }
@@ -1144,11 +1150,9 @@ function resetStats() {
 }
 
 // Инициализация
-window.addEventListener('load', function() {
+window.addEventListener('load', () => {
   renderTable();
-  nextVerb('past');
-  nextVerb('participle');
-  nextConjugation();
+  nextPractice();
 });
 </script>
 </body>
