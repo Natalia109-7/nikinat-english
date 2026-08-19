@@ -840,8 +840,12 @@ function loadQuestion(topic) {
     `;
     const input = document.getElementById(`input-${topic}`);
     input.focus();
-    input.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') checkAnswer(topic);
+    // Используем keydown вместо keypress для большей надежности
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            checkAnswer(topic);
+        }
     });
     updateProgress(topic);
 }
@@ -849,12 +853,13 @@ function loadQuestion(topic) {
 function checkAnswer(topic) {
     const state = currentState[topic];
     const q = state.questions[state.currentQuestion];
-    const userInput = document.getElementById(`input-${topic}`).value.trim().toLowerCase();
+    const inputEl = document.getElementById(`input-${topic}`);
+    const userInput = inputEl.value.trim().toLowerCase();
     const correctAnswer = q.en.toLowerCase();
     const feedback = document.getElementById(`feedback-${topic}`);
     const words = correctAnswer.split(/\s+/).filter(w => w.length > 3);
     const matchCount = words.filter(w => userInput.includes(w)).length;
-    const matchPercent = (matchCount / words.length) * 100;
+    const matchPercent = words.length > 0 ? (matchCount / words.length) * 100 : 0;
     
     if (matchPercent >= 60) {
         state.score++;
@@ -865,8 +870,15 @@ function checkAnswer(topic) {
         feedback.innerHTML = `❌ <b>Почти!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
     }
     feedback.style.display = 'block';
-    document.getElementById(`input-${topic}`).disabled = true;
-    feedback.innerHTML += `<br><br><button class="btn btn-next" onclick="nextQuestion('${topic}')">Далее ➔</button>`;
+    inputEl.disabled = true;
+    
+    // Добавляем ID к кнопке "Далее", чтобы на нее можно было передать фокус
+    const nextBtnId = `next-btn-${topic}`;
+    feedback.innerHTML += `<br><br><button id="${nextBtnId}" class="btn btn-next" onclick="nextQuestion('${topic}')">Далее ➔</button>`;
+    
+    // Передаем фокус на кнопку "Далее", чтобы нажатие Enter активировало её
+    document.getElementById(nextBtnId).focus();
+    
     document.getElementById(`score-${topic}`).textContent = state.score;
 }
 
@@ -889,14 +901,20 @@ function showResults(topic) {
     else if (percentage >= 80) message = "🔥 Отличный результат!";
     else if (percentage >= 60) message = "👍 Хорошая работа!";
     else message = "💪 Продолжайте тренироваться!";
+    
+    // Добавляем ID к кнопке перезапуска для фокуса
+    const resetBtnId = `reset-btn-${topic}`;
     document.getElementById(`questions-${topic}`).innerHTML = `
         <div style="text-align: center; padding: 40px;">
             <h3 style="font-family:'Cormorant Garamond',serif; font-size: 2em; margin-bottom: 20px; color: var(--deep);">Тренировка завершена!</h3>
             <p style="font-size: 1.4em; margin-bottom: 20px; color: var(--text);">Ваш результат: ${state.score} / ${state.questions.length} (${percentage}%)</p>
             <p style="font-size: 1.2em; margin-bottom: 30px; color: var(--soft); font-style: italic;">${message}</p>
-            <button class="btn btn-check" onclick="resetTopic('${topic}')">🔄 Пройти еще раз</button>
+            <button id="${resetBtnId}" class="btn btn-check" onclick="resetTopic('${topic}')">🔄 Пройти еще раз</button>
         </div>
     `;
+    
+    // Передаем фокус на кнопку "Пройти еще раз", чтобы нажатие Enter перезапустило тему
+    document.getElementById(resetBtnId).focus();
 }
 
 function resetTopic(topic) {
