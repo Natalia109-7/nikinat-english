@@ -1,1 +1,1667 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn English Grammar — Твой дружелюбный помощник</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f5f1e8;
+    --paper: #faf8f0;
+    --ink: #1a1a1a;
+    --accent: #2c2c2c;
+    --accent2: #4a4a4a;
+    --sidebar: #1a1a1a;
+    --sidebar-text: #f5f1e8;
+    --highlight: #f0e8d0;
+    --shadow: rgba(0,0,0,0.2);
+    --success: #3a3a3a;
+    --border: #2c2c2c;
+  }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow: hidden;
+    height: 100vh;
+  }
+  .app { display: flex; height: 100vh; }
 
+  .sidebar {
+    width: 320px;
+    background: var(--sidebar);
+    color: var(--sidebar-text);
+    overflow-y: auto;
+    padding: 20px 0;
+    box-shadow: 2px 0 10px var(--shadow);
+    transition: transform 0.3s;
+    border-right: 3px solid var(--border);
+  }
+  .sidebar-header {
+    padding: 0 20px 20px;
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    text-align: center;
+  }
+  .sidebar-header h1 {
+    font-size: 1.5em;
+    color: #ffffff;
+    margin-bottom: 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .sidebar-header p { 
+    font-size: 0.85em; 
+    opacity: 0.8; 
+    font-style: italic;
+    color: #d0d0d0;
+  }
+  .search-box {
+    padding: 15px 20px;
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+  }
+  .search-box input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+    color: var(--sidebar-text);
+    border-radius: 0;
+    font-family: inherit;
+    outline: none;
+    font-size: 0.95em;
+  }
+  .search-box input:focus { 
+    border-color: #ffffff;
+    background: rgba(255,255,255,0.1);
+  }
+  .search-box input::placeholder {
+    color: rgba(255,255,255,0.5);
+  }
+  .progress-info {
+    padding: 15px 20px;
+    font-size: 0.9em;
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 0;
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .progress-fill {
+    height: 100%;
+    background: #ffffff;
+    width: 0%;
+    transition: width 0.3s;
+  }
+  .toc { list-style: none; padding: 10px 0; }
+  .toc li {
+    padding: 12px 20px;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    transition: all 0.2s;
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .toc li:hover {
+    background: rgba(255,255,255,0.1);
+    border-left-color: #ffffff;
+  }
+  .toc li.active {
+    background: rgba(255,255,255,0.15);
+    border-left-color: #ffffff;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  .toc li.read::before {
+    content: "✓";
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  .toc li:not(.read)::before {
+    content: "○";
+    color: rgba(255,255,255,0.4);
+  }
+  .chapter-num {
+    display: inline-block;
+    min-width: 28px;
+    font-weight: bold;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px 60px;
+    background: var(--paper);
+    background-image:
+      linear-gradient(var(--paper) 100%, transparent),
+      repeating-linear-gradient(transparent, transparent 31px, rgba(0,0,0,0.03) 31px, rgba(0,0,0,0.03) 32px);
+  }
+  .book-page {
+    max-width: 820px;
+    margin: 0 auto;
+    background: white;
+    padding: 50px 60px;
+    box-shadow: 0 0 30px var(--shadow);
+    border-radius: 0;
+    min-height: 80vh;
+    position: relative;
+    border: 3px solid var(--border);
+  }
+  .book-page::before {
+    content: "";
+    position: absolute;
+    left: 35px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(0,0,0,0.1);
+  }
+  .chapter-title {
+    font-size: 2.2em;
+    color: var(--ink);
+    margin-bottom: 10px;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 15px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .chapter-subtitle {
+    font-style: italic;
+    color: var(--accent2);
+    margin-bottom: 25px;
+    font-size: 1.1em;
+  }
+  .greeting {
+    background: var(--highlight);
+    border-left: 5px solid var(--ink);
+    padding: 18px 22px;
+    margin-bottom: 25px;
+    border-radius: 0;
+    font-size: 1.05em;
+    color: var(--ink);
+    border-top: 2px solid var(--ink);
+    border-right: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .greeting b { color: var(--ink); }
+  .chapter-content h3 {
+    color: var(--ink);
+    margin: 25px 0 12px;
+    font-size: 1.3em;
+    font-weight: bold;
+    border-bottom: 2px solid var(--accent2);
+    padding-bottom: 5px;
+  }
+  .chapter-content h4 {
+    color: var(--accent2);
+    margin: 18px 0 10px;
+    font-size: 1.1em;
+  }
+  .chapter-content p { margin-bottom: 12px; text-align: justify; }
+  .chapter-content ul, .chapter-content ol {
+    margin: 10px 0 15px 25px;
+  }
+  .chapter-content li { margin-bottom: 6px; }
+  .example {
+    background: var(--highlight);
+    border-left: 4px solid var(--ink);
+    padding: 12px 18px;
+    margin: 15px 0;
+    font-style: italic;
+    color: var(--ink);
+    border-radius: 0;
+    border-top: 1px solid var(--accent2);
+    border-right: 1px solid var(--accent2);
+    border-bottom: 1px solid var(--accent2);
+  }
+  .example b { color: var(--ink); font-style: normal; font-weight: bold; }
+  .rule-box {
+    background: var(--highlight);
+    border: 2px dashed var(--ink);
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 0;
+  }
+  .rule-box b { color: var(--ink); }
+  .tip-box {
+    background: #f0f0f0;
+    border-left: 5px solid var(--ink);
+    padding: 14px 18px;
+    margin: 15px 0;
+    border-radius: 0;
+    border-top: 1px solid var(--accent2);
+    border-right: 1px solid var(--accent2);
+    border-bottom: 1px solid var(--accent2);
+  }
+  .tip-box b { color: var(--ink); }
+  .warning-box {
+    background: #f5f5f5;
+    border-left: 5px solid var(--ink);
+    padding: 14px 18px;
+    margin: 15px 0;
+    border-radius: 0;
+    border-top: 1px solid var(--accent2);
+    border-right: 1px solid var(--accent2);
+    border-bottom: 1px solid var(--accent2);
+  }
+  .warning-box b { color: var(--ink); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    background: white;
+    box-shadow: 0 1px 3px var(--shadow);
+    border-radius: 0;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+  }
+  th, td {
+    padding: 10px 12px;
+    border: 1px solid var(--accent2);
+    text-align: left;
+  }
+  th {
+    background: var(--ink);
+    color: white;
+    font-weight: bold;
+  }
+  tr:nth-child(even) td { background: var(--highlight); }
+  .translation { color: var(--accent2); font-style: italic; }
+  mark {
+    background: var(--highlight);
+    padding: 0 3px;
+    border-radius: 0;
+    border: 1px solid var(--accent2);
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 3px solid var(--ink);
+    gap: 10px;
+  }
+  .nav-btn {
+    padding: 12px 24px;
+    background: var(--ink);
+    color: white;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1em;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .nav-btn:hover { 
+    background: white; 
+    color: var(--ink);
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+  }
+  .nav-btn:disabled { 
+    opacity: 0.4; 
+    cursor: not-allowed; 
+    transform: none; 
+  }
+  .mark-read {
+    background: white;
+    color: var(--ink);
+  }
+  .mark-read:hover { 
+    background: var(--ink);
+    color: white;
+  }
+
+  .menu-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 100;
+    background: var(--ink);
+    color: white;
+    border: 2px solid var(--ink);
+    width: 45px;
+    height: 45px;
+    border-radius: 0;
+    font-size: 1.3em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  @media (max-width: 900px) {
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 50;
+      transform: translateX(-100%);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .menu-toggle { display: block; }
+    .main { padding: 20px; }
+    .book-page { padding: 30px 25px; }
+    .book-page::before { left: 15px; }
+  }
+
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: var(--bg); border: 1px solid var(--accent2); }
+  ::-webkit-scrollbar-thumb { background: var(--ink); border: 2px solid var(--bg); }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border: 2px solid var(--sidebar); }
+</style>
+</head>
+<body>
+<button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>Learn English</h1>
+      <p>Твой дружелюбный помощник</p>
+    </div>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Найди нужную тему...">
+    </div>
+    <div class="progress-info">
+      <span>Твой прогресс:</span>
+      <span id="progressText">0 / 46</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <ul class="toc" id="toc"></ul>
+  </aside>
+  <main class="main">
+    <div class="book-page">
+      <h1 class="chapter-title" id="chapterTitle"></h1>
+      <p class="chapter-subtitle" id="chapterSubtitle"></p>
+      <div class="chapter-content" id="chapterContent"></div>
+      <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">← Назад</button>
+        <button class="nav-btn mark-read" onclick="markRead()">Отлично, я прочитал!</button>
+        <button class="nav-btn" id="nextBtn" onclick="navigate(1)">Дальше →</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const chapters = [
+  {
+    title: "The Alphabet",
+    subtitle: "Алфавит — твои первые 26 друзей",
+    greeting: "Привет, друг! Давай начнём с самого начала — с алфавита. Это как фундамент дома: без него никуда. Но не волнуйся, выучить его проще, чем кажется!",
+    content: `
+      <p>Английский алфавит состоит из <b>26 букв</b> — всего на 6 больше, чем в русском! И все они основаны на латинице, так что многие ты уже знаешь.</p>
+      <h3>Давай посмотрим на весь алфавит</h3>
+      <table>
+        <tr><th>Заглавная</th><th>Строчная</th><th>Как читается</th></tr>
+        <tr><td>A</td><td>a</td><td>[eɪ]</td></tr>
+        <tr><td>B</td><td>b</td><td>[biː]</td></tr>
+        <tr><td>C</td><td>c</td><td>[siː]</td></tr>
+        <tr><td>D</td><td>d</td><td>[diː]</td></tr>
+        <tr><td>E</td><td>e</td><td>[iː]</td></tr>
+        <tr><td>F</td><td>f</td><td>[ef]</td></tr>
+        <tr><td>G</td><td>g</td><td>[dʒiː]</td></tr>
+        <tr><td>H</td><td>h</td><td>[eɪtʃ]</td></tr>
+        <tr><td>I</td><td>i</td><td>[aɪ]</td></tr>
+        <tr><td>J</td><td>j</td><td>[dʒeɪ]</td></tr>
+        <tr><td>K</td><td>k</td><td>[keɪ]</td></tr>
+        <tr><td>L</td><td>l</td><td>[el]</td></tr>
+        <tr><td>M</td><td>m</td><td>[em]</td></tr>
+        <tr><td>N</td><td>n</td><td>[en]</td></tr>
+        <tr><td>O</td><td>o</td><td>[əʊ]</td></tr>
+        <tr><td>P</td><td>p</td><td>[pi]</td></tr>
+        <tr><td>Q</td><td>q</td><td>[kjuː]</td></tr>
+        <tr><td>R</td><td>r</td><td>[ɑː]</td></tr>
+        <tr><td>S</td><td>s</td><td>[es]</td></tr>
+        <tr><td>T</td><td>t</td><td>[tiː]</td></tr>
+        <tr><td>U</td><td>u</td><td>[juː]</td></tr>
+        <tr><td>V</td><td>v</td><td>[viː]</td></tr>
+        <tr><td>W</td><td>w</td><td>[ˈdʌbljuː]</td></tr>
+        <tr><td>X</td><td>x</td><td>[eks]</td></tr>
+        <tr><td>Y</td><td>y</td><td>[waɪ]</td></tr>
+        <tr><td>Z</td><td>z</td><td>[zed] / [zi]</td></tr>
+      </table>
+      <div class="tip-box"><b>Совет друга:</b> Выучи алфавит с песенкой! В YouTube полно весёлых "ABC songs" — так буквы запомнятся сами собой за пару дней. А ещё попробуй писать их от руки — это отлично помогает!</div>
+    `
+  },
+  {
+    title: "Personal Pronouns",
+    subtitle: "Личные местоимения — кто есть кто",
+    greeting: "С местоимениями всё просто — это как имена для всех вокруг: я, ты, он, она... Давай разберёмся, как они работают в английском!",
+    content: `
+      <p>Личные местоимения — это наши верные помощники. Они заменяют имена людей и предметов, чтобы не повторять одно и то же снова и снова.</p>
+      <h3>Именительный падеж (кто? что?)</h3>
+      <p>Используем, когда говорим о ком-то как о <b>действующем лице</b>.</p>
+      <table>
+        <tr><th>Лицо</th><th>Ед. число</th><th>Мн. число</th></tr>
+        <tr><td>1-е лицо</td><td>I <span class="translation">(я)</span></td><td>we <span class="translation">(мы)</span></td></tr>
+        <tr><td>2-е лицо</td><td>you <span class="translation">(ты)</span></td><td>you <span class="translation">(вы)</span></td></tr>
+        <tr><td>3-е лицо</td><td>he / she / it <span class="translation">(он/она/оно)</span></td><td>they <span class="translation">(они)</span></td></tr>
+      </table>
+      <h3>Объектный падеж (кому? кого? кем?)</h3>
+      <p>А здесь местоимения становятся "получателями" действия.</p>
+      <table>
+        <tr><th>Кто?</th><th>Кому/Кого?</th><th>Что значит</th></tr>
+        <tr><td>I</td><td>ME</td><td>мне, меня, мной, обо мне</td></tr>
+        <tr><td>YOU</td><td>YOU</td><td>тебе, тебя, тобой</td></tr>
+        <tr><td>HE</td><td>HIM</td><td>его, ему, им, о нём</td></tr>
+        <tr><td>SHE</td><td>HER</td><td>её, ей, ею, о ней</td></tr>
+        <tr><td>IT</td><td>IT</td><td>только для предметов и животных</td></tr>
+        <tr><td>WE</td><td>US</td><td>нас, нам, нами, о нас</td></tr>
+        <tr><td>YOU</td><td>YOU</td><td>вам, вас, вами</td></tr>
+        <tr><td>THEY</td><td>THEM</td><td>им, их, ими, о них</td></tr>
+      </table>
+      <div class="example"><b>I</b> like <b>him</b>. — <span class="translation">Мне нравится он. (Я → действующий, он → получатель)</span></div>
+      <div class="tip-box"><b>Лайфхак:</b> Если местоимение стоит <u>после</u> глагола или предлога — почти всегда это объектная форма. <i>Give it to ME. She loves HIM.</i></div>
+    `
+  },
+  {
+    title: "Possessive Adjectives",
+    subtitle: "Притяжательные прилагательные — чьё это?",
+    greeting: "Отвечаем на важный вопрос: <b>ЧЬЁ?</b> Это как метки на вещах — показывает, кому что принадлежит.",
+    content: `
+      <p>Эти слова отвечают на вопрос <b>Whose?</b> (Чей?) и показывают, кому что принадлежит. Очень удобно!</p>
+      <table>
+        <tr><th>Кто?</th><th>Перед предметом</th><th>Без предмета</th><th>Перевод</th></tr>
+        <tr><td>I</td><td>MY</td><td>MINE</td><td>мой</td></tr>
+        <tr><td>YOU</td><td>YOUR</td><td>YOURS</td><td>твой</td></tr>
+        <tr><td>HE</td><td>HIS</td><td>HIS</td><td>его</td></tr>
+        <tr><td>SHE</td><td>HER</td><td>HERS</td><td>её</td></tr>
+        <tr><td>IT</td><td>ITS</td><td>ITS</td><td>его (для предметов)</td></tr>
+        <tr><td>WE</td><td>OUR</td><td>OURS</td><td>наш</td></tr>
+        <tr><td>YOU</td><td>YOUR</td><td>YOURS</td><td>ваш</td></tr>
+        <tr><td>THEY</td><td>THEIR</td><td>THEIRS</td><td>их</td></tr>
+      </table>
+      <div class="example">It is <b>my</b> pen. / This pen is <b>mine</b>. <span class="translation">Это моя ручка. / Эта ручка — моя.</span></div>
+      <div class="rule-box"><b>Запомни просто:</b> Перед существительным — <u>my, your, his</u>... А если существительного нет — используем <u>mine, yours, his</u>...</div>
+      <div class="example">This is <b>my</b> book. = This book is <b>mine</b>.</div>
+    `
+  },
+  {
+    title: "\"To Be\" in the Present",
+    subtitle: "Глагол \"быть\" — настоящий супергерой английского",
+    greeting: "Познакомься с <b>to be</b> — это самый важный глагол в английском! Он как швейцарский нож: умеет всё. Без него ты не скажешь ни \"я студент\", ни \"она красивая\". Давай разберёмся!",
+    content: `
+      <p>В английском есть две группы глаголов: <b>смысловые</b> (обозначают действие — <i>to play</i>) и <b>вспомогательные</b> (помогают строить предложения).</p>
+      <p>А <b>to be</b> — уникален! Он может быть и тем, и другим. Переводится как «быть», «находиться», «существовать», «являться».</p>
+      <h3>Три формы настоящего времени</h3>
+      <table>
+        <tr><th>Кто?</th><th>Present</th><th>Past</th><th>Future</th></tr>
+        <tr><td>I</td><td>am</td><td>was</td><td>will be</td></tr>
+        <tr><td>He/She/It</td><td>is</td><td>was</td><td>will be</td></tr>
+        <tr><td>You/We/They</td><td>are</td><td>were</td><td>will be</td></tr>
+      </table>
+      <h3>Когда используем to be?</h3>
+      <ul>
+        <li><b>Описываем качества:</b> <div class="example">He <b>is</b> tall. — <span class="translation">Он высокий.</span></div></li>
+        <li><b>Характеризуем человека:</b> <div class="example">Amy <b>is</b> a good mother. — <span class="translation">Эми — хорошая мать.</span></div></li>
+        <li><b>Говорим, где кто-то:</b> <div class="example">She <b>is</b> in Japan now. — <span class="translation">Она сейчас в Японии.</span></div></li>
+      </ul>
+      <div class="example">I want <b>to be</b> with you. — <span class="translation">Я хочу быть с тобой.</span></div>
+      <div class="tip-box"><b>Маленький секрет:</b> В разговорной речи англичане часто сокращают: <i>I'm, You're, He's, She's, We're, They're</i>. Так речь звучит естественнее!</div>
+    `
+  },
+  {
+    title: "To Have / Have got",
+    subtitle: "Глагол \"иметь\" — когда что-то у тебя есть",
+    greeting: "Хочешь рассказать, что у тебя есть? Тогда тебе нужен <b>have</b>! В английском есть два способа это сказать — и оба правильные. Выбирай любой!",
+    content: `
+      <h3>Что у них общего?</h3>
+      <ul>
+        <li>Оба означают: <b>иметь, владеть, обладать</b></li>
+        <li>Описывают личные отношения</li>
+        <li>Рассказывают о внешности и признаках</li>
+        <li>Говорят о чувствах и болезнях</li>
+      </ul>
+      <div class="example">You <b>have got / have</b> a lot of stickers. <span class="translation">У тебя много наклеек.</span></div>
+      <div class="example">She <b>has got / has</b> long fingers. <span class="translation">У неё длинные пальцы.</span></div>
+      <div class="example">He <b>has got / has</b> three sisters. <span class="translation">У него три сестры.</span></div>
+      <div class="example">We <b>have got / have</b> chickenpox. <span class="translation">У нас ветрянка.</span></div>
+      <h3>А в чём разница?</h3>
+      <div class="rule-box">
+        <b>Have got</b> — никогда не используется для действий, поэтому у него нет формы <i>-ing</i>.<br>
+        <b>Have</b> — может обозначать активные действия и процессы.
+      </div>
+      <div class="example">We <b>are having</b> breakfast. <span class="translation">(Мы сейчас завтракаем — действие в процессе)</span></div>
+      <div class="example">We came here <b>to have</b> a rest. <span class="translation">(Мы пришли сюда отдохнуть — устойчивое выражение)</span></div>
+      <div class="tip-box"><b>Запомни:</b> Британцы чаще говорят <i>have got</i>, американцы — просто <i>have</i>. Оба варианта правильные!</div>
+    `
+  },
+  {
+    title: "There is / There are",
+    subtitle: "Оборот \"есть\", \"имеется\" — что где находится",
+    greeting: "Хочешь сказать, что в холодильнике есть молоко, а на улице — собаки? Тогда тебе нужен этот оборот!",
+    content: `
+      <p>Используется, чтобы рассказать о наличии чего-либо в конкретном месте или о факте существования.</p>
+      <h3>Главное правило</h3>
+      <div class="rule-box">
+        <b>There is</b> — единственное число и неисчисляемые (то, что нельзя посчитать).<br>
+        <b>There are</b> — множественное число.
+      </div>
+      <h3>Примеры из жизни</h3>
+      <div class="example"><b>There is</b> water in the fridge. <span class="translation">В холодильнике есть вода.</span></div>
+      <div class="example"><b>There are</b> two cats. <span class="translation">Есть две кошки.</span></div>
+      <h3>Краткие формы (для разговорной речи)</h3>
+      <ul>
+        <li>There is not = there's not = there isn't</li>
+        <li>There are not = there aren't</li>
+      </ul>
+      <h3>Во всех временах</h3>
+      <table>
+        <tr><th>Время</th><th>Как сказать</th></tr>
+        <tr><td>Present Simple</td><td>There is / There are</td></tr>
+        <tr><td>Past Simple</td><td>There was / There were</td></tr>
+        <tr><td>Future Simple</td><td>There will be</td></tr>
+      </table>
+      <div class="tip-box"><b>Лайфхак:</b> Не путай с <i>have</i>! <i>There is</i> — это "где-то что-то есть", а <i>have</i> — "у кого-то что-то есть".</div>
+    `
+  },
+  {
+    title: "Prepositions",
+    subtitle: "Предлоги — маленькие слова с большим смыслом",
+    greeting: "Предлоги — как маленькие волшебники: они связывают слова между собой. Без них предложения развалились бы! Давай познакомимся с ними поближе.",
+    content: `
+      <p>Английские предлоги бывают <b>простые</b>, <b>производные</b>, <b>сложные</b> и <b>составные (фразовые)</b>.</p>
+      <h3>Группы предлогов</h3>
+      <ul>
+        <li>Времени (prepositions of time)</li>
+        <li>Места (prepositions of place)</li>
+        <li>Направления (prepositions of direction)</li>
+        <li>Причины (prepositions of reason)</li>
+        <li>Движения (prepositions of movement)</li>
+      </ul>
+      <h3>Prepositions of time</h3>
+      <p>after / at / by / in / on / before / during / from / for / since / till / until / within</p>
+      <h3>Prepositions of place</h3>
+      <p>above / in front of / outside / behind / below / between / under / by / at / in / on</p>
+      <h3>Prepositions of direction</h3>
+      <p>into / through / to / up / down / along / across / around / out of / back to / towards</p>
+      <h3>Prepositions of reason</h3>
+      <p>because of / thanks to / due to / through / from / of / for / in order to / in accordance with / on account of</p>
+      <h3>Самые популярные</h3>
+      <div class="example"><b>at</b> — у, около, в, на</div>
+      <div class="example"><b>in</b> — в, на, за, через</div>
+      <div class="example"><b>about</b> — о, вокруг, у, по</div>
+      <div class="example"><b>against</b> — против, лицом к, на</div>
+      <div class="example"><b>before</b> — до, раньше, перед</div>
+      <div class="warning-box"><b>Важно:</b> Предлоги в английском часто не совпадают с русскими! Например, <i>at Monday</i> — неправильно, правильно <i>on Monday</i>. Лучше учить предлоги сразу в контексте фраз.</div>
+    `
+  },
+  {
+    title: "Present Simple",
+    subtitle: "Настоящее простое время — твои привычки и факты",
+    greeting: "Это время — как твоя ежедневная рутина! Всё, что ты делаешь регулярно, все факты о мире, все расписания — это Present Simple. Давай разбираться!",
+    content: `
+      <p>Описывает действия, время которых не определено. Рассказываем о привычках, регулярных действиях, научных фактах и вещах, которые всегда правдивы.</p>
+      <h3>Как строится?</h3>
+      <table>
+        <tr><th>Тип</th><th>Формула</th></tr>
+        <tr><td>(+)</td><td>I/We/You/They + V &nbsp;&nbsp; She/He/It + V+s(es)</td></tr>
+        <tr><td>(−)</td><td>I/We/You/They + do not + V &nbsp;&nbsp; She/He/It + does not + V</td></tr>
+        <tr><td>(?)</td><td>Do + I/We/You/They + V? &nbsp;&nbsp; Does + She/He/It + V?</td></tr>
+      </table>
+      <h3>Когда используем?</h3>
+      <ul>
+        <li><b>Обычные ситуации:</b> <div class="example">She <b>works</b> as a doctor. <span class="translation">Она работает врачом.</span></div></li>
+        <li><b>Законы природы:</b> <div class="example">Water <b>boils</b> at 100 degrees. <span class="translation">Вода кипит при 100 градусах.</span></div></li>
+        <li><b>Привычки:</b> <div class="example">My family and I <b>eat</b> together every day.</div></li>
+        <li><b>Расписание:</b> <div class="example">The train <b>leaves</b> at 21:00 on Mondays.</div></li>
+        <li><b>Рецепты:</b> <div class="example">Mary <b>adds</b> some salt and pepper in the soup.</div></li>
+        <li><b>Пересказ сюжета:</b> <div class="example">This boy with glasses <b>goes</b> to a magic school...</div></li>
+      </ul>
+      <div class="rule-box"><b>Важное правило:</b> В условных предложениях I типа после <b>when, after, before, if, unless</b> тоже используем Present Simple!</div>
+      <div class="tip-box"><b>Совет:</b> Не забудь добавить <b>-s</b> к глаголу для he/she/it! Это самая частая ошибка. <i>She workS, He playS.</i></div>
+    `
+  },
+  {
+    title: "Object Pronouns",
+    subtitle: "Косвенные местоимения — получатели действия",
+    greeting: "Помнишь, мы говорили про объектный падеж? Теперь подробнее! Это местоимения, которые отвечают на вопросы «Кому?», «Чему?», «Кого?», «О ком?».",
+    content: `
+      <p>Объектные местоимения — это "получатели" действия в предложении. Они заменяют существительные, чтобы не повторяться.</p>
+      <div class="example">Jane likes this chocolate. — She likes <b>it</b>. <span class="translation">Джейн любит этот шоколад. — Она любит его.</span></div>
+      <h3>Предлоги перед объектными местоимениями</h3>
+      <p>to / by / for / with / about / from / around / because of</p>
+      <div class="example">This gift is <b>for me</b>. <span class="translation">Этот подарок — для меня.</span></div>
+      <div class="example">She is talking <b>to him</b>. <span class="translation">Она разговаривает с ним.</span></div>
+      <div class="tip-box"><b>Подсказка:</b> После любого предлога всегда идёт объектная форма местоимения. <i>for ME, with HIM, about THEM.</i></div>
+    `
+  },
+  {
+    title: "Like / Don't like",
+    subtitle: "Нравится / Не нравится — выражаем свои вкусы",
+    greeting: "Что ты любишь, а что — не очень? Давай научимся рассказывать о своих предпочтениях по-английски!",
+    content: `
+      <p>У глагола <b>like</b> есть антоним — <b>dislike</b> (не нравиться). Можно использовать вместо <i>don't like</i>.</p>
+      <div class="rule-box">
+        <b>Love</b> — сильное эмоциональное отношение к живому существу или возбуждение. "Я так люблю!"<br>
+        <b>Like</b> — отношение к неодушевлённым предметам или действиям.
+      </div>
+      <h3>Конструкция "would like"</h3>
+      <p>Передаёт предпочтение со значением «хотеть». Часто используется в вежливых просьбах. После неё — инфинитив с <b>to</b> или существительное.</p>
+      <h3>Формула</h3>
+      <div class="example">I like + V-ing → I like <b>cooking</b>. <span class="translation">Мне нравится готовить.</span></div>
+      <div class="example">I do not like + V-ing → I don't like <b>dancing</b>. <span class="translation">Мне не нравится танцевать.</span></div>
+      <div class="tip-box"><b>Запомни:</b> <i>Would like</i> — это вежливое "хотел бы". Звучит гораздо мягче, чем просто <i>want</i>. Используй в кафе, магазинах, в общении с незнакомцами.</div>
+    `
+  },
+  {
+    title: "General Questions",
+    subtitle: "Общий вопрос — да или нет?",
+    greeting: "Общие вопросы — это те, на которые можно ответить только «да» или «нет». Давай научимся их задавать!",
+    content: `
+      <p>Общие вопросы задаются, чтобы подтвердить или опровергнуть информацию. Подразумевают ответы <b>yes</b> или <b>no</b>.</p>
+      <h3>Структура вопроса</h3>
+      <table>
+        <tr><th>Вспом. глагол</th><th>Подлежащее</th><th>Сказуемое</th><th>Дополнение</th></tr>
+        <tr><td>Did</td><td>you</td><td>go</td><td>to school?</td></tr>
+        <tr><td>Are</td><td>your friends</td><td>dancing</td><td>right now?</td></tr>
+      </table>
+      <h3>С модальными глаголами</h3>
+      <p>Если вопрос с модальным глаголом (can, may, should, must), вспомогательный глагол <b>не нужен</b> — модальный сам встаёт в начало.</p>
+      <div class="example"><b>Can</b> she swim very well? — <span class="translation">Хорошо ли она умеет плавать?</span></div>
+      <div class="example"><b>May</b> we go to the cinema? — <span class="translation">Можно нам пойти в кино?</span></div>
+      <div class="warning-box"><b>Исключение:</b> модальный глагол <b>have to</b> требует вспомогательный глагол: <i>Do they have to finish their homework?</i></div>
+      <h3>Краткие ответы</h3>
+      <p><b>Yes</b> + действующее лицо + вспомогательный глагол</p>
+      <p><b>No</b> + действующее лицо + вспомогательный глагол + not</p>
+      <div class="example">— Do you like coffee? — Yes, I <b>do</b>. / No, I <b>don't</b>.</div>
+    `
+  },
+  {
+    title: "Question Words",
+    subtitle: "Вопросительные слова — задаём правильные вопросы",
+    greeting: "Чтобы узнать подробности, нужны специальные слова! Давай выучим их — они как ключики к любой информации.",
+    content: `
+      <table>
+        <tr><th>Слово</th><th>Перевод</th><th>Когда использовать</th></tr>
+        <tr><td>What</td><td>что, какой?</td><td>о предметах и действиях</td></tr>
+        <tr><td>Who</td><td>кто?</td><td>о людях</td></tr>
+        <tr><td>Where</td><td>где, куда?</td><td>о месте</td></tr>
+        <tr><td>Why</td><td>почему?</td><td>о причине</td></tr>
+        <tr><td>When</td><td>когда?</td><td>о времени</td></tr>
+        <tr><td>How</td><td>как?</td><td>о способе</td></tr>
+        <tr><td>Which</td><td>какой, который?</td><td>при выборе</td></tr>
+        <tr><td>Whose</td><td>чей?</td><td>о принадлежности</td></tr>
+        <tr><td>Whom</td><td>кому?</td><td>о людях (объект)</td></tr>
+        <tr><td>How many*</td><td>сколько (исчисляемые)</td><td>то, что можно посчитать</td></tr>
+        <tr><td>How much**</td><td>сколько (неисчисляемые)</td><td>то, что нельзя посчитать</td></tr>
+      </table>
+      <div class="example"><b>What</b> is your name? <span class="translation">Как тебя зовут?</span></div>
+      <div class="example"><b>Where</b> do you live? <span class="translation">Где ты живёшь?</span></div>
+      <div class="example"><b>How many</b> books do you have? <span class="translation">Сколько у тебя книг?</span></div>
+      <div class="tip-box"><b>Совет:</b> Выучи эти слова наизусть — они нужны каждый день! Попробуй составить по одному вопросу с каждым словом прямо сейчас.</div>
+    `
+  },
+  {
+    title: "Articles: A / An / The",
+    subtitle: "Артикли — маленькие слова с большой ролью",
+    greeting: "Артикли в английском — как невидимые помощники. Они маленькие, но без них предложения звучат странно. Давай с ними подружимся!",
+    content: `
+      <h3>A / AN — неопределённый артикль</h3>
+      <p>Используется с исчисляемыми существительными в единственном числе. <b>A</b> — перед согласными, <b>An</b> — перед гласными.</p>
+      <ul>
+        <li>Говорим о чём-то общем: <div class="example">I'd like to buy <b>a</b> skirt.</div></li>
+        <li>Когда предмет представляет группу: <div class="example">Would you like <b>an</b> apple?</div></li>
+        <li>С единицами измерения: <div class="example">I'd like <b>a</b> cup of coffee, please.</div></li>
+        <li>Устойчивые выражения однократности: <div class="example">to have <b>a</b> rest</div></li>
+      </ul>
+      <h3>THE — определённый артикль</h3>
+      <p>Употребляется с исчисляемыми и неисчисляемыми независимо от числа.</p>
+      <ul>
+        <li>Повторное упоминание: <div class="example">Yesterday I saw <b>a</b> dog. <b>The</b> dog was hungry.</div></li>
+        <li>Уникальные предметы: <div class="example">Where is <b>the</b> longest river?</div></li>
+        <li>Со словами same, whole, right, left, only, main, last, next, previous</li>
+        <li>Перед порядковыми числительными: <div class="example">Who was <b>the</b> first boy?</div></li>
+        <li>С прилагательными в превосходной степени: <div class="example">That was <b>the</b> most beautiful view.</div></li>
+        <li>Перед cinema, theater и местами действий</li>
+      </ul>
+      <h3>Zero article (нулевой артикль)</h3>
+      <ul>
+        <li>С неисчисляемыми (water, love, information)</li>
+        <li>С исчисляемыми во множественном числе (Trees produce oxygen)</li>
+        <li>Со словами school, church, bed, hospital, home, когда речь об их прямом назначении</li>
+        <li>Перед названиями видов спорта, напитков, блюд, языков, цветов, болезней, городов, стран из одного слова</li>
+        <li>При описании способа передвижения с <b>by</b>: by bus, by car, by plane</li>
+        <li>С именами собственными: Monday, California</li>
+        <li>Приём пищи: for breakfast, for lunch, for dinner</li>
+      </ul>
+      <div class="rule-box"><b>Важно:</b> Артикль НЕ используется, если перед существительным стоит притяжательное (my, his), указательное (this, that) местоимение или отрицание <b>no</b>.</div>
+      <div class="tip-box"><b>Лайфхак:</b> Если не уверен, какой артикль поставить — попробуй перевести на русский. Если можно подставить "один/какой-то" — ставь <b>a/an</b>. Если "этот/тот самый" — ставь <b>the</b>.</div>
+    `
+  },
+  {
+    title: "Demonstratives",
+    subtitle: "Указательные местоимения — тыкаем пальцем!",
+    greeting: "Иногда хочется показать на что-то пальцем: «вот это» или «вон то». В английском для этого есть специальные слова!",
+    content: `
+      <p>Служат для указания на предметы рядом или на расстоянии.</p>
+      <table>
+        <tr><th>Единственное число</th><th>Множественное число</th></tr>
+        <tr><td>this (этот, эта, это)</td><td>these (эти)</td></tr>
+        <tr><td>that (тот, та, то)</td><td>those (те)</td></tr>
+      </table>
+      <ul>
+        <li><b>this, these</b> — предметы рядом с говорящим</li>
+        <li><b>that, those</b> — предметы на некотором расстоянии</li>
+      </ul>
+      <div class="example"><b>This</b> house is not mine, mine is <b>that</b> green cottage next to it. <span class="translation">Этот дом не мой, мой — вон тот зелёный коттедж рядом.</span></div>
+      <p>Также к указательным относится <b>such</b> — такой.</p>
+      <div class="tip-box"><b>Подсказка:</b> <i>This/that</i> — для одного предмета, <i>these/those</i> — для нескольких. Всё просто!</div>
+    `
+  },
+  {
+    title: "Possessive Case 's",
+    subtitle: "Притяжательный падеж — чьё это?",
+    greeting: "Помнишь, мы говорили о притяжательных прилагательных (my, your)? А теперь — о притяжательном падеже существительных! Это когда мы говорим «Машин брат» или «папин офис».",
+    content: `
+      <p>Используется для обозначения:</p>
+      <ul>
+        <li>родственных связей и отношений: <div class="example">sister's husband, Kate's classmate, brother's friend</div></li>
+        <li>мест времяпрепровождения: <div class="example">father's office, John's school</div></li>
+        <li>принадлежности неосязаемого: <div class="example">Loran's dream, teacher's patience</div></li>
+      </ul>
+      <h3>Как образуется?</h3>
+      <div class="rule-box">
+        <b>Единственное число:</b> апостроф (') + s → <i>the boy's sweater</i><br>
+        <b>Множественное число:</b> апостроф (') после окончания мн.ч. → <i>these girls' dresses</i><br>
+        <b>Неодушевлённые предметы:</b> предлог <b>of</b> → <i>the cover of the book</i>
+      </div>
+      <div class="tip-box"><b>Запомни:</b> С людьми и животными — используем <b>'s</b>. С предметами — предлог <b>of</b>. <i>My friend's car</i>, но <i>the door of the car</i>.</div>
+    `
+  },
+  {
+    title: "Some / Any / No",
+    subtitle: "Неопределённые местоимения — немного, сколько-нибудь, никакой",
+    greeting: "Эти слова — как волшебные палочки для неопределённости! Когда не знаешь точно, сколько — используем их.",
+    content: `
+      <h3>SOME — немного, несколько</h3>
+      <ul>
+        <li>С неисчисляемыми в значении «немного»: <div class="example">There is <b>some</b> pure water in the bottle.</div></li>
+        <li>С исчисляемыми во мн.ч. — «несколько»: <div class="example"><b>Some</b> students prepared interesting reports.</div></li>
+        <li>С исчисляемыми в ед.ч. — «какой-либо»: <div class="example"><b>Some</b> girl has just called you.</div></li>
+      </ul>
+      <p>В вопросах <b>some</b> используется для просьбы/предложения или при ожидании утвердительного ответа:</p>
+      <div class="example">Would you like <b>something</b> to drink? <span class="translation">(Предложение)</span></div>
+      <div class="example">Are you doing <b>something</b> at the moment? <span class="translation">(Ожидаем "да")</span></div>
+      <h3>ANY — какой-нибудь, никакой</h3>
+      <p>В отрицательных и вопросительных предложениях:</p>
+      <div class="example">I'm glad that you haven't <b>any</b> problems.</div>
+      <div class="example">Has <b>anybody</b> called me?</div>
+      <p>В утверждениях — в значении «любой, всякий»:</p>
+      <div class="example"><b>Anyone</b> can tell you her name.</div>
+      <p>После слов с отрицательным значением: hardly, scarcely, never, without, seldom, rarely, little, few, to refuse.</p>
+      <h3>NO — никакой, ни один</h3>
+      <p>В английском <b>нет двойного отрицания</b>! Глагол всегда положительный:</p>
+      <div class="example">We made <b>no</b> troubles.</div>
+      <div class="example"><b>No</b> student has failed this exam. — Ни один студент не провалил.</div>
+      <div class="rule-box">
+        <b>No</b> = not a + ед.ч.<br>
+        <b>No</b> = not any + мн.ч./неисчисляемое<br>
+        Производные: nobody = no one (никто), nothing (ничто), nowhere (нигде)
+      </div>
+      <div class="warning-box"><b>Осторожно!</b> В русском мы говорим "Я <u>не</u> видел <u>никого</u>", а в английском — "I saw <b>no one</b>" или "I <b>didn't</b> see <b>anyone</b>". Двойного отрицания нет!</div>
+    `
+  },
+  {
+    title: "How much? / How many?",
+    subtitle: "Сколько? — считаем и измеряем",
+    greeting: "Хочешь спросить «сколько?» — выбирай между <b>how much</b> и <b>how many</b>. В чём разница? Расскажу!",
+    content: `
+      <p><b>How many</b> — с исчисляемыми существительными (то, что можно посчитать).</p>
+      <p><b>How much</b> — с неисчисляемыми (то, что посчитать нельзя).</p>
+      <h3>К неисчисляемым относятся:</h3>
+      <ul>
+        <li>абстрактные понятия: work, time, knowledge, information</li>
+        <li>вещества и материалы: water, snow, sand</li>
+        <li>чувства и состояния: love, fear</li>
+      </ul>
+      <h3>Конструкция равенства</h3>
+      <div class="example">I want to find out <b>as much as</b> possible. — Я хочу узнать столько, насколько возможно.</div>
+      <h3>Формула "многие из / большая часть"</h3>
+      <div class="example"><b>Many of</b> the old people were injured.</div>
+      <div class="tip-box"><b>Лайфхак:</b> Задай вопрос: "Можно ли это посчитать по штукам?" Если да — <b>many</b>, если нет — <b>much</b>. <i>How many apples?</i> <i>How much water?</i></div>
+    `
+  },
+  {
+    title: "\"To Be\" in the Past",
+    subtitle: "Глагол \"быть\" в прошлом — вспоминаем, что было",
+    greeting: "Вспоминаем прошлое! Как сказать «я был», «они были»? Очень просто — с помощью <b>was</b> и <b>were</b>.",
+    content: `
+      <p><b>To be</b> — неправильный глагол. Формы прошедшего времени: <b>was / were</b>, причастие — <b>been</b>.</p>
+      <table>
+        <tr><th>Единственное число</th><th>Множественное число</th></tr>
+        <tr><td>I, he, she, it — <b>was</b></td><td>You, we, they — <b>were</b></td></tr>
+      </table>
+      <p>Используется для обозначения действий или состояний в прошлом, пересказа событий и описания ситуаций.</p>
+      <div class="example">He <b>was</b> so angry yesterday. <span class="translation">Он был так зол вчера.</span></div>
+      <div class="example">They <b>were</b> very happy. <span class="translation">Они были очень счастливы.</span></div>
+      <div class="tip-box"><b>Запомни:</b> <b>Was</b> — для одного (я, он, она, оно), <b>were</b> — для компании (мы, вы, они). Всё просто!</div>
+    `
+  },
+  {
+    title: "Past Simple",
+    subtitle: "Прошедшее простое время — истории из прошлого",
+    greeting: "Рассказываешь, что делал вчера? Или пересказываешь фильм? Тогда тебе нужен Past Simple! Это время для завершённых действий в прошлом.",
+    content: `
+      <p>Используется для описания завершённых действий или событий в определённый момент прошлого.</p>
+      <h3>Как образуется?</h3>
+      <ul>
+        <li><b>Правильные глаголы:</b> добавляем <b>-ed</b> → walk → walked, play → played</li>
+        <li><b>Неправильные глаголы:</b> особые формы, которые нужно запомнить → go → went, eat → ate</li>
+      </ul>
+      <h3>Когда используем?</h3>
+      <ul>
+        <li>Действия в определённое время в прошлом: <div class="example">She <b>studied</b> for her exam last night.</div></li>
+        <li>Последовательность действий в прошлом</li>
+        <li>Пересказ историй и прошлых событий</li>
+        <li>Прошлые привычки и рутины</li>
+      </ul>
+      <h3>Маркеры времени</h3>
+      <p>Yesterday / Last week/month/year / In... (year) / ago</p>
+      <h3>Отрицание и вопрос</h3>
+      <div class="example"><b>Didn't</b> + начальная форма: She <b>didn't go</b> to the party.</div>
+      <div class="example"><b>Did</b> + подлежащее + начальная форма: <b>Did</b> you <b>watch</b> the movie?</div>
+      <div class="warning-box"><b>Осторожно:</b> В отрицании и вопросе глагол возвращается в начальную форму! <i>She didn't <u>go</u></i> (не went!).</div>
+    `
+  },
+  {
+    title: "Regular and Irregular Verbs",
+    subtitle: "Правильные и неправильные глаголы",
+    greeting: "Все глаголы делятся на два лагеря: правильные (предсказуемые) и неправильные (с сюрпризами). Давай познакомимся с обоими!",
+    content: `
+      <h3>Regular Verbs (Правильные)</h3>
+      <p>При образовании прошедшего времени добавляется <b>-d</b> или <b>-ed</b> к начальной форме. Всё по правилам!</p>
+      <div class="example">cook → cooked, look → looked</div>
+      <h3>Irregular Verbs (Неправильные)</h3>
+      <p>Имеют особые формы прошедшего времени, которые нужно выучить. Но не пугайся — их не так много, и они встречаются постоянно!</p>
+      <div class="example">drive → drove → driven</div>
+      <div class="tip-box"><b>Совет друга:</b> Составь таблицу неправильных глаголов и учи по 5-10 в день. Особое внимание — на 3 формы (V1, V2, V3). Повешай таблицу над столом — и через месяц ты их знаешь!</div>
+    `
+  },
+  {
+    title: "Comparison of Adjectives",
+    subtitle: "Сравнение прилагательных — кто выше, кто лучше?",
+    greeting: "Хочешь сравнить двух людей или три города? Тогда тебе нужны сравнительная и превосходная степени прилагательных!",
+    content: `
+      <h3>Comparative (Сравнительная степень)</h3>
+      <p>Для сравнения <b>двух</b> предметов или людей.</p>
+      <ul>
+        <li>Короткие прилагательные: добавляем <b>-er</b> → tall → taller, fast → faster</li>
+        <li>Оканчивающиеся на <b>y</b>: меняем y на i + -er → happy → happier</li>
+        <li>Длинные прилагательные: <b>more</b> + прилагательное → more beautiful, more interesting</li>
+      </ul>
+      <h3>Superlative (Превосходная степень)</h3>
+      <p>Для сравнения <b>трёх и более</b> предметов — чтобы сказать "самый-самый".</p>
+      <ul>
+        <li>Короткие: добавляем <b>-est</b> → tall → tallest, fast → fastest</li>
+        <li>На <b>y</b>: y → i + -est → happy → happiest</li>
+        <li>Длинные: <b>most</b> + прилагательное → most beautiful</li>
+      </ul>
+      <h3>Исключения (их нужно просто запомнить)</h3>
+      <table>
+        <tr><th>Положительная</th><th>Сравнительная</th><th>Превосходная</th></tr>
+        <tr><td>good</td><td>better</td><td>best</td></tr>
+        <tr><td>bad</td><td>worse</td><td>worst</td></tr>
+      </table>
+      <h3>Примеры</h3>
+      <div class="example">She is <b>taller than</b> her sister. <span class="translation">Она выше своей сестры.</span></div>
+      <div class="example">Mount Everest is <b>the highest</b> mountain in the world. <span class="translation">Эверест — самая высокая гора в мире.</span></div>
+      <div class="tip-box"><b>Подсказка:</b> После сравнительной степени почти всегда идёт <b>than</b> (чем). После превосходной — почти всегда <b>the</b>.</div>
+    `
+  },
+  {
+    title: "Present Continuous",
+    subtitle: "Настоящее продолженное — что происходит прямо сейчас",
+    greeting: "Смотри! Что происходит в эту самую секунду? Ты читаешь эту книгу, кто-то готовит ужин, а где-то идёт дождь. Всё это — Present Continuous!",
+    content: `
+      <p>Описывает действия, происходящие в момент речи или в данный период.</p>
+      <h3>Структура</h3>
+      <p><b>to be (am/is/are) + V-ing</b></p>
+      <table>
+        <tr><th>Тип</th><th>Формула</th></tr>
+        <tr><td>(+)</td><td>Subject + am/is/are + V-ing</td></tr>
+        <tr><td>(−)</td><td>Subject + am not/is not/are not + V-ing</td></tr>
+        <tr><td>(?)</td><td>Am/Is/Are + subject + V-ing?</td></tr>
+      </table>
+      <h3>Когда используем?</h3>
+      <ul>
+        <li>Действия прямо сейчас: <div class="example">I <b>am studying</b> for my exam.</div></li>
+        <li>Временные ситуации: <div class="example">She <b>is staying</b> with her friend this week.</div></li>
+        <li>Планы на будущее: <div class="example">We <b>are meeting</b> at the café tomorrow.</div></li>
+        <li>Изменяющиеся ситуации: <div class="example">The weather <b>is getting</b> warmer.</div></li>
+      </ul>
+      <h3>Маркеры</h3>
+      <p>now, at the moment, currently, right now, these days, today, this month/year, look!, listen!, Be careful!</p>
+      <h3>Stative Verbs (Глаголы состояния)</h3>
+      <p>Не используются в Continuous: believe, like, love, hate, know, want. Это глаголы чувств и состояний — они не "длятся".</p>
+      <div class="warning-box"><b>Ошибка новичков:</b> Нельзя сказать <i>"I am knowing"</i> или <i>"She is loving"</i>. Только <i>I know, She loves</i>.</div>
+    `
+  },
+  {
+    title: "Going to / Would like / Want",
+    subtitle: "Будущие намерения и желания",
+    greeting: "Что ты планируешь на выходные? О чём мечтаешь? Давай научимся говорить о своих планах и желаниях!",
+    content: `
+      <h3>Going to — наши планы и намерения</h3>
+      <p>Используется для объявления намерений или планов на будущее.</p>
+      <div class="example">I <b>am going to</b> visit a doctor. <span class="translation">Я собираюсь к врачу.</span></div>
+      <table>
+        <tr><th>Тип</th><th>Формула</th></tr>
+        <tr><td>(+)</td><td>Subject + am/is/are + going to + V</td></tr>
+        <tr><td>(?)</td><td>Am/Is/Are + subject + going to + V?</td></tr>
+        <tr><td>(−)</td><td>Subject + am/is/are + not + going to + V</td></tr>
+      </table>
+      <h3>Would like — вежливое "хотел бы"</h3>
+      <p>Модальная фраза для вежливых просьб и выражения предпочтений. После неё — <b>инфинитив с to</b>.</p>
+      <div class="example">She <b>would like to visit</b> her sister. <span class="translation">Она хотела бы навестить сестру.</span></div>
+      <h3>Want — сильное желание</h3>
+      <p>После — инфинитив или существительное.</p>
+      <div class="example">I <b>want to learn</b> how to play the piano.</div>
+      <div class="example">She <b>wants</b> a new phone for her birthday.</div>
+      <div class="tip-box"><b>Подсказка:</b> <i>Would like</i> звучит вежливее, чем <i>want</i>. В ресторане лучше сказать <i>"I'd like a coffee, please"</i>, а не <i>"I want a coffee"</i>.</div>
+    `
+  },
+  {
+    title: "Present Continuous for Future",
+    subtitle: "Настоящее продолженное для будущего",
+    greeting: "Удивительно, но факт: Present Continuous можно использовать для будущего! Но только если у тебя уже есть конкретные планы.",
+    content: `
+      <p>Используется, когда говорящий уже <b>составил планы или договорённости</b>.</p>
+      <h3>Formation</h3>
+      <p><b>to be (am/is/are) + V-ing</b></p>
+      <div class="example">I <b>am going</b> to the party tonight. <span class="translation">Я иду на вечеринку сегодня вечером.</span></div>
+      <h3>Маркеры</h3>
+      <p>tomorrow, next week, next month и т.д.</p>
+      <div class="example">We <b>are going</b> on vacation next month.</div>
+      <div class="rule-box"><b>Важно:</b> Present Continuous для будущего подразумевает <u>высокую степень уверенности</u>, что событие произойдёт по плану. Ты уже купил билеты, договорился с друзьями — всё решено!</div>
+      <div class="example">He <b>is starting</b> his new job on Monday. <span class="translation">Он выходит на новую работу в понедельник.</span></div>
+    `
+  },
+  {
+    title: "\"To Be\" in the Future",
+    subtitle: "Глагол \"быть\" в будущем — что будет?",
+    greeting: "Заглянем в будущее! Как сказать «я буду», «они будут»? Очень просто — с помощью <b>will be</b>!",
+    content: `
+      <h3>Future Simple</h3>
+      <table>
+        <tr><td>I / You / He / She / It / We / They</td><td><b>will be</b></td></tr>
+      </table>
+      <h3>Future Continuous</h3>
+      <p><b>will be + V-ing</b> — действие в процессе в будущем.</p>
+      <div class="example">They <b>will be waiting</b> for you when you arrive.</div>
+      <div class="example">I <b>will be working</b> on the project all day tomorrow.</div>
+      <h3>Future Perfect</h3>
+      <p><b>will have been</b> — действие завершится к определённому моменту в будущем.</p>
+      <div class="example">By next year, she <b>will have been</b> working here for ten years.</div>
+      <h3>Future Perfect Continuous</h3>
+      <p><b>will have been + V-ing</b> — длительное действие до момента в будущем.</p>
+      <div class="example">By the end of the month, I <b>will have been living</b> in this city for two years.</div>
+      <div class="tip-box"><b>Не пугайся сложных названий!</b> В разговорной речи чаще всего используется <b>will be</b> и <b>will be + V-ing</b>. Остальные — для более точных выражений.</div>
+    `
+  },
+  {
+    title: "Future Simple",
+    subtitle: "Будущее простое время — что будет?",
+    greeting: "Будущее не определено, но мы можем о нём говорить! Future Simple — для предсказаний, обещаний и спонтанных решений.",
+    content: `
+      <p>Используется для действий, которые произойдут в будущем.</p>
+      <h3>Образование</h3>
+      <p><b>will + base form of the verb</b></p>
+      <h3>Когда используем?</h3>
+      <ul>
+        <li><b>Предсказания:</b> <div class="example">I think it <b>will rain</b> tomorrow.</div></li>
+        <li><b>Планы:</b> <div class="example">I <b>will meet</b> you at the restaurant at 7 PM.</div></li>
+        <li><b>Обещания и предложения:</b> <div class="example">I <b>will help</b> you with your homework.</div></li>
+        <li><b>Спонтанные решения:</b> <div class="example">I'll have the salad, please.</div></li>
+      </ul>
+      <h3>Отрицание</h3>
+      <p><b>will not</b> или <b>won't</b> + V</p>
+      <div class="example">I <b>won't go</b>. <span class="translation">Я не пойду.</span></div>
+      <h3>Вопрос</h3>
+      <div class="example"><b>Will</b> you come to the party?</div>
+      <div class="rule-box">С местоимениями <b>I</b> и <b>we</b> можно использовать форму <b>shall</b> (особенно в вопросах): <i>Shall we dance?</i></div>
+      <h3>Маркеры</h3>
+      <p>tomorrow, next day/week/month, in 1 year/month, soon, later, some day, in the future</p>
+    `
+  },
+  {
+    title: "Suggestions, Invitations and Offers",
+    subtitle: "Предложения, приглашения и предложения помощи",
+    greeting: "Хочешь кого-то пригласить или предложить помощь? Давай выучим вежливые фразы для этих случаев!",
+    content: `
+      <h3>Suggestions (Предложения сделать что-то вместе)</h3>
+      <div class="example"><b>Why don't we</b> go to the movies tonight?</div>
+      <div class="example"><b>Shall we</b> have dinner together?</div>
+      <h3>Invitations (Приглашения)</h3>
+      <div class="example">I <b>will host</b> a party next Saturday. Would you like to come?</div>
+      <div class="example"><b>Will you join us</b> for a picnic on Sunday?</div>
+      <h3>Offers (Предложения помощи)</h3>
+      <div class="example">I <b>will help</b> you with your project if you need assistance.</div>
+      <div class="example">I <b>will buy</b> you a coffee if you'd like.</div>
+      <h3>Polite expressions (Вежливые выражения)</h3>
+      <p>would you like to, could we, may I</p>
+      <div class="example"><b>Would you like to</b> go for a walk with me?</div>
+      <h3>Accepting or declining (Согласие или отказ)</h3>
+      <div class="example">Yes, I <b>will definitely</b> come to your party.</div>
+      <div class="example">Thank you for the offer, but I <b>will have to decline</b>.</div>
+      <div class="tip-box"><b>Совет:</b> В английском очень ценится вежливость. Даже отказывай, начинай с "Thank you" или "That's so kind of you, but..."</div>
+    `
+  },
+  {
+    title: "Past Continuous",
+    subtitle: "Прошедшее продолженное — что происходило в тот момент?",
+    greeting: "Представь: вчера в 8 вечера ты смотрел фильм. Как это сказать? С помощью Past Continuous! Это время рисует «картинку» прошлого.",
+    content: `
+      <p>Описывает действия, которые были в процессе в определённый момент прошлого.</p>
+      <h3>Formation</h3>
+      <p><b>was/were + V-ing</b></p>
+      <h3>Маркеры</h3>
+      <p>while, when, at 4 o'clock yesterday, the whole day, from 6 till 7</p>
+      <h3>Когда используем?</h3>
+      <ul>
+        <li><b>Действия в процессе:</b> <div class="example">I <b>was watching</b> TV at 8 p.m. last night.</div></li>
+        <li><b>Продолжительность:</b> <div class="example">She <b>was reading</b> a book for two hours.</div></li>
+        <li><b>Одновременные действия:</b> <div class="example"><b>While</b> I was studying, my brother was playing video games.</div></li>
+        <li><b>Фон для истории:</b> <div class="example">It <b>was raining</b> heavily while we were driving home.</div></li>
+        <li><b>Прерванные действия:</b> <div class="example">I <b>was sleeping</b> when the phone rang.</div></li>
+        <li><b>Вежливые просьбы:</b> <div class="example">I <b>was wondering</b> if you could help me.</div></li>
+      </ul>
+      <div class="tip-box"><b>Лайфхак:</b> Past Continuous — это как «фотография» момента в прошлом. Представь, что ты делаешь снимок: что происходило в эту секунду?</div>
+    `
+  },
+  {
+    title: "Conditionals",
+    subtitle: "Условные предложения — если..., то...",
+    greeting: "Что было бы, если...? Условные предложения — это целая вселенная возможностей! В английском их 4 основных типа. Давай разберёмся.",
+    content: `
+      <p>Выражают условие и его возможный результат. В английском <b>4 основных типа</b>.</p>
+      <h3>Zero Conditional — общие истины</h3>
+      <p>Общие истины и факты — условие всегда приводит к одному результату.</p>
+      <p><b>If + Present Simple, Present Simple</b></p>
+      <div class="example">If you <b>heat</b> water to 100°C, it <b>boils</b>.</div>
+      <h3>First Conditional — реальные планы</h3>
+      <p>Реальные или возможные ситуации в будущем.</p>
+      <p><b>If + Present Simple, will + V</b></p>
+      <div class="example">If it <b>rains</b> tomorrow, we <b>will stay</b> indoors.</div>
+      <h3>Second Conditional — мечты</h3>
+      <p>Гипотетические или маловероятные ситуации в настоящем/будущем.</p>
+      <p><b>If + Past Simple, would + V</b></p>
+      <div class="example">If I <b>won</b> the lottery, I <b>would travel</b> around the world.</div>
+      <h3>Third Conditional — сожаления о прошлом</h3>
+      <p>Гипотетические ситуации в прошлом, которые не произошли.</p>
+      <p><b>If + Past Perfect, would have + V3</b></p>
+      <div class="example">If she <b>had studied</b> harder, she <b>would have passed</b> the exam.</div>
+      <div class="rule-box">Существуют также <b>mixed conditionals</b> — смешанные типы, сочетающие элементы разных условных предложений.</div>
+      <div class="tip-box"><b>Подсказка:</b> Запомни логику: чем «реальнее» ситуация — тем ближе времена к настоящему. Zero — факт, First — план, Second — мечта, Third — сожаление.</div>
+    `
+  },
+  {
+    title: "Present Perfect",
+    subtitle: "Настоящее совершенное — результат налицо!",
+    greeting: "Это время — как мостик между прошлым и настоящим. Действие было в прошлом, но результат важен сейчас!",
+    content: `
+      <p>Указывает на действия, произошедшие в неопределённое время в прошлом, или имеющие связь с настоящим.</p>
+      <h3>Structure</h3>
+      <p><b>Subject + have/has + V3 (past participle)</b></p>
+      <h3>Когда используем?</h3>
+      <ul>
+        <li>Действия в неопределённое время: <div class="example">I <b>have visited</b> Paris. <span class="translation">(Когда — не важно, важен опыт)</span></div></li>
+        <li>Опыт и достижения: <div class="example">She <b>has studied</b> English for five years.</div></li>
+        <li>Действия, начавшиеся в прошлом и продолжающиеся: <div class="example">They <b>have lived</b> in this city since 2010.</div></li>
+        <li>Только что завершённые действия: <div class="example">I <b>have just finished</b> my homework.</div></li>
+      </ul>
+      <h3>Маркеры</h3>
+      <p>already, yet, ever, never, just, recently, so far, up to now</p>
+      <div class="example"><b>Have</b> you <b>ever</b> been to Japan?</div>
+      <div class="warning-box"><b>Частая ошибка:</b> Present Perfect НЕ используется с конкретным временем в прошлом! Нельзя сказать <i>"I have visited Paris last year"</i>. Если есть "last year" — это Past Simple.</div>
+    `
+  },
+  {
+    title: "Modal Verbs",
+    subtitle: "Модальные глаголы — should, may, might и другие",
+    greeting: "Модальные глаголы — это как «приправки» к обычным глаголам. Они добавляют оттенок: возможность, необходимость, разрешение, совет...",
+    content: `
+      <p>Выражают способность, возможность, необходимость, разрешение, обязательство.</p>
+      <h3>Основные модальные глаголы</h3>
+      <table>
+        <tr><th>Глагол</th><th>Значение</th></tr>
+        <tr><td>Can</td><td>способность, возможность, разрешение</td></tr>
+        <tr><td>Could</td><td>вежливые просьбы, способность в прошлом</td></tr>
+        <tr><td>May</td><td>разрешение, возможность</td></tr>
+        <tr><td>Might</td><td>возможность, неуверенность</td></tr>
+        <tr><td>Must</td><td>необходимость, обязательство</td></tr>
+        <tr><td>Shall</td><td>формальные предложения (BrE)</td></tr>
+        <tr><td>Should</td><td>совет, рекомендация</td></tr>
+        <tr><td>Will</td><td>будущее, готовность</td></tr>
+        <tr><td>Would</td><td>вежливые просьбы, гипотетические ситуации</td></tr>
+      </table>
+      <h3>Особенности</h3>
+      <ul>
+        <li>Не изменяются по лицам (нет -s в 3 лице)</li>
+        <li>Всегда с базовой формой глагола (кроме have to)</li>
+        <li>Не имеют инфинитива и причастий</li>
+        <li>Не требуют do/does в вопросах и отрицаниях</li>
+      </ul>
+      <h3>Примеры</h3>
+      <div class="example">She <b>can</b> speak three languages. <span class="translation">(способность)</span></div>
+      <div class="example">You <b>may</b> leave the room now. <span class="translation">(разрешение)</span></div>
+      <div class="example">Students <b>must</b> wear uniforms. <span class="translation">(обязательство)</span></div>
+      <div class="example">It <b>might</b> rain later. <span class="translation">(возможность)</span></div>
+      <div class="example">You <b>should</b> see a doctor. <span class="translation">(совет)</span></div>
+      <h3>Вежливые формы</h3>
+      <div class="example"><b>Could</b> you please pass me the salt?</div>
+      <h3>С Perfect Infinitive (о прошлом)</h3>
+      <div class="example">He <b>must have forgotten</b> his keys. <span class="translation">(Наверняка забыл ключи)</span></div>
+      <div class="tip-box"><b>Запомни:</b> Модальные глаголы — «капризные». У них нет многих форм, зато они очень выразительные. Выучи их значения — и речь сразу станет богаче!</div>
+    `
+  },
+  {
+    title: "Present Perfect Continuous",
+    subtitle: "Настоящее совершенное продолженное — процесс, который длится",
+    greeting: "Это время — как Present Perfect, но с акцентом на <b>длительность</b> процесса. Действие началось в прошлом и всё ещё продолжается (или только что закончилось).",
+    content: `
+      <p>Описывает действия, начавшиеся в прошлом и продолжающиеся или только что завершённые.</p>
+      <h3>Structure</h3>
+      <p><b>Subject + have/has + been + V-ing</b></p>
+      <table>
+        <tr><th>Тип</th><th>Формула</th></tr>
+        <tr><td>(+)</td><td>Subject + have/has + been + V-ing</td></tr>
+        <tr><td>(−)</td><td>Subject + have/has + not + been + V-ing</td></tr>
+        <tr><td>(?)</td><td>Have/Has + subject + been + V-ing?</td></tr>
+      </table>
+      <h3>Когда используем?</h3>
+      <ul>
+        <li>Действия, начавшиеся в прошлом и продолжающиеся: <div class="example">She <b>has been learning</b> Spanish for a year.</div></li>
+        <li>Только что завершённые с видимым результатом: <div class="example">They <b>have been renovating</b> their house, so it looks amazing now.</div></li>
+        <li>Акцент на продолжительности: <div class="example">He <b>has been working</b> on this project all week.</div></li>
+      </ul>
+      <h3>Маркеры</h3>
+      <p>for, since, all day, recently, lately</p>
+      <div class="tip-box"><b>Различай:</b> <i>I have read this book</i> (результат — прочитал) vs <i>I have been reading this book</i> (процесс — читаю уже какое-то время).</div>
+    `
+  },
+  {
+    title: "Phrasal Verbs",
+    subtitle: "Фразовые глаголы — глагол + частица = новый смысл",
+    greeting: "Фразовые глаголы — это как маленькие головоломки! Глагол + предлог = совершенно новое значение. Их много, но они очень полезны!",
+    content: `
+      <p>Комбинация глагола с одной или несколькими частицами (предлогами или наречиями), образующая единое семантическое целое.</p>
+      <h3>Структура</h3>
+      <p><b>main verb + particle(s)</b></p>
+      <div class="example"><b>look up</b> — искать информацию</div>
+      <h3>Типы</h3>
+      <ul>
+        <li><b>Intransitive</b> (без объекта): <div class="example">She <b>woke up</b> early.</div></li>
+        <li><b>Transitive</b> (с объектом): <div class="example">He <b>turned off</b> the lights.</div></li>
+      </ul>
+      <h3>Отделяемые и неотделяемые</h3>
+      <ul>
+        <li><b>Separable:</b> объект может стоять между глаголом и частицей: <div class="example"><b>Turn off</b> the lights = <b>Turn</b> the lights <b>off</b></div></li>
+        <li><b>Inseparable:</b> объект только после частицы: <div class="example">She <b>ran into</b> an old friend.</div></li>
+      </ul>
+      <h3>Распространённые фразовые глаголы</h3>
+      <table>
+        <tr><th>Phrasal verb</th><th>Значение</th></tr>
+        <tr><td>look up</td><td>искать информацию</td></tr>
+        <tr><td>get up</td><td>вставать</td></tr>
+        <tr><td>turn off</td><td>выключать</td></tr>
+        <tr><td>run into</td><td>случайно встретить</td></tr>
+        <tr><td>bring up</td><td>поднимать тему</td></tr>
+        <tr><td>give up</td><td>сдаваться</td></tr>
+      </table>
+      <div class="rule-box">Фразовые глаголы часто имеют <b>идиоматические значения</b>, не связанные с прямым смыслом глагола и частицы. Их нужно учить как отдельные слова!</div>
+      <div class="tip-box"><b>Совет:</b> Не пытайся выучить все сразу! Бери по 5 в неделю и используй в своих предложениях. Через год у тебя будет огромный запас.</div>
+    `
+  },
+  {
+    title: "Passive Voice",
+    subtitle: "Страдательный залог — когда важен результат, а не кто",
+    greeting: "Иногда не важно, КТО сделал действие — важен сам результат. Тогда используем Passive Voice!",
+    content: `
+      <p>Грамматическая конструкция, в которой подлежащее — <b>получатель</b> действия, а не его исполнитель.</p>
+      <h3>Structure</h3>
+      <p><b>to be + V3 (past participle)</b></p>
+      <div class="example">Active: The chef <b>cooked</b> the meal.<br>Passive: The meal <b>was cooked</b> by the chef.</div>
+      <h3>Компоненты</h3>
+      <ul>
+        <li><b>Subject</b> — тот, на ком отражается действие</li>
+        <li><b>Verb phrase</b> — to be + V3</li>
+        <li><b>Agent</b> (необязательно) — исполнитель действия (через <b>by</b>)</li>
+      </ul>
+      <h3>Примеры в разных временах</h3>
+      <table>
+        <tr><th>Время</th><th>Passive</th></tr>
+        <tr><td>Present Simple</td><td>The report <b>is submitted</b> every month.</td></tr>
+        <tr><td>Past Simple</td><td>The cake <b>was baked</b> by my sister yesterday.</td></tr>
+        <tr><td>Present Perfect</td><td>The project <b>has been completed</b> ahead of schedule.</td></tr>
+        <tr><td>Future Simple</td><td>The tickets <b>will be purchased</b> online.</td></tr>
+      </table>
+      <h3>Когда использовать?</h3>
+      <ul>
+        <li>Акцент на действии, а не исполнителе</li>
+        <li>Исполнитель неизвестен или не важен</li>
+        <li>Научный и академический стиль</li>
+        <li>Формальный контекст</li>
+      </ul>
+      <div class="tip-box"><b>Подсказка:</b> В новостях часто используют Passive: <i>"The bank was robbed yesterday"</i> — не важно, кто, важно, что произошло.</div>
+    `
+  },
+  {
+    title: "Past Perfect",
+    subtitle: "Прошедшее совершенное — предпрошлое",
+    greeting: "Это время — как «прошлое в прошлом». Когда хочешь рассказать, что одно действие произошло ДО другого действия в прошлом.",
+    content: `
+      <p>Указывает на действие, завершённое <b>до другого действия</b> или момента в прошлом.</p>
+      <h3>Structure</h3>
+      <p><b>Subject + had + V3</b></p>
+      <table>
+        <tr><th>Тип</th><th>Формула</th></tr>
+        <tr><td>(+)</td><td>Subject + had + V3</td></tr>
+        <tr><td>(−)</td><td>Subject + had not (hadn't) + V3</td></tr>
+        <tr><td>(?)</td><td>Had + subject + V3?</td></tr>
+      </table>
+      <h3>Когда используем?</h3>
+      <ul>
+        <li>Действие до другого действия в прошлом: <div class="example">By the time I arrived, they <b>had already left</b>.</div></li>
+        <li>Завершённое действие до момента в прошлом: <div class="example">She <b>had never traveled</b> abroad until last summer.</div></li>
+        <li>Сожаления и желания: <div class="example">I wish I <b>had studied</b> harder.</div></li>
+        <li>В reported speech: <div class="example">She said she <b>had already finished</b> her work.</div></li>
+      </ul>
+      <h3>Отличие от Past Simple</h3>
+      <div class="example">Simple Past: She <b>ate</b> breakfast before leaving.<br>Past Perfect: She <b>had eaten</b> breakfast before leaving. <span class="translation">(акцент на том, что это произошло ДО)</span></div>
+      <h3>Маркеры</h3>
+      <p>before, already, just, never, ever, yet, by the time, until, since, for</p>
+    `
+  },
+  {
+    title: "Make / Let",
+    subtitle: "Каузативные глаголы — заставлять и позволять",
+    greeting: "Иногда мы заставляем кого-то что-то сделать, а иногда — позволяем. Для этого есть глаголы <b>make</b> и <b>let</b>!",
+    content: `
+      <h3>Make — заставлять</h3>
+      <p>Каузативный глагол — заставляет или требует кого-то что-то сделать.</p>
+      <p><b>make + object + V (без to)</b></p>
+      <div class="example">She <b>made him clean</b> his room. <span class="translation">Она заставила его убрать комнату.</span></div>
+      <h3>Let — позволять</h3>
+      <p>Разрешает или позволяет что-то сделать.</p>
+      <p><b>let + object + V (без to)</b></p>
+      <div class="example">He <b>let her borrow</b> his car. <span class="translation">Он разрешил ей взять свою машину.</span></div>
+      <h3>Различия</h3>
+      <table>
+        <tr><th>Make</th><th>Let</th></tr>
+        <tr><td>принуждение, сила</td><td>разрешение</td></tr>
+        <tr><td>действие под давлением</td><td>действие по желанию</td></tr>
+      </table>
+      <h3>Устойчивые выражения</h3>
+      <div class="example"><b>make up</b> — выдумывать: She <b>made up</b> a story.</div>
+      <div class="example"><b>let down</b> — подводить: He felt <b>let down</b> by his friend.</div>
+      <div class="warning-box"><b>Осторожно:</b> После make и let глагол идёт БЕЗ частицы <i>to</i>. Не <i>"made him to clean"</i>, а <i>"made him clean"</i>.</div>
+    `
+  },
+  {
+    title: "Used to / Would",
+    subtitle: "Прошлые привычки — что мы делали раньше",
+    greeting: "Помнишь, как ты раньше играл в куклы или ездил к бабушке каждое лето? Эти привычки остались в прошлом. Как о них рассказать?",
+    content: `
+      <p>Используются для описания прошлых привычек, повторяющихся действий или состояний, которых больше нет.</p>
+      <h3>Used to</h3>
+      <p>Для прошлых привычек или состояний, которые были регулярными, но изменились.</p>
+      <p><b>used to + V (без to)</b></p>
+      <div class="example">I <b>used to play</b> the piano when I was younger. <span class="translation">(Раньше играл, теперь нет)</span></div>
+      <div class="example">She <b>used to live</b> in Paris.</div>
+      <h3>Would</h3>
+      <p>Для прошлых привычек и повторяющихся действий, особенно в рассказах.</p>
+      <p><b>would + V (без to)</b></p>
+      <div class="example">Every summer, we <b>would go</b> camping in the mountains.</div>
+      <div class="example">When I was a child, I <b>would visit</b> my grandparents every weekend.</div>
+      <h3>Различия</h3>
+      <table>
+        <tr><th>Used to</th><th>Would</th></tr>
+        <tr><td>общие утверждения о прошлых привычках</td><td>конкретные анекдоты и рассказы</td></tr>
+        <tr><td>привычки И состояния</td><td>только действия (не состояния!)</td></tr>
+      </table>
+      <div class="warning-box"><b>Важно:</b> <i>Would</i> нельзя использовать для прошлых состояний. Нельзя сказать: <i>I would live in Paris</i>. Только: <i>I used to live in Paris</i>.</div>
+    `
+  },
+  {
+    title: "Gerund or Infinitive",
+    subtitle: "Герундий или инфинитив — что выбрать?",
+    greeting: "Когда после глагола нужен другой глагол — в какой форме его поставить? V-ing (герундий) или to + V (инфинитив)? Зависит от первого глагола!",
+    content: `
+      <p>Обе формы могут выполнять функцию существительного в предложении.</p>
+      <h3>Gerund (Герундий) — V-ing</h3>
+      <p>Форма <b>V-ing</b>, выполняющая роль существительного.</p>
+      <div class="example"><b>Swimming</b> is good exercise. <span class="translation">(Герундий как подлежащее)</span></div>
+      <h3>Infinitive (Инфинитив) — to + V</h3>
+      <p>Форма <b>to + V</b>.</p>
+      <div class="example"><b>To travel</b> is my dream. <span class="translation">(Инфинитив как подлежащее)</span></div>
+      <h3>Различия</h3>
+      <ul>
+        <li><b>Герундий</b> — когда акцент на самом действии</li>
+        <li><b>Инфинитив</b> — когда акцент на цели или намерении</li>
+      </ul>
+      <h3>Глаголы + Gerund</h3>
+      <p>enjoy, like, dislike, love, hate, suggest, recommend, avoid, consider, keep, practice, finish, imagine</p>
+      <div class="example">She <b>enjoys dancing</b> in her free time.</div>
+      <h3>Глаголы + Infinitive</h3>
+      <p>want, need, plan, hope, expect, decide, agree, promise, learn, offer, refuse</p>
+      <div class="example">I <b>plan to visit</b> my grandparents next weekend.</div>
+      <h3>Глаголы с обоими (с изменением смысла)</h3>
+      <div class="example">I <b>remembered locking</b> the door. <span class="translation">(Вспомнил, что запер — действие уже было)</span></div>
+      <div class="example">I <b>remembered to lock</b> the door. <span class="translation">(Вспомнил, что нужно запереть — до действия)</span></div>
+      <div class="tip-box"><b>Совет:</b> Просто запоминай, какие глаголы с какой формой дружат. Со временем это станет интуитивно!</div>
+    `
+  },
+  {
+    title: "Relative Clauses",
+    subtitle: "Относительные придаточные — уточняем информацию",
+    greeting: "Хочешь рассказать о человеке или предмете подробнее? Тогда тебе нужны относительные придаточные — они как маленькие уточнения внутри предложения.",
+    content: `
+      <p>Придаточные предложения, дающие дополнительную информацию о существительном. Вводятся относительными местоимениями или наречиями.</p>
+      <h3>Типы</h3>
+      <ul>
+        <li><b>Restrictive (Defining)</b> — необходимая информация, без запятых: <div class="example">The book <b>that I bought yesterday</b> is very interesting.</div></li>
+        <li><b>Non-Restrictive (Non-Defining)</b> — дополнительная информация, с запятыми: <div class="example">My sister<b>, who lives in Paris,</b> is visiting us next week.</div></li>
+      </ul>
+      <h3>Relative Pronouns</h3>
+      <table>
+        <tr><th>Местоимение</th><th>Использование</th></tr>
+        <tr><td>who</td><td>люди (подлежащее)</td></tr>
+        <tr><td>whom</td><td>люди (объект)</td></tr>
+        <tr><td>whose</td><td>принадлежность</td></tr>
+        <tr><td>which</td><td>вещи, животные</td></tr>
+        <tr><td>that</td><td>люди, вещи, животные (в defining clauses)</td></tr>
+      </table>
+      <h3>Relative Adverbs</h3>
+      <ul>
+        <li><b>where</b> — место: <div class="example">This is the city <b>where</b> I was born.</div></li>
+        <li><b>when</b> — время: <div class="example">I remember the day <b>when</b> we first met.</div></li>
+        <li><b>why</b> — причина: <div class="example">I understand the reason <b>why</b> you are upset.</div></li>
+      </ul>
+      <h3>Опускание местоимений</h3>
+      <p>В неформальном английском относительные местоимения можно опускать, если они являются объектом:</p>
+      <div class="example">The person <b>(whom)</b> I spoke to was very helpful.</div>
+    `
+  },
+  {
+    title: "Adverbs",
+    subtitle: "Наречия — как? когда? где? насколько?",
+    greeting: "Наречия — как специи в блюде! Они делают речь ярче и точнее. Как быстро? Где? Когда? Насколько? — всё это наречия.",
+    content: `
+      <p>Изменяют или описывают глаголы, прилагательные или другие наречия. Дают информацию о том, как, когда, где или в какой степени выполняется действие.</p>
+      <h3>Типы наречий</h3>
+      <table>
+        <tr><th>Тип</th><th>Описание</th><th>Пример</th></tr>
+        <tr><td>Manner</td><td>как?</td><td>She sings <b>beautifully</b>.</td></tr>
+        <tr><td>Time</td><td>когда?</td><td>They arrived <b>early</b>.</td></tr>
+        <tr><td>Place</td><td>где?</td><td>The cat is hiding <b>upstairs</b>.</td></tr>
+        <tr><td>Frequency</td><td>как часто?</td><td>He <b>always</b> arrives late.</td></tr>
+        <tr><td>Degree</td><td>в какой степени?</td><td>She is <b>very</b> happy.</td></tr>
+      </table>
+      <h3>Функции</h3>
+      <ul>
+        <li>Изменять глаголы: <div class="example">He runs <b>quickly</b>.</div></li>
+        <li>Изменять прилагательные: <div class="example">The movie was <b>extremely</b> boring.</div></li>
+        <li>Изменять другие наречия: <div class="example">She sings <b>very loudly</b>.</div></li>
+      </ul>
+      <h3>Сравнительная и превосходная степени</h3>
+      <div class="example">Positive: He works <b>hard</b>.<br>Comparative: He works <b>harder</b> than his colleagues.<br>Superlative: He works <b>the hardest</b> in the office.</div>
+      <h3>Наречные фразы и придаточные</h3>
+      <div class="example">Phrase: He went to the store <b>after lunch</b>.</div>
+      <div class="example">Clause: She sings <b>as if she were an angel</b>.</div>
+      <div class="warning-box"><b>Осторожно:</b> <i>well</i> (наречие) vs <i>good</i> (прилагательное). <i>She plays the piano well.</i> Не "She plays the piano good".</div>
+    `
+  },
+  {
+    title: "Wishes and Regrets",
+    subtitle: "Желания и сожаления — если бы да кабы...",
+    greeting: "Все мы иногда мечтаем о другом или сожалеем о прошлом. Давай научимся выражать эти чувства по-английски!",
+    content: `
+      <p>Выражения желаний, чтобы вещи были иными в прошлом, настоящем или будущем.</p>
+      <h3>Wishes (Желания)</h3>
+      <table>
+        <tr><th>Тип</th><th>Формула</th><th>Пример</th></tr>
+        <tr><td>Present</td><td>wish + Past Simple</td><td>I <b>wish</b> I <b>had</b> more free time.</td></tr>
+        <tr><td>Past</td><td>wish + Past Perfect</td><td>I <b>wish</b> I <b>had studied</b> harder.</td></tr>
+        <tr><td>Future</td><td>wish + would/could + V</td><td>I <b>wish</b> you <b>would come</b> to my party.</td></tr>
+      </table>
+      <h3>Regrets (Сожаления)</h3>
+      <ul>
+        <li><b>Simple regrets:</b> regret + Past Simple <div class="example">I <b>regret</b> not traveling more when I was younger.</div></li>
+        <li><b>Specific regrets:</b> regret + gerund <div class="example">She <b>regrets not telling</b> him how she felt.</div></li>
+      </ul>
+      <h3>С модальными глаголами</h3>
+      <div class="example">I <b>wish</b> I <b>could have helped</b> you with your project.</div>
+      <h3>Вежливые выражения сожаления</h3>
+      <div class="example">We <b>regret to inform</b> you that your application has been rejected.</div>
+      <div class="tip-box"><b>Подсказка:</b> После <i>I wish</i> всегда идёт время «на шаг назад»: настоящее → прошедшее, прошедшее → past perfect.</div>
+    `
+  },
+  {
+    title: "Reported Speech",
+    subtitle: "Косвенная речь — пересказываем чужие слова",
+    greeting: "Когда хочешь пересказать, что сказал кто-то другой, используем Reported Speech. Это как игра в «испорченный телефон», но по правилам!",
+    content: `
+      <p>Способ передачи чужой речи без дословного цитирования. Требует изменения местоимений, времён и других элементов.</p>
+      <h3>Правила</h3>
+      <ul>
+        <li>Время сдвигается назад: Present Simple → Past Simple, Present Continuous → Past Continuous и т.д.</li>
+        <li>Местоимения меняются в зависимости от контекста</li>
+        <li>Выражения времени корректируются</li>
+        <li>Модальные глаголы меняются: can → could, will → would</li>
+      </ul>
+      <h3>Reporting Verbs</h3>
+      <p>say, tell, ask, explain, mention и др.</p>
+      <h3>Изменение местоимений</h3>
+      <div class="example">Direct: She said, "<b>I</b> am going to the party."<br>Reported: She said that <b>she</b> was going to the party.</div>
+      <h3>Примеры</h3>
+      <div class="example">Direct: "<b>I love</b> this book," she said.<br>Reported: She said that she <b>loved</b> that book.</div>
+      <div class="example">He explained that he <b>had finished</b> his work.</div>
+      <div class="rule-box"><b>Важно:</b> В письменном английском прямая речь заключается в кавычки, косвенная — нет.</div>
+    `
+  },
+  {
+    title: "Reported Questions",
+    subtitle: "Косвенные вопросы — пересказываем вопросы",
+    greeting: "А что, если нужно пересказать чей-то вопрос? Здесь есть свои хитрости — порядок слов меняется!",
+    content: `
+      <p>Способ передачи вопроса без использования точных слов оригинала.</p>
+      <h3>Правила</h3>
+      <ul>
+        <li>Используется reporting verb: ask, inquire, wonder</li>
+        <li>Порядок слов — прямой (подлежащее + глагол), <b>без инверсии</b></li>
+        <li>Время может сдвигаться назад</li>
+        <li>В конце <b>НЕ ставится вопросительный знак</b></li>
+      </ul>
+      <h3>Примеры</h3>
+      <div class="example">Direct: "<b>Where are you going</b>?" she asked.<br>Reported: She asked <b>where I was going</b>.</div>
+      <div class="example">Direct: "<b>When will you arrive</b>?" he asked.<br>Reported: He asked <b>when I would arrive</b>.</div>
+      <h3>Yes/No вопросы</h3>
+      <p>Используется <b>if</b> или <b>whether</b>:</p>
+      <div class="example">Direct: "<b>Can you help me</b>?" she asked.<br>Reported: She asked <b>if</b> I could help her.</div>
+      <div class="warning-box"><b>Частая ошибка:</b> В косвенном вопросе порядок слов — как в утверждении, а не как в вопросе! Не <i>"She asked where was I going"</i>, а <i>"She asked where I was going"</i>.</div>
+    `
+  },
+  {
+    title: "Future Continuous",
+    subtitle: "Будущее продолженное — что будет в процессе?",
+    greeting: "Представь: завтра в это время ты будешь лететь в самолёте. Как это сказать? С помощью Future Continuous!",
+    content: `
+      <p>Описывает действия, которые будут в процессе в определённый момент в будущем.</p>
+      <h3>Structure</h3>
+      <p><b>Subject + will/shall + be + V-ing</b></p>
+      <div class="example">I <b>will be studying</b> for my exams tomorrow.</div>
+      <div class="example">She <b>will be cooking</b> dinner when you arrive.</div>
+      <h3>Употребление</h3>
+      <ul>
+        <li><b>Действия в процессе:</b> <div class="example">This time next week, I <b>will be traveling</b> to Paris.</div></li>
+        <li><b>Будущие планы:</b> <div class="example">They <b>will be attending</b> the conference next month.</div></li>
+        <li><b>Вежливые просьбы:</b> <div class="example"><b>Will</b> you <b>be needing</b> any help with your presentation tomorrow?</div></li>
+        <li><b>Предсказания на основе свидетельств:</b> <div class="example">She <b>will be arriving</b> late because her flight has been delayed.</div></li>
+      </ul>
+      <h3>Маркеры</h3>
+      <p>this time next week, tomorrow at this time, by 6 PM tomorrow</p>
+      <div class="tip-box"><b>Подсказка:</b> Future Continuous — это «фотография» будущего момента. Что будет происходить в эту секунду?</div>
+    `
+  },
+  {
+    title: "Causative",
+    subtitle: "Каузативные конструкции — организуем действия",
+    greeting: "Иногда мы не делаем что-то сами, а организуем, чтобы это сделал кто-то другой. Например, «я починил машину» (хотя на самом деле её чинил мастер).",
+    content: `
+      <p>Грамматическая конструкция, показывающая, что кто-то или что-то заставляет произойти другое действие или заставляет кого-то что-то сделать.</p>
+      <h3>Causative with "have"</h3>
+      <p>Когда кто-то организует, чтобы другой человек сделал что-то для него.</p>
+      <p><b>Subject + have + object + base form of the verb</b></p>
+      <div class="example">I <b>had my car repaired</b>. <span class="translation">Мне починили машину (я организовал).</span></div>
+      <div class="example">She <b>had her house cleaned</b>.</div>
+      <div class="example">They <b>had their children babysat</b>.</div>
+      <h3>Causative with "get"</h3>
+      <p>Подразумевает убеждение или влияние на кого-то.</p>
+      <p><b>Subject + get + object + to + base form of the verb</b></p>
+      <div class="example">He <b>got his hair cut</b>.</div>
+      <div class="example">We <b>got our car washed</b>.</div>
+      <div class="example">She <b>got her friend to help</b> her.</div>
+      <h3>Ключевые моменты</h3>
+      <ul>
+        <li>Используется, когда кто-то организует действие от своего имени или убеждает кого-то</li>
+        <li>Может быть в активном и пассивном залоге</li>
+        <li><b>have</b> — более формальный, характерен для BrE</li>
+        <li><b>get</b> — более неформальный, характерен для AmE</li>
+        <li>В прошедшем времени: have → had, get → got</li>
+      </ul>
+    `
+  },
+  {
+    title: "To be used to / To get used to",
+    subtitle: "Быть привыкшим / Привыкать — про адаптацию",
+    greeting: "Переехал в новую страну? Новая работа? Всё это требует привыкания. Давай научимся говорить о привычках и адаптации!",
+    content: `
+      <p>Обе фразы говорят о знакомстве, адаптации или привыкании к чему-либо, но используются в разных контекстах.</p>
+      <h3>"To be used to" — уже привык</h3>
+      <p>Описывает то, что уже <b>знакомо или комфортно</b>, потому что мы это уже испытывали.</p>
+      <p><b>be + used to + noun/gerund</b></p>
+      <div class="example">I <b>am used to</b> cold weather. <span class="translation">Я привык к холодной погоде (уже привык).</span></div>
+      <div class="example">She <b>is used to working</b> long hours.</div>
+      <div class="example">They <b>are used to</b> spicy food.</div>
+      <h3>"To get used to" — привыкаю (процесс)</h3>
+      <p>Описывает <b>процесс</b> становления знакомым или комфортным с чем-то новым.</p>
+      <p><b>get + used to + noun/gerund</b></p>
+      <div class="example">I <b>am getting used to</b> the new job. <span class="translation">Я привыкаю к новой работе (в процессе).</span></div>
+      <div class="example">She <b>got used to living</b> in a big city.</div>
+      <div class="example">They <b>are getting used to</b> the changes.</div>
+      <h3>Сравнение</h3>
+      <table>
+        <tr><th>To be used to</th><th>To get used to</th></tr>
+        <tr><td>уже знакомо или привычно</td><td>процесс привыкания</td></tr>
+        <tr><td>статичное состояние</td><td>динамичный процесс</td></tr>
+        <tr><td>фокус на текущем состоянии</td><td>фокус на адаптации</td></tr>
+      </table>
+      <div class="rule-box">Обе фразы могут использоваться с существительным, именной группой или герундием.</div>
+      <div class="tip-box"><b>Лайфхак:</b> <i>I'm used to</i> = «я уже привык» (результат). <i>I'm getting used to</i> = «я привыкаю» (процесс). Как <i>I know</i> vs <i>I'm learning</i>.</div>
+    `
+  }
+];
+
+let currentChapter = 0;
+let readChapters = JSON.parse(localStorage.getItem('readChapters') || '[]');
+
+function renderToc() {
+  const toc = document.getElementById('toc');
+  const searchTerm = document.getElementById('search').value.toLowerCase();
+  toc.innerHTML = '';
+  chapters.forEach((ch, i) => {
+    const text = (ch.title + ' ' + ch.subtitle).toLowerCase();
+    if (searchTerm && !text.includes(searchTerm)) return;
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="chapter-num">${i+1}.</span> ${ch.title}`;
+    if (i === currentChapter) li.classList.add('active');
+    if (readChapters.includes(i)) li.classList.add('read');
+    li.onclick = () => {
+      currentChapter = i;
+      renderChapter();
+      document.querySelector('.sidebar').classList.remove('open');
+    };
+    toc.appendChild(li);
+  });
+}
+
+function renderChapter() {
+  const ch = chapters[currentChapter];
+  document.getElementById('chapterTitle').textContent = `Глава ${currentChapter + 1}. ${ch.title}`;
+  document.getElementById('chapterSubtitle').textContent = ch.subtitle;
+  let html = '';
+  if (ch.greeting) {
+    html += `<div class="greeting">${ch.greeting}</div>`;
+  }
+  html += ch.content;
+  document.getElementById('chapterContent').innerHTML = html;
+  document.getElementById('prevBtn').disabled = currentChapter === 0;
+  document.getElementById('nextBtn').disabled = currentChapter === chapters.length - 1;
+  document.querySelector('.main').scrollTop = 0;
+  renderToc();
+  updateProgress();
+}
+
+function navigate(dir) {
+  const next = currentChapter + dir;
+  if (next >= 0 && next < chapters.length) {
+    currentChapter = next;
+    renderChapter();
+  }
+}
+
+function markRead() {
+  if (!readChapters.includes(currentChapter)) {
+    readChapters.push(currentChapter);
+    localStorage.setItem('readChapters', JSON.stringify(readChapters));
+    renderToc();
+    updateProgress();
+    const btn = document.querySelector('.mark-read');
+    const originalText = btn.textContent;
+    btn.textContent = 'Отлично! Так держать!';
+    setTimeout(() => { btn.textContent = originalText; }, 2000);
+  }
+}
+
+function updateProgress() {
+  const total = chapters.length;
+  const done = readChapters.length;
+  document.getElementById('progressText').textContent = `${done} / ${total}`;
+  document.getElementById('progressFill').style.width = (done / total * 100) + '%';
+}
+
+document.getElementById('search').addEventListener('input', renderToc);
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowLeft') navigate(-1);
+  if (e.key === 'ArrowRight') navigate(1);
+});
+
+renderChapter();
+</script>
+</body>
+</html>
