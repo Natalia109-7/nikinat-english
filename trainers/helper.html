@@ -416,13 +416,13 @@ const chapters = [
       <table>
         <tr><th>Заглавная</th><th>Строчная</th><th>Как читается</th></tr>
         <tr><td>A</td><td>a</td><td>[eɪ]</td></tr>
-        <tr><td>B</td><td>b</td><td>[biː]</td></tr>
+        <tr><td>B</td><td>b</td><td>[bi]</td></tr>
         <tr><td>C</td><td>c</td><td>[siː]</td></tr>
         <tr><td>D</td><td>d</td><td>[diː]</td></tr>
         <tr><td>E</td><td>e</td><td>[iː]</td></tr>
         <tr><td>F</td><td>f</td><td>[ef]</td></tr>
         <tr><td>G</td><td>g</td><td>[dʒiː]</td></tr>
-        <tr><td>H</td><td>h</td><td>[eɪtʃ]</td></tr>
+        <tr><td>H</td><td>h</td><td>[eɪt]</td></tr>
         <tr><td>I</td><td>i</td><td>[aɪ]</td></tr>
         <tr><td>J</td><td>j</td><td>[dʒeɪ]</td></tr>
         <tr><td>K</td><td>k</td><td>[keɪ]</td></tr>
@@ -1586,7 +1586,13 @@ const chapters = [
 ];
 
 let currentChapter = 0;
-let readChapters = JSON.parse(localStorage.getItem('readChapters') || '[]');
+let readChapters = [];
+
+try {
+  readChapters = JSON.parse(localStorage.getItem('readChapters') || '[]');
+} catch (e) {
+  console.error('Error loading read chapters:', e);
+}
 
 function renderToc() {
   const toc = document.getElementById('toc');
@@ -1636,7 +1642,11 @@ function navigate(dir) {
 function markRead() {
   if (!readChapters.includes(currentChapter)) {
     readChapters.push(currentChapter);
-    localStorage.setItem('readChapters', JSON.stringify(readChapters));
+    try {
+      localStorage.setItem('readChapters', JSON.stringify(readChapters));
+    } catch (e) {
+      console.error('Error saving read chapters:', e);
+    }
     renderToc();
     updateProgress();
     const btn = document.querySelector('.mark-read');
