@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Your Vocabulary for FCE - Interactive Trainer</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  
+  header {
+    background: linear-gradient(135deg, #2c3e50, #4a6572);
+    color: #fff;
+    padding: 25px 30px;
+    text-align: center;
+  }
+  
+  header h1 { font-size: 28px; margin-bottom: 6px; }
+  header p { opacity: 0.85; font-size: 14px; }
+  
+  .stats-bar {
+    display: flex;
+    justify-content: space-around;
+    background: #f8f9fa;
+    padding: 12px;
+    border-bottom: 2px solid #e9ecef;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .stat {
+    text-align: center;
+    min-width: 100px;
+  }
+  
+  .stat-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #667eea;
+  }
+  
+  .stat-label {
+    font-size: 11px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 15px;
+    background: #f1f3f5;
+    border-bottom: 1px solid #dee2e6;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .nav button {
+    flex: 1;
+    min-width: 140px;
+    padding: 10px 14px;
+    border: none;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  
+  .nav button:hover { background: #e9ecef; }
+  .nav button.active {
+    background: #667eea;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+  }
+  
+  .content {
+    padding: 30px;
+    min-height: 500px;
+  }
+  
+  .test-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e9ecef;
+  }
+  
+  .test-header h2 {
+    color: #2c3e50;
+    margin-bottom: 8px;
+  }
+  
+  .test-header p {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .question {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+  }
+  
+  .question-text {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  
+  .question input[type="text"] {
+    padding: 8px 12px;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 200px;
+    transition: border-color 0.2s;
+  }
+  
+  .question input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .option {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .option:hover { border-color: #667eea; background: #f0f3ff; }
+  .option input { margin-right: 10px; }
+  .option.correct {
+    background: #d4edda;
+    border-color: #28a745;
+  }
+  .option.wrong {
+    background: #f8d7da;
+    border-color: #dc3545;
+  }
+  
+  .feedback {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: none;
+  }
+  
+  .feedback.show { display: block; }
+  .feedback.correct { background: #d4edda; color: #155724; }
+  .feedback.wrong { background: #f8d7da; color: #721c24; }
+  
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  
+  .btn-primary {
+    background: #667eea;
+    color: #fff;
+  }
+  
+  .btn-primary:hover { background: #5568d3; }
+  .btn-secondary {
+    background: #6c757d;
+    color: #fff;
+  }
+  .btn-secondary:hover { background: #5a6268; }
+  .btn-success {
+    background: #28a745;
+    color: #fff;
+  }
+  
+  .result-panel {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .result-panel h3 { font-size: 24px; margin-bottom: 15px; }
+  .score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    font-size: 32px;
+    font-weight: bold;
+    border: 4px solid #fff;
+  }
+  
+  .matching-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .matching-item {
+    padding: 12px;
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .matching-item:hover { border-color: #667eea; }
+  .matching-item.selected { background: #e7f3ff; border-color: #667eea; }
+  .matching-item.matched { background: #d4edda; border-color: #28a745; }
+  
+  .word-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .word-tag {
+    padding: 6px 12px;
+    background: #e9ecef;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .word-tag:hover { background: #667eea; color: #fff; }
+  .word-tag.used { opacity: 0.4; pointer-events: none; }
+  
+  @media (max-width: 600px) {
+    .content { padding: 15px; }
+    header h1 { font-size: 22px; }
+    .nav button { min-width: 100%; }
+    .matching-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📚 Test Your Vocabulary for FCE</h1>
+    <p>60 tests for Cambridge First Certificate preparation</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-value" id="statSection">1/3</div>
+      <div class="stat-label">Section</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="statTest">1/60</div>
+      <div class="stat-label">Test</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="statScore">0</div>
+      <div class="stat-label">Score</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="statAccuracy">0%</div>
+      <div class="stat-label">Accuracy</div>
+    </div>
+  </div>
+
+  <div class="nav" id="nav"></div>
+  <div class="content" id="content"></div>
+</div>
+
+<script>
+// Complete vocabulary data from the book
+const sections = [
+  {
+    id: 1,
+    name: "General Vocabulary",
+    tests: [
+      {
+        id: 1, title: "Likes and Dislikes",
+        instruction: "Rearrange the letters in bold to form words related to likes and dislikes.",
+        type: "fill",
+        questions: [
+          { text: "I really fanc him. → ", answers: ["fancy"] },
+          { text: "I earod her. → ", answers: ["adore"] },
+          { text: "I absolutely horswip him. → ", answers: ["worship"] },
+          { text: "I always kolo drawrof ot the summer holidays. → ", answers: ["look forward to"] },
+          { text: "I goln orf a bit of peace and quiet. → ", answers: ["long for"] },
+          { text: "I've always been ratactetd ot my best friend's sister. → ", answers: ["attracted to"] },
+          { text: "I'm quite donf fo Chinese food. → ", answers: ["fond of"] },
+          { text: "We are both enek no sailing. → ", answers: ["keen on"] },
+          { text: "I really thae seafood. → ", answers: ["hate"] },
+          { text: "I heatlo people who interrupt. → ", answers: ["loathe"] },
+          { text: "I setted people who tell lies. → ", answers: ["detest"] },
+          { text: "My mother tanc'dants listening to loud music. → ", answers: ["can't stand"] },
+          { text: "My father nact' aerb being in the same room. → ", answers: ["can't bear"] },
+          { text: "The smell of cooking meat really pleser me. → ", answers: ["repels"] },
+          { text: "His dirty habits stugsid her. → ", answers: ["disgust"] },
+          { text: "People who are cruel to animals tolerv me. → ", answers: ["revolt"] }
+        ]
+      },
+      {
+        id: 2, title: "Actions",
+        instruction: "Put these actions into the appropriate box depending on which part of the body does them.",
+        type: "mcq",
+        questions: [
+          { text: "Which action do we do with our arms and hands?", options: ["beckon", "blink", "cough", "crawl"], correct: 0 },
+          { text: "Which action do we do with our mouth and nose?", options: ["pat", "cough", "jump", "glance"], correct: 1 },
+          { text: "Which action do we do with our feet and legs?", options: ["wave", "sneeze", "crawl", "stare"], correct: 2 },
+          { text: "Which action do we do with our eyes?", options: ["yawn", "blink", "march", "rub"], correct: 1 }
+        ]
+      },
+      {
+        id: 3, title: "Comparison and Contrast",
+        instruction: "Complete these sentences with the most appropriate word.",
+        type: "mcq",
+        questions: [
+          { text: "British people and people in my country have a lot ___ common.", options: ["in", "on", "at", "with"], correct: 0 },
+          { text: "The ___ in weather between my country and the UK is very noticeable.", options: ["contrast", "compare", "comparison", "differ"], correct: 0 },
+          { text: "The UK and my country ___ a lot in many respects.", options: ["different", "differentiate", "differ", "differing"], correct: 2 },
+          { text: "There's a big ___ between Spanish and Portuguese.", options: ["different", "difference", "differ", "differential"], correct: 1 },
+          { text: "I find it difficult to ___ between British and American English.", options: ["distinctive", "extinguish", "distinguish", "distinct"], correct: 2 },
+          { text: "There's a big ___ between learning and using a language.", options: ["distinction", "distinctive", "distinguish", "distinct"], correct: 0 },
+          { text: "It is illegal to ___ between men and women.", options: ["difference", "discipline", "discriminate", "distinguish"], correct: 2 },
+          { text: "My country is large. ___, the UK is quite small.", options: ["By similar means", "By way of contrast", "In the same way", "Similarly"], correct: 1 },
+          { text: "Customs in my country are ___ to those in the UK.", options: ["common", "similar", "same", "alike"], correct: 1 },
+          { text: "Young people look ___ the same.", options: ["identical", "similar", "same", "like"], correct: 0 },
+          { text: "People live to eat, ___ in the UK people eat to live.", options: ["therefore", "whereas", "however", "although"], correct: 1 },
+          { text: "We are as different as ___.", options: ["rain and sun", "chalk and cheese", "hot and cold", "day and night"], correct: 1 },
+          { text: "Culturally we are ___.", options: ["worlds apart", "years away", "miles distant", "far separated"], correct: 0 }
+        ]
+      },
+      {
+        id: 4, title: "Confusing Words",
+        instruction: "Complete with the correct word.",
+        type: "mcq",
+        questions: [
+          { text: "My teacher gave me useful ___.", options: ["advice", "advise"], correct: 0 },
+          { text: "___ twenty years ago, few people owned computers.", options: ["Actually", "Now"], correct: 0 },
+          { text: "My pronunciation ___ my ability to communicate.", options: ["affects", "effects"], correct: 0 },
+          { text: "I haven't seen her ___ this morning.", options: ["already", "yet"], correct: 1 },
+          { text: "I've always been ___ snakes.", options: ["worried about", "afraid of"], correct: 1 },
+          { text: "My vocabulary ___ me from getting a good grade.", options: ["avoided", "prevented"], correct: 1 },
+          { text: "I ___ the children from school.", options: ["bring", "fetch"], correct: 1 },
+          { text: "You have a better ___ of passing.", options: ["chance", "possibility"], correct: 0 },
+          { text: "I'm always making ___ mistakes.", options: ["continuous", "continual"], correct: 1 },
+          { text: "We had a ___ holiday.", options: ["formidable", "wonderful"], correct: 1 },
+          { text: "The party was ___ fun.", options: ["fun", "funny"], correct: 0 },
+          { text: "I ___ swimming every day.", options: ["go", "play"], correct: 0 },
+          { text: "Would you like to ___ me to the cinema?", options: ["go with", "follow"], correct: 0 },
+          { text: "If you ___ it, I'll never talk to you again!", options: ["harm", "damage"], correct: 1 },
+          { text: "It's a good ___.", options: ["job", "work"], correct: 0 },
+          { text: "She's such a ___ girl.", options: ["kind", "sympathetic"], correct: 0 },
+          { text: "Can you ___ me £20?", options: ["borrow", "lend"], correct: 1 },
+          { text: "Please ___ the table.", options: ["lay", "lie"], correct: 0 },
+          { text: "I love being in the ___.", options: ["countryside", "nature"], correct: 0 },
+          { text: "The painting was ___.", options: ["priceless", "worthless"], correct: 1 },
+          { text: "I watched the sun ___.", options: ["raise", "rise"], correct: 1 },
+          { text: "Could you ___ me to buy milk?", options: ["remember", "remind"], correct: 1 },
+          { text: "You have a marvellous ___ of the town.", options: ["view", "scenery"], correct: 0 },
+          { text: "He's very ___.", options: ["sensible", "sensitive"], correct: 1 },
+          { text: "Don't forget to ___ your dictionary.", options: ["bring", "take"], correct: 0 }
+        ]
+      },
+      {
+        id: 5, title: "Make, Do and Take",
+        instruction: "Complete with make, do or take (change form if needed).",
+        type: "fill",
+        questions: [
+          { text: "They're ___ a lot of noise.", answers: ["making"] },
+          { text: "They haven't ___ any progress.", answers: ["made"] },
+          { text: "The company is ___ a large profit.", answers: ["making"] },
+          { text: "They're ___ damage to the environment.", answers: ["doing"] },
+          { text: "She was asked to ___ a speech.", answers: ["make"] },
+          { text: "She ___ her time.", answers: ["took"] },
+          { text: "After we've ___ our homework...", answers: ["done"] },
+          { text: "...we should ___ the washing up.", answers: ["do"] },
+          { text: "___ a look at these mistakes.", answers: ["Take"] },
+          { text: "Shall we ___ a taxi?", answers: ["take"] },
+          { text: "He ___ a great effort.", answers: ["made"] },
+          { text: "to ___ an interest in his lessons.", answers: ["take"] },
+          { text: "I ___ a photograph of friends.", answers: ["took"] },
+          { text: "we ___ on holiday.", answers: ["made"] },
+          { text: "Please ___ a seat.", answers: ["take"] },
+          { text: "to ___ phone calls.", answers: ["make"] },
+          { text: "___ a test is like ___ a crossword.", answers: ["Taking", "doing"] },
+          { text: "The policeman ___ my name.", answers: ["took"] },
+          { text: "and ___ notes.", answers: ["made"] },
+          { text: "We had to ___ work before ___ money.", answers: ["do", "making"] }
+        ]
+      },
+      {
+        id: 6, title: "Get 1",
+        instruction: "Replace the words in bold with a suitable verb.",
+        type: "fill",
+        questions: [
+          { text: "Did you get (receive) my letter?", answers: ["receive"] },
+          { text: "I want to get (achieve) a good grade.", answers: ["achieve"] },
+          { text: "As people get (become) older...", answers: ["become"] },
+          { text: "I didn't get (understand) it.", answers: ["understand"] },
+          { text: "I decided to get (buy) a new bicycle.", answers: ["buy"] },
+          { text: "We should get (start/leave) going.", answers: ["start"] },
+          { text: "It really gets (annoys) me.", answers: ["annoys"] },
+          { text: "We didn't get (reach) to London until dark.", answers: ["reach"] },
+          { text: "If you get (prepare) dinner...", answers: ["prepare"] },
+          { text: "I don't get (earn) much.", answers: ["earn"] },
+          { text: "I managed to get (persuade) my brother to help.", answers: ["persuade"] },
+          { text: "Could you get (fetch) it for me?", answers: ["fetch"] },
+          { text: "I must get (have) it repaired.", answers: ["have"] },
+          { text: "I didn't get (manage) to see my teacher.", answers: ["manage"] },
+          { text: "I usually get (finish) off work at five.", answers: ["finish"] },
+          { text: "We didn't get (leave) away until midnight.", answers: ["leave"] },
+          { text: "We won't get (succeed) anywhere with this.", answers: ["succeed"] },
+          { text: "Weather gets (depresses) me down.", answers: ["depresses"] },
+          { text: "To get (enter) into university...", answers: ["enter"] },
+          { text: "We decided to get (meet) together.", answers: ["meet"] }
+        ]
+      },
+      {
+        id: 7, title: "Get 2",
+        instruction: "Decide if the definition is TRUE or FALSE.",
+        type: "mcq",
+        questions: [
+          { text: "James and Tony get along. = They don't like each other.", options: ["True", "False"], correct: 1 },
+          { text: "Joanne is getting over her illness. = She is recovering.", options: ["True", "False"], correct: 0 },
+          { text: "Alice is getting on at university. = She is starting university.", options: ["True", "False"], correct: 0 },
+          { text: "I got out of the test. = I received a good grade.", options: ["True", "False"], correct: 1 },
+          { text: "Janet got her own back. = She took revenge.", options: ["True", "False"], correct: 0 },
+          { text: "Mr. Walton is getting on for sixty. = He is over sixty.", options: ["True", "False"], correct: 1 },
+          { text: "I tried to get through to sales. = I tried to visit them.", options: ["True", "False"], correct: 1 },
+          { text: "I couldn't get into the book. = I couldn't find it.", options: ["True", "False"], correct: 1 },
+          { text: "Jeanette gets my back up. = She annoys me.", options: ["True", "False"], correct: 0 },
+          { text: "Let's get it over with. = Let's not do it.", options: ["True", "False"], correct: 1 },
+          { text: "Mark is always getting at me. = He criticizes me.", options: ["True", "False"], correct: 0 },
+          { text: "He got away with it. = He ran away.", options: ["True", "False"], correct: 1 },
+          { text: "I can't get through to Bob. = He can't hear me.", options: ["True", "False"], correct: 1 },
+          { text: "Sean got out of bed on the wrong side. = He woke up late.", options: ["True", "False"], correct: 1 },
+          { text: "Rebecca got hold of the wrong end of the stick. = She misunderstood.", options: ["True", "False"], correct: 0 },
+          { text: "Get your act together! = Get organized.", options: ["True", "False"], correct: 0 },
+          { text: "Get a grip on yourself! = Stop misbehaving.", options: ["True", "False"], correct: 0 },
+          { text: "Get away! = I don't believe you!", options: ["True", "False"], correct: 0 },
+          { text: "Get a life! = Start looking after yourself.", options: ["True", "False"], correct: 1 }
+        ]
+      },
+      {
+        id: 8, title: "Abstract Nouns",
+        instruction: "Complete with an abstract noun formed from the word in bold.",
+        type: "fill",
+        questions: [
+          { text: "She's in a position of great (responsible).", answers: ["responsibility"] },
+          { text: "She looked at me in (astonish).", answers: ["astonishment"] },
+          { text: "His (die) came as a shock.", answers: ["death"] },
+          { text: "There have been many (develop) in science.", answers: ["developments"] },
+          { text: "His sudden (disappear) was a mystery.", answers: ["disappearance"] },
+          { text: "I made a remarkable (discover).", answers: ["discovery"] },
+          { text: "We reported the (lose) of our car.", answers: ["loss"] },
+          { text: "Did you get (permit) to leave early?", answers: ["permission"] },
+          { text: "If your (behave) doesn't improve...", answers: ["behaviour"] },
+          { text: "The room shook with (laugh).", answers: ["laughter"] },
+          { text: "Her face went red with (embarrass).", answers: ["embarrassment"] },
+          { text: "It's been a (please) meeting you.", answers: ["pleasure"] },
+          { text: "Put your (sign) at the bottom.", answers: ["signature"] },
+          { text: "I'd like to make a (complain).", answers: ["complaint"] },
+          { text: "She made an important (announce).", answers: ["announcement"] },
+          { text: "My English (pronounce) isn't good.", answers: ["pronunciation"] },
+          { text: "To achieve (succeed)...", answers: ["success"] },
+          { text: "The (arrive) of flight BA671.", answers: ["arrival"] },
+          { text: "The (perform) begins at seven.", answers: ["performance"] },
+          { text: "I had a terrible (argue) with him.", answers: ["argument"] },
+          { text: "(happy) is more important than money.", answers: ["Happiness"] },
+          { text: "Too much (violent) on TV.", answers: ["violence"] },
+          { text: "If you can't stand the (hot)...", answers: ["heat"] },
+          { text: "I don't have much (patient) with lazy people.", answers: ["patience"] },
+          { text: "Do they have any (similar)?", answers: ["similarities"] },
+          { text: "He didn't show much (sympathetic).", answers: ["sympathy"] },
+          { text: "He has a lot of (confident).", answers: ["confidence"] },
+          { text: "In all (probable) he'll pass.", answers: ["probability"] },
+          { text: "It reaches a (high) of 6,000m.", answers: ["height"] }
+        ]
+      },
+      {
+        id: 9, title: "Adjectives from Nouns/Verbs",
+        instruction: "Complete with an appropriate form of the word in bold.",
+        type: "fill",
+        questions: [
+          { text: "Something (construct) to say.", answers: ["constructive"] },
+          { text: "An (attract) job.", answers: ["attractive"] },
+          { text: "A new (industry) centre.", answers: ["industrial"] },
+          { text: "(addition) parking spaces.", answers: ["additional"] },
+          { text: "A quiet (resident) area.", answers: ["residential"] },
+          { text: "A (beauty) example.", answers: ["beautiful"] },
+          { text: "Your demands aren't very (reason).", answers: ["reasonable"] },
+          { text: "She was very (ambition).", answers: ["ambitious"] },
+          { text: "The (wealth) owner.", answers: ["wealthy"] },
+          { text: "I was very (lone).", answers: ["lonely"] },
+          { text: "An (amuse) thing happened.", answers: ["amusing"] },
+          { text: "Exercise can be (benefit).", answers: ["beneficial"] },
+          { text: "We had an (enjoy) time.", answers: ["enjoyable"] },
+          { text: "Swimming is an (effect) way.", answers: ["effective"] },
+          { text: "A (danger) obsession.", answers: ["dangerous"] },
+          { text: "(finance) problems.", answers: ["financial"] },
+          { text: "Some remain (act) into their eighties.", answers: ["active"] },
+          { text: "Weather can be very (change).", answers: ["changeable"] },
+          { text: "She was very (apology) about her behaviour.", answers: ["apologetic"] },
+          { text: "Police became (suspect).", answers: ["suspicious"] },
+          { text: "A very (satisfy) experience.", answers: ["satisfying"] },
+          { text: "We were so (bore) during the lesson.", answers: ["bored"] },
+          { text: "A (compare) success.", answers: ["comparative"] },
+          { text: "He was hardly (recognise).", answers: ["recognizable"] },
+          { text: "My cousin is very (compete).", answers: ["competitive"] },
+          { text: "(create) people are often sad.", answers: ["Creative"] },
+          { text: "Holiday is (prefer) to staying home.", answers: ["preferable"] },
+          { text: "I am rather (doubt).", answers: ["doubtful"] },
+          { text: "Need a (depend) transport system.", answers: ["dependable"] },
+          { text: "It was a very (disappoint) film.", answers: ["disappointing"] }
+        ]
+      },
+      {
+        id: 10, title: "Directions",
+        instruction: "Follow the directions on the map.",
+        type: "mcq",
+        questions: [
+          { text: "You are at the station (A). Turn left, then first right. Where are you?", options: ["B", "C", "D", "E"], correct: 0 },
+          { text: "From B, continue to crossroads, go straight. It's on your left.", options: ["F", "G", "H", "I"], correct: 1 },
+          { text: "Go back, turn left at crossroads, over bridge, right at fork.", options: ["J", "K", "L", "M"], correct: 2 }
+        ]
+      },
+      {
+        id: 11, title: "Location",
+        instruction: "Work out where the English school is.",
+        type: "mcq",
+        questions: [
+          { text: "Peach Street runs from underground station to Thatcher Avenue.", options: ["True", "False"], correct: 0 },
+          { text: "The hospital is opposite the fast food restaurant.", options: ["True", "False"], correct: 0 },
+          { text: "The library is beside Harridge's department store.", options: ["True", "False"], correct: 0 }
+        ]
+      },
+      {
+        id: 12, title: "Changes",
+        instruction: "Complete with the appropriate word for 'change'.",
+        type: "fill",
+        questions: [
+          { text: "To make suitable for a new need: (adapt)", answers: ["adapt"] },
+          { text: "To correct slightly: (adjust)", answers: ["adjust"] },
+          { text: "To change in some way: (alter)", answers: ["alter"] },
+          { text: "To bring health: (cure)", answers: ["cure"] },
+          { text: "To lower in rank: (demote)", answers: ["demote"] },
+          { text: "To move so you can't find it: (disappear)", answers: ["disappear"] },
+          { text: "To make liquid: (dissolve)", answers: ["dissolve"] },
+          { text: "To give and receive: (exchange)", answers: ["exchange"] },
+          { text: "To increase in size: (expand)", answers: ["expand"] },
+          { text: "To lose colour: (fade)", answers: ["fade"] },
+          { text: "To become larger: (increase)", answers: ["increase"] },
+          { text: "Opposite of demote: (promote)", answers: ["promote"] },
+          { text: "To make less: (reduce)", answers: ["reduce"] },
+          { text: "To begin again: (renew)", answers: ["renew"] },
+          { text: "To repair: (renovate)", answers: ["renovate"] },
+          { text: "To change for newer: (replace)", answers: ["replace"] },
+          { text: "To become rounder: (swell)", answers: ["swell"] },
+          { text: "To change jobs: (switch)", answers: ["switch"] },
+          { text: "To change completely: (transform)", answers: ["transform"] },
+          { text: "To become different: (vary)", answers: ["vary"] }
+        ]
+      },
+      {
+        id: 13, title: "Opposites 1",
+        instruction: "Change these words using prefixes (mis-, un-, dis-, ir-, il-, in-, im-).",
+        type: "fill",
+        questions: [
+          { text: "incorrect → ", answers: ["incorrect"] },
+          { text: "believable → ", answers: ["unbelievable"] },
+          { text: "obedient → ", answers: ["disobedient"] },
+          { text: "adequate → ", answers: ["inadequate"] },
+          { text: "honest → ", answers: ["dishonest"] },
+          { text: "acceptable → ", answers: ["unacceptable"] },
+          { text: "perfect → ", answers: ["imperfect"] },
+          { text: "regular → ", answers: ["irregular"] },
+          { text: "responsible → ", answers: ["irresponsible"] },
+          { text: "limited → ", answers: ["unlimited"] },
+          { text: "even → ", answers: ["uneven"] },
+          { text: "like (verb) → ", answers: ["dislike"] },
+          { text: "understand → ", answers: ["misunderstand"] },
+          { text: "pronounce → ", answers: ["mispronounce"] },
+          { text: "lock → ", answers: ["unlock"] },
+          { text: "connect → ", answers: ["disconnect"] },
+          { text: "qualified → ", answers: ["unqualified"] },
+          { text: "avoidable → ", answers: ["unavoidable"] },
+          { text: "competent → ", answers: ["incompetent"] },
+          { text: "conscious → ", answers: ["unconscious"] }
+        ]
+      },
+      {
+        id: 14, title: "Opposites 2",
+        instruction: "Complete with an opposite of the verb in bold.",
+        type: "fill",
+        questions: [
+          { text: "We missed our train but still (catch) the plane.", answers: ["caught"] },
+          { text: "We didn't spend much, we managed to (save).", answers: ["save"] },
+          { text: "The train arrives at 4 and (leave) five minutes later.", answers: ["leaves"] },
+          { text: "He emptied the bottle, then (fill) it.", answers: ["filled"] },
+          { text: "Last time you (borrow) money, you didn't pay back.", answers: ["borrowed"] },
+          { text: "She isn't laughing, she's (cry).", answers: ["crying"] },
+          { text: "He doesn't allow smoking, he (forbid) it.", answers: ["forbids"] },
+          { text: "He didn't confess, he (deny) everything.", answers: ["denied"] },
+          { text: "Sun rises at 5 and doesn't (set) until 9.", answers: ["set"] },
+          { text: "He didn't pass, he (fail).", answers: ["failed"] },
+          { text: "Business succeeded, then (fail) dramatically.", answers: ["failed"] },
+          { text: "She threw but (miss), she (hit) the window.", answers: ["missed", "hit"] },
+          { text: "Teacher rewarded good students, (punish) bad ones.", answers: ["punished"] },
+          { text: "I forgot to buy milk, I (remember).", answers: ["forgot"] },
+          { text: "I sent Monday, she didn't (receive) until Friday.", answers: ["receive"] },
+          { text: "Council demolished flats and (build) new ones.", answers: ["built"] },
+          { text: "We thought we'd lose but (win).", answers: ["won"] },
+          { text: "I hoped she'd agree but she (refuse).", answers: ["refused"] },
+          { text: "Ways to (attack) yourself → (defend).", answers: ["defend"] },
+          { text: "She spends too much time playing, not enough (work).", answers: ["working"] }
+        ]
+      },
+      {
+        id: 15, title: "Opposites 3",
+        instruction: "Complete with an opposite of the adjective in bold.",
+        type: "fill",
+        questions: [
+          { text: "Cricket ball is solid, table-tennis ball is (hollow).", answers: ["hollow"] },
+          { text: "Pearls are real, eyelashes are (false).", answers: ["false"] },
+          { text: "Bread isn't fresh, it's (stale).", answers: ["stale"] },
+          { text: "Live music or (recorded) music?", answers: ["recorded"] },
+          { text: "Hard chair, put a (soft) cushion.", answers: ["soft"] },
+          { text: "Knife isn't sharp, it's (blunt).", answers: ["blunt"] },
+          { text: "Dark blue skirt, (light) yellow blouse.", answers: ["light"] },
+          { text: "Trousers too tight, these are too (loose).", answers: ["loose"] },
+          { text: "Steak was tender, hers was (tough).", answers: ["tough"] },
+          { text: "Do in private, not in (public).", answers: ["public"] },
+          { text: "Dim tunnel, (bright) light.", answers: ["bright"] },
+          { text: "Deep lake, (shallow) pools.", answers: ["shallow"] },
+          { text: "Temporary job, want something (permanent).", answers: ["permanent"] },
+          { text: "Heavy lunch, want (light) meal.", answers: ["light"] },
+          { text: "Said innocent, judge decided (guilty).", answers: ["guilty"] },
+          { text: "Students early, teacher (late).", answers: ["late"] },
+          { text: "Half present, half (absent).", answers: ["absent"] },
+          { text: "Hardworking sister, (lazy) brother.", answers: ["lazy"] },
+          { text: "Compulsory class, (voluntary) programme.", answers: ["voluntary"] },
+          { text: "Rough sea, prefer (calm).", answers: ["calm"] },
+          { text: "10m long, 4m (wide).", answers: ["wide"] },
+          { text: "Mean friend, (generous) sister.", answers: ["generous"] },
+          { text: "Major accident, (minor) injuries.", answers: ["minor"] },
+          { text: "Strong coffee, (weak) coffee.", answers: ["weak"] }
+        ]
+      },
+      {
+        id: 16, title: "Prepositions",
+        instruction: "Complete with a preposition (in, on, at, etc.).",
+        type: "fill",
+        questions: [
+          { text: "Travelling (by) car.", answers: ["by"] },
+          { text: "(By) mistake.", answers: ["by"] },
+          { text: "(By) the time I arrived.", answers: ["by"] },
+          { text: "Ladder leaning (against) the wall.", answers: ["against"] },
+          { text: "Been (against) hunting.", answers: ["against"] },
+          { text: "(Against) my parents' wishes.", answers: ["against"] },
+          { text: "Ashamed (of) my English.", answers: ["of"] },
+          { text: "Accused us (of) stealing.", answers: ["of"] },
+          { text: "Approved (of) smoking.", answers: ["of"] },
+          { text: "Share (among) ourselves.", answers: ["among"] },
+          { text: "(In) a large group.", answers: ["In"] },
+          { text: "High (among) young men.", answers: ["among"] },
+          { text: "Nice (for) his birthday.", answers: ["for"] },
+          { text: "(For) a change.", answers: ["For"] },
+          { text: "Apologize (for) behaviour.", answers: ["for"] },
+          { text: "Responsible (for) breaking stereo.", answers: ["for"] },
+          { text: "(At) the end of test.", answers: ["At"] },
+          { text: "Name (at) the top.", answers: ["at"] },
+          { text: "Good (at) swimming.", answers: ["at"] },
+          { text: "Quiet (at) night.", answers: ["at"] },
+          { text: "(At) Christmas.", answers: ["At"] },
+          { text: "Arrive (in) London.", answers: ["in"] },
+          { text: "Confides (in) me.", answers: ["in"] },
+          { text: "Interested (in) history.", answers: ["in"] },
+          { text: "Succeeded (in) getting results.", answers: ["in"] },
+          { text: "Noise (at) the concert.", answers: ["at"] },
+          { text: "(On) holiday.", answers: ["On"] },
+          { text: "(During) the night.", answers: ["During"] },
+          { text: "Look forward (to) hearing.", answers: ["to"] },
+          { text: "Objected (to) people.", answers: ["to"] },
+          { text: "Time (to) myself.", answers: ["to"] },
+          { text: "Relies (on) me.", answers: ["on"] },
+          { text: "Keen (on) maths.", answers: ["on"] },
+          { text: "(On) purpose.", answers: ["On"] },
+          { text: "Annoyed (with) you.", answers: ["with"] },
+          { text: "Cope (with) pressure.", answers: ["with"] },
+          { text: "Charged (with) murder.", answers: ["with"] },
+          { text: "Burst (into) flames.", answers: ["into"] },
+          { text: "4 goes (into) 44.", answers: ["into"] },
+          { text: "Walked (into) the room.", answers: ["into"] },
+          { text: "Complain (about) everything.", answers: ["about"] },
+          { text: "(About) twenty-five.", answers: ["About"] },
+          { text: "Strange (about) our teacher.", answers: ["about"] }
+        ]
+      },
+      {
+        id: 17, title: "Shapes and Features",
+        instruction: "Choose the object that best suits each description.",
+        type: "mcq",
+        questions: [
+          { text: "A pyramid with steep sides.", options: ["Pyramid", "Cone", "Cube"], correct: 0 },
+          { text: "A crescent with rough surface.", options: ["Moon", "Croissant", "Banana"], correct: 1 },
+          { text: "Flat rectangle with words/numbers.", options: ["Card", "Book", "Paper"], correct: 0 },
+          { text: "Long thin rectangle, metal, jagged edge.", options: ["Ruler", "Saw", "Knife"], correct: 1 },
+          { text: "Small edible cone, rough surface.", options: ["Ice cream", "Pine cone", "Pineapple"], correct: 2 },
+          { text: "Solid cube with dots.", options: ["Dice", "Box", "Block"], correct: 0 },
+          { text: "Square, flat chequered surface.", options: ["Chessboard", "Table", "Tile"], correct: 0 },
+          { text: "Edible oval, smooth surface.", options: ["Egg", "Potato", "Apple"], correct: 0 },
+          { text: "Spiral metal, pointed ends.", options: ["Spring", "Screw", "Wire"], correct: 1 },
+          { text: "Plastic circle, rough top.", options: ["Bottle cap", "Coin", "Button"], correct: 0 },
+          { text: "Large sphere, gas.", options: ["Sun", "Ball", "Planet"], correct: 0 },
+          { text: "Hard hollow cylinder, open ends.", options: ["Pipe", "Tube", "Can"], correct: 0 },
+          { text: "Triangle both ends, soft nylon.", options: ["Tent", "Bag", "Box"], correct: 0 },
+          { text: "Irregular hollow, knobbly sides.", options: ["Sponge", "Rock", "Potato"], correct: 0 }
+        ]
+      },
+      {
+        id: 18, title: "Time",
+        instruction: "Complete with appropriate time expressions.",
+        type: "mcq",
+        questions: [
+          { text: "(One day) I hope to be rich.", options: ["One day", "Someday", "Any day"], correct: 0 },
+          { text: "(By the time) I arrived, lesson began.", options: ["By the time", "When", "While"], correct: 0 },
+          { text: "(Once) he explained, I understood.", options: ["Once", "When", "After"], correct: 0 },
+          { text: "Russia was (formerly) Soviet Union.", options: ["formerly", "previously", "earlier"], correct: 0 },
+          { text: "Two hours (earlier), he was skiing.", options: ["earlier", "before", "ago"], correct: 0 },
+          { text: "(While) showering, phone rang.", options: ["While", "When", "As"], correct: 0 },
+          { text: "Showering (when) phone rang.", options: ["when", "while", "as"], correct: 0 },
+          { text: "(During) the lesson, I listened.", options: ["During", "In", "Throughout"], correct: 0 },
+          { text: "(In the meantime), I'll drive my Fiat.", options: ["In the meantime", "Meanwhile", "However"], correct: 0 },
+          { text: "(Following) the earthquake...", options: ["Following", "After", "Post"], correct: 0 },
+          { text: "(As soon as) singer walked on stage...", options: ["As soon as", "When", "Once"], correct: 0 },
+          { text: "(Over) the past weeks...", options: ["Over", "During", "In"], correct: 0 },
+          { text: "(Back in) the 1980s...", options: ["Back in", "In", "During"], correct: 0 },
+          { text: "(Ever since) I first saw her.", options: ["Ever since", "Since", "From"], correct: 0 },
+          { text: "(From now on) I'll try harder.", options: ["From now on", "Starting now", "Henceforth"], correct: 0 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: "Topic Vocabulary",
+    tests: [
+      {
+        id: 19, title: "Clothes and Fashion 1",
+        instruction: "Choose the correct word.",
+        type: "mcq",
+        questions: [
+          { text: "I need to (get dressed) quickly.", options: ["get dressed", "put on", "wear"], correct: 0 },
+          { text: "Should I (put on) my purple tie?", options: ["put on", "try on", "wear"], correct: 0 },
+          { text: "I'll (wear) my green trousers.", options: ["wear", "get dressed", "try on"], correct: 0 },
+          { text: "They don't (fit) me.", options: ["fit", "suit", "measure"], correct: 0 },
+          { text: "I didn't (try them on) before buying.", options: ["try them on", "wear them out", "fit them up"], correct: 0 },
+          { text: "I should have (ironed) them.", options: ["ironed", "creased", "crumpled"], correct: 0 },
+          { text: "It really (suits) me.", options: ["suits", "matches", "equals"], correct: 0 },
+          { text: "They don't (match) my shirt.", options: ["match", "fit", "measure"], correct: 0 },
+          { text: "I've (grown out of) it.", options: ["grown out of", "grown into", "grown over"], correct: 0 },
+          { text: "I wore them all (out).", options: ["out", "off", "on"], correct: 0 },
+          { text: "Can't (do up) the zip.", options: ["do up", "do in", "do over"], correct: 0 },
+          { text: "I'm no (supermodel).", options: ["supermodel", "grandmodel", "greatmodel"], correct: 0 },
+          { text: "Too late to (change) now.", options: ["change", "alter", "exchange"], correct: 0 }
+        ]
+      },
+      {
+        id: 20, title: "Clothes and Fashion 2",
+        instruction: "Match the description to the outfit.",
+        type: "mcq",
+        questions: [
+          { text: "High-heeled shoes, tights, knee-length skirt, floral blouse.", options: ["Formal", "Casual", "Sporty"], correct: 0 },
+          { text: "Sandals, baggy trousers, V-neck jumper, spotted scarf.", options: ["Casual", "Formal", "Elegant"], correct: 0 },
+          { text: "Boots, jeans, woollen jacket, gloves, hat.", options: ["Winter", "Summer", "Spring"], correct: 0 },
+          { text: "Double-breasted jacket, striped trousers, waistcoat.", options: ["Formal", "Casual", "Sporty"], correct: 0 },
+          { text: "Trainers, tight jeans, striped sweatshirt, baseball cap.", options: ["Casual", "Formal", "Smart"], correct: 0 },
+          { text: "Checked shorts, sandals, spotted socks, plain T-shirt, beret.", options: ["Casual", "Formal", "Elegant"], correct: 0 },
+          { text: "Slippers, pleated skirt, striped overcoat, mittens.", options: ["Winter", "Summer", "Autumn"], correct: 0 },
+          { text: "Comfortable shoes, chinos, tartan polo-neck.", options: ["Casual", "Formal", "Sporty"], correct: 0 }
+        ]
+      },
+      {
+        id: 21, title: "Describing Personality",
+        instruction: "Match the person to their personality type.",
+        type: "mcq",
+        questions: [
+          { text: "Always doing something, making things, dangerous activities.", options: ["Romantic", "Energetic", "Creative"], correct: 2 },
+          { text: "Different every day, sometimes generous, sometimes mean.", options: ["Changeable", "Obstinate", "Generous"], correct: 0 },
+          { text: "High opinion of herself, says nasty things, gets irritated quickly.", options: ["Conceited", "Bitchy", "Bossy"], correct: 0 },
+          { text: "Wants to be a painter, loves his own thing, rarely loses temper.", options: ["Artistic", "Easy-going", "Independent"], correct: 0 },
+          { text: "Wants to be PM, tells truth, gets on with everybody.", options: ["Honest", "Ambitious", "Popular"], correct: 0 },
+          { text: "Expects bad things, never trusts strangers, room always messy.", options: ["Pessimistic", "Suspicious", "Untidy"], correct: 0 },
+          { text: "Sociable, talks a lot, clever remarks, does things without thinking.", options: ["Gregarious", "Garrulous", "Witty"], correct: 0 },
+          { text: "Easily frightened, never late, forgets things, works hard.", options: ["Timid", "Punctual", "Reliable"], correct: 0 }
+        ]
+      },
+      {
+        id: 22, title: "Friends and Relations 1",
+        instruction: "Complete the family tree.",
+        type: "fill",
+        questions: [
+          { text: "My grandmother: (Emma)", answers: ["Emma"] },
+          { text: "My grandfather: (John)", answers: ["John"] },
+          { text: "My father: (Bob)", answers: ["Bob"] },
+          { text: "My mother: (Maureen)", answers: ["Maureen"] },
+          { text: "My sister: (Sally)", answers: ["Sally"] },
+          { text: "My brother-in-law: (Andrew)", answers: ["Andrew"] },
+          { text: "My nephew: (Tony)", answers: ["Tony"] },
+          { text: "My niece: (Claudia)", answers: ["Claudia"] },
+          { text: "My aunt: (Sue)", answers: ["Sue"] },
+          { text: "My uncle: (Stanley)", answers: ["Stanley"] },
+          { text: "My cousin: (Stuart)", answers: ["Stuart"] },
+          { text: "My older cousin: (Claire)", answers: ["Claire"] }
+        ]
+      },
+      {
+        id: 23, title: "Friends and Relations 2",
+        instruction: "Match the relationship.",
+        type: "mcq",
+        questions: [
+          { text: "Laurence and I do everything together. He is my (best friend).", options: ["best friend", "acquaintance", "colleague"], correct: 0 },
+          { text: "I know Bob, not very well. He is an (acquaintance).", options: ["acquaintance", "friend", "mate"], correct: 0 },
+          { text: "Jenny works in same office. She is my (colleague).", options: ["colleague", "workmate", "partner"], correct: 0 },
+          { text: "Jane and I announced engagement. She is my (fiancée).", options: ["fiancée", "girlfriend", "partner"], correct: 0 },
+          { text: "Clare and I used to go out. She is my (ex-girlfriend).", options: ["ex-girlfriend", "old friend", "past love"], correct: 0 },
+          { text: "Susie and I going out few months. (Steady girlfriend).", options: ["steady girlfriend", "girlfriend", "partner"], correct: 0 },
+          { text: "Jordi attends same lessons. (Classmate).", options: ["classmate", "student", "learner"], correct: 0 },
+          { text: "Sarah works alongside me. (Workmate).", options: ["workmate", "colleague", "co-worker"], correct: 0 },
+          { text: "John and I share apartment. (Flatmate).", options: ["flatmate", "roommate", "housemate"], correct: 0 },
+          { text: "Ben and I go to cinema. (Good friend).", options: ["good friend", "friend", "mate"], correct: 0 },
+          { text: "Andy and I going out secretly. (Just good friends).", options: ["just good friends", "friends", "acquaintances"], correct: 0 }
+        ]
+      },
+      {
+        id: 24, title: "Travel and Holidays 1",
+        instruction: "Complete the text about going on holiday.",
+        type: "fill",
+        questions: [
+          { text: "Go to the (travel agent's).", answers: ["travel agent's"] },
+          { text: "Collect some (brochures).", answers: ["brochures"] },
+          { text: "Go back to (book) it.", answers: ["book"] },
+          { text: "Receive your (tickets).", answers: ["tickets"] },
+          { text: "Valid (passport).", answers: ["passport"] },
+          { text: "Foreign (currency).", answers: ["currency"] },
+          { text: "Traveller's (cheques).", answers: ["cheques"] },
+          { text: "Pack your (suitcase).", answers: ["suitcase"] },
+          { text: "Go to airport and (check in).", answers: ["check in"] },
+          { text: "Get a (boarding card).", answers: ["boarding card"] },
+          { text: "Wait in (departure lounge).", answers: ["departure lounge"] },
+          { text: "Browse (duty free) shop.", answers: ["duty free"] },
+          { text: "Go to the (gate).", answers: ["gate"] },
+          { text: "(Board) your plane.", answers: ["Board"] },
+          { text: "The (cabin crew) help you.", answers: ["cabin crew"] },
+          { text: "Fasten your (safety belt).", answers: ["safety belt"] },
+          { text: "Plane (takes off).", answers: ["takes off"] },
+          { text: "Plane (lands).", answers: ["lands"] },
+          { text: "Pass through (customs).", answers: ["customs"] },
+          { text: "(Sunbathing) on beach.", answers: ["Sunbathing"] },
+          { text: "And (sightseeing).", answers: ["sightseeing"] },
+          { text: "(Check out) of hotel.", answers: ["Check out"] }
+        ]
+      },
+      {
+        id: 25, title: "Travel and Holidays 2",
+        instruction: "Choose the correct word.",
+        type: "mcq",
+        questions: [
+          { text: "Go on a round-the-world (trip).", options: ["trip", "travel", "excursion"], correct: 0 },
+          { text: "(Get off) the train.", options: ["Get off", "Get down", "Get away"], correct: 0 },
+          { text: "Couldn't (put up with) the heat.", options: ["put up with", "put down", "put up"], correct: 0 },
+          { text: "Couldn't (make up) our minds.", options: ["make up", "make out", "make do"], correct: 0 },
+          { text: "Like to (take it easy).", options: ["take it easy", "take it simple", "take it relaxed"], correct: 0 },
+          { text: "Two-week (cruise).", options: ["cruise", "cruising", "cruiser"], correct: 0 },
+          { text: "Accommodation was (basic).", options: ["basic", "base", "basically"], correct: 0 },
+          { text: "Make a (reservation).", options: ["reservation", "reserve", "reserved"], correct: 0 },
+          { text: "The (flight) takes 3 hours.", options: ["flight", "flying", "fly"], correct: 0 },
+          { text: "No (vacancies).", options: ["vacancies", "vacant", "vacancy"], correct: 0 },
+          { text: "(Picked up) brochures.", options: ["Picked up", "Picked off", "Picked on"], correct: 0 },
+          { text: "Book a (cabin).", options: ["cabin", "resort", "chalet"], correct: 0 }
+        ]
+      },
+      {
+        id: 26, title: "Travel and Holidays 3",
+        instruction: "Match the holiday type.",
+        type: "mcq",
+        questions: [
+          { text: "White-water rafting, bungee-jumping, parachuting.", options: ["Adventure holiday", "Safari", "Skiing"], correct: 0 },
+          { text: "Pay for flight, hotel, transfers before leaving.", options: ["Package holiday", "All-inclusive", "Cruise"], correct: 0 },
+          { text: "Set up our tent, left pegs at home.", options: ["Camping holiday", "Hiking", "Sailing"], correct: 0 },
+          { text: "Cramped cabin, spent time on deck.", options: ["Cruise", "Sailing", "Ferry"], correct: 0 },
+          { text: "Chalet at foot of slopes, cable-car to piste.", options: ["Skiing holiday", "Mountain", "Winter"], correct: 0 },
+          { text: "Watering hole, animals, stay in jeep.", options: ["Safari", "Wildlife", "Adventure"], correct: 0 },
+          { text: "Youth hostel, muddy boots, marching.", options: ["Hiking holiday", "Camping", "Walking"], correct: 0 },
+          { text: "Yacht, no wind, didn't leave harbour.", options: ["Sailing holiday", "Boating", "Cruise"], correct: 0 },
+          { text: "Buckingham Palace, Tower of London.", options: ["Sightseeing holiday", "City break", "Tour"], correct: 0 },
+          { text: "£850, flights, transfers, all food/drinks.", options: ["All-inclusive holiday", "Package", "Full board"], correct: 0 }
+        ]
+      },
+      {
+        id: 27, title: "Accommodation 1",
+        instruction: "Match the description to the type of accommodation.",
+        type: "mcq",
+        questions: [
+          { text: "Canvas/nylon, basic, damp if rains.", options: ["Tent", "Caravan", "Cabin"], correct: 0 },
+          { text: "Towers, turrets, ramparts, draughty.", options: ["Castle", "Mansion", "Palace"], correct: 0 },
+          { text: "Two-three rooms per floor, hear neighbours.", options: ["Terraced house", "Flat", "Apartment"], correct: 0 },
+          { text: "Living room, dining room, kitchen, garage.", options: ["Detached house", "Semi-detached", "Villa"], correct: 0 },
+          { text: "Huge, large windows, Rolls Royce collection.", options: ["Mansion", "Villa", "Palace"], correct: 0 },
+          { text: "High-rise, seedy, squalid, not homely.", options: ["Flat", "Apartment", "Tower block"], correct: 0 },
+          { text: "Garden, flowers, basic inside, claustrophobic.", options: ["Country cottage", "Farmhouse", "Bungalow"], correct: 0 },
+          { text: "Patio, fountain, balcony, mod cons.", options: ["Villa", "Mansion", "House"], correct: 0 },
+          { text: "Small, practical for elderly, no stairs.", options: ["Bungalow", "Flat", "Cottage"], correct: 0 },
+          { text: "Pokey inside, can move with your home.", options: ["Caravan", "Mobile home", "Trailer"], correct: 0 }
+        ]
+      },
+      {
+        id: 28, title: "Accommodation 2",
+        instruction: "Complete with parts of a house.",
+        type: "fill",
+        questions: [
+          { text: "Tree-lined (path).", answers: ["path"] },
+          { text: "Through the (porch).", answers: ["porch"] },
+          { text: "Enter the (hall).", answers: ["hall"] },
+          { text: "Kitchen-(diner).", answers: ["diner"] },
+          { text: "(Utility) room.", answers: ["Utility"] },
+          { text: "My (study).", answers: ["study"] },
+          { text: "Stairs to (cellar).", answers: ["cellar"] },
+          { text: "(Living) room.", answers: ["Living"] },
+          { text: "(Bedroom).", answers: ["Bedroom"] },
+          { text: "(Bathroom).", answers: ["Bathroom"] },
+          { text: "(Bedsit).", answers: ["Bedsit"] },
+          { text: "Small (terrace).", answers: ["terrace"] },
+          { text: "(Garden) with flowerbeds.", answers: ["Garden"] },
+          { text: "(Shed) at end.", answers: ["Shed"] },
+          { text: "Can't afford to buy, must (rent).", answers: ["rent"] },
+          { text: "Landlord will (evict) us.", answers: ["evict"] },
+          { text: "Council will (demolish) block.", answers: ["demolish"] },
+          { text: "Applied for (mortgage).", answers: ["mortgage"] },
+          { text: "Should (decorate) living room.", answers: ["decorate"] },
+          { text: "Could (lease) offices.", answers: ["lease"] }
+        ]
+      },
+      {
+        id: 29, title: "Animals and Plants",
+        instruction: "Categorize the animals and plants.",
+        type: "mcq",
+        questions: [
+          { text: "Tortoise, rabbit, hamster, puppy - what category?", options: ["Pets", "Farm animals", "Wild animals"], correct: 0 },
+          { text: "Horse, cow, sheep, goat, pig - what category?", options: ["Farm animals", "Pets", "Wild animals"], correct: 0 },
+          { text: "Penguin, duck, eagle, pigeon, parrot - what category?", options: ["Birds", "Flying animals", "Water birds"], correct: 0 },
+          { text: "Orang-utan, rhino, whale, tiger, panda - what category?", options: ["Endangered species", "Large animals", "Mammals"], correct: 0 },
+          { text: "Tortoise, snake, crocodile, lizard - what category?", options: ["Reptiles", "Cold-blooded", "Scaly animals"], correct: 0 },
+          { text: "Cockroach, spider, bee, butterfly, ant - what category?", options: ["Insects", "Invertebrates", "Small creatures"], correct: 0 },
+          { text: "Octopus, whale, shark, trout, dolphin - what category?", options: ["Water creatures", "Fish", "Marine animals"], correct: 0 },
+          { text: "Orchid, daisy, tulip, rose - what category?", options: ["Flowers", "Plants", "Garden plants"], correct: 0 },
+          { text: "Oak, chestnut, palm, bamboo - what category?", options: ["Trees", "Plants", "Wood"], correct: 0 }
+        ]
+      },
+      {
+        id: 30, title: "Geography and Natural World",
+        instruction: "Answer the geography quiz.",
+        type: "mcq",
+        questions: [
+          { text: "Highest population: India, China, Japan, USA?", options: ["China", "India", "USA", "Japan"], correct: 0 },
+          { text: "Africa, South America, Asia are examples of?", options: ["Continents", "Countries", "Regions"], correct: 0 },
+          { text: "Hokkaido, Iceland, Ireland are examples of?", options: ["Islands", "Countries", "Peninsulas"], correct: 0 },
+          { text: "Which is not a mountain? Everest, Fuji, Mont Blanc, Manhattan?", options: ["Manhattan", "Everest", "Fuji", "Mont Blanc"], correct: 0 },
+          { text: "Himalayas, Alps, Andes are examples of?", options: ["Mountain ranges", "Mountains", "Peaks"], correct: 0 },
+          { text: "Longest river: Thames, Nile, Amazon, Mississippi?", options: ["Nile", "Amazon", "Mississippi", "Thames"], correct: 0 },
+          { text: "Gobi, Sahara, Kalahari are examples of?", options: ["Deserts", "Plains", "Regions"], correct: 0 },
+          { text: "Atlantic, Pacific, Indian, Arctic are examples of?", options: ["Oceans", "Seas", "Waters"], correct: 0 },
+          { text: "Niagara, Angel, Victoria are examples of?", options: ["Waterfalls", "Cascades", "Falls"], correct: 0 },
+          { text: "Suez and Panama are examples of?", options: ["Canals", "Channels", "Straits"], correct: 0 },
+          { text: "Boat trip across Lake (Geneva).", options: ["Lake", "River", "Sea"], correct: 0 },
+          { text: "Amazon (rainforest) being cut down.", options: ["rainforest", "forest", "jungle"], correct: 0 },
+          { text: "Area between hills/mountains?", options: ["Valley", "Glen", "Dale"], correct: 0 },
+          { text: "Quito lies on the (Equator).", options: ["Equator", "Tropic", "Latitude"], correct: 0 },
+          { text: "When the (volcano) erupted...", options: ["volcano", "mountain", "hill"], correct: 0 },
+          { text: "The (hurricane) blew for five days.", options: ["hurricane", "storm", "wind"], correct: 0 },
+          { text: "Ground shook during (earthquake).", options: ["earthquake", "tremor", "quake"], correct: 0 },
+          { text: "Long hot dry period?", options: ["Drought", "Dry spell", "Heatwave"], correct: 0 },
+          { text: "Polar bears live at which pole?", options: ["North Pole", "South Pole", "Both"], correct: 0 },
+          { text: "Hill is low mountain, stream is?", options: ["Small river", "Brook", "Creek"], correct: 0 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: "Exam Tasks",
+    tests: [
+      {
+        id: 54, title: "Picture Description",
+        instruction: "Describe what you see in the picture.",
+        type: "mcq",
+        questions: [
+          { text: "I can see a (tropical) beach.", options: ["tropical", "sandy", "beautiful"], correct: 0 },
+          { text: "People leaning against a (palm) tree.", options: ["palm", "coconut", "tropical"], correct: 0 },
+          { text: "A (lizard) climbing the tree.", options: ["lizard", "gecko", "reptile"], correct: 0 },
+          { text: "A (crab) in the corner.", options: ["crab", "shellfish", "creature"], correct: 0 },
+          { text: "A (boat) in foreground.", options: ["boat", "vessel", "ship"], correct: 0 },
+          { text: "(Dolphins) playing in water.", options: ["Dolphins", "Fish", "Marine animals"], correct: 0 },
+          { text: "A small (island) in distance.", options: ["island", "land", "rock"], correct: 0 },
+          { text: "A (ship) on horizon.", options: ["ship", "vessel", "boat"], correct: 0 },
+          { text: "An (aeroplane) in sky.", options: ["aeroplane", "plane", "aircraft"], correct: 0 },
+          { text: "A flock of (seagulls).", options: ["seagulls", "birds", "gulls"], correct: 0 }
+        ]
+      },
+      {
+        id: 55, title: "Interview Expressions",
+        instruction: "Put each expression in the correct box.",
+        type: "mcq",
+        questions: [
+          { text: "Asking opinion: What do you think about...?", options: ["Asking opinion", "Agreeing", "Disagreeing"], correct: 0 },
+          { text: "Asking opinion: What are your views on...?", options: ["Asking opinion", "Clarifying", "Disagreeing"], correct: 0 },
+          { text: "Clarifying: I'm sorry?", options: ["Clarifying", "Asking opinion", "Agreeing"], correct: 0 },
+          { text: "Clarifying: Could you repeat that?", options: ["Clarifying", "Asking opinion", "Disagreeing"], correct: 0 },
+          { text: "Agreeing: Yes, I agree.", options: ["Agreeing", "Disagreeing", "Thinking"], correct: 0 },
+          { text: "Agreeing: That's exactly my view.", options: ["Agreeing", "Disagreeing", "Clarifying"], correct: 0 },
+          { text: "Disagreeing: I'm afraid I don't agree.", options: ["Disagreeing", "Agreeing", "Clarifying"], correct: 0 },
+          { text: "Disagreeing: I don't entirely agree.", options: ["Disagreeing", "Agreeing", "Asking"], correct: 0 },
+          { text: "Thinking: Let me see.", options: ["Thinking", "Agreeing", "Disagreeing"], correct: 0 },
+          { text: "Thinking: Can I think about that?", options: ["Thinking", "Clarifying", "Asking"], correct: 0 },
+          { text: "Rephrasing: What I mean is...", options: ["Rephrasing", "Agreeing", "Disagreeing"], correct: 0 },
+          { text: "Rephrasing: In other words...", options: ["Rephrasing", "Clarifying", "Asking"], correct: 0 }
+        ]
+      },
+      {
+        id: 56, title: "Writing a Letter",
+        instruction: "Choose formal or informal expressions.",
+        type: "mcq",
+        questions: [
+          { text: "Informal: (Thanks a lot) for your postcard.", options: ["Thanks a lot", "Thank you very much", "I appreciate"], correct: 0 },
+          { text: "Informal: (It was great to hear) from you.", options: ["It was great to hear", "I very much appreciated", "I was pleased"], correct: 0 },
+          { text: "Informal: (you asked me) about...", options: ["you asked me", "as you requested", "you enquired"], correct: 0 },
+          { text: "Informal: (plans) for the trip.", options: ["plans", "itinerary", "schedule"], correct: 0 },
+          { text: "Informal: I will (leave) Heathrow.", options: ["leave", "depart", "exit"], correct: 0 },
+          { text: "Informal: I will (go to) the conference.", options: ["go to", "attend", "participate in"], correct: 0 },
+          { text: "Informal: This (begins) at 1.30.", options: ["begins", "commences", "starts"], correct: 0 },
+          { text: "Informal: (I'm sorry) I can't meet you.", options: ["I'm sorry", "I regret", "Unfortunately"], correct: 0 },
+          { text: "Informal: (do you fancy meeting) later?", options: ["do you fancy meeting", "would you like to meet", "could we meet"], correct: 0 },
+          { text: "Informal: (Why don't we meet) at...?", options: ["Why don't we meet", "I suggest meeting", "Shall we meet"], correct: 0 },
+          { text: "Formal: (I very much appreciated) your reply.", options: ["I very much appreciated", "Thanks for", "It was great"], correct: 0 },
+          { text: "Formal: (As you requested)...", options: ["As you requested", "you asked me", "you wanted"], correct: 0 },
+          { text: "Formal: (itinerary) for my trip.", options: ["itinerary", "plans", "schedule"], correct: 0 },
+          { text: "Formal: (Depart) London-Heathrow.", options: ["Depart", "Leave", "Exit"], correct: 0 },
+          { text: "Formal: (Attend) student conference.", options: ["Attend", "Go to", "Join"], correct: 0 },
+          { text: "Formal: (commences) at 1.30.", options: ["commences", "begins", "starts"], correct: 0 },
+          { text: "Formal: (I regret) I cannot meet.", options: ["I regret", "I'm sorry", "Unfortunately"], correct: 0 },
+          { text: "Formal: (am unable to) meet you.", options: ["am unable to", "can't", "cannot"], correct: 0 },
+          { text: "Formal: (I suggest meeting)...", options: ["I suggest meeting", "Why don't we meet", "Let's meet"], correct: 0 },
+          { text: "Formal: (would you like to meet)...", options: ["would you like to meet", "do you fancy meeting", "want to meet"], correct: 0 }
+        ]
+      },
+      {
+        id: 57, title: "Writing a Story",
+        instruction: "Complete with story expressions.",
+        type: "fill",
+        questions: [
+          { text: "(A few years ago) I lost my job.", answers: ["A few years ago"] },
+          { text: "(when) my company closed down.", answers: ["when"] },
+          { text: "Able to get by (until) I found another job.", answers: ["until"] },
+          { text: "(After a while), money ran out.", answers: ["After a while"] },
+          { text: "(to my disappointment) still no job.", answers: ["to my disappointment"] },
+          { text: "(In desperation) I decided to rob a bank.", answers: ["In desperation"] },
+          { text: "(At first), everything was simple.", answers: ["At first"] },
+          { text: "(Then) walked into bank.", answers: ["Then"] },
+          { text: "(To my surprise), she gave cash.", answers: ["To my surprise"] },
+          { text: "(Suddenly), alarm rang.", answers: ["Suddenly"] },
+          { text: "(It wasn't until) I realized something wrong.", answers: ["It wasn't until"] },
+          { text: "(To my horror) somebody stole my car!", answers: ["To my horror"] },
+          { text: "(In desperation) stopped first vehicle.", answers: ["In desperation"] },
+          { text: "(Luckily) it stopped.", answers: ["Luckily"] },
+          { text: "Sat back (in relief).", answers: ["in relief"] },
+          { text: "(It was then) driver turned.", answers: ["It was then"] },
+          { text: "(that I discovered) my mistake.", answers: ["that I discovered"] },
+          { text: "(To my horror) it was police car!", answers: ["To my horror"] }
+        ]
+      },
+      {
+        id: 58, title: "Writing a Report",
+        instruction: "Choose appropriate report language.",
+        type: "mcq",
+        questions: [
+          { text: "(I would like to recommend) St. Blodwyn's.", options: ["I would like to recommend", "Why don't we go to", "Let's choose"], correct: 0 },
+          { text: "(I was pleased to see) it offers everything.", options: ["I was pleased to see", "To my amazement", "Wow"], correct: 0 },
+          { text: "(First of all), school is located...", options: ["First of all", "At first", "Initially"], correct: 0 },
+          { text: "(very simple) for students to visit.", options: ["very simple", "dead easy", "really easy"], correct: 0 },
+          { text: "This (historic) city.", options: ["historic", "really old", "ancient"], correct: 0 },
+          { text: "(Secondly), school has reputation...", options: ["Secondly", "And then", "Also"], correct: 0 },
+          { text: "(high quality) teaching.", options: ["high quality", "absolutely brilliant", "excellent"], correct: 0 },
+          { text: "(small) classes.", options: ["small", "tiny", "little"], correct: 0 },
+          { text: "Teachers (are fully-qualified).", options: ["are fully-qualified", "know their stuff", "are good"], correct: 0 },
+          { text: "(a great deal of) experience.", options: ["a great deal of", "loads of", "lots of"], correct: 0 },
+          { text: "(However), minimum age is 16.", options: ["However", "What a pity", "Unfortunately"], correct: 0 },
+          { text: "(In addition to) teaching...", options: ["In addition to", "Besides", "As well as"], correct: 0 },
+          { text: "(excellent) facilities.", options: ["excellent", "smashing", "great"], correct: 0 },
+          { text: "(equipped) with books.", options: ["equipped", "stuffed", "filled"], correct: 0 },
+          { text: "Learning (resources).", options: ["resources", "things", "stuff"], correct: 0 },
+          { text: "(delicious) food.", options: ["delicious", "yummy", "tasty"], correct: 0 },
+          { text: "(Furthermore), accommodation...", options: ["Furthermore", "What's more", "Also"], correct: 0 },
+          { text: "(comfortable) accommodation.", options: ["comfortable", "cosy", "nice"], correct: 0 },
+          { text: "(perfect) for relaxing.", options: ["perfect", "great fun", "excellent"], correct: 0 },
+          { text: "I (don't know) if included.", options: ["don't know", "haven't got a clue", "am not sure"], correct: 0 },
+          { text: "I will (write to the school).", options: ["write to the school", "drop the school a line", "contact school"], correct: 0 },
+          { text: "(In my opinion), it would be ideal.", options: ["In my opinion", "If you ask me", "I think"], correct: 0 },
+          { text: "Would be (ideal).", options: ["ideal", "brilliant", "perfect"], correct: 0 },
+          { text: "(you will agree) it is ideal.", options: ["you will agree", "you'd absolutely love", "you'll like"], correct: 0 }
+        ]
+      },
+      {
+        id: 59, title: "Writing Composition",
+        instruction: "Choose linking words and expressions.",
+        type: "mcq",
+        questions: [
+          { text: "(Despite) the weather, Britain is pleasant.", options: ["Despite", "Although", "Even though"], correct: 0 },
+          { text: "(Although) it rains a lot...", options: ["Although", "Despite", "In spite of"], correct: 0 },
+          { text: "Rewarding. (Nevertheless), difficult.", options: ["Nevertheless", "Furthermore", "Moreover"], correct: 0 },
+          { text: "Spoken widely. (Furthermore), international.", options: ["Furthermore", "Nevertheless", "However"], correct: 0 },
+          { text: "Busy city, (whereas) towns relaxed.", options: ["whereas", "however", "although"], correct: 0 },
+          { text: "Demanding. (However), rewards.", options: ["However", "Whereas", "Although"], correct: 0 },
+          { text: "(In my opinion), more languages better.", options: ["In my opinion", "According to me", "I think that"], correct: 0 },
+          { text: "I (believe that) travel makes aware.", options: ["believe that", "consider", "think"], correct: 0 },
+          { text: "Many (consider) internet important.", options: ["consider", "believe", "think"], correct: 0 },
+          { text: "On one (hand), IT changing.", options: ["hand", "side", "part"], correct: 0 },
+          { text: "On the other (hand), too fast.", options: ["hand", "side", "part"], correct: 0 },
+          { text: "(First of all), pollution.", options: ["First of all", "In the beginning", "Initially"], correct: 0 },
+          { text: "(Next), industrial pollution.", options: ["Next", "Secondly", "Then"], correct: 0 },
+          { text: "(Moreover), destruction.", options: ["Moreover", "Then", "Next"], correct: 0 },
+          { text: "Dirty, (while) country fresh.", options: ["while", "in contrast", "whereas"], correct: 0 },
+          { text: "Warm. (In contrast), England cold.", options: ["In contrast", "While", "Whereas"], correct: 0 },
+          { text: "(As well as) grammar, vocabulary.", options: ["As well as", "In addition", "Besides"], correct: 0 },
+          { text: "Important. (In addition), vocabulary.", options: ["In addition", "As well as", "Also"], correct: 0 },
+          { text: "(In addition to) recording words...", options: ["In addition to", "In addition", "Besides"], correct: 0 },
+          { text: "(In conclusion), learn in English.", options: ["In conclusion", "In the end", "Finally"], correct: 0 },
+          { text: "Things to do. (in the end), no substitute.", options: ["in the end", "in conclusion", "finally"], correct: 0 }
+        ]
+      },
+      {
+        id: 60, title: "Writing About Set Text",
+        instruction: "Find and correct the mistakes.",
+        type: "mcq",
+        questions: [
+          { text: "'Rebecca', a (novel) which was written...", options: ["novel", "storybook", "book"], correct: 0 },
+          { text: "A love story and a (mystery).", options: ["mystery", "mysterious", "mystic"], correct: 0 },
+          { text: "Five main (characters).", options: ["characters", "actors", "people"], correct: 0 },
+          { text: "Name we never (discover).", options: ["discover", "discovery", "found"], correct: 0 },
+          { text: "(sinister) housekeeper.", options: ["sinister", "sinisterly", "sinisterous"], correct: 0 },
+          { text: "Makes an important (part).", options: ["part", "play", "role"], correct: 0 },
+          { text: "(selfish) playboy.", options: ["selfish", "selfishly", "selfishness"], correct: 0 },
+          { text: "Story is (set) in Monte Carlo.", options: ["set", "placed", "located"], correct: 0 },
+          { text: "Most (action) takes place.", options: ["action", "acting", "activity"], correct: 0 },
+          { text: "How she (meets) Max.", options: ["meets", "met", "meeting"], correct: 0 },
+          { text: "(However), narrator not happy.", options: ["However", "Whereas", "Although"], correct: 0 },
+          { text: "Not (happy).", options: ["happy", "happily", "happiness"], correct: 0 },
+          { text: "Memories of (dead) Rebecca.", options: ["dead", "death", "deceased"], correct: 0 },
+          { text: "Narrator (discovers) Max murdered.", options: ["discovers", "uncovers", "finds"], correct: 0 },
+          { text: "(Despite) this, she loves him.", options: ["Despite", "Although", "Though"], correct: 0 },
+          { text: "(promises) to help.", options: ["promises", "promising", "promised"], correct: 0 },
+          { text: "Ends very (dramatically).", options: ["dramatically", "drama", "dramatic"], correct: 0 },
+          { text: "Get revenge (on) Max.", options: ["on", "to", "against"], correct: 0 },
+          { text: "(In my opinion), best book.", options: ["In my opinion", "In my concern", "I think"], correct: 0 },
+          { text: "I would (recommend) it.", options: ["recommend", "advise", "suggest"], correct: 0 }
+        ]
+      }
+    ]
+  }
+];
+
+// State management
+let state = {
+  currentSection: 0,
+  currentTest: 0,
+  score: 0,
+  totalAnswered: 0,
+  totalCorrect: 0,
+  answers: {}
+};
+
+// Rendering functions
+function renderNav() {
+  const nav = document.getElementById('nav');
+  nav.innerHTML = '';
+  sections.forEach((sec, i) => {
+    sec.tests.forEach((test, j) => {
+      const btn = document.createElement('button');
+      btn.textContent = `Test ${test.id}: ${test.title}`;
+      const globalTestIndex = sections.slice(0, i).reduce((sum, s) => sum + s.tests.length, 0) + j;
+      btn.className = globalTestIndex === state.currentTest ? 'active' : '';
+      btn.onclick = () => {
+        state.currentSection = i;
+        state.currentTest = globalTestIndex;
+        renderAll();
+      };
+      nav.appendChild(btn);
+    });
+  });
+}
+
+function getCurrentTest() {
+  let testIndex = 0;
+  for (let i = 0; i < sections.length; i++) {
+    for (let j = 0; j < sections[i].tests.length; j++) {
+      if (testIndex === state.currentTest) {
+        return sections[i].tests[j];
+      }
+      testIndex++;
+    }
+  }
+  return sections[0].tests[0];
+}
+
+function renderContent() {
+  const content = document.getElementById('content');
+  const test = getCurrentTest();
+  
+  let html = `<div class="test-header">
+    <h2>Test ${test.id}: ${test.title}</h2>
+    <p>${test.instruction}</p>
+  </div>`;
+  
+  if (test.type === 'fill') {
+    html += renderFillTest(test);
+  } else if (test.type === 'mcq') {
+    html += renderMcqTest(test);
+  }
+  
+  html += `<div class="controls">
+    <button class="btn btn-primary" onclick="checkAnswers()">✓ Check Answers</button>
+    <button class="btn btn-secondary" onclick="resetTest()">↺ Reset</button>
+    ${state.currentTest > 0 ? `<button class="btn btn-secondary" onclick="prevTest()">← Previous</button>` : ''}
+    ${state.currentTest < 59 ? `<button class="btn btn-success" onclick="nextTest()">Next →</button>` : ''}
+  </div>
+  <div id="result"></div>`;
+  
+  content.innerHTML = html;
+}
+
+function renderFillTest(test) {
+  let html = '';
+  test.questions.forEach((q, i) => {
+    const key = `${test.id}_${i}`;
+    const saved = state.answers[key] || [];
+    html += `<div class="question" id="q_${i}">
+      <div class="question-text"><b>${i+1}.</b> ${q.text}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    q.answers.forEach((_, j) => {
+      html += `<input type="text" data-q="${i}" data-a="${j}" 
+        value="${saved[j] || ''}" placeholder="answer ${j+1}" 
+        onchange="saveAnswer(${test.id}, ${i}, ${j}, this.value)">`;
+    });
+    html += `</div><div class="feedback" id="fb_${i}"></div></div>`;
+  });
+  return html;
+}
+
+function renderMcqTest(test) {
+  let html = '';
+  test.questions.forEach((q, i) => {
+    const key = `${test.id}_${i}`;
+    const saved = state.answers[key];
+    html += `<div class="question" id="q_${i}">
+      <div class="question-text"><b>${i+1}.</b> ${q.text}</div>
+      <div class="options">`;
+    q.options.forEach((opt, j) => {
+      const checked = saved === j ? 'checked' : '';
+      html += `<label class="option" id="opt_${i}_${j}">
+        <input type="radio" name="q_${i}" value="${j}" ${checked}
+          onchange="saveAnswer(${test.id}, ${i}, null, ${j})">
+        <span>${String.fromCharCode(65+j)}) ${opt}</span>
+      </label>`;
+    });
+    html += `</div><div class="feedback" id="fb_${i}"></div></div>`;
+  });
+  return html;
+}
+
+// Logic functions
+function saveAnswer(testId, qIndex, aIndex, value) {
+  const key = `${testId}_${qIndex}`;
+  const test = getCurrentTest();
+  if (test.type === 'fill' && aIndex !== null) {
+    if (!state.answers[key]) state.answers[key] = [];
+    state.answers[key][aIndex] = value;
+  } else {
+    state.answers[key] = value;
+  }
+}
+
+function normalize(str) {
+  return str.toLowerCase().trim().replace(/\s+/g, ' ').replace(/[.,!?]/g, '');
+}
+
+function checkAnswers() {
+  const test = getCurrentTest();
+  let correct = 0;
+  let total = 0;
+  
+  if (test.type === 'fill') {
+    test.questions.forEach((q, i) => {
+      const key = `${test.id}_${i}`;
+      const saved = state.answers[key] || [];
+      let qCorrect = true;
+      q.answers.forEach((ans, j) => {
+        total++;
+        const userAns = normalize(saved[j] || '');
+        const correctAns = normalize(ans);
+        if (userAns !== correctAns) qCorrect = false;
+      });
+      const fb = document.getElementById(`fb_${i}`);
+      if (qCorrect) {
+        correct++;
+        fb.className = 'feedback show correct';
+        fb.textContent = '✓ Correct!';
+      } else {
+        fb.className = 'feedback show wrong';
+        fb.textContent = `✗ Correct: ${q.answers.join(', ')}`;
+      }
+    });
+  } else if (test.type === 'mcq') {
+    test.questions.forEach((q, i) => {
+      const key = `${test.id}_${i}`;
+      const saved = state.answers[key];
+      total++;
+      const fb = document.getElementById(`fb_${i}`);
+      if (saved === q.correct) {
+        correct++;
+        fb.className = 'feedback show correct';
+        fb.textContent = '✓ Correct!';
+        document.getElementById(`opt_${i}_${saved}`).classList.add('correct');
+      } else {
+        fb.className = 'feedback show wrong';
+        fb.textContent = `✗ Correct: ${String.fromCharCode(65+q.correct)}) ${q.options[q.correct]}`;
+        if (saved !== undefined) {
+          document.getElementById(`opt_${i}_${saved}`).classList.add('wrong');
+        }
+        document.getElementById(`opt_${i}_${q.correct}`).classList.add('correct');
+      }
+    });
+  }
+  
+  state.score += correct;
+  state.totalAnswered += total;
+  state.totalCorrect += correct;
+  
+  const pct = Math.round((correct / total) * 100);
+  document.getElementById('result').innerHTML = `
+    <div class="result-panel">
+      <h3>Test Result</h3>
+      <div class="score-circle">${correct}/${total}</div>
+      <p>Correct: <b>${correct}</b> of <b>${total}</b> (${pct}%)</p>
+      <p style="margin-top:10px;opacity:0.9;">Total score: ${state.score} points</p>
+    </div>
+  `;
+  
+  updateStats();
+}
+
+function resetTest() {
+  const test = getCurrentTest();
+  test.questions?.forEach((_, i) => {
+    const key = `${test.id}_${i}`;
+    delete state.answers[key];
+  });
+  renderContent();
+}
+
+function nextTest() {
+  if (state.currentTest < 59) {
+    state.currentTest++;
+    renderAll();
+  }
+}
+
+function prevTest() {
+  if (state.currentTest > 0) {
+    state.currentTest--;
+    renderAll();
+  }
+}
+
+function updateStats() {
+  const sectionNum = state.currentTest < 20 ? 1 : state.currentTest < 50 ? 2 : 3;
+  document.getElementById('statSection').textContent = `${sectionNum}/3`;
+  document.getElementById('statTest').textContent = `${state.currentTest + 1}/60`;
+  document.getElementById('statScore').textContent = state.score;
+  const accuracy = state.totalAnswered > 0 
+    ? Math.round((state.totalCorrect / state.totalAnswered) * 100) 
+    : 0;
+  document.getElementById('statAccuracy').textContent = `${accuracy}%`;
+}
+
+function renderAll() {
+  renderNav();
+  renderContent();
+  updateStats();
+}
+
+// Initialize
+renderAll();
+</script>
+</body>
+</html>
