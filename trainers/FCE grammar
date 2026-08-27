@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar & Usage Trainer for FCE - Полный тренажёр</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  
+  header {
+    background: linear-gradient(135deg, #2c3e50, #4a6572);
+    color: #fff;
+    padding: 25px 30px;
+    text-align: center;
+  }
+  
+  header h1 { font-size: 28px; margin-bottom: 6px; }
+  header p { opacity: 0.85; font-size: 14px; }
+  
+  .stats-bar {
+    display: flex;
+    justify-content: space-around;
+    background: #f8f9fa;
+    padding: 12px;
+    border-bottom: 2px solid #e9ecef;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .stat {
+    text-align: center;
+    min-width: 100px;
+  }
+  
+  .stat-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #667eea;
+  }
+  
+  .stat-label {
+    font-size: 11px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 15px;
+    background: #f1f3f5;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .nav button {
+    flex: 1;
+    min-width: 140px;
+    padding: 10px 14px;
+    border: none;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  
+  .nav button:hover { background: #e9ecef; }
+  .nav button.active {
+    background: #667eea;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+  }
+  
+  .content {
+    padding: 30px;
+    min-height: 500px;
+  }
+  
+  .test-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e9ecef;
+  }
+  
+  .test-header h2 {
+    color: #2c3e50;
+    margin-bottom: 8px;
+  }
+  
+  .test-header p {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .question {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+  }
+  
+  .question-text {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  
+  .question input[type="text"] {
+    padding: 8px 12px;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 200px;
+    transition: border-color 0.2s;
+  }
+  
+  .question input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .option {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .option:hover { border-color: #667eea; background: #f0f3ff; }
+  .option input { margin-right: 10px; }
+  .option.correct {
+    background: #d4edda;
+    border-color: #28a745;
+  }
+  .option.wrong {
+    background: #f8d7da;
+    border-color: #dc3545;
+  }
+  
+  .feedback {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: none;
+  }
+  
+  .feedback.show { display: block; }
+  .feedback.correct { background: #d4edda; color: #155724; }
+  .feedback.wrong { background: #f8d7da; color: #721c24; }
+  
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  
+  .btn-primary {
+    background: #667eea;
+    color: #fff;
+  }
+  
+  .btn-primary:hover { background: #5568d3; }
+  .btn-secondary {
+    background: #6c757d;
+    color: #fff;
+  }
+  .btn-secondary:hover { background: #5a6268; }
+  .btn-success {
+    background: #28a745;
+    color: #fff;
+  }
+  
+  .result-panel {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .result-panel h3 { font-size: 24px; margin-bottom: 15px; }
+  .score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    font-size: 32px;
+    font-weight: bold;
+    border: 4px solid #fff;
+  }
+  
+  .error-line {
+    background: #fff;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border-left: 4px solid #ffc107;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .error-line input {
+    padding: 4px 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 120px;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .transform-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  
+  .keyword {
+    display: inline-block;
+    background: #ffc107;
+    color: #212529;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin: 0 4px;
+  }
+  
+  .word-building {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .base-word {
+    background: #e9ecef;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .section-info {
+    background: #e9ecef;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #495057;
+  }
+  
+  @media (max-width: 600px) {
+    .content { padding: 15px; }
+    header h1 { font-size: 22px; }
+    .nav button { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📘 Grammar & Usage Trainer for FCE</h1>
+    <p>На основе книги Peter Watcyn-Jones & Jake Allsop — 60 тестов, 10 секций</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-value" id="statSection">1/10</div>
+      <div class="stat-label">Секция</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="statTest">1/60</div>
+      <div class="stat-label">Тест</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="statScore">0</div>
+      <div class="stat-label">Очки</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="statAccuracy">0%</div>
+      <div class="stat-label">Точность</div>
+    </div>
+  </div>
+
+  <div class="nav" id="nav"></div>
+  <div class="content" id="content"></div>
+</div>
+
+<script>
+const sections = [
+  {
+    id: 1,
+    name: "Verbs",
+    tests: [
+      {
+        id: 1, title: "Fill in the verbs",
+        instruction: "Put the verbs in brackets into the correct tenses.",
+        type: "fill",
+        questions: [
+          { text: "One morning they ___ (wake up) to find their car ___ (steal).", answers: ["woke up", "had been stolen"] },
+          { text: "They immediately ___ (phone) the police before ___ (leave) for work.", answers: ["phoned", "leaving"] },
+          { text: "When they ___ (return) home, they ___ (find) their car ___ (bring back).", answers: ["returned", "found", "had been brought back"] },
+          { text: "They ___ (open) it and ___ (find) a note ___ (apologize) profusely.", answers: ["opened", "found", "apologizing"] },
+          { text: "The man who ___ (write) it explained that he ___ (not have) a car.", answers: ["wrote", "did not have"] },
+          { text: "His wife ___ (go) into labour, so he ___ (hope) they ___ (not mind).", answers: ["had gone", "hoped", "would not mind"] },
+          { text: "They ___ (be) both delighted as they ___ (try) for ages to get tickets.", answers: ["were", "had been trying"] },
+          { text: "While they were away, their house ___ (burgle)! Everything ___ (steal).", answers: ["had been burgled", "had been stolen"] }
+        ]
+      },
+      {
+        id: 2, title: "Choose the correct verb",
+        instruction: "Choose the answer that fits grammatically.",
+        type: "mcq",
+        questions: [
+          { text: "His parents wouldn't ___ him stay out later than 10.30.", options: ["allow", "permit", "agree", "let"], correct: 3 },
+          { text: "The police ___ him for burglary.", options: ["arrested", "charged", "convicted", "accused"], correct: 1 },
+          { text: "Many people ___ about the bad behaviour of soccer fans.", options: ["criticized", "disapproved", "complained", "objected"], correct: 2 },
+          { text: "It's a colour that just doesn't ___ me.", options: ["go with", "suit", "match", "take to"], correct: 1 },
+          { text: "See if you can ___ Joe to do his share of the housework.", options: ["get", "have", "make", "try"], correct: 0 },
+          { text: "After a lot of difficulty he finally ___ to start the car.", options: ["succeeded", "coped", "managed", "worked out"], correct: 2 },
+          { text: "The manager asked her to ___ with the complaint.", options: ["take care", "attend", "deal", "follow"], correct: 2 },
+          { text: "If you want a bank loan, I ___ you to try the National Bank.", options: ["advise", "suggest", "propose", "insist"], correct: 0 },
+          { text: "Combining our two incomes will ___ us to get a bigger loan.", options: ["guarantee", "ensure", "enable", "confirm"], correct: 2 },
+          { text: "I ___ you enjoy the play, Mr Lincoln.", options: ["wish", "hope", "want", "expect"], correct: 1 }
+        ]
+      },
+      {
+        id: 3, title: "Phrasal verbs 1: break, bring, call, come",
+        instruction: "Complete with a suitable phrasal verb using the given verb.",
+        type: "fill",
+        questions: [
+          { text: "The two countries have ___ (break) diplomatic relations.", answers: ["broken off"] },
+          { text: "Thieves ___ (break) at the weekend and stole paintings.", answers: ["broke in"] },
+          { text: "Police were called in to ___ (break) the demonstration.", answers: ["break up"] },
+          { text: "The pouring rain ___ (bring) your cold.", answers: ["brought on"] },
+          { text: "It's more difficult to ___ (bring) children nowadays.", answers: ["bring up"] },
+          { text: "David said he would ___ (call) us at 7.30.", answers: ["call for"] },
+          { text: "They had to ___ (call) the open-air pop concert.", answers: ["call off"] },
+          { text: "They ___ (call) her Emily ___ her grandmother.", answers: ["called", "after"] },
+          { text: "I ___ (come) these old photographs while tidying.", answers: ["came across"] },
+          { text: "She will ___ (come) quite a lot of money when her grandmother dies.", answers: ["come into"] }
+        ]
+      },
+      {
+        id: 4, title: "Phrasal verbs 2: fall, get, go, keep",
+        instruction: "Complete with a suitable phrasal verb.",
+        type: "fill",
+        questions: [
+          { text: "She slipped and ___ (fall), breaking her leg.", answers: ["fell over"] },
+          { text: "Paul and Jane aren't speaking. They've ___ (fall) again.", answers: ["fallen out"] },
+          { text: "You didn't ___ (fall) that old three-card trick, did you?", answers: ["fall for"] },
+          { text: "Did you get that contract? No, it ___ (fall).", answers: ["fell through"] },
+          { text: "When did you ___ (get) from your holidays?", answers: ["get back"] },
+          { text: "I tried phoning but couldn't ___ (get) ___. The line was engaged.", answers: ["get", "through"] },
+          { text: "After months of negotiations, the deal finally ___ (go).", answers: ["went through"] },
+          { text: "Don't drink that milk — it's ___ (go).", answers: ["gone off"] },
+          { text: "Try to ___ (keep) the subject of politics tonight.", answers: ["keep off"] },
+          { text: "She found it hard to ___ (keep) with them.", answers: ["keep up"] }
+        ]
+      },
+      {
+        id: 5, title: "Phrasal verbs 3: look, put, take",
+        instruction: "Complete with a suitable phrasal verb.",
+        type: "fill",
+        questions: [
+          { text: "___! There's a car coming. (look)", answers: ["Look out"] },
+          { text: "Most children ___ to the summer holidays. (look)", answers: ["look forward"] },
+          { text: "If you don't know the meaning, ___ it ___ in a dictionary. (look)", answers: ["look", "up"] },
+          { text: "The fire brigade soon ___ the fire. (put)", answers: ["put out"] },
+          { text: "We've decided to ___ central heating. (put)", answers: ["put in"] },
+          { text: "He tried to ___ some money each week. (put)", answers: ["put by"] },
+          { text: "There's no meeting tonight. It's been ___ until next week. (put)", answers: ["put off"] },
+          { text: "She ___ her mother, not me. (take)", answers: ["takes after"] },
+          { text: "The Book Store are ___ extra staff for Christmas. (take)", answers: ["taking on"] },
+          { text: "We were all completely ___ by his story. (take)", answers: ["taken in"] }
+        ]
+      },
+      {
+        id: 6, title: "Phrasal verbs with more than one meaning",
+        instruction: "Find the phrasal verb that fits both sentences.",
+        type: "fill",
+        questions: [
+          { text: "a) I can't decide which dress to wear. b) I gained almost a kilo in weight. Phrasal verb: ___", answers: ["put on"] },
+          { text: "a) Are you sure I'm not inconveniencing you? b) It took firefighters three hours to extinguish the fire. Phrasal verb: ___", answers: ["put out"] },
+          { text: "a) He spoke with a strong Scottish accent. b) I asked him to write out the cheque. Phrasal verb: ___", answers: ["make out"] },
+          { text: "a) The referee ordered him to leave the field. b) Have you written for their latest catalogue? Phrasal verb: ___", answers: ["send off"] },
+          { text: "a) The cost of the new bridge could ___ millions. b) The car collided with a lorry. Phrasal verb: ___", answers: ["go into"] },
+          { text: "a) Make a copy of important files. b) Will the rest of you support me? Phrasal verb: ___", answers: ["back up"] },
+          { text: "a) I don't think the new fashion will really ___. b) He didn't realise what was happening. Phrasal verb: ___", answers: ["catch on"] },
+          { text: "a) She didn't accept the job because the salary was too low. b) Reduce the volume, please. Phrasal verb: ___", answers: ["turn down"] },
+          { text: "a) I shall decorate and repair this old house and then sell it. b) My hands were so cold I couldn't ___ my top button. Phrasal verb: ___", answers: ["do up"] },
+          { text: "a) The old man donated half his fortune to charity. b) Your accent will betray you. Phrasal verb: ___", answers: ["give away"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: "Prepositions",
+    tests: [
+      {
+        id: 8, title: "Prepositional phrases",
+        instruction: "Put the words under the correct preposition.",
+        type: "mcq",
+        questions: [
+          { text: "Which preposition: '___ night'?", options: ["at", "in", "on", "by"], correct: 0 },
+          { text: "Which preposition: '___ a diet'?", options: ["at", "in", "on", "by"], correct: 2 },
+          { text: "Which preposition: '___ sight' (visible)?", options: ["at", "in", "on", "out of"], correct: 3 },
+          { text: "Which preposition: '___ purpose' (intentionally)?", options: ["at", "in", "on", "by"], correct: 2 },
+          { text: "Which preposition: '___ hospital' (as a patient)?", options: ["at", "in", "on", "by"], correct: 1 },
+          { text: "Which preposition: '___ business' (on a trip)?", options: ["at", "in", "on", "by"], correct: 2 },
+          { text: "Which preposition: '___ heart' (by memory)?", options: ["at", "in", "on", "by"], correct: 3 },
+          { text: "Which preposition: '___ mistake'?", options: ["at", "in", "on", "by"], correct: 3 }
+        ]
+      },
+      {
+        id: 9, title: "Adjective + preposition",
+        instruction: "Complete with a suitable adjective + preposition.",
+        type: "fill",
+        questions: [
+          { text: "I've been ___ a cold for over a week. (ill)", answers: ["ill with"] },
+          { text: "I've always been ___ water ever since I nearly drowned. (terrified)", answers: ["terrified of"] },
+          { text: "Mark's been ___ school for over a month. (absent)", answers: ["absent from"] },
+          { text: "We are very ___ her. (proud)", answers: ["proud of"] },
+          { text: "I'm a bit ___ time right now. (short)", answers: ["short of"] },
+          { text: "Costa Rica is ___ its beautiful scenery. (famous)", answers: ["famous for"] },
+          { text: "My cousin is very ___ music. (keen)", answers: ["keen on"] },
+          { text: "I like ballet but I'm not very ___ opera. (keen/fond)", answers: ["keen on"] },
+          { text: "Julie's my oldest friend. We've been ___ one another since Primary school. (friendly)", answers: ["friendly with"] },
+          { text: "He's never ___ our work! (satisfied)", answers: ["satisfied with"] },
+          { text: "Who is ___ this mess? (responsible)", answers: ["responsible for"] },
+          { text: "We are ___ you for all you've done. (grateful)", answers: ["grateful to"] },
+          { text: "Only single people under thirty are ___ membership. (eligible)", answers: ["eligible for"] },
+          { text: "Michael was ___ his sister's success. (jealous)", answers: ["jealous of"] },
+          { text: "She is ___ her sister in character. (similar)", answers: ["similar to"] },
+          { text: "Australia is ___ natural resources. (rich)", answers: ["rich in"] },
+          { text: "He was so ___ what he was doing. (absorbed)", answers: ["absorbed in"] },
+          { text: "Small children are often ___ animals. (cruel)", answers: ["cruel to"] }
+        ]
+      },
+      {
+        id: 10, title: "Verb + preposition",
+        instruction: "Complete with a suitable verb + preposition.",
+        type: "fill",
+        questions: [
+          { text: "This book has been ___ five languages. (translate)", answers: ["translated into"] },
+          { text: "The man was arrested and ___ murder. (charge)", answers: ["charged with"] },
+          { text: "After three attempts she finally ___ breaking the record. (succeed)", answers: ["succeeded in"] },
+          { text: "Does Mark really ___ flying saucers? (believe)", answers: ["believe in"] },
+          { text: "Does Peter ___ you Michael Jackson? (remind)", answers: ["remind of"] },
+          { text: "May I ___ you ___ your wonderful garden? (compliment)", answers: ["compliment", "on"] },
+          { text: "It was largely my fault that we ___ tennis. (lose)", answers: ["lost at"] },
+          { text: "We left Heathrow at 16.45 and ___ Copenhagen at 19.30. (arrive)", answers: ["arrived in"] },
+          { text: "It will ___ you ___ the cold. (protect)", answers: ["protect", "from"] },
+          { text: "You should always ___ your home ___ fire. (insure)", answers: ["insure", "against"] },
+          { text: "The mother told the children to ___ the sweets ___ themselves. (share)", answers: ["share", "among"] },
+          { text: "Although she had only painted the kitchen, the whole flat ___ paint. (smell)", answers: ["smelt of"] },
+          { text: "My sister ___ hay fever every summer. (suffer)", answers: ["suffers from"] },
+          { text: "I really ___ people who are tone deaf. (feel sorry)", answers: ["feel sorry for"] },
+          { text: "I'd ___ very carefully ___ his offer. (think)", answers: ["think", "about"] },
+          { text: "She made the children ___ their bad behaviour. (apologize)", answers: ["apologize for"] },
+          { text: "Most young people ___ pop music ___ classical music. (prefer)", answers: ["prefer", "to"] },
+          { text: "You can ___ him. He never lets you down. (rely)", answers: ["rely on"] }
+        ]
+      },
+      {
+        id: 11, title: "Verb + noun + preposition",
+        instruction: "Combine verbs, nouns and prepositions to make fixed expressions.",
+        type: "fill",
+        questions: [
+          { text: "___ eyes ___ (make)", answers: ["make", "at"] },
+          { text: "___ faith ___ (have)", answers: ["have", "in"] },
+          { text: "___ fault ___ (find)", answers: ["find", "with"] },
+          { text: "___ friends ___ (make)", answers: ["make", "with"] },
+          { text: "___ fun ___ (make)", answers: ["make", "of"] },
+          { text: "___ issue ___ (take)", answers: ["take", "with"] },
+          { text: "___ offence ___ (take)", answers: ["take", "at"] },
+          { text: "___ pleasure ___ (take)", answers: ["take", "in"] },
+          { text: "___ pride ___ (take)", answers: ["take", "in"] },
+          { text: "___ attention ___ (pay)", answers: ["pay", "to"] },
+          { text: "___ advantage ___ (take)", answers: ["take", "of"] },
+          { text: "___ sight ___ (catch)", answers: ["catch", "of"] },
+          { text: "___ track ___ (keep)", answers: ["keep", "of"] },
+          { text: "___ provision ___ (make)", answers: ["make", "for"] }
+        ]
+      },
+      {
+        id: 12, title: "Compound prepositions",
+        instruction: "Combine prepositions, nouns and prepositions.",
+        type: "fill",
+        questions: [
+          { text: "___ account ___", answers: ["on", "of"] },
+          { text: "___ addition ___", answers: ["in", "to"] },
+          { text: "___ agreement ___", answers: ["in", "with"] },
+          { text: "___ answer ___", answers: ["in", "to"] },
+          { text: "___ behalf ___", answers: ["on", "of"] },
+          { text: "___ common ___", answers: ["in", "with"] },
+          { text: "___ exchange ___", answers: ["in", "for"] },
+          { text: "___ favour ___", answers: ["in", "of"] },
+          { text: "___ good terms ___", answers: ["on", "with"] },
+          { text: "___ love ___", answers: ["in", "with"] },
+          { text: "___ means ___", answers: ["by", "of"] },
+          { text: "___ odds ___", answers: ["at", "with"] },
+          { text: "___ pity ___", answers: ["out", "of"] },
+          { text: "___ reference ___", answers: ["in", "to"] },
+          { text: "___ the compliments ___", answers: ["with", "of"] },
+          { text: "___ the expense ___", answers: ["at", "of"] },
+          { text: "___ the influence ___", answers: ["under", "of"] },
+          { text: "___ the sake ___", answers: ["for", "of"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: "Sentence Construction",
+    tests: [
+      {
+        id: 15, title: "Position of adjectives",
+        instruction: "Put the adjectives in the correct order.",
+        type: "fill",
+        questions: [
+          { text: "He bought a bunch of roses. (yellow, sweet-smelling)", answers: ["a bunch of sweet-smelling yellow roses"] },
+          { text: "The cat has soft fur. (grey, lovely)", answers: ["lovely soft grey fur"] },
+          { text: "The hotel was owned by a businessman. (tall, German, middle-aged)", answers: ["a tall middle-aged German businessman"] },
+          { text: "They lived in a house. (three-bedroomed, semi-detached, brand new)", answers: ["a brand new three-bedroomed semi-detached house"] },
+          { text: "My brother loves sports cars. (red, Italian, fast)", answers: ["fast red Italian sports cars"] },
+          { text: "In the middle was a coffee table. (oval, superb, oak)", answers: ["a superb oval oak coffee table"] },
+          { text: "Where did you get this vase? (old, magnificent, Japanese)", answers: ["this magnificent old Japanese vase"] },
+          { text: "I love meals. (tasty, hot, Indian)", answers: ["tasty hot Indian meals"] },
+          { text: "He was wearing a jacket. (shabby, cream, old, linen)", answers: ["a shabby old cream linen jacket"] },
+          { text: "Outside was a statue. (marble, huge, triangular, black)", answers: ["a huge black triangular marble statue"] }
+        ]
+      },
+      {
+        id: 16, title: "If-clauses",
+        instruction: "Complete the if-clauses with suitable clauses.",
+        type: "mcq",
+        questions: [
+          { text: "She'll have to wait in my room ...", options: ["unless she passes her A-levels", "if I can borrow mum's car", "if she arrives before I get back from lunch"], correct: 2 },
+          { text: "I'll have to sell my car ...", options: ["unless I get a job soon", "if I thought she'd say yes", "if you cut your hair and wore a suit"], correct: 0 },
+          { text: "You'd feel a lot better ...", options: ["if you gave up smoking", "if you go jogging every day", "if I wasn't so broke myself"], correct: 0 },
+          { text: "We would have caught the last bus ...", options: ["if it hadn't rained", "if we hadn't stayed for that last drink", "if they hadn't tried to expand so quickly"], correct: 1 },
+          { text: "You'll lose quite a lot of weight ...", options: ["if you cut your hair and wore a suit", "if you go jogging every day", "if you gave up smoking"], correct: 1 },
+          { text: "He'll probably pass his exams ...", options: ["if he keeps on working hard", "if he won a lot of money", "unless you work harder"], correct: 0 },
+          { text: "She won't be able to go to university ...", options: ["unless she passes her A-levels", "if I thought she'd say yes", "if you go jogging every day"], correct: 0 },
+          { text: "We would have had a picnic ...", options: ["if it hadn't rained", "if we hadn't stayed for that last drink", "unless one of the teams scores soon"], correct: 0 },
+          { text: "I'd ask her to marry me ...", options: ["if I thought she'd say yes", "if I wasn't so broke myself", "if you cut your hair and wore a suit"], correct: 0 },
+          { text: "He told us he wouldn't go on working ...", options: ["unless I get a job soon", "unless one of the teams scores soon", "if he won a lot of money"], correct: 0 }
+        ]
+      },
+      {
+        id: 18, title: "Conjunctions",
+        instruction: "Complete with a suitable conjunction.",
+        type: "mcq",
+        questions: [
+          { text: "Use microwaveable food ...", options: ["so that you won't need to spend ages cooking", "even if they offered me £5,000 a month", "whenever I hear that song on the radio"], correct: 0 },
+          { text: "He promised to give his parents a call ...", options: ["as soon as he got to his hotel", "even though she didn't love him at the time", "assuming there's nothing controversial on the agenda"], correct: 0 },
+          { text: "I wouldn't take a job there ...", options: ["even if they offered me £5,000 a month", "once she's had more experience", "whenever I hear that song on the radio"], correct: 0 },
+          { text: "As a child, she wasn't allowed to go to bed ...", options: ["until she had kissed everyone goodnight", "as the headmaster stood up to announce the results", "because she was ill"], correct: 0 },
+          { text: "You can borrow the car ...", options: ["as long as you fill it up with petrol", "provided that the weather stays fine", "if you pick me up from work"], correct: 0 },
+          { text: "He never went abroad on holiday ...", options: ["although he could easily afford it", "even though she didn't love him at the time", "because she was ill"], correct: 0 },
+          { text: "We'll have a picnic this afternoon ...", options: ["provided that the weather stays fine", "assuming there's nothing controversial on the agenda", "as long as you fill it up with petrol"], correct: 0 },
+          { text: "Take a jumper with you ...", options: ["in case it gets colder later on", "so that you won't need to spend ages cooking", "even if they offered me £5,000 a month"], correct: 0 },
+          { text: "I always feel like singing ...", options: ["whenever I hear that song on the radio", "as soon as he got to his hotel", "once she's had more experience"], correct: 0 },
+          { text: "Everyone in the room went completely quiet ...", options: ["as the headmaster stood up to announce the results", "until she had kissed everyone goodnight", "because she was ill"], correct: 0 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 4,
+    name: "Sources of confusion",
+    tests: [
+      {
+        id: 22, title: "The definite and indefinite article",
+        instruction: "Put in a/an or the, but only where necessary.",
+        type: "fill",
+        questions: [
+          { text: "___ Isle of Wight is ___ island off ___ south coast of ___ England.", answers: ["The", "an", "the", "-"] },
+          { text: "Would you like to see ___ picture of ___ village I lived in when I was ___ child?", answers: ["a", "the", "a"] },
+          { text: "___ President of ___ United States lives in ___ White House in ___ Washington D.C.", answers: ["The", "the", "the", "-"] },
+          { text: "___ Nelson's Column is in ___ Trafalgar Square, quite near ___ National Gallery.", answers: ["-", "-", "the"] },
+          { text: "Her brother is ___ musician. He plays ___ flute in ___ orchestra.", answers: ["a", "the", "an"] },
+          { text: "Doctor Williams works in ___ large hospital in ___ North Wales, near ___ coast.", answers: ["a", "-", "the"] },
+          { text: "Shall we go for ___ walk in ___ Hyde Park or see ___ Van Gogh exhibition at ___ Tate Gallery?", answers: ["a", "-", "a", "the"] },
+          { text: "Do British people shake ___ hands when they meet? Yes, but not as often as ___ Swedes do.", answers: ["-", "-"] },
+          { text: "My sister lives in ___ old house in ___ Barton Place. She's got ___ small flat on ___ top floor.", answers: ["an", "-", "a", "the"] },
+          { text: "What ___ awful weather! I thought ___ French Riviera was always hot.", answers: ["-", "the"] }
+        ]
+      },
+      {
+        id: 23, title: "Infinitive or -ing form?",
+        instruction: "Complete with either the infinitive or -ing form.",
+        type: "fill",
+        questions: [
+          { text: "I'm sorry, Joe. I didn't mean ___ your feelings. (hurt)", answers: ["to hurt"] },
+          { text: "When she was a child, her parents wouldn't allow her ___ in the street. (play)", answers: ["to play"] },
+          { text: "There must be something wrong with Simon. He keeps ___ he's being followed. (think)", answers: ["thinking"] },
+          { text: "As they'd received a bomb threat, the police ordered everyone ___ the building. (leave)", answers: ["to leave"] },
+          { text: "What with inflation, it's just not worth ___ nowadays. (save)", answers: ["saving"] },
+          { text: "I remember ___ to be a pop star when I was a child. (want)", answers: ["wanting"] },
+          { text: "Don't pretend ___ jazz. I know you hate it really. (like)", answers: ["to like"] },
+          { text: "Sara hasn't got a car. Would you mind ___ her a lift? (give)", answers: ["giving"] },
+          { text: "I really enjoy going to parties and ___ new people. (meet)", answers: ["meeting"] },
+          { text: "Her parents were very strict and wouldn't allow her ___ out later than 10.30. (stay)", answers: ["to stay"] },
+          { text: "Parents usually warn their children against ___ to strangers. (talk)", answers: ["talking"] },
+          { text: "I never go swimming because I dislike ___ my hair wet. (get)", answers: ["getting"] },
+          { text: "I agreed ___ her English if she helped me with my Spanish. (teach)", answers: ["to teach"] },
+          { text: "It was a very tough match, but in the end England managed ___ by two goals. (win)", answers: ["to win"] },
+          { text: "He suggested ___ a taxi to the station. (take)", answers: ["taking"] },
+          { text: "The film star disguised herself to avoid ___ recognized. (get)", answers: ["getting"] },
+          { text: "Would you dare ___ through a graveyard on your own at night? (walk)", answers: ["to walk"] },
+          { text: "She was very upset when she failed ___ work in Sydney. (find)", answers: ["to find"] },
+          { text: "He wasn't happy with his room so he demanded ___ the manager. (see)", answers: ["to see"] },
+          { text: "It's hard to imagine ___ without television, isn't it? (live)", answers: ["living"] }
+        ]
+      },
+      {
+        id: 24, title: "Common mistakes",
+        instruction: "There is a wrong word in each sentence. Replace with the correct word.",
+        type: "fill",
+        questions: [
+          { text: "George and (me) would like to invite you. → George and ___", answers: ["I"] },
+          { text: "(Anybody) knows what happened to the Marie Celeste. It's a complete mystery. → ___", answers: ["Nobody"] },
+          { text: "I have (few) time to spare before my flight leaves. → ___", answers: ["little"] },
+          { text: "My three cousins passed the entrance examination. (Both) of them are at university. → ___", answers: ["All"] },
+          { text: "As a child, I used to (being) on my own a lot. → ___", answers: ["be"] },
+          { text: "There are (less) birds about than there were when I was young. → ___", answers: ["fewer"] },
+          { text: "The twins passed. (All) of them are at university now. → ___", answers: ["Both"] },
+          { text: "My parents played the piano, but (none) of them could read music. → ___", answers: ["neither"] },
+          { text: "You won't find (many) money in my purse! → ___", answers: ["much"] },
+          { text: "After picking a bunch of grapes, I ate (few) and put the rest in a basket. → ___", answers: ["a few"] },
+          { text: "The card was signed 'With love from George and (I)'. → ___", answers: ["me"] },
+          { text: "As a child, I was used to (be) on my own a lot. → ___", answers: ["being"] },
+          { text: "All of us played the piano, but (neither) of us could read music. → ___", answers: ["none"] },
+          { text: "You won't find (much) pound coins in my purse! → ___", answers: ["many"] },
+          { text: "I have (any) time to spare for such nonsense; I am far too busy. → ___", answers: ["no"] }
+        ]
+      },
+      {
+        id: 26, title: "Use of some and any",
+        instruction: "Complete using some or any, or words beginning with some/any.",
+        type: "fill",
+        questions: [
+          { text: "My uncle has so much money. I wish he'd give me ___ as I never seem to have ___.", answers: ["some", "any"] },
+          { text: "___'s been reading my mail! Don't look at me. I haven't been ___ near the office.", answers: ["Someone", "anywhere"] },
+          { text: "Have you ___ to declare, Sir? I bought ___ perfume for my wife.", answers: ["anything", "some"] },
+          { text: "Why don't you bring ___ of your friends to the party? Unless you're doing ___ else.", answers: ["some", "something"] },
+          { text: "Most people don't have ___ idea of how serious the crisis is. If the Government don't do ___ soon...", answers: ["any", "something"] },
+          { text: "'But there must be ___ biscuits left!' ___ must have eaten them, then.", answers: ["some", "Someone"] },
+          { text: "I feel like going out ___ this weekend. ___ in particular?", answers: ["somewhere", "Anywhere"] },
+          { text: "Did you go ___ last night? No, we had ___ friends round for a meal.", answers: ["anywhere", "some"] },
+          { text: "I'd like ___ information about trains from London to Edinburgh. Are there ___ early in the morning?", answers: ["some", "any"] },
+          { text: "We haven't got ___ milk. Pop out and get ___, would you?", answers: ["any", "some"] }
+        ]
+      },
+      {
+        id: 28, title: "Make, do or have",
+        instruction: "Fill in with the correct form of make, do or have.",
+        type: "fill",
+        questions: [
+          { text: "It's time you ___ a holiday, Margaret. It will ___ you the world of good.", answers: ["had", "do"] },
+          { text: "Everyone over thirty should ___ a will.", answers: ["make"] },
+          { text: "Your daughter is ___ excellent progress. She ought to ___ well in exams.", answers: ["making", "do"] },
+          { text: "It ___ no difference to me when you finish, as long as you ___ a good job.", answers: ["makes", "do"] },
+          { text: "I've decided to ___ a big party. Could you ___ the arrangements?", answers: ["have", "make"] },
+          { text: "You must ___ the exam, I'm afraid. You ___ no alternative.", answers: ["do", "have"] },
+          { text: "The two countries ___ talks last week and are optimistic about ___ peace soon.", answers: ["had", "making"] },
+          { text: "Take this medicine. It will ___ you good.", answers: ["do"] },
+          { text: "This photograph doesn't ___ Sally justice.", answers: ["do"] },
+          { text: "If we are going to ___ this company profitable again we are going to ___ a lot of changes.", answers: ["make", "make"] },
+          { text: "I must ___ an appointment to get my eyes tested.", answers: ["make"] },
+          { text: "Do you mind if I ___ a suggestion?", answers: ["make"] },
+          { text: "I ___ a really good time on holiday and ___ lots of friends.", answers: ["had", "made"] },
+          { text: "I hope you don't think I'm ___ excuses, but I really must stay in and ___ my hair.", answers: ["making", "do"] },
+          { text: "How's Sylvia getting on in America? She's ___ the time of her life. She's ___ plans to settle there.", answers: ["having", "making"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 5,
+    name: "Use of English Part 1",
+    tests: [
+      {
+        id: 29, title: "Cloze with multiple choice 1",
+        instruction: "Read the text and choose A, B, C or D that best fits each space.",
+        type: "mcq",
+        questions: [
+          { text: "It was a day ___ any other.", options: ["so", "like", "by", "such"], correct: 1 },
+          { text: "A train was ___ the platform.", options: ["arriving", "approaching", "catching", "advancing"], correct: 1 },
+          { text: "Suddenly, a young woman ___ herself into the path of the train.", options: ["leapt", "tossed", "plunged", "threw"], correct: 3 },
+          { text: "The driver was certain there was no way to stop before she was ___ under the wheels.", options: ["crushed", "smashed", "broken", "squeezed"], correct: 0 },
+          { text: "The wheels had not passed over her and she ___.", options: ["succeeded", "overcame", "survived", "continued"], correct: 2 },
+          { text: "The young woman ___ out to be a gifted architect.", options: ["proved", "came", "made", "turned"], correct: 3 },
+          { text: "She was recovering from a nervous ___.", options: ["breakdown", "failure", "outbreak", "setback"], correct: 0 },
+          { text: "Her rescue was based on a remarkable ___.", options: ["coincidence", "correspondence", "occasion", "opportunity"], correct: 0 },
+          { text: "The subsequent ___ into the accident revealed...", options: ["examination", "inquiry", "view", "search"], correct: 1 },
+          { text: "A passenger had ___ down the emergency handle.", options: ["taken", "handed", "pulled", "lifted"], correct: 2 },
+          { text: "Which automatically ___ the brakes of the train.", options: ["joins", "applies", "presses", "attaches"], correct: 1 },
+          { text: "He had acted ___.", options: ["for a change", "by accident", "at random", "on impulse"], correct: 3 },
+          { text: "He was completely ___ of the fact that a woman was about to hurl herself.", options: ["uninformed", "unsure", "unaware", "uncertain"], correct: 2 },
+          { text: "The Transport Authority ___ prosecuting the passenger.", options: ["considered", "meant", "advised", "faced"], correct: 0 },
+          { text: "He had had no ___ cause for using the emergency system.", options: ["noticeable", "expected", "correct", "reasonable"], correct: 3 }
+        ]
+      },
+      {
+        id: 30, title: "Cloze with multiple choice 2: Happiness",
+        instruction: "Read the text and choose A, B, C or D.",
+        type: "mcq",
+        questions: [
+          { text: "There has been a remarkable increase in ___ into happiness.", options: ["research", "inquiry", "examination", "study"], correct: 0 },
+          { text: "The researchers have ___ a number of factors.", options: ["fallen back on", "gone in for", "got down to", "come up with"], correct: 3 },
+          { text: "Happiness ___ in families.", options: ["arrives", "runs", "goes", "descends"], correct: 1 },
+          { text: "Happiness seems to correlate quite ___ with personality.", options: ["strongly", "nearly", "firmly", "hardly"], correct: 0 },
+          { text: "People often ___ good social relations as a reason.", options: ["explain", "prefer", "talk", "report"], correct: 3 },
+          { text: "Friends are a great ___ of joy.", options: ["meaning", "origin", "base", "source"], correct: 3 },
+          { text: "Positive non-verbal ___ such as caressing.", options: ["movements", "motions", "slogans", "signals"], correct: 3 },
+          { text: "Marriage and similar ___ relationships.", options: ["near", "close", "tight", "heavy"], correct: 1 },
+          { text: "Job satisfaction undoubtedly ___ overall satisfaction.", options: ["consists of", "applies to", "contributes to", "counts on"], correct: 2 },
+          { text: "It ___ both ways.", options: ["works", "effects", "makes", "turns"], correct: 0 },
+          { text: "Job satisfaction is caused not only by the work, but ___ by social interactions.", options: ["too", "as well", "also", "plus"], correct: 2 },
+          { text: "Unemployment, on the ___, can be a serious cause of unhappiness.", options: ["common", "contrast", "comparison", "contrary"], correct: 1 },
+          { text: "Leisure is more under individual ___ than most other causes.", options: ["check", "power", "control", "choice"], correct: 2 },
+          { text: "Activities ___ sport and music.", options: ["like", "such", "so", "thus"], correct: 0 },
+          { text: "It is very strong ___ the case of religious groups.", options: ["by", "for", "in", "with"], correct: 2 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 6,
+    name: "Use of English Part 2",
+    tests: [
+      {
+        id: 35, title: "Cloze with gaps 1: The New Pet",
+        instruction: "Think of the word which best fits each space. Use only one word.",
+        type: "fill",
+        questions: [
+          { text: "Harry came home one day with a scruffy black and white mongrel ___ the local Dog's Home.", answers: ["from"] },
+          { text: "The children ___ to call it 'Lucky'.", answers: ["decided"] },
+          { text: "A few days ___, Harry felt less happy ___ the new family pet.", answers: ["later", "with"] },
+          { text: "Lucky came ___ the kitchen with a dead rabbit in ___ mouth.", answers: ["into", "its"] },
+          { text: "The creature was quite fat and ___-groomed.", answers: ["well"] },
+          { text: "It was obviously a pet ___ than a wild rabbit.", answers: ["rather"] },
+          { text: "Sarah ___ one look at the rabbit and immediately identified it as ___ to her friend Cathy.", answers: ["took", "belonging"] },
+          { text: "Cathy Blake, who lived next door ___ one.", answers: ["to"] },
+          { text: "The Blake family were away ___ holiday in the south of France.", answers: ["on"] },
+          { text: "So ___ dark that evening, Harry sneaked into the Blakes' garden.", answers: ["after"] },
+          { text: "After making ___ that he was not ___ watched...", answers: ["sure", "being"] },
+          { text: "He took the dead rabbit out of the plastic bag in which he ___ been carrying it.", answers: ["had"] },
+          { text: "And put it ___ the empty hutch.", answers: ["into"] },
+          { text: "There were ___ teeth marks at all on the rabbit.", answers: ["no"] },
+          { text: "So he was sure that the Blakes ___ assume it had died of natural causes.", answers: ["would"] },
+          { text: "By the ___ the Blakes returned from their holiday...", answers: ["time"] },
+          { text: "The Dawsons had more or ___ forgotten the incident.", answers: ["less"] },
+          { text: "Harry happened to bump ___ Mr Blake in the post office.", answers: ["into"] },
+          { text: "Politely, he asked him ___ his family was.", answers: ["how"] },
+          { text: "My daughter Cathy is very ___.", answers: ["upset"] },
+          { text: "She's ___ a happy child as a rule.", answers: ["such"] },
+          { text: "What happened to ___ her feel that way?", answers: ["make"] },
+          { text: "Mr Blake shook ___ head as he went ___.", answers: ["his", "on"] },
+          { text: "Her pet rabbit died the week before we left for France, and ___ really sick person ___ gone and put a dead rabbit in its cage!", answers: ["some", "has"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 7,
+    name: "Use of English Part 3",
+    tests: [
+      {
+        id: 41, title: "Sentence transformation 1",
+        instruction: "Complete the second sentence so it has a similar meaning to the first, using the word given. Use 2-5 words.",
+        type: "transform",
+        questions: [
+          { original: "We were surprised to see Katie at the party.", keyword: "expect", target: "We ___ to see Katie at the party.", answers: ["didn't expect"] },
+          { original: "Everyone has heard about the canals in Amsterdam.", keyword: "famous", target: "Amsterdam ___ canals.", answers: ["is famous for its"] },
+          { original: "Our driving laws and theirs are not the same.", keyword: "different", target: "Our driving laws ___ theirs.", answers: ["are different from"] },
+          { original: "Is this pen yours?", keyword: "belong", target: "Does ___ you?", answers: ["this pen belong to"] },
+          { original: "Why wouldn't she give you her telephone number?", keyword: "refuse", target: "Why ___ you her telephone number?", answers: ["did she refuse to give"] },
+          { original: "How much did that jacket cost?", keyword: "pay", target: "How much ___ that jacket?", answers: ["did you pay for"] },
+          { original: "Is it necessary for me to confirm my reservation?", keyword: "need", target: "Do ___ confirm my reservation?", answers: ["I need to"] },
+          { original: "I completed that jigsaw puzzle in twenty minutes.", keyword: "took", target: "It ___ complete that jigsaw puzzle.", answers: ["took me twenty minutes to"] },
+          { original: "Smoking in the library is against the rules.", keyword: "allowed", target: "You ___ in the library.", answers: ["are not allowed to smoke"] },
+          { original: "It was such a stale cake that nobody wanted to eat it.", keyword: "so", target: "The cake ___ that nobody wanted to eat it.", answers: ["was so stale"] }
+        ]
+      },
+      {
+        id: 42, title: "Sentence transformation 2",
+        instruction: "Complete the second sentence using the word given. Use 2-5 words.",
+        type: "transform",
+        questions: [
+          { original: "She needs less sleep than I do.", keyword: "more", target: "I need ___ she does.", answers: ["more sleep than"] },
+          { original: "It was such a horrifying film that I could not sleep.", keyword: "so", target: "The film ___ that I could not sleep.", answers: ["was so horrifying"] },
+          { original: "Is it necessary for me to come with you?", keyword: "have", target: "Do ___ come with you?", answers: ["I have to"] },
+          { original: "She didn't say goodbye when she left.", keyword: "without", target: "She ___ goodbye.", answers: ["left without saying"] },
+          { original: "'I'm sorry I'm late,' he said.", keyword: "apologized", target: "He ___ late.", answers: ["apologized for being"] },
+          { original: "I don't have much money so I can't go on holiday.", keyword: "could", target: "If I ___ go on holiday.", answers: ["had more money, I could"] },
+          { original: "I don't really want to go out tonight.", keyword: "prefer", target: "I ___ go out tonight.", answers: ["would prefer not to"] },
+          { original: "My uncle had never been abroad before.", keyword: "trip", target: "It was ___ abroad.", answers: ["my uncle's first trip"] },
+          { original: "It will be wonderful to see you in the summer.", keyword: "forward", target: "I am ___ you in the summer.", answers: ["looking forward to seeing"] },
+          { original: "We worked on the computer all morning.", keyword: "spent", target: "We ___ on the computer.", answers: ["spent all morning working"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 8,
+    name: "Use of English Part 4",
+    tests: [
+      {
+        id: 47, title: "Error correction 1",
+        instruction: "Some lines have an extra word. Find it or put ✓ if correct.",
+        type: "error",
+        lines: [
+          { text: "The train was crowded and I couldn't find anywhere to", correct: true },
+          { text: "sit. So, after searching every compartment for an empty", correct: true },
+          { text: "seat without the success, I decided to pop along to", correct: false, extra: "the" },
+          { text: "the refreshment car, where you can usually get something", correct: true },
+          { text: "to drink and a bite to eat with. Even here, all the seats", correct: false, extra: "with" },
+          { text: "were taken, so I just had to stand at the bar. The only", correct: true },
+          { text: "other person was standing at the bar was a strange-looking", correct: false, extra: "was" },
+          { text: "man wearing an enormous overcoat. This struck at me as", correct: false, extra: "at" },
+          { text: "very peculiar, because that it was a very hot day. He", correct: false, extra: "that" },
+          { text: "appeared to be drinking a glass of orange juice, but the", correct: true },
+          { text: "funny thing about was that he kept both his hands tightly", correct: false, extra: "about" },
+          { text: "round the glass as if he was being afraid that someone", correct: false, extra: "being" },
+          { text: "might want steal it. After a while, he went out, presumably", correct: false, extra: "want" },
+          { text: "for to go to the toilet, but before leaving, he scribbled", correct: false, extra: "for" },
+          { text: "something on a piece of paper and left it beside the glass,", correct: true },
+          { text: "in which was still half full. The note said: 'Do not drink", correct: false, extra: "in" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 9,
+    name: "Use of English Part 5",
+    tests: [
+      {
+        id: 53, title: "Word building 1",
+        instruction: "Use the word in capitals to form a word that fits the space.",
+        type: "wordbuild",
+        questions: [
+          { text: "An important factor to take into ___ in trying to answer this question.", base: "CONSIDER", answers: ["consideration"] },
+          { text: "How socially useful a person's work is, ___ of the talents he or she may bring to it.", base: "REGARD", answers: ["regardless"] },
+          { text: "It is ___ accepted that looking after the sick is a more valuable occupation.", base: "GENERAL", answers: ["generally"] },
+          { text: "Looking after the sick or taking ___ for the education of the young.", base: "RESPONSIBLE", answers: ["responsibility"] },
+          { text: "Is a more ___ occupation than, say, selling second-hand cars.", base: "VALUE", answers: ["valuable"] },
+          { text: "Yet used-car ___ undoubtedly earn more than nurses or teachers.", base: "SELL", answers: ["salesmen", "salespeople", "sellers"] },
+          { text: "But what about job ___? People who enjoy their jobs...", base: "SATISFY", answers: ["satisfaction"] },
+          { text: "The ___ goes, get their reward in the form of a 'psychic wage'.", base: "ARGUE", answers: ["argument"] },
+          { text: "And that it is the people with the ___ jobs who need more money.", base: "REPEAT", answers: ["repetitive"] },
+          { text: "Whatever the ___, jobs which are traditionally thought of as 'vocations'...", base: "TRUE", answers: ["truth"] },
+          { text: "Continue to be ___ badly paid, while other jobs carry rewards.", base: "RELATE", answers: ["relatively"] },
+          { text: "Such as those in the world of entertainment, carry ___ rewards out of all proportion.", base: "FINANCE", answers: ["financial"] }
+        ]
+      },
+      {
+        id: 54, title: "Word building 2: The Elephant Man",
+        instruction: "Use the word in capitals to form a word that fits the space.",
+        type: "wordbuild",
+        questions: [
+          { text: "John Merrick was one of the most ___ human beings who ever lived.", base: "ORDINARY", answers: ["extraordinary"] },
+          { text: "He suffered from a rare bone disease which ___ him grotesquely.", base: "FORM", answers: ["deformed"] },
+          { text: "His right leg was twice normal size and his head was ___ and misshapen.", base: "LARGE", answers: ["enlarged"] },
+          { text: "When young he had a 9-inch ___ protruding from his mouth.", base: "GROW", answers: ["growth"] },
+          { text: "Hence the ___ nickname 'The Elephant Man'.", base: "FORTUNE", answers: ["unfortunate"] },
+          { text: "He was eventually seen by an eminent surgeon, Frederick Treeves, while ___ in a circus.", base: "EVENT", answers: ["eventually"] },
+          { text: "Treeves secured his ___ to the London Hospital.", base: "ADMIT", answers: ["admittance", "admission"] },
+          { text: "And gave him a mask to wear so as not to ___ others.", base: "TERROR", answers: ["terrorise", "terrorize"] },
+          { text: "Treeves discovered that Merrick was a man of ___ intelligence.", base: "STAND", answers: ["outstanding"] },
+          { text: "Treeves' friends began to visit Merrick, and his ___ soon spread.", base: "FAMOUS", answers: ["fame"] },
+          { text: "Members of the Royal Family, ___ Princess Alexandra, were among those who visited.", base: "NOTE", answers: ["notably"] },
+          { text: "The ___ of his soul had finally escaped the prison of his body.", base: "BEAUTIFUL", answers: ["beauty"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 10,
+    name: "Grammatical terms",
+    tests: [
+      {
+        id: 59, title: "Grammatical terms",
+        instruction: "Choose the grammatical term that describes the words in bold.",
+        type: "mcq",
+        questions: [
+          { text: "A BMW is **more expensive** than a Fiat.", options: ["adjective", "adverb of manner", "comparative", "conjunction"], correct: 2 },
+          { text: "My uncle is **an accountant**.", options: ["noun", "indefinite article", "adjective", "pronoun"], correct: 0 },
+          { text: "Where were you **the night before last**?", options: ["time expression", "adverb of frequency", "noun", "preposition"], correct: 0 },
+          { text: "She was wearing **a beautiful** dress.", options: ["adjective", "indefinite article + adjective", "noun", "adverb"], correct: 1 },
+          { text: "He met his wife **at** a party.", options: ["preposition", "adverb", "conjunction", "noun"], correct: 0 },
+          { text: "We **usually** play tennis at weekends.", options: ["adverb of frequency", "adverb of manner", "adjective", "verb"], correct: 0 },
+          { text: "**Whose** are these keys?", options: ["interrogative pronoun", "possessive pronoun", "adjective", "noun"], correct: 0 },
+          { text: "Did your son really paint this **himself**?", options: ["reflexive pronoun", "personal pronoun", "adverb", "noun"], correct: 0 },
+          { text: "Is this **the** DVD you borrowed from me?", options: ["definite article", "demonstrative", "adjective", "pronoun"], correct: 0 },
+          { text: "She couldn't go to the party **because** she was feeling ill.", options: ["conjunction", "preposition", "adverb", "verb"], correct: 0 },
+          { text: "'Whose pen is this?' 'It's **mine**.'", options: ["possessive pronoun", "personal pronoun", "adjective", "noun"], correct: 0 },
+          { text: "He always drives **very carefully**.", options: ["adverb of manner", "adverb of frequency", "adjective", "preposition"], correct: 0 },
+          { text: "'I love you,' he **whispered**.", options: ["verb", "noun", "adverb", "adjective"], correct: 0 },
+          { text: "My brother **got the sack** last week.", options: ["idiom", "phrasal verb", "noun", "verb"], correct: 0 },
+          { text: "He's French, **isn't he**?", options: ["question tag", "personal pronoun", "auxiliary verb", "adverb"], correct: 0 }
+        ]
+      },
+      {
+        id: 60, title: "Verb tenses",
+        instruction: "Choose the verb form or tense shown.",
+        type: "mcq",
+        questions: [
+          { text: "**Fifty people were killed** in the explosion.", options: ["past simple", "passive", "past perfect", "present perfect"], correct: 1 },
+          { text: "He **has been teaching** English for ten years.", options: ["present perfect", "present perfect continuous", "past continuous", "present continuous"], correct: 1 },
+          { text: "Our team **has had** a winning streak lately.", options: ["present perfect", "present perfect continuous", "past simple", "present simple"], correct: 0 },
+          { text: "Do you **like singing**?", options: ["gerund", "present participle", "infinitive", "passive"], correct: 0 },
+          { text: "If it stops raining soon **we'll go** to the beach.", options: ["future", "conditional", "present simple with future meaning", "modal verb"], correct: 0 },
+          { text: "At 8 o'clock last night **I was walking** home through the park.", options: ["past continuous", "past simple", "past perfect", "past perfect continuous"], correct: 0 },
+          { text: "Janet **is having** a party on Saturday.", options: ["present continuous", "present continuous with future meaning", "present perfect", "gerund"], correct: 1 },
+          { text: "By this time next year **they will have been married** for twenty-five years.", options: ["future perfect", "future continuous", "future", "conditional"], correct: 0 },
+          { text: "The coach **leaves** Swansea at 8.20 and **arrives** at Heathrow at 11.45.", options: ["present simple with future meaning", "present continuous", "imperative", "future"], correct: 0 },
+          { text: "**I'll meet** you on Friday outside the station.", options: ["future", "present simple with future meaning", "modal verb", "conditional"], correct: 0 },
+          { text: "**Have you ever met** David Brown?", options: ["present perfect", "present perfect continuous", "past simple", "present simple"], correct: 0 },
+          { text: "She was very nervous as she **hadn't flown** before.", options: ["past perfect", "past simple", "past continuous", "present perfect"], correct: 0 },
+          { text: "Just think. This time next week **we'll be lying** on a beach in Bali.", options: ["future continuous", "future", "future perfect", "present continuous"], correct: 0 },
+          { text: "I **haven't played** rugby since I left school.", options: ["present perfect", "present perfect continuous", "past simple", "past perfect"], correct: 0 },
+          { text: "We **had been waiting** for nearly forty minutes when the train arrived.", options: ["past perfect continuous", "past perfect", "past continuous", "present perfect continuous"], correct: 0 },
+          { text: "Jeremy **likes** classical music.", options: ["present simple", "present continuous", "present perfect", "gerund"], correct: 0 },
+          { text: "It's nearly seven thirty. **Wake up** everyone!", options: ["imperative", "infinitive", "present simple", "modal verb"], correct: 0 },
+          { text: "Peter **is walking** to school.", options: ["present continuous", "present simple", "gerund", "future"], correct: 0 },
+          { text: "**I've decided** to take up French.", options: ["present perfect", "present simple", "past simple", "present perfect continuous"], correct: 0 },
+          { text: "You really **ought to give up** bungee jumping — it's so dangerous.", options: ["modal verb", "auxiliary verb", "imperative", "conditional"], correct: 0 }
+        ]
+      }
+    ]
+  }
+];
+
+// ============ СОСТОЯНИЕ ПРИЛОЖЕНИЯ ============
+let state = {
+  currentSection: 0,
+  currentTest: 0,
+  score: 0,
+  totalAnswered: 0,
+  totalCorrect: 0,
+  answers: {}
+};
+
+// ============ РЕНДЕРИНГ ============
+function renderNav() {
+  const nav = document.getElementById('nav');
+  nav.innerHTML = '';
+  sections.forEach((sec, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = `${sec.id}. ${sec.name}`;
+    btn.className = i === state.currentSection ? 'active' : '';
+    btn.onclick = () => {
+      state.currentSection = i;
+      state.currentTest = 0;
+      renderAll();
+    };
+    nav.appendChild(btn);
+  });
+}
+
+function renderContent() {
+  const content = document.getElementById('content');
+  const section = sections[state.currentSection];
+  const test = section.tests[state.currentTest];
+  
+  let html = `<div class="test-header">
+    <h2>Тест ${test.id}: ${test.title}</h2>
+    <p>${test.instruction}</p>
+  </div>`;
+  
+  if (test.type === 'fill') {
+    html += renderFillTest(test);
+  } else if (test.type === 'mcq') {
+    html += renderMcqTest(test);
+  } else if (test.type === 'transform') {
+    html += renderTransformTest(test);
+  } else if (test.type === 'error') {
+    html += renderErrorTest(test);
+  } else if (test.type === 'wordbuild') {
+    html += renderWordBuildTest(test);
+  }
+  
+  html += `<div class="controls">
+    <button class="btn btn-primary" onclick="checkAnswers()">✓ Проверить ответы</button>
+    <button class="btn btn-secondary" onclick="resetTest()">↺ Сбросить</button>
+    ${state.currentTest > 0 ? `<button class="btn btn-secondary" onclick="prevTest()">← Предыдущий</button>` : ''}
+    ${state.currentTest < section.tests.length - 1 ? `<button class="btn btn-success" onclick="nextTest()">Следующий →</button>` : ''}
+  </div>
+  <div id="result"></div>`;
+  
+  content.innerHTML = html;
+}
+
+function renderFillTest(test) {
+  let html = '';
+  test.questions.forEach((q, i) => {
+    const key = `${test.id}_${i}`;
+    const saved = state.answers[key] || [];
+    html += `<div class="question" id="q_${i}">
+      <div class="question-text"><b>${i+1}.</b> ${q.text}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+    q.answers.forEach((_, j) => {
+      html += `<input type="text" data-q="${i}" data-a="${j}" 
+        value="${saved[j] || ''}" placeholder="ответ ${j+1}" 
+        onchange="saveAnswer(${test.id}, ${i}, ${j}, this.value)">`;
+    });
+    html += `</div><div class="feedback" id="fb_${i}"></div></div>`;
+  });
+  return html;
+}
+
+function renderMcqTest(test) {
+  let html = '';
+  test.questions.forEach((q, i) => {
+    const key = `${test.id}_${i}`;
+    const saved = state.answers[key];
+    html += `<div class="question" id="q_${i}">
+      <div class="question-text"><b>${i+1}.</b> ${q.text}</div>
+      <div class="options">`;
+    q.options.forEach((opt, j) => {
+      const checked = saved === j ? 'checked' : '';
+      html += `<label class="option" id="opt_${i}_${j}">
+        <input type="radio" name="q_${i}" value="${j}" ${checked}
+          onchange="saveAnswer(${test.id}, ${i}, null, ${j})">
+        <span>${String.fromCharCode(65+j)}) ${opt}</span>
+      </label>`;
+    });
+    html += `</div><div class="feedback" id="fb_${i}"></div></div>`;
+  });
+  return html;
+}
+
+function renderTransformTest(test) {
+  let html = '';
+  test.questions.forEach((q, i) => {
+    const key = `${test.id}_${i}`;
+    const saved = state.answers[key] || '';
+    html += `<div class="question" id="q_${i}">
+      <div class="question-text"><b>${i+1}.</b> ${q.original}</div>
+      <div class="question-text">Ключевое слово: <span class="keyword">${q.keyword}</span></div>
+      <div class="question-text">${q.target.replace('___', `<input type="text" class="transform-input" style="display:inline;width:300px;" data-q="${i}" value="${saved}" onchange="saveAnswer(${test.id}, ${i}, null, this.value)">`)}</div>
+      <div class="feedback" id="fb_${i}"></div>
+    </div>`;
+  });
+  return html;
+}
+
+function renderErrorTest(test) {
+  let html = '';
+  test.lines.forEach((line, i) => {
+    const key = `${test.id}_${i}`;
+    const saved = state.answers[key] || '';
+    html += `<div class="error-line" id="q_${i}">
+      <b>${i+1}.</b> ${line.text}
+      <input type="text" data-q="${i}" value="${saved}" 
+        placeholder="✓ или лишнее слово"
+        onchange="saveAnswer(${test.id}, ${i}, null, this.value)">
+      <div class="feedback" id="fb_${i}" style="margin-top:5px;"></div>
+    </div>`;
+  });
+  return html;
+}
+
+function renderWordBuildTest(test) {
+  let html = '';
+  test.questions.forEach((q, i) => {
+    const key = `${test.id}_${i}`;
+    const saved = state.answers[key] || '';
+    html += `<div class="question" id="q_${i}">
+      <div class="word-building">
+        <b>${i+1}.</b>
+        <span>${q.text}</span>
+        <span class="base-word">${q.base}</span>
+        <input type="text" data-q="${i}" value="${saved}" 
+          onchange="saveAnswer(${test.id}, ${i}, null, this.value)">
+      </div>
+      <div class="feedback" id="fb_${i}"></div>
+    </div>`;
+  });
+  return html;
+}
+
+// ============ ЛОГИКА ============
+function saveAnswer(testId, qIndex, aIndex, value) {
+  const key = `${testId}_${qIndex}`;
+  const test = getCurrentTest();
+  if (test.type === 'fill' && aIndex !== null) {
+    if (!state.answers[key]) state.answers[key] = [];
+    state.answers[key][aIndex] = value;
+  } else {
+    state.answers[key] = value;
+  }
+}
+
+function getCurrentTest() {
+  return sections[state.currentSection].tests[state.currentTest];
+}
+
+function normalize(str) {
+  return str.toLowerCase().trim().replace(/\s+/g, ' ').replace(/[.,!?]/g, '');
+}
+
+function checkAnswers() {
+  const test = getCurrentTest();
+  let correct = 0;
+  let total = 0;
+  
+  if (test.type === 'fill') {
+    test.questions.forEach((q, i) => {
+      const key = `${test.id}_${i}`;
+      const saved = state.answers[key] || [];
+      let qCorrect = true;
+      q.answers.forEach((ans, j) => {
+        total++;
+        const userAns = normalize(saved[j] || '');
+        const correctAns = normalize(ans);
+        if (userAns !== correctAns) qCorrect = false;
+      });
+      const fb = document.getElementById(`fb_${i}`);
+      if (qCorrect) {
+        correct++;
+        fb.className = 'feedback show correct';
+        fb.textContent = '✓ Правильно!';
+      } else {
+        fb.className = 'feedback show wrong';
+        fb.textContent = `✗ Правильный ответ: ${q.answers.join(', ')}`;
+      }
+    });
+  } else if (test.type === 'mcq') {
+    test.questions.forEach((q, i) => {
+      const key = `${test.id}_${i}`;
+      const saved = state.answers[key];
+      total++;
+      const fb = document.getElementById(`fb_${i}`);
+      if (saved === q.correct) {
+        correct++;
+        fb.className = 'feedback show correct';
+        fb.textContent = '✓ Правильно!';
+        document.getElementById(`opt_${i}_${saved}`).classList.add('correct');
+      } else {
+        fb.className = 'feedback show wrong';
+        fb.textContent = ` Правильный ответ: ${String.fromCharCode(65+q.correct)}) ${q.options[q.correct]}`;
+        if (saved !== undefined) {
+          document.getElementById(`opt_${i}_${saved}`).classList.add('wrong');
+        }
+        document.getElementById(`opt_${i}_${q.correct}`).classList.add('correct');
+      }
+    });
+  } else if (test.type === 'transform') {
+    test.questions.forEach((q, i) => {
+      const key = `${test.id}_${i}`;
+      const saved = normalize(state.answers[key] || '');
+      total++;
+      const fb = document.getElementById(`fb_${i}`);
+      const correctAns = q.answers.map(a => normalize(a));
+      if (correctAns.includes(saved)) {
+        correct++;
+        fb.className = 'feedback show correct';
+        fb.textContent = '✓ Правильно!';
+      } else {
+        fb.className = 'feedback show wrong';
+        fb.textContent = `✗ Правильный ответ: ${q.answers[0]}`;
+      }
+    });
+  } else if (test.type === 'error') {
+    test.lines.forEach((line, i) => {
+      const key = `${test.id}_${i}`;
+      const saved = normalize(state.answers[key] || '');
+      total++;
+      const fb = document.getElementById(`fb_${i}`);
+      if (line.correct) {
+        if (saved === '✓' || saved === 'v' || saved === 'правильно' || saved === 'correct') {
+          correct++;
+          fb.className = 'feedback show correct';
+          fb.textContent = '✓ Верно, строка правильная';
+        } else {
+          fb.className = 'feedback show wrong';
+          fb.textContent = `✗ Строка правильная (✓)`;
+        }
+      } else {
+        if (saved === normalize(line.extra)) {
+          correct++;
+          fb.className = 'feedback show correct';
+          fb.textContent = `✓ Верно! Лишнее слово: "${line.extra}"`;
+        } else {
+          fb.className = 'feedback show wrong';
+          fb.textContent = `✗ Лишнее слово: "${line.extra}"`;
+        }
+      }
+    });
+  } else if (test.type === 'wordbuild') {
+    test.questions.forEach((q, i) => {
+      const key = `${test.id}_${i}`;
+      const saved = normalize(state.answers[key] || '');
+      total++;
+      const fb = document.getElementById(`fb_${i}`);
+      const correctAns = q.answers.map(a => normalize(a));
+      if (correctAns.includes(saved)) {
+        correct++;
+        fb.className = 'feedback show correct';
+        fb.textContent = '✓ Правильно!';
+      } else {
+        fb.className = 'feedback show wrong';
+        fb.textContent = `✗ Правильный ответ: ${q.answers[0]}`;
+      }
+    });
+  }
+  
+  state.score += correct;
+  state.totalAnswered += total;
+  state.totalCorrect += correct;
+  
+  const pct = Math.round((correct / total) * 100);
+  document.getElementById('result').innerHTML = `
+    <div class="result-panel">
+      <h3>Результат теста</h3>
+      <div class="score-circle">${correct}/${total}</div>
+      <p>Правильных ответов: <b>${correct}</b> из <b>${total}</b> (${pct}%)</p>
+      <p style="margin-top:10px;opacity:0.9;">Общий счёт: ${state.score} очков</p>
+    </div>
+  `;
+  
+  updateStats();
+}
+
+function resetTest() {
+  const test = getCurrentTest();
+  test.questions?.forEach((_, i) => {
+    const key = `${test.id}_${i}`;
+    delete state.answers[key];
+  });
+  if (test.lines) {
+    test.lines.forEach((_, i) => {
+      delete state.answers[`${test.id}_${i}`];
+    });
+  }
+  renderContent();
+}
+
+function nextTest() {
+  const section = sections[state.currentSection];
+  if (state.currentTest < section.tests.length - 1) {
+    state.currentTest++;
+    renderAll();
+  }
+}
+
+function prevTest() {
+  if (state.currentTest > 0) {
+    state.currentTest--;
+    renderAll();
+  }
+}
+
+function updateStats() {
+  const section = sections[state.currentSection];
+  const test = getCurrentTest();
+  document.getElementById('statSection').textContent = `${state.currentSection + 1}/10`;
+  document.getElementById('statTest').textContent = `${test.id}/60`;
+  document.getElementById('statScore').textContent = state.score;
+  const accuracy = state.totalAnswered > 0 
+    ? Math.round((state.totalCorrect / state.totalAnswered) * 100) 
+    : 0;
+  document.getElementById('statAccuracy').textContent = `${accuracy}%`;
+}
+
+function renderAll() {
+  renderNav();
+  renderContent();
+  updateStats();
+}
+
+// Запуск
+renderAll();
+</script>
+</body>
+</html>
