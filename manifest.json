@@ -1,0 +1,16 @@
+{
+  "name": "Наталья Николаева — Репетитор английского языка",
+  "short_name": "English with Soul",
+  "description": "Индивидуальные уроки английского с душой и удовольствием",
+  "icons": [
+    {
+      "src": "/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#fdf6f0",
+  "background_color": "#fdf6f0",
+  "display": "standalone",
+  "start_url": "/"
+}
