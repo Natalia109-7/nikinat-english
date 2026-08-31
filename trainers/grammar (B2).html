@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar - Тренажёр</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5e6e8 0%, #e8d5e8 50%, #d5e0e8 100%);
+            min-height: 100vh;
+            color: #5a4a6a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(147, 112, 147, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245, 180, 195, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            color: #6b5a7a;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #7a6a8a;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .module-selector {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 25px rgba(147, 112, 147, 0.12);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            color: #6b5a7a;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .module-card {
+            background: linear-gradient(135deg, #fff5f7 0%, #f5f0f8 100%);
+            padding: 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(147, 112, 147, 0.2);
+            border-color: #d4c4d8;
+        }
+
+        .module-card.active {
+            border-color: #b8a8c8;
+            background: linear-gradient(135deg, #f0e6f0 0%, #e6e0f0 100%);
+        }
+
+        .module-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .module-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: #6b5a7a;
+            margin-bottom: 8px;
+        }
+
+        .module-desc {
+            font-size: 14px;
+            color: #8a7a9a;
+        }
+
+        .content-area {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 5px 25px rgba(147, 112, 147, 0.12);
+        }
+
+        .content-area.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .rule-block {
+            background: linear-gradient(135deg, #faf5f8 0%, #f5f5fa 100%);
+            border-left: 4px solid #c8b8d8;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .rule-number {
+            display: inline-block;
+            background: #b8a8c8;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .rule-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: #5a4a6a;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .rule-text {
+            color: #6a5a7a;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .example {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #d4c4d8;
+        }
+
+        .example.correct {
+            border-left-color: #98c898;
+            background: #f5faf5;
+        }
+
+        .example.incorrect {
+            border-left-color: #e89898;
+            background: #faf5f5;
+        }
+
+        .example-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #9a8a9a;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .example-text {
+            color: #5a4a6a;
+            font-style: italic;
+        }
+
+        .exercise-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #e8dce8;
+        }
+
+        .question-block {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 15px rgba(147, 112, 147, 0.08);
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #5a4a6a;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            background: #f8f5f8;
+            border: 2px solid #e8dce8;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option:hover {
+            background: #f0e6f0;
+            border-color: #d4c4d8;
+            transform: translateX(5px);
+        }
+
+        .option.correct {
+            background: #e8f5e8;
+            border-color: #98c898;
+        }
+
+        .option.incorrect {
+            background: #f5e8e8;
+            border-color: #e89898;
+        }
+
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #d4c4d8;
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff5e6 100%);
+            border-left: 4px solid #f0d898;
+            border-radius: 0 12px 12px 0;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: slideDown 0.4s;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 500px; }
+        }
+
+        .explanation-title {
+            font-weight: 600;
+            color: #9a8a5a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(147, 112, 147, 0.1);
+        }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            color: #8b7aa3;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #8a7a9a;
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #b8a8c8 0%, #a898b8 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(168, 152, 184, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(168, 152, 184, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #8b7aa3;
+            border: 2px solid #d4c4d8;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f5f8;
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Грамматика английского языка</h1>
+            <p>Интерактивный тренажёр с подробными объяснениями правил и упражнениями</p>
+        </div>
+
+        <div class="module-selector" id="moduleSelector">
+            <h2 class="section-title">Выберите раздел для изучения</h2>
+            <div class="module-grid">
+                <div class="module-card" onclick="loadModule('articles')">
+                    <div class="module-icon">📝</div>
+                    <div class="module-title">Articles</div>
+                    <div class="module-desc">Артикли a/an/the и правила их использования</div>
+                </div>
+                <div class="module-card" onclick="loadModule('nouns')">
+                    <div class="module-icon">📦</div>
+                    <div class="module-title">Nouns</div>
+                    <div class="module-desc">Существительные: исчисляемые и неисчисляемые</div>
+                </div>
+                <div class="module-card" onclick="loadModule('pronouns')">
+                    <div class="module-icon">👤</div>
+                    <div class="module-title">Pronouns</div>
+                    <div class="module-desc">Местоимения и их правильное употребление</div>
+                </div>
+                <div class="module-card" onclick="loadModule('adjectives')">
+                    <div class="module-icon">🎨</div>
+                    <div class="module-title">Adjectives</div>
+                    <div class="module-desc">Прилагательные и степени сравнения</div>
+                </div>
+                <div class="module-card" onclick="loadModule('adverbs')">
+                    <div class="module-icon">⚡</div>
+                    <div class="module-title">Adverbs</div>
+                    <div class="module-desc">Наречия и их особенности</div>
+                </div>
+                <div class="module-card" onclick="loadModule('verbs')">
+                    <div class="module-icon">🔤</div>
+                    <div class="module-title">Verbs</div>
+                    <div class="module-desc">Глаголы и времена английского языка</div>
+                </div>
+                <div class="module-card" onclick="loadModule('conjunctions')">
+                    <div class="module-icon">🔗</div>
+                    <div class="module-title">Conjunctions</div>
+                    <div class="module-desc">Союзы и их правильное использование</div>
+                </div>
+                <div class="module-card" onclick="loadModule('prepositions')">
+                    <div class="module-icon">📍</div>
+                    <div class="module-title">Prepositions</div>
+                    <div class="module-desc">Предлоги и устойчивые выражения</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ARTICLES MODULE -->
+        <div class="content-area" id="articles">
+            <h2 class="section-title">Articles - Артикли</h2>
+            
+            <div class="rule-block">
+                <span class="rule-number">Правило 1</span>
+                <div class="rule-title">Артикль 'A' перед словом 'Half'</div>
+                <div class="rule-text">
+                    Неопределённый артикль <strong>'A'</strong> употребляется перед словом <strong>'Half'</strong>, когда оно следует за целым числом.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I stayed in Madras for one and half years.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">I stayed in Madras for one and <strong>a</strong> half years.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He spent one and <strong>a</strong> half rupees.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 2</span>
+                <div class="rule-title">Определённый артикль 'THE' с сравнительной степенью</div>
+                <div class="rule-text">
+                    Определённый артикль <strong>'THE'</strong> употребляется с прилагательным в сравнительной степени, если используется фраза <strong>'of the two'</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">She is better of the two sisters.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">She is <strong>the</strong> better of the two sisters.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">This is <strong>the</strong> better of the two books.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 3</span>
+                <div class="rule-title">Названия приёмов пищи</div>
+                <div class="rule-text">
+                    С названиями приёмов пищи, таких как <strong>Breakfast/Lunch/Dinner/Supper</strong>, артикль не употребляется в общем смысле (кроме особых случаев).
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I have the breakfast at 8 hrs in the morning.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">I have breakfast at 8 hrs in the morning.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 4</span>
+                <div class="rule-title">The + прилагательное = множественное число</div>
+                <div class="rule-text">
+                    <strong>The + положительное прилагательное</strong> представляет целый класс и требует глагола во множественном числе.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">The rich is responsible for the lawlessness.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">The rich <strong>are</strong> responsible for the lawlessness in the country.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The poor are / The young are / The old are</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 5</span>
+                <div class="rule-title">После ди-транзитивных глаголов</div>
+                <div class="rule-text">
+                    После ди-транзитивных глаголов, таких как <strong>Elect/Make/Appoint</strong>, артикли не употребляются (кроме случаев, когда они используются как моно-транзитивные глаголы).
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">We appointed him a chairman.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">We appointed him chairman.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">We made him leader.<br>The Govt. has appointed a Committee (как моно-транзитивный глагол)</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 6</span>
+                <div class="rule-title">После type of/kind of/sort of</div>
+                <div class="rule-text">
+                    После фраз <strong>type of/kind of/sort of/post of/title of/rank of</strong> артикли не употребляются.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He is not that sort of a man.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He is not that sort of man.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He was promoted to the rank of General Manager.</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3 class="section-title">Упражнения</h3>
+                <div id="articlesQuestions"></div>
+            </div>
+
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="backToMenu()">← Вернуться к разделам</button>
+            </div>
+        </div>
+
+        <!-- NOUNS MODULE -->
+        <div class="content-area" id="nouns">
+            <h2 class="section-title">Nouns - Существительные</h2>
+            
+            <div class="rule-block">
+                <span class="rule-number">Правило 1</span>
+                <div class="rule-title">Неисчисляемые существительные</div>
+                <div class="rule-text">
+                    Следующие слова являются неисчисляемыми и обычно употребляются только в единственном числе. Неопределённый артикль <strong>'A/An'</strong> с ними не употребляется. У них нет формы множественного числа:
+                </div>
+                <div class="example">
+                    <div class="example-text">
+                        <strong>Luggage/Baggage/Breakage/Advice/Furniture/Information/Scenery/Poetry/Work/Soap/Food/Bread/Fish/Paper/Machinery</strong>
+                    </div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">The sceneries of Kashmir is very beautiful.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">The scenery of Kashmir is very beautiful.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">I know that he has much information / a lot of information.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">They gave me a piece of good advice.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 2</span>
+                <div class="rule-title">Существительные, выглядящие как множественное число</div>
+                <div class="rule-text">
+                    Такие слова как <strong>News/Maths/Ethics/Politics/Phonetics/Economics/Statistics/Measles/Mumps/Rickets/Billiards/Innings</strong> выглядят как существительные во множественном числе, но дают единственное значение. Поэтому они требуют глагола в единственном числе.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Mathematics is a difficult subject.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Billiards is an interesting game.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The news is not reliable.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text"><strong>Исключение:</strong> "His Mathematics are very weak" (когда предшествует притяжательное прилагательное)</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 3</span>
+                <div class="rule-title">Одинаковая форма единственного и множественного числа</div>
+                <div class="rule-text">
+                    Некоторые существительные имеют одинаковую форму в единственном и множественном числе:
+                </div>
+                <div class="example">
+                    <div class="example-text">
+                        <strong>Sheep/Deer/Service/Species/Fish/Apparatus</strong>
+                    </div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He saw two sheeps in the zoo.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He saw two sheep in the zoo.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">A series of lectures is to be delivered tomorrow.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 4</span>
+                <div class="rule-title">Существительные, употребляемые только во множественном числе</div>
+                <div class="rule-text">
+                    Следующие существительные всегда употребляются только во множественном числе и требуют глагола во множественном числе:
+                </div>
+                <div class="example">
+                    <div class="example-text">
+                        <strong>Cattle/People/Police/Electorate/Poultry/Trousers/Scissors/Spectacles/Binoculars/Crackers/Swine/Gentry/Clergy</strong>
+                    </div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">The police is coming towards us now.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">The police are coming towards us now.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The scissors are very sharp.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 5</span>
+                <div class="rule-title">Множественное число составных существительных</div>
+                <div class="rule-text">
+                    Добавьте <strong>'S'</strong> к главному слову в составном существительном, чтобы образовать множественное число.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Sister-in-Law → Sisters-in-Law (не Sister-in-Laws)</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Brother-in-Law → Brothers-in-Law (не Brothers-in-Laws)</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 6</span>
+                <div class="rule-title">Притяжательный падеж составных существительных</div>
+                <div class="rule-text">
+                    Притяжательный падеж составного существительного образуется путём добавления <strong>'S</strong> к последнему слову.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Father-in-Law's property</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Sister-in-Law's property</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 7</span>
+                <div class="rule-title">После One of/Some of/Each of</div>
+                <div class="rule-text">
+                    После фраз <strong>One of/Some of/Each of/Either of/Neither of/Any of/None of</strong> употребляется существительное во множественном числе.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">One of my best friends (не One of my best friend)</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Each of the boys is (не Each of the boys are)</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3 class="section-title">Упражнения</h3>
+                <div id="nounsQuestions"></div>
+            </div>
+
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="backToMenu()">← Вернуться к разделам</button>
+            </div>
+        </div>
+
+        <!-- PRONOUNS MODULE -->
+        <div class="content-area" id="pronouns">
+            <h2 class="section-title">Pronouns - Местоимения</h2>
+            
+            <div class="rule-block">
+                <span class="rule-number">Правило 1</span>
+                <div class="rule-title">Порядок личных местоимений 231</div>
+                <div class="rule-text">
+                    Мы должны использовать личные местоимения в порядке <strong>231</strong> (то есть, Второе лицо, Третье лицо, Первое лицо) для лучших результатов.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I, He and You are to finish it.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">You, He and I are to finish it.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text"><strong>Исключение:</strong> Порядок 123 (Первое, Второе, Третье лицо) возможен, когда мы признаём вину: "I, You and He have committed the Sin."</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 2</span>
+                <div class="rule-title">Сравнение местоимений в именительном падеже</div>
+                <div class="rule-text">
+                    Местоимение в именительном падеже должно сравниваться с той же формой местоимения.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He is better than I (am) - сравниваются два именительных падежа</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">I respect you more than him - сравниваются два объектных падежа</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 3</span>
+                <div class="rule-title">Объектный падеж после Let/Between/предлогов</div>
+                <div class="rule-text">
+                    Местоимение в объектном падеже употребляется после <strong>Let/Between</strong> и любого предлога.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Let you and me play (You and me - объекты)</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">There is no dispute between you and me.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 4</span>
+                <div class="rule-title">Местоимение для собирательных существительных</div>
+                <div class="rule-text">
+                    Когда местоимение относится к собирательному существительному, оно должно употребляться в единственном числе (если группа рассматривается как целое).
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The army has left its Head Quarters (как целое)</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The committee were divided in their opinion (отдельные личности)</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 5</span>
+                <div class="rule-title">Два существительных, соединённых 'and'</div>
+                <div class="rule-text">
+                    Когда два существительных в единственном числе соединены союзом <strong>'and'</strong> и относятся к одному и тому же лицу, местоимение, используемое вместо них, должно быть в единственном числе.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The Collector and Magistrate has done his best.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The collector and the Magistrate have done their best (разные люди).</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 6</span>
+                <div class="rule-title">Either...or / Neither...nor с единственными существительными</div>
+                <div class="rule-text">
+                    Местоимение в единственном числе употребляется, когда два существительных в единственном числе соединены <strong>either...or / neither...nor</strong>.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Either Ravi or Gopal should do his duty.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 7</span>
+                <div class="rule-title">Or/Nor с существительными разного числа</div>
+                <div class="rule-text">
+                    Местоимение во множественном числе употребляется, когда два существительных разного числа соединены <strong>'or'</strong> или <strong>'nor'</strong>.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Either the Principal or his teachers have attended their duty.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 8</span>
+                <div class="rule-title">Дистрибутивные местоимения с глаголами</div>
+                <div class="rule-text">
+                    Дистрибутивные местоимения <strong>Either/Neither/None/Any/No one</strong> употребляются с глаголами в единственном числе.
+                </div>
+                <div class="example">
+                    <div class="example-text">
+                        <strong>Either/Neither</strong> - для двух лиц/предметов<br>
+                        <strong>None/No one/Any</strong> - для более чем двух лиц/предметов
+                    </div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Either of the two girls is diligent.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">None of the four sisters is intelligent.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 9</span>
+                <div class="rule-title">Взаимные местоимения Each other / One another</div>
+                <div class="rule-text">
+                    <strong>Each other</strong> - для двух лиц<br>
+                    <strong>One another</strong> - для более чем двух лиц
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The two sisters hate each other.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The five brothers love one another.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 10</span>
+                <div class="rule-title">Притяжательный падеж 'One'</div>
+                <div class="rule-text">
+                    Неопределённое местоимение <strong>'One'</strong> должно использоваться как <strong>'One's'</strong> в притяжательном падеже.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">One should love one's country.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 11</span>
+                <div class="rule-title">Глаголы с возвратными местоимениями</div>
+                <div class="rule-text">
+                    Глаголы такие как <strong>Hurt/Cheat/Prostrate/Introduce/Present/Absent/Satisfy/Prepare/Enjoy/Avail of</strong> употребляются либо с объектом, либо с возвратным местоимением.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">I introduced her to the Principal (her - объект)</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">I introduced myself to the Principal (myself - возвратное местоимение)</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He enjoyed himself at the Party.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 12</span>
+                <div class="rule-title">Относительные местоимения Who/Which/That</div>
+                <div class="rule-text">
+                    <strong>Who</strong> - для лиц<br>
+                    <strong>Which</strong> - для вещей<br>
+                    <strong>That</strong> - используется как для лиц, так и для вещей
+                </div>
+                <div class="example correct">
+                    <div class="example-text">This is the boy who is diligent.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The book which is in the shelf is mine.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text"><strong>That</strong> употребляется с превосходной степенью прилагательных, Only/Any/Nothing/Some/All/None:<br>
+                    All that glitters is not gold.<br>
+                    This is the best thing that I can do.</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3 class="section-title">Упражнения</h3>
+                <div id="pronounsQuestions"></div>
+            </div>
+
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="backToMenu()">← Вернуться к разделам</button>
+            </div>
+        </div>
+
+        <!-- ADJECTIVES MODULE -->
+        <div class="content-area" id="adjectives">
+            <h2 class="section-title">Adjectives - Прилагательные</h2>
+            
+            <div class="rule-block">
+                <span class="rule-number">Правило 1</span>
+                <div class="rule-title">Сравнение с 'any other'</div>
+                <div class="rule-text">
+                    В сравнении союз <strong>'than'</strong> должен сопровождаться <strong>'any other'</strong>, если лицо/предмет сравнивается с любым другим лицом/предметом среди некоторых/многих.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">Mumbai is greater than any city in India.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">Mumbai is greater than any other city in India.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 2</span>
+                <div class="rule-title">Односложные слова в сравнительной степени</div>
+                <div class="rule-text">
+                    В сравнениях односложные слова, такие как <strong>hot/easy/tall/small</strong> не должны использоваться с <strong>more/most</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">This question is more easier than that.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">This question is easier than that.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He is taller than Kumar.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 3</span>
+                <div class="rule-title">Elder/Oldest vs Older/Oldest</div>
+                <div class="rule-text">
+                    <strong>Elder/Eldest</strong> должны использоваться с членами одной семьи.<br>
+                    <strong>Older/Oldest</strong> обозначают возраст лица/предмета (не обязательно родственников).
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He is elder to me. (Он и я принадлежим к одной семье)</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Ronald Reagan was the oldest person elected to the Presidency in US history.</div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">This is the eldest tree in the garden.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">This is the oldest tree in the garden.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 4</span>
+                <div class="rule-title">Правильное сравнение объектов</div>
+                <div class="rule-text">
+                    При сравнении объектов мы должны следить, чтобы существительное сравнивалось с другим существительным, а не с каким-то другим словом.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">The population of Hyderabad is greater than Nagpur.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">The population of Hyderabad is greater than that of Nagpur.<br>ИЛИ<br>The population of Hyderabad is greater than the population of Nagpur.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The climate of Ooty is better than that of Chennai.</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3 class="section-title">Упражнения</h3>
+                <div id="adjectivesQuestions"></div>
+            </div>
+
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="backToMenu()">← Вернуться к разделам</button>
+            </div>
+        </div>
+
+        <!-- ADVERBS MODULE -->
+        <div class="content-area" id="adverbs">
+            <h2 class="section-title">Adverbs - Наречия</h2>
+            
+            <div class="rule-block">
+                <span class="rule-number">Правило 1</span>
+                <div class="rule-title">Too much vs Much too</div>
+                <div class="rule-text">
+                    Наречие <strong>'too much'</strong> употребляется с существительными, а <strong>'much too'</strong> - с прилагательными.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Too much pain / Too much insincerity (существительные)</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Much too painful / Much too careless (прилагательные)</div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">His failure is too much painful for me.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">His failure is much too painful for me.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 2</span>
+                <div class="rule-title">Enough с прилагательными</div>
+                <div class="rule-text">
+                    Перед словом <strong>'Enough'</strong> прилагательное должно использоваться в положительной форме (без more/most).
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He is more intelligent enough to follow you.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He is intelligent enough to follow you.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 3</span>
+                <div class="rule-title">Quite с Handsome</div>
+                <div class="rule-text">
+                    Наречие <strong>quite</strong> (означает perfectly/completely) не должно использоваться с прилагательным <strong>'Handsome'</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He is quite handsome.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He is very handsome.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 4</span>
+                <div class="rule-title">Late vs Lately</div>
+                <div class="rule-text">
+                    Наречие <strong>'late'</strong> указывает на время, а <strong>'lately'</strong> означает recently (недавно).
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He was punished for coming lately.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He was punished for coming late.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 5</span>
+                <div class="rule-title">Инверсия с отрицательными наречиями</div>
+                <div class="rule-text">
+                    Когда мы начинаем предложение с <strong>seldom/never/hardly/rarely/scarcely/barely/neither</strong>, должно применяться правило инверсии (вспомогательный глагол ставится перед подлежащим).
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">Hardly he goes to school.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">Hardly does he go to school.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Seldom do I go to films.<br>No sooner does the school bell ring, than all the boys go to their classrooms.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text"><strong>После Only + наречное выражение:</strong><br>
+                    Only by working hard, did he get success.<br>
+                    Not only does she read but also writes.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 6</span>
+                <div class="rule-title">No less than vs No fewer than</div>
+                <div class="rule-text">
+                    Наречная фраза <strong>'No less than'</strong> должна использоваться с неисчисляемыми существительными, тогда как <strong>'No fewer than'</strong> используется с исчисляемыми существительными.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">There were no less than forty people who were killed.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">No fewer than forty people were killed in the accident.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 7</span>
+                <div class="rule-title">As после call и consider</div>
+                <div class="rule-text">
+                    Наречие <strong>(As)</strong> не используется после <strong>call</strong> и <strong>consider</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He called me as a fool.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He called me a fool.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">I always consider him my brother.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 8</span>
+                <div class="rule-title">Much с производными прилагательными</div>
+                <div class="rule-text">
+                    Производные прилагательные, такие как <strong>interested/pleased/satisfied/delighted</strong> используются с <strong>'much'</strong>, но не с <strong>'very'</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I am very interested to play cricket.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">I am much interested to play cricket.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 9</span>
+                <div class="rule-title">Very vs Much</div>
+                <div class="rule-text">
+                    Наречие <strong>'very'</strong> используется с положительными прилагательными, а <strong>'much'</strong> - с сравнительной степенью прилагательных.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He is very clever to understand it.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">'Very much' должно использоваться с сравнительными формами:<br>
+                    It is very much better to stay here tonight.</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3 class="section-title">Упражнения</h3>
+                <div id="adverbsQuestions"></div>
+            </div>
+
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="backToMenu()">← Вернуться к разделам</button>
+            </div>
+        </div>
+
+        <!-- VERBS MODULE -->
+        <div class="content-area" id="verbs">
+            <h2 class="section-title">Verbs - Глаголы</h2>
+            
+            <div class="rule-block">
+                <span class="rule-number">Правило 1</span>
+                <div class="rule-title">Третье лицо единственного числа</div>
+                <div class="rule-text">
+                    Если подлежащее третьего лица единственного числа <strong>(He, She, It)</strong>, добавьте <strong>'S' или 'es/ies'</strong> к первой форме глагола, чтобы сделать его единственным числом.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">She plays the violin every day.<br>
+                    He loves his parents.<br>
+                    The dog barks at the people.<br>
+                    The bird flies in the Sky.<br>
+                    He does his duty.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 2</span>
+                <div class="rule-title">Глаголы, не используемые в Continuous</div>
+                <div class="rule-text">
+                    Следующие глаголы обычно не используются в продолженной форме:
+                </div>
+                <div class="example">
+                    <div class="example-text">
+                        <strong>See/Smell/Feel/Hear/Notice/Recognize/Think/Agree/Believe/Consider/Remember/Hope/Understand/Mind/Suppose/Hate/Love/Know/Have/Want/Forgive/Keep/Prevent</strong>
+                    </div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He is having a telephone connection.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He has a telephone connection.</div>
+                </div>
+                <div class="example">
+                    <div class="example-text"><strong>Исключения:</strong> I am smelling this flower (в конкретной ситуации)<br>
+                    The manager is seeing your application (Seeing = Examining)</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 3</span>
+                <div class="rule-title">Present Perfect с указанием прошлого времени</div>
+                <div class="rule-text">
+                    Present Perfect tense не должен использоваться с наречиями, указывающими на прошлое время. Вместо этого следует использовать Simple Past tense.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I have seen a film last night.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">I saw a film last night.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 4</span>
+                <div class="rule-title">Present Perfect с For/Since</div>
+                <div class="rule-text">
+                    Present Perfect tense с <strong>'For'</strong> или <strong>'Since'</strong> используется для выражения действия, которое началось в прошлом и продолжается до момента речи или только что закончилось.
+                </div>
+                <div class="example">
+                    <div class="example-text">
+                        <strong>For</strong> - период времени (for 2 days/for 10 days/for a long time)<br>
+                        <strong>Since</strong> - точка во времени (since 1996/since morning/since yesterday)
+                    </div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I know him since 1986.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">I have known him since 1986.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 5</span>
+                <div class="rule-title">Present Perfect Continuous</div>
+                <div class="rule-text">
+                    Present Perfect Continuous tense также используется для действий, которые начались в прошлом и всё ещё продолжаются.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I am reading this novel since morning.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">I have been reading this novel since morning.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 6</span>
+                <div class="rule-title">Simple Past + Simple Past</div>
+                <div class="rule-text">
+                    Когда первое действие немедленно привело ко второму действию, используются два Simple Past Tense.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">When he opened the gate, they came in.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 7</span>
+                <div class="rule-title">Past Perfect + Simple Past</div>
+                <div class="rule-text">
+                    Когда первое действие завершилось до того, как началось второе, используется Past Perfect tense для первого завершённого действия и Simple Past tense для второго.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The patient had died before the doctor arrived.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 8</span>
+                <div class="rule-title">Вопросительные хвостики после отрицаний</div>
+                <div class="rule-text">
+                    После отрицательных предложений вопросительный хвостик должен использоваться в обычной вопросительной форме (положительной).
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">She didn't like that book, didn't she?</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">She did not like that book, did she?</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 9</span>
+                <div class="rule-title">Вопросительные хвостики после утверждений</div>
+                <div class="rule-text">
+                    После положительных утверждений мы используем отрицательный вопрос.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">I am a student, aren't I?<br>
+                    Let's play for some time, shall we?</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 10</span>
+                <div class="rule-title">Согласование времён</div>
+                <div class="rule-text">
+                    Когда глагол в главном предложении стоит в прошедшем времени, глаголы в подчинённых предложениях обычно также стоят в прошедшем времени.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He said that he will pass the examination.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He said that he would pass the examination.</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3 class="section-title">Упражнения</h3>
+                <div id="verbsQuestions"></div>
+            </div>
+
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="backToMenu()">← Вернуться к разделам</button>
+            </div>
+        </div>
+
+        <!-- CONJUNCTIONS MODULE -->
+        <div class="content-area" id="conjunctions">
+            <h2 class="section-title">Conjunctions - Союзы</h2>
+            
+            <div class="rule-block">
+                <span class="rule-number">Правило 1</span>
+                <div class="rule-title">Парные союзы</div>
+                <div class="rule-text">
+                    Коррелятивные союзы используются парами:
+                </div>
+                <div class="example">
+                    <div class="example-text">
+                        <strong>Not only - but also</strong><br>
+                        <strong>Either - or</strong><br>
+                        <strong>Neither - nor</strong><br>
+                        <strong>Both - and</strong><br>
+                        <strong>Though - yet</strong><br>
+                        <strong>Whether - or</strong>
+                    </div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">They will either do the work else return the money.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">They will either do the work or return the money.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Though he is rich yet he is economical.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 2</span>
+                <div class="rule-title">Hardly/Scarcely...when</div>
+                <div class="rule-text">
+                    После наречий <strong>'Hardly/Scarcely'</strong> должен использоваться союз <strong>'when'</strong> или <strong>'before'</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">Hardly had he left the place than the Bomb exploded.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">Hardly had he left the place when the Bomb exploded.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 3</span>
+                <div class="rule-title">Rather/Other...than</div>
+                <div class="rule-text">
+                    После <strong>'Rather/Other'</strong> должен использоваться подчинительный союз <strong>'Than'</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He has no other object but to get a handsome job.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He has no other object than to get a handsome job.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">I would rather buy a scooter than a cycle.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 4</span>
+                <div class="rule-title">Lest...should</div>
+                <div class="rule-text">
+                    После подчинительного союза <strong>'lest'</strong> используется вспомогательный глагол <strong>'should'</strong>.<br>
+                    <strong>Lest</strong> = for fear that / if it is not so
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">Work hard lest you fail.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">Work hard lest you should fail.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 5</span>
+                <div class="rule-title">'That' с the same/the only</div>
+                <div class="rule-text">
+                    Соединительное слово <strong>'that'</strong> используется с прилагательными фразами <strong>the same/the only/превосходная степень/all</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">This is the same book which I wanted.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">This is the same book that I wanted.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 6</span>
+                <div class="rule-title">'Or' с not/never</div>
+                <div class="rule-text">
+                    Союз <strong>'or'</strong> используется с <strong>not/never</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I have never spoken to him nor written to him.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">I have never spoken to him or written to him.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 7</span>
+                <div class="rule-title">Such...that</div>
+                <div class="rule-text">
+                    Со словом <strong>'such'</strong> может использоваться соединитель <strong>'that'</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">There was such a noise what we could not hear ourselves.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">There was such a noise that we could not hear ourselves.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 8</span>
+                <div class="rule-title">Until vs Unless</div>
+                <div class="rule-text">
+                    <strong>Until</strong> - обозначает время<br>
+                    <strong>Unless</strong> - обозначает условие
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">You will not succeed until you work hard.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">You will not succeed unless you work hard.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 9</span>
+                <div class="rule-title">Because без so/therefore</div>
+                <div class="rule-text">
+                    После соединителя <strong>'because'</strong> слова <strong>'so/therefore/as'</strong> не используются.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">Because he came late so he failed to see her.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">Because he came late, he failed to see her.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 10</span>
+                <div class="rule-title">Не использовать 'Not' с till/unless/lest/until</div>
+                <div class="rule-text">
+                    Наречие <strong>'Not'</strong> не должно использоваться с соединителями <strong>Till/Unless/Lest/Until</strong> в том придаточном предложении.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">Until he does not solve this problem, I will stay with him.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">Until he solves this problem, I will stay with him.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 11</span>
+                <div class="rule-title">Since как союз</div>
+                <div class="rule-text">
+                    Когда <strong>'since'</strong> используется как союз, ему должно предшествовать Present Perfect tense, а за ним следует глагол в Past tense для обозначения точки во времени.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">Many things have happened since I have left the school.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">Many things have happened since I left the school.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 12</span>
+                <div class="rule-title">If без then</div>
+                <div class="rule-text">
+                    С союзом <strong>'if'</strong> не должно использоваться <strong>'then'</strong>.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">If you work for 8 hours a day, then you will get through the examination.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">If you work for 8 hours a day, you will get through the examination.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 13</span>
+                <div class="rule-title">Глагол согласуется с первым подлежащим</div>
+                <div class="rule-text">
+                    Когда два объекта соединены <strong>as well/besides/along with/together with/in addition to/except/including</strong>, глагол согласуется с первым подлежащим в числе.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He as well as his students have gone there.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He as well as his students has gone there.</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3 class="section-title">Упражнения</h3>
+                <div id="conjunctionsQuestions"></div>
+            </div>
+
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="backToMenu()">← Вернуться к разделам</button>
+            </div>
+        </div>
+
+        <!-- PREPOSITIONS MODULE -->
+        <div class="content-area" id="prepositions">
+            <h2 class="section-title">Prepositions - Предлоги</h2>
+            
+            <div class="rule-block">
+                <span class="rule-number">Правило 1</span>
+                <div class="rule-title">Across</div>
+                <div class="rule-text">
+                    <strong>Across</strong> - на противоположной стороне:<br>
+                    My cousin lives across the river.<br><br>
+                    <strong>Across</strong> - с одной стороны на другую:<br>
+                    The boy swam across the river.<br><br>
+                    <strong>Come across</strong> - встретить случайно/внезапно:<br>
+                    I came across an old friend.
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 2</span>
+                <div class="rule-title">Between vs Among vs Amid</div>
+                <div class="rule-text">
+                    <strong>Between</strong> - используется для двух лиц/предметов<br>
+                    <strong>Among</strong> - используется с более чем двумя лицами/предметами<br>
+                    <strong>Amid/Amidst</strong> - используется с более чем двумя лицами/предметами (группами)
+                </div>
+                <div class="example correct">
+                    <div class="example-text">She is sitting between Munni and Sheela.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">The principal distributed prizes among the winners.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Amid his friends<br>It was hard to hear amid all the cheering.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 3</span>
+                <div class="rule-title">During</div>
+                <div class="rule-text">
+                    <strong>During</strong> - обозначает продолжительность
+                </div>
+                <div class="example correct">
+                    <div class="example-text">During the war, many people suffered hardship.<br>
+                    We go to Darjeeling during summer every year.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 4</span>
+                <div class="rule-title">From</div>
+                <div class="rule-text">
+                    <strong>From</strong> - используется с Past/Future tenses
+                </div>
+                <div class="example correct">
+                    <div class="example-text">I stayed there from Monday to Wednesday.<br>
+                    I will start my preparation from Monday next.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 5</span>
+                <div class="rule-title">Of vs Off</div>
+                <div class="rule-text">
+                    <strong>Of</strong> - обозначает происхождение/причину<br>
+                    <strong>Off</strong> - обозначает 'разделение'
+                </div>
+                <div class="example correct">
+                    <div class="example-text">She comes of a rich family. (происхождение)<br>
+                    He died of Malaria. (причина)<br>
+                    But: she died in an accident.<br>
+                    A button has come off.<br>
+                    He is off duty today.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 6</span>
+                <div class="rule-title">Объектный падеж после предлогов</div>
+                <div class="rule-text">
+                    После предлога должно использоваться местоимение в объектном падеже.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He depends on I.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He depends on me.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 7</span>
+                <div class="rule-title">Предлоги с соединёнными словами</div>
+                <div class="rule-text">
+                    Когда два слова соединены <strong>'and/or'</strong> и т.д., предлоги должны быть чётко указаны для каждого из них.
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He was surprised at as well as pleased with her performance.</div>
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">She is conscious and engaged in her work.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">She is conscious of and engaged in her work.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 8</span>
+                <div class="rule-title">Home без предлога</div>
+                <div class="rule-text">
+                    С существительным <strong>'Home'</strong> предлог не употребляется (кроме случаев, когда за ним следует прилагательное в притяжательном падеже).
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Go home / Arrive home / Reach home / Get home<br>
+                    I went to his home / He went home<br>
+                    He decided to go to Krishna's home.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 9</span>
+                <div class="rule-title">Без предлога после транзитивных глаголов</div>
+                <div class="rule-text">
+                    После транзитивных глаголов, таких как <strong>Discuss/Describe/Reach/Order/Tell/Demand/Attach/Resemble/Ridicule</strong> и т.д. предлог не употребляется. Глаголы напрямую принимают объект.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">The poet describes about the beauty of nature.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">The poet describes the beauty of nature.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">He ordered two cups of tea.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 10</span>
+                <div class="rule-title">'To' после определённых глаголов</div>
+                <div class="rule-text">
+                    После глаголов <strong>Say/Suggest/Propose/Speak/Explain/Reply/Complain/Talk/Listen/Write</strong> предлог <strong>'to'</strong> должен использоваться, если есть объект.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He did not reply me.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He did not reply to me.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">You never wrote to me.<br>
+                    He suggested to her that she should eat less.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 11</span>
+                <div class="rule-title">Since vs For</div>
+                <div class="rule-text">
+                    <strong>Since</strong> - обозначает точку во времени<br>
+                    <strong>For</strong> - обозначает период времени<br><br>
+                    Они должны использоваться с Present Perfect tense или Present Perfect Continuous tense / Past Perfect tense / Past Perfect Continuous tense.
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">I know her since 2011.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">I have known her since 2011.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 12</span>
+                <div class="rule-title">Enter без 'into'</div>
+                <div class="rule-text">
+                    После глагола <strong>'Enter'</strong> предлог <strong>'into'</strong> не употребляется (кроме случаев, когда он используется в отношении соглашения или разговора).
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He entered into the premises without any permission.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He entered the premises without any permission.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">They entered into a hot discussion.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 13</span>
+                <div class="rule-title">Wait for vs Await</div>
+                <div class="rule-text">
+                    <strong>Wait for</strong> = <strong>Await</strong> (но Await без 'for')
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He is awaiting for the reply.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He is awaiting the reply.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-text">Despite his hard work, he failed in the examination. (не Despite of)<br>
+                    This book comprises 5 chapters. (не comprises of)<br>
+                    This book consists of 5 chapters.</div>
+                </div>
+            </div>
+
+            <div class="rule-block">
+                <span class="rule-number">Правило 14</span>
+                <div class="rule-title">Dispose of</div>
+                <div class="rule-text">
+                    <strong>Dispose of</strong> - продать/избавиться
+                </div>
+                <div class="example incorrect">
+                    <div class="example-label">Неправильно</div>
+                    <div class="example-text">He disposed off his scooter.</div>
+                </div>
+                <div class="example correct">
+                    <div class="example-label">Правильно</div>
+                    <div class="example-text">He disposed of his scooter.</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3 class="section-title">Упражнения</h3>
+                <div id="prepositionsQuestions"></div>
+            </div>
+
+            <div class="back-btn">
+                <button class="btn btn-secondary" onclick="backToMenu()">← Вернуться к разделам</button>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-value" id="totalQuestions">0</div>
+                <div class="stat-label">Всего вопросов</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="correctAnswers">0</div>
+                <div class="stat-label">Правильных</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="accuracy">0%</div>
+                <div class="stat-label">Точность</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const grammarData = {
+            articles: [
+                {
+                    question: "I stayed in Madras for one and _____ half years.",
+                    options: ["a", "the", "no article"],
+                    correct: 0,
+                    explanation: "Правило 1: Неопределённый артикль 'A' должен использоваться перед словом 'Half', когда оно следует за целым числом."
+                },
+                {
+                    question: "She is _____ better of the two sisters.",
+                    options: ["a", "the", "no article"],
+                    correct: 1,
+                    explanation: "Правило 2: Определённый артикль 'THE' должен использоваться с сравнительным прилагательным, если используется фраза 'of the two'."
+                },
+                {
+                    question: "I have _____ breakfast at 8 hrs in the morning.",
+                    options: ["a", "the", "no article"],
+                    correct: 2,
+                    explanation: "Правило 3: С названиями приёмов пищи (Breakfast/Lunch/Dinner) артикль не употребляется в общем смысле."
+                },
+                {
+                    question: "The rich _____ responsible for the lawlessness in the country.",
+                    options: ["is", "are", "was"],
+                    correct: 1,
+                    explanation: "Правило 4: The + положительное прилагательное представляет целый класс и требует глагола во множественном числе."
+                },
+                {
+                    question: "We appointed him _____ chairman.",
+                    options: ["a", "the", "no article"],
+                    correct: 2,
+                    explanation: "Правило 5: После ди-транзитивных глаголов (Elect/Make/Appoint) артикли не употребляются."
+                }
+            ],
+            nouns: [
+                {
+                    question: "The _____ of Kashmir is very beautiful.",
+                    options: ["sceneries", "scenery", "scenerys"],
+                    correct: 1,
+                    explanation: "Правило 1: 'Scenery' - неисчисляемое существительное и используется только в единственном числе."
+                },
+                {
+                    question: "I know that he has much _____.",
+                    options: ["informations", "information", "a information"],
+                    correct: 1,
+                    explanation: "Правило 1: 'Information' - неисчисляемое существительное. Говорим 'much information' или 'a lot of information'."
+                },
+                {
+                    question: "He saw two _____ in the zoo.",
+                    options: ["sheeps", "sheep", "sheepes"],
+                    correct: 1,
+                    explanation: "Правило 3: Некоторые существительные имеют одинаковую форму в единственном и множественном числе: Sheep/Deer/Fish."
+                },
+                {
+                    question: "The police _____ coming towards us now.",
+                    options: ["is", "are", "was"],
+                    correct: 1,
+                    explanation: "Правило 4: Существительные Police/People/Cattle всегда используются во множественном числе с глаголом во множественном числе."
+                },
+                {
+                    question: "A series of lectures _____ to be delivered tomorrow.",
+                    options: ["are", "is", "were"],
+                    correct: 1,
+                    explanation: "'Series' имеет одинаковую форму в единственном и множественном числе, но здесь это единственное число, поэтому используем 'is'."
+                },
+                {
+                    question: "Множественное число 'Sister-in-Law':",
+                    options: ["Sister-in-Laws", "Sisters-in-Law", "Sisters-in-Laws"],
+                    correct: 1,
+                    explanation: "Правило 5: Добавьте 'S' к главному слову в составном существительном, чтобы образовать множественное число."
+                }
+            ],
+            pronouns: [
+                {
+                    question: "_____ are to finish it.",
+                    options: ["I, He and You", "You, He and I", "He, I and You"],
+                    correct: 1,
+                    explanation: "Правило 1: Мы должны использовать личные местоимения в порядке 231 (Второе лицо, Третье лицо, Первое лицо)."
+                },
+                {
+                    question: "He is better than _____.",
+                    options: ["me", "I", "myself"],
+                    correct: 1,
+                    explanation: "Правило 2: Местоимение в именительном падеже должно сравниваться с той же формой. 'He is better than I (am)'."
+                },
+                {
+                    question: "There is no dispute between _____.",
+                    options: ["you and I", "you and me", "I and you"],
+                    correct: 1,
+                    explanation: "Правило 3: Местоимение в объектном падеже используется после 'Between'."
+                },
+                {
+                    question: "Either Ravi or Gopal should do _____ duty.",
+                    options: ["their", "his", "our"],
+                    correct: 1,
+                    explanation: "Правило 6: Местоимение в единственном числе используется, когда два существительных в единственном числе соединены 'either...or'."
+                },
+                {
+                    question: "One should love _____ country.",
+                    options: ["his", "one's", "their"],
+                    correct: 1,
+                    explanation: "Правило 10: Неопределённое местоимение 'One' должно использоваться как 'One's' в притяжательном падеже."
+                },
+                {
+                    question: "This is the boy _____ is diligent.",
+                    options: ["which", "who", "that"],
+                    correct: 1,
+                    explanation: "Правило 12: 'Who' используется для лиц как относительное местоимение."
+                }
+            ],
+            adjectives: [
+                {
+                    question: "Mumbai is greater than _____ city in India.",
+                    options: ["any", "any other", "all other"],
+                    correct: 1,
+                    explanation: "Правило 1: В сравнении союз 'than' должен сопровождаться 'any other'."
+                },
+                {
+                    question: "This question is _____ than that.",
+                    options: ["more easier", "easier", "more easy"],
+                    correct: 1,
+                    explanation: "Правило 2: Односложные слова, такие как 'easy', не должны использоваться с more/most."
+                },
+                {
+                    question: "He is _____ to me.",
+                    options: ["older", "elder", "oldest"],
+                    correct: 1,
+                    explanation: "Правило 3: Elder/Eldest должны использоваться с членами одной семьи."
+                },
+                {
+                    question: "The population of Hyderabad is greater than _____ Nagpur.",
+                    options: ["Nagpur", "that of Nagpur", "the Nagpur"],
+                    correct: 1,
+                    explanation: "Правило 4: При сравнении объектов сравнивайте существительное с существительным: 'population' с 'population' (that of)."
+                }
+            ],
+            adverbs: [
+                {
+                    question: "His failure is _____ painful for me.",
+                    options: ["too much", "much too", "very much"],
+                    correct: 1,
+                    explanation: "Правило 1: 'Too much' используется с существительными, а 'much too' - с прилагательными."
+                },
+                {
+                    question: "He is intelligent _____ to follow you.",
+                    options: ["enough", "very enough", "too enough"],
+                    correct: 0,
+                    explanation: "Правило 2: Перед 'Enough' прилагательное должно использоваться в положительной форме."
+                },
+                {
+                    question: "He was punished for coming _____.",
+                    options: ["lately", "late", "latest"],
+                    correct: 1,
+                    explanation: "Правило 4: Наречие 'late' указывает на время, а 'lately' означает recently."
+                },
+                {
+                    question: "_____ does he go to school.",
+                    options: ["Hardly he", "Hardly", "He hardly"],
+                    correct: 1,
+                    explanation: "Правило 5: Когда мы начинаем предложение с 'seldom/never/hardly/rarely', применяется правило инверсии (вспомогательный глагол перед подлежащим)."
+                },
+                {
+                    question: "There were _____ forty people who were killed.",
+                    options: ["no less than", "no fewer than", "not less than"],
+                    correct: 1,
+                    explanation: "Правило 6: 'No fewer than' используется с исчисляемыми существительными (people)."
+                },
+                {
+                    question: "I am _____ interested to play cricket.",
+                    options: ["very", "much", "too"],
+                    correct: 1,
+                    explanation: "Правило 8: Производные прилагательные, такие как interested/pleased/satisfied, используются с 'much', но не с 'very'."
+                }
+            ],
+            verbs: [
+                {
+                    question: "She _____ the violin every day.",
+                    options: ["play", "plays", "playing"],
+                    correct: 1,
+                    explanation: "Правило 1: Если подлежащее третьего лица единственного числа (He/She/It), добавьте 'S' к глаголу."
+                },
+                {
+                    question: "He _____ a telephone connection.",
+                    options: ["is having", "has", "have"],
+                    correct: 1,
+                    explanation: "Правило 2: Глаголы, такие как 'have' (владение), обычно не используются в продолженной форме."
+                },
+                {
+                    question: "I _____ a film last night.",
+                    options: ["have seen", "saw", "had seen"],
+                    correct: 1,
+                    explanation: "Правило 3: Present Perfect не должен использоваться с наречиями, указывающими на прошлое время. Используйте Simple Past."
+                },
+                {
+                    question: "I _____ him since 1986.",
+                    options: ["know", "have known", "knew"],
+                    correct: 1,
+                    explanation: "Правило 4: Present Perfect с 'Since' используется для действий, которые начались в прошлом и продолжаются."
+                },
+                {
+                    question: "I _____ this novel since morning.",
+                    options: ["am reading", "have been reading", "read"],
+                    correct: 1,
+                    explanation: "Правило 5: Present Perfect Continuous используется для действий, которые начались в прошлом и всё ещё продолжаются."
+                },
+                {
+                    question: "The patient _____ before the doctor arrived.",
+                    options: ["died", "had died", "has died"],
+                    correct: 1,
+                    explanation: "Правило 7: Когда первое действие завершилось до того, как началось второе, используйте Past Perfect для первого действия."
+                },
+                {
+                    question: "She didn't like that book, _____?",
+                    options: ["didn't she", "did she", "does she"],
+                    correct: 1,
+                    explanation: "Правило 8: После отрицательных предложений вопросительный хвостик должен быть в положительной форме."
+                }
+            ],
+            conjunctions: [
+                {
+                    question: "They will either do the work _____ return the money.",
+                    options: ["else", "or", "nor"],
+                    correct: 1,
+                    explanation: "Правило 1: Коррелятивные союзы используются парами: Either...or"
+                },
+                {
+                    question: "_____ he is rich yet he is economical.",
+                    options: ["Although", "Though", "Despite"],
+                    correct: 1,
+                    explanation: "Правило 1: Though...yet - правильная пара. 'Though he is rich yet he is economical.'"
+                },
+                {
+                    question: "Hardly had he left the place _____ the Bomb exploded.",
+                    options: ["than", "when", "then"],
+                    correct: 1,
+                    explanation: "Правило 2: После 'Hardly/Scarcely' должен использоваться союз 'when' или 'before'."
+                },
+                {
+                    question: "I would rather buy a scooter _____ a cycle.",
+                    options: ["but not", "than", "instead"],
+                    correct: 1,
+                    explanation: "Правило 3: После 'Rather' должен использоваться подчинительный союз 'Than'."
+                },
+                {
+                    question: "Work hard lest you _____ fail.",
+                    options: ["will", "should", "would"],
+                    correct: 1,
+                    explanation: "Правило 4: После 'lest' используется вспомогательный глагол 'should'."
+                },
+                {
+                    question: "You will not succeed _____ you work hard.",
+                    options: ["until", "unless", "till"],
+                    correct: 1,
+                    explanation: "Правило 8: Unless обозначает условие. 'You will not succeed unless you work hard.'"
+                },
+                {
+                    question: "He as well as his students _____ gone there.",
+                    options: ["have", "has", "had"],
+                    correct: 1,
+                    explanation: "Правило 13: Когда два объекта соединены 'as well as', глагол согласуется с первым подлежащим."
+                }
+            ],
+            prepositions: [
+                {
+                    question: "She is sitting _____ Munni and Sheela.",
+                    options: ["among", "between", "amid"],
+                    correct: 1,
+                    explanation: "Правило 2: 'Between' используется для двух лиц/предметов."
+                },
+                {
+                    question: "The principal distributed prizes _____ the winners.",
+                    options: ["between", "among", "in"],
+                    correct: 1,
+                    explanation: "Правило 2: 'Among' используется с более чем двумя лицами/предметами."
+                },
+                {
+                    question: "He died _____ Malaria.",
+                    options: ["from", "of", "by"],
+                    correct: 1,
+                    explanation: "Правило 5: 'Of' обозначает причину. 'He died of Malaria.'"
+                },
+                {
+                    question: "He depends _____ me.",
+                    options: ["on I", "on me", "at me"],
+                    correct: 1,
+                    explanation: "Правило 6: После предлога должно использоваться местоимение в объектном падеже."
+                },
+                {
+                    question: "The poet describes _____ the beauty of nature.",
+                    options: ["about", "of", "no preposition"],
+                    correct: 2,
+                    explanation: "Правило 9: После транзитивных глаголов, таких как 'Describe', предлог не употребляется. Глагол напрямую принимает объект."
+                },
+                {
+                    question: "He did not reply _____ me.",
+                    options: ["to", "for", "no preposition"],
+                    correct: 0,
+                    explanation: "Правило 10: После глаголов, таких как 'reply', должен использоваться предлог 'to', если есть объект."
+                },
+                {
+                    question: "He entered _____ the premises without permission.",
+                    options: ["into", "to", "no preposition"],
+                    correct: 2,
+                    explanation: "Правило 12: После 'Enter' предлог 'into' не употребляется (кроме соглашения/разговора)."
+                },
+                {
+                    question: "He is awaiting _____ the reply.",
+                    options: ["for", "to", "no preposition"],
+                    correct: 2,
+                    explanation: "Правило 13: 'Await' не принимает 'for'. Говорите 'He is awaiting the reply' или 'He is waiting for the reply'."
+                }
+            ]
+        };
+
+        let currentModule = null;
+        let currentQuestion = 0;
+        let score = 0;
+        let answeredQuestions = {};
+
+        function loadModule(module) {
+            currentModule = module;
+            currentQuestion = 0;
+            score = 0;
+            answeredQuestions = {};
+            
+            // Hide module selector
+            document.getElementById('moduleSelector').style.display = 'none';
+            
+            // Show content area
+            document.querySelectorAll('.content-area').forEach(area => {
+                area.classList.remove('active');
+            });
+            document.getElementById(module).classList.add('active');
+            
+            // Show stats
+            document.getElementById('stats').style.display = 'flex';
+            
+            // Render questions
+            renderQuestions(module);
+            updateStats();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderQuestions(module) {
+            const questions = grammarData[module];
+            const container = document.getElementById(module + 'Questions');
+            
+            container.innerHTML = questions.map((q, index) => `
+                <div class="question-block" id="q-${module}-${index}">
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${q.options.map((opt, optIndex) => `
+                            <div class="option" onclick="selectOption('${module}', ${index}, ${optIndex})" id="opt-${module}-${index}-${optIndex}">
+                                <span class="option-letter">${String.fromCharCode(65 + optIndex)}</span>
+                                <span>${opt}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="explanation" id="exp-${module}-${index}">
+                        <div class="explanation-title"> Объяснение:</div>
+                        <div>${q.explanation}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectOption(module, questionIndex, optionIndex) {
+            const questionId = `${module}-${questionIndex}`;
+            if (answeredQuestions[questionId] !== undefined) return;
+            
+            answeredQuestions[questionId] = optionIndex;
+            const question = grammarData[module][questionIndex];
+            
+            // Mark options
+            question.options.forEach((_, idx) => {
+                const optEl = document.getElementById(`opt-${module}-${questionIndex}-${idx}`);
+                if (idx === question.correct) {
+                    optEl.classList.add('correct');
+                } else if (idx === optionIndex) {
+                    optEl.classList.add('incorrect');
+                }
+                optEl.style.cursor = 'default';
+            });
+            
+            // Show explanation
+            document.getElementById(`exp-${module}-${questionIndex}`).classList.add('show');
+            
+            // Update score
+            if (optionIndex === question.correct) {
+                score++;
+            }
+            
+            updateStats();
+        }
+
+        function updateStats() {
+            const total = Object.keys(answeredQuestions).length;
+            document.getElementById('totalQuestions').textContent = total;
+            document.getElementById('correctAnswers').textContent = score;
+            const accuracy = total > 0 ? Math.round((score / total) * 100) : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+        }
+
+        function backToMenu() {
+            document.getElementById('moduleSelector').style.display = 'block';
+            document.querySelectorAll('.content-area').forEach(area => {
+                area.classList.remove('active');
+            });
+            document.getElementById('stats').style.display = 'none';
+            currentModule = null;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize
+        updateStats();
+    </script>
+</body>
+</html>
