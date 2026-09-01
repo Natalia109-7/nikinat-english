@@ -12,10 +12,10 @@
             --mint:#d4f1e8;
             --rose:#f7d6e0;
             --cream:#fdf6f0;
-            --deep:#5a4a7a;
-            --soft:#8b7ba8;
-            --text:#3d3554;
-            --shadow:0 10px 40px rgba(138,107,175,0.15);
+            --deep:#000000;
+            --soft:#333333;
+            --text:#000000;
+            --shadow:0 10px 40px rgba(0,0,0,0.15);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -43,41 +43,52 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 25px;
-            background: rgba(253,246,240,0.7);
+            background: rgba(255,255,255,0.9);
             backdrop-filter: blur(20px);
             border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(0,0,0,0.1);
             box-shadow: var(--shadow);
         }
         
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .logo-text {
             font-family: 'Cormorant Garamond', serif;
             font-size: 24px;
             font-weight: 600;
-            color: var(--deep);
+            color: #000000;
             letter-spacing: 1px;
         }
-        .logo span { color: var(--soft); font-style: italic; }
+        .logo-text span { color: #333333; font-style: italic; }
         
         .back-btn {
             padding: 10px 22px;
-            background: linear-gradient(135deg, var(--deep), var(--soft));
+            background: #000000;
             color: white;
             text-decoration: none;
             border-radius: 30px;
             font-size: 14px;
             font-weight: 500;
-            box-shadow: 0 6px 20px rgba(90,74,122,0.25);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
             transition: all 0.3s;
         }
-        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.9);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid rgba(0,0,0,0.1);
             border-radius: 30px;
             box-shadow: var(--shadow);
             overflow: hidden;
@@ -85,7 +96,7 @@
         
         .header {
             background: linear-gradient(135deg, var(--lavender) 0%, var(--rose) 50%, var(--peach) 100%);
-            color: var(--deep);
+            color: #000000;
             padding: 40px 30px;
             text-align: center;
         }
@@ -95,11 +106,12 @@
             font-size: 2.5em;
             margin-bottom: 10px;
             font-weight: 500;
+            color: #000000;
         }
         
         .header p {
             font-size: 1.05em;
-            color: var(--soft);
+            color: #000000;
             font-style: italic;
         }
         
@@ -107,16 +119,16 @@
         
         .sidebar {
             width: 320px;
-            background: rgba(253,246,240,0.5);
+            background: rgba(255,255,255,0.8);
             padding: 25px;
-            border-right: 1px solid rgba(255,255,255,0.6);
+            border-right: 1px solid rgba(0,0,0,0.1);
             overflow-y: auto;
             max-height: 750px;
         }
         
         .sidebar h3 {
             font-family: 'Cormorant Garamond', serif;
-            color: var(--deep);
+            color: #000000;
             font-size: 1.4em;
             margin-bottom: 18px;
             font-weight: 500;
@@ -126,29 +138,29 @@
             width: 100%;
             padding: 13px 18px;
             margin-bottom: 10px;
-            background: rgba(255,255,255,0.7);
-            border: 1px solid rgba(232,223,245,0.8);
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(0,0,0,0.1);
             border-radius: 16px;
             cursor: pointer;
             text-align: left;
             font-size: 0.9em;
             font-family: 'Montserrat', sans-serif;
-            color: var(--text);
+            color: #000000;
             transition: all 0.3s;
         }
         
         .topic-btn:hover {
-            background: linear-gradient(135deg, var(--lavender), var(--rose));
-            color: var(--deep);
+            background: #000000;
+            color: white;
             transform: translateX(5px);
-            box-shadow: 0 6px 18px rgba(138,107,175,0.2);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
         }
         
         .topic-btn.active {
-            background: linear-gradient(135deg, var(--deep), var(--soft));
+            background: #000000;
             color: white;
-            border-color: transparent;
-            box-shadow: 0 6px 20px rgba(90,74,122,0.3);
+            border-color: #000000;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         
         .content-area {
@@ -169,7 +181,7 @@
         .exercise-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.8em;
-            color: var(--deep);
+            color: #000000;
             margin-bottom: 20px;
             padding-bottom: 12px;
             border-bottom: 3px solid var(--lavender);
@@ -177,17 +189,17 @@
         }
         
         .question-card {
-            background: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.9);
             padding: 25px;
             border-radius: 20px;
             margin-bottom: 20px;
-            border-left: 4px solid var(--soft);
-            box-shadow: 0 4px 15px rgba(138,107,175,0.08);
+            border-left: 4px solid #000000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
         
         .question-text {
             font-size: 1.1em;
-            color: var(--text);
+            color: #000000;
             margin-bottom: 18px;
             line-height: 1.7;
         }
@@ -200,13 +212,14 @@
             padding: 14px 18px;
             font-size: 1em;
             font-family: 'Montserrat', sans-serif;
-            border: 2px solid var(--lavender);
+            border: 2px solid #000000;
             border-radius: 16px;
             transition: border-color 0.3s;
             background: white;
+            color: #000000;
         }
         
-        input[type="text"]:focus { outline: none; border-color: var(--soft); }
+        input[type="text"]:focus { outline: none; border-color: #333333; }
         
         .btn {
             padding: 13px 26px;
@@ -221,21 +234,21 @@
         }
         
         .btn-check {
-            background: linear-gradient(135deg, var(--deep), var(--soft));
+            background: #000000;
             color: white;
-            box-shadow: 0 6px 18px rgba(90,74,122,0.25);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
         }
-        .btn-check:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
+        .btn-check:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
         
         .btn-speak {
-            background: linear-gradient(135deg, var(--rose), var(--peach));
-            color: var(--deep);
+            background: var(--rose);
+            color: #000000;
         }
         .btn-speak:hover { transform: translateY(-2px); }
         
         .btn-next {
-            background: linear-gradient(135deg, var(--mint), var(--lavender));
-            color: var(--deep);
+            background: var(--mint);
+            color: #000000;
         }
         .btn-next:hover { transform: translateY(-2px); }
         
@@ -249,20 +262,20 @@
         
         .feedback.correct {
             background: rgba(212,241,232,0.6);
-            color: #2d6a5a;
+            color: #000000;
             border: 1px solid var(--mint);
         }
         
         .feedback.incorrect {
             background: rgba(247,214,224,0.6);
-            color: #8b3a4a;
+            color: #000000;
             border: 1px solid var(--rose);
         }
         
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: rgba(232,223,245,0.5);
+            background: rgba(0,0,0,0.1);
             border-radius: 4px;
             margin-bottom: 20px;
             overflow: hidden;
@@ -270,7 +283,7 @@
         
         .progress {
             height: 100%;
-            background: linear-gradient(90deg, var(--deep) 0%, var(--soft) 50%, var(--rose) 100%);
+            background: #000000;
             width: 0%;
             transition: width 0.4s;
         }
@@ -278,7 +291,7 @@
         .score-display {
             text-align: center;
             font-size: 1.15em;
-            color: var(--deep);
+            color: #000000;
             font-weight: 500;
             margin-bottom: 20px;
             font-family: 'Cormorant Garamond', serif;
@@ -287,7 +300,7 @@
         
         @media (max-width: 768px) {
             .main-content { flex-direction: column; }
-            .sidebar { width: 100%; max-height: 280px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.6); }
+            .sidebar { width: 100%; max-height: 280px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
             .header h1 { font-size: 1.8em; }
             .content-area { padding: 20px; }
             .top-nav { flex-direction: column; gap: 10px; }
@@ -301,8 +314,11 @@
 <div class="blob blob3"></div>
 
 <div class="top-nav">
-    <div class="logo">Natalie <span>English</span></div>
- </div>
+    <div class="logo">
+        <img src="logo.png" alt="inforep.ru">
+        <div class="logo-text">Natalie <span>English</span></div>
+    </div>
+</div>
 
 <div class="container">
       <div class="main-content">
@@ -321,7 +337,7 @@
             <button class="topic-btn" onclick="showTopic('holidays', this)">🎄 Holidays / Праздники</button>
             <button class="topic-btn" onclick="showTopic('travel', this)">✈️ Travelling / Путешествия</button>
             <button class="topic-btn" onclick="showTopic('urban', this)">🏙️ Urban Life / Город и деревня</button>
-            <button class="topic-btn" onclick="showTopic('health', this)">🏥 Health / Здоровье</button>
+            <button class="topic-btn" onclick="showTopic('health', this)"> Health / Здоровье</button>
             <button class="topic-btn" onclick="showTopic('media', this)">📺 Mass Media / СМИ</button>
             <button class="topic-btn" onclick="showTopic('environment', this)">🌍 Environment / Окружающая среда</button>
             <button class="topic-btn" onclick="showTopic('phrasal', this)">🔄 Phrasal Verbs / Фразовые глаголы</button>
@@ -897,18 +913,18 @@ function showResults(topic) {
     const state = currentState[topic];
     const percentage = Math.round((state.score / state.questions.length) * 100);
     let message = "";
-    if (percentage === 100) message = "🏆 Идеально! Вы мастер!";
+    if (percentage === 100) message = " Идеально! Вы мастер!";
     else if (percentage >= 80) message = "🔥 Отличный результат!";
-    else if (percentage >= 60) message = "👍 Хорошая работа!";
+    else if (percentage >= 60) message = " Хорошая работа!";
     else message = "💪 Продолжайте тренироваться!";
     
     // Добавляем ID к кнопке перезапуска для фокуса
     const resetBtnId = `reset-btn-${topic}`;
     document.getElementById(`questions-${topic}`).innerHTML = `
         <div style="text-align: center; padding: 40px;">
-            <h3 style="font-family:'Cormorant Garamond',serif; font-size: 2em; margin-bottom: 20px; color: var(--deep);">Тренировка завершена!</h3>
-            <p style="font-size: 1.4em; margin-bottom: 20px; color: var(--text);">Ваш результат: ${state.score} / ${state.questions.length} (${percentage}%)</p>
-            <p style="font-size: 1.2em; margin-bottom: 30px; color: var(--soft); font-style: italic;">${message}</p>
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size: 2em; margin-bottom: 20px; color: #000000;">Тренировка завершена!</h3>
+            <p style="font-size: 1.4em; margin-bottom: 20px; color: #000000;">Ваш результат: ${state.score} / ${state.questions.length} (${percentage}%)</p>
+            <p style="font-size: 1.2em; margin-bottom: 30px; color: #333333; font-style: italic;">${message}</p>
             <button id="${resetBtnId}" class="btn btn-check" onclick="resetTopic('${topic}')">🔄 Пройти еще раз</button>
         </div>
     `;
