@@ -51,24 +51,13 @@
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo img {
-            height: 50px;
-            width: auto;
-        }
-        
-        .logo-text {
             font-family: 'Cormorant Garamond', serif;
             font-size: 24px;
             font-weight: 600;
             color: #000000;
             letter-spacing: 1px;
         }
-        .logo-text span { color: #333333; font-style: italic; }
+        .logo span { color: #333333; font-style: italic; }
         
         .back-btn {
             padding: 10px 22px;
@@ -314,17 +303,14 @@
 <div class="blob blob3"></div>
 
 <div class="top-nav">
-    <div class="logo">
-        <img src="logo.png" alt="inforep.ru">
-        <div class="logo-text">Natalie <span>English</span></div>
-    </div>
+    <div class="logo">Natalie <span>English</span></div>
 </div>
 
 <div class="container">
       <div class="main-content">
         <div class="sidebar">
             <h3>Выберите тему:</h3>
-            <button class="topic-btn active" onclick="showTopic('family', this)">👨‍👩‍👧‍👦 Family / Семья</button>
+            <button class="topic-btn active" onclick="showTopic('family', this)">👨‍👩‍👧‍ Family / Семья</button>
             <button class="topic-btn" onclick="showTopic('friendship', this)">🤝 Friendship / Дружба</button>
             <button class="topic-btn" onclick="showTopic('daily', this)">🏠 Daily Life / Повседневная жизнь</button>
             <button class="topic-btn" onclick="showTopic('shopping', this)">🛍️ Shopping / Покупки</button>
@@ -333,9 +319,9 @@
             <button class="topic-btn" onclick="showTopic('appearance', this)">👤 Appearance / Внешность</button>
             <button class="topic-btn" onclick="showTopic('hobbies', this)">🎨 Hobbies / Хобби</button>
             <button class="topic-btn" onclick="showTopic('school', this)">🏫 School Life / Школьная жизнь</button>
-            <button class="topic-btn" onclick="showTopic('career', this)">💼 Career / Карьера</button>
+            <button class="topic-btn" onclick="showTopic('career', this)"> Career / Карьера</button>
             <button class="topic-btn" onclick="showTopic('holidays', this)">🎄 Holidays / Праздники</button>
-            <button class="topic-btn" onclick="showTopic('travel', this)">✈️ Travelling / Путешествия</button>
+            <button class="topic-btn" onclick="showTopic('travel', this)">️ Travelling / Путешествия</button>
             <button class="topic-btn" onclick="showTopic('urban', this)">🏙️ Urban Life / Город и деревня</button>
             <button class="topic-btn" onclick="showTopic('health', this)"> Health / Здоровье</button>
             <button class="topic-btn" onclick="showTopic('media', this)">📺 Mass Media / СМИ</button>
@@ -856,7 +842,6 @@ function loadQuestion(topic) {
     `;
     const input = document.getElementById(`input-${topic}`);
     input.focus();
-    // Используем keydown вместо keypress для большей надежности
     input.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -883,16 +868,14 @@ function checkAnswer(topic) {
         feedback.innerHTML = `✅ <b>Отлично!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
     } else {
         feedback.className = 'feedback incorrect';
-        feedback.innerHTML = `❌ <b>Почти!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
+        feedback.innerHTML = ` <b>Почти!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
     }
     feedback.style.display = 'block';
     inputEl.disabled = true;
     
-    // Добавляем ID к кнопке "Далее", чтобы на нее можно было передать фокус
     const nextBtnId = `next-btn-${topic}`;
     feedback.innerHTML += `<br><br><button id="${nextBtnId}" class="btn btn-next" onclick="nextQuestion('${topic}')">Далее ➔</button>`;
     
-    // Передаем фокус на кнопку "Далее", чтобы нажатие Enter активировало её
     document.getElementById(nextBtnId).focus();
     
     document.getElementById(`score-${topic}`).textContent = state.score;
@@ -914,11 +897,10 @@ function showResults(topic) {
     const percentage = Math.round((state.score / state.questions.length) * 100);
     let message = "";
     if (percentage === 100) message = " Идеально! Вы мастер!";
-    else if (percentage >= 80) message = "🔥 Отличный результат!";
+    else if (percentage >= 80) message = " Отличный результат!";
     else if (percentage >= 60) message = " Хорошая работа!";
     else message = "💪 Продолжайте тренироваться!";
     
-    // Добавляем ID к кнопке перезапуска для фокуса
     const resetBtnId = `reset-btn-${topic}`;
     document.getElementById(`questions-${topic}`).innerHTML = `
         <div style="text-align: center; padding: 40px;">
@@ -929,7 +911,6 @@ function showResults(topic) {
         </div>
     `;
     
-    // Передаем фокус на кнопку "Пройти еще раз", чтобы нажатие Enter перезапустило тему
     document.getElementById(resetBtnId).focus();
 }
 
