@@ -12,10 +12,10 @@
             --mint:#d4f1e8;
             --rose:#f7d6e0;
             --cream:#fdf6f0;
-            --deep:#000000;
-            --soft:#333333;
+            --deep:#5a4a7a;
+            --soft:#8b7ba8;
             --text:#000000;
-            --shadow:0 10px 40px rgba(0,0,0,0.15);
+            --shadow:0 10px 40px rgba(138,107,175,0.15);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -43,10 +43,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 25px;
-            background: rgba(255,255,255,0.9);
+            background: rgba(253,246,240,0.7);
             backdrop-filter: blur(20px);
             border-radius: 30px;
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
             box-shadow: var(--shadow);
         }
         
@@ -54,30 +54,30 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 24px;
             font-weight: 600;
-            color: #000000;
+            color: var(--deep);
             letter-spacing: 1px;
         }
-        .logo span { color: #333333; font-style: italic; }
+        .logo span { color: var(--soft); font-style: italic; }
         
         .back-btn {
             padding: 10px 22px;
-            background: #000000;
+            background: linear-gradient(135deg, var(--deep), var(--soft));
             color: white;
             text-decoration: none;
             border-radius: 30px;
             font-size: 14px;
             font-weight: 500;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            box-shadow: 0 6px 20px rgba(90,74,122,0.25);
             transition: all 0.3s;
         }
-        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.7);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.8);
             border-radius: 30px;
             box-shadow: var(--shadow);
             overflow: hidden;
@@ -85,7 +85,7 @@
         
         .header {
             background: linear-gradient(135deg, var(--lavender) 0%, var(--rose) 50%, var(--peach) 100%);
-            color: #000000;
+            color: var(--deep);
             padding: 40px 30px;
             text-align: center;
         }
@@ -95,12 +95,11 @@
             font-size: 2.5em;
             margin-bottom: 10px;
             font-weight: 500;
-            color: #000000;
         }
         
         .header p {
             font-size: 1.05em;
-            color: #000000;
+            color: var(--soft);
             font-style: italic;
         }
         
@@ -108,16 +107,16 @@
         
         .sidebar {
             width: 320px;
-            background: rgba(255,255,255,0.8);
+            background: rgba(253,246,240,0.5);
             padding: 25px;
-            border-right: 1px solid rgba(0,0,0,0.1);
+            border-right: 1px solid rgba(255,255,255,0.6);
             overflow-y: auto;
             max-height: 750px;
         }
         
         .sidebar h3 {
             font-family: 'Cormorant Garamond', serif;
-            color: #000000;
+            color: var(--deep);
             font-size: 1.4em;
             margin-bottom: 18px;
             font-weight: 500;
@@ -127,8 +126,8 @@
             width: 100%;
             padding: 13px 18px;
             margin-bottom: 10px;
-            background: rgba(255,255,255,0.9);
-            border: 1px solid rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(232,223,245,0.8);
             border-radius: 16px;
             cursor: pointer;
             text-align: left;
@@ -139,17 +138,17 @@
         }
         
         .topic-btn:hover {
-            background: #000000;
-            color: white;
+            background: linear-gradient(135deg, var(--lavender), var(--rose));
+            color: #000000;
             transform: translateX(5px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 18px rgba(138,107,175,0.2);
         }
         
         .topic-btn.active {
-            background: #000000;
-            color: white;
-            border-color: #000000;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, var(--deep), var(--soft));
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 6px 20px rgba(90,74,122,0.3);
         }
         
         .content-area {
@@ -170,7 +169,7 @@
         .exercise-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.8em;
-            color: #000000;
+            color: var(--deep);
             margin-bottom: 20px;
             padding-bottom: 12px;
             border-bottom: 3px solid var(--lavender);
@@ -178,12 +177,12 @@
         }
         
         .question-card {
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.7);
             padding: 25px;
             border-radius: 20px;
             margin-bottom: 20px;
-            border-left: 4px solid #000000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--soft);
+            box-shadow: 0 4px 15px rgba(138,107,175,0.08);
         }
         
         .question-text {
@@ -201,14 +200,14 @@
             padding: 14px 18px;
             font-size: 1em;
             font-family: 'Montserrat', sans-serif;
-            border: 2px solid #000000;
+            border: 2px solid var(--lavender);
             border-radius: 16px;
             transition: border-color 0.3s;
             background: white;
             color: #000000;
         }
         
-        input[type="text"]:focus { outline: none; border-color: #333333; }
+        input[type="text"]:focus { outline: none; border-color: var(--soft); }
         
         .btn {
             padding: 13px 26px;
@@ -223,21 +222,21 @@
         }
         
         .btn-check {
-            background: #000000;
+            background: linear-gradient(135deg, var(--deep), var(--soft));
             color: white;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+            box-shadow: 0 6px 18px rgba(90,74,122,0.25);
         }
-        .btn-check:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
+        .btn-check:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(90,74,122,0.35); }
         
         .btn-speak {
-            background: var(--rose);
-            color: #000000;
+            background: linear-gradient(135deg, var(--rose), var(--peach));
+            color: var(--deep);
         }
         .btn-speak:hover { transform: translateY(-2px); }
         
         .btn-next {
-            background: var(--mint);
-            color: #000000;
+            background: linear-gradient(135deg, var(--mint), var(--lavender));
+            color: var(--deep);
         }
         .btn-next:hover { transform: translateY(-2px); }
         
@@ -251,20 +250,20 @@
         
         .feedback.correct {
             background: rgba(212,241,232,0.6);
-            color: #000000;
+            color: #2d6a5a;
             border: 1px solid var(--mint);
         }
         
         .feedback.incorrect {
             background: rgba(247,214,224,0.6);
-            color: #000000;
+            color: #8b3a4a;
             border: 1px solid var(--rose);
         }
         
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: rgba(0,0,0,0.1);
+            background: rgba(232,223,245,0.5);
             border-radius: 4px;
             margin-bottom: 20px;
             overflow: hidden;
@@ -272,7 +271,7 @@
         
         .progress {
             height: 100%;
-            background: #000000;
+            background: linear-gradient(90deg, var(--deep) 0%, var(--soft) 50%, var(--rose) 100%);
             width: 0%;
             transition: width 0.4s;
         }
@@ -280,7 +279,7 @@
         .score-display {
             text-align: center;
             font-size: 1.15em;
-            color: #000000;
+            color: var(--deep);
             font-weight: 500;
             margin-bottom: 20px;
             font-family: 'Cormorant Garamond', serif;
@@ -289,7 +288,7 @@
         
         @media (max-width: 768px) {
             .main-content { flex-direction: column; }
-            .sidebar { width: 100%; max-height: 280px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
+            .sidebar { width: 100%; max-height: 280px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.6); }
             .header h1 { font-size: 1.8em; }
             .content-area { padding: 20px; }
             .top-nav { flex-direction: column; gap: 10px; }
@@ -310,20 +309,20 @@
       <div class="main-content">
         <div class="sidebar">
             <h3>Выберите тему:</h3>
-            <button class="topic-btn active" onclick="showTopic('family', this)">👨‍👩‍👧‍ Family / Семья</button>
+            <button class="topic-btn active" onclick="showTopic('family', this)">👨‍👩‍👧‍👦 Family / Семья</button>
             <button class="topic-btn" onclick="showTopic('friendship', this)">🤝 Friendship / Дружба</button>
             <button class="topic-btn" onclick="showTopic('daily', this)">🏠 Daily Life / Повседневная жизнь</button>
             <button class="topic-btn" onclick="showTopic('shopping', this)">🛍️ Shopping / Покупки</button>
             <button class="topic-btn" onclick="showTopic('fashion', this)">👗 Fashion / Мода</button>
             <button class="topic-btn" onclick="showTopic('food', this)">🥗 Food & Health / Еда и здоровье</button>
-            <button class="topic-btn" onclick="showTopic('appearance', this)">👤 Appearance / Внешность</button>
+            <button class="topic-btn" onclick="showTopic('appearance', this)"> Appearance / Внешность</button>
             <button class="topic-btn" onclick="showTopic('hobbies', this)">🎨 Hobbies / Хобби</button>
             <button class="topic-btn" onclick="showTopic('school', this)">🏫 School Life / Школьная жизнь</button>
-            <button class="topic-btn" onclick="showTopic('career', this)"> Career / Карьера</button>
+            <button class="topic-btn" onclick="showTopic('career', this)">💼 Career / Карьера</button>
             <button class="topic-btn" onclick="showTopic('holidays', this)">🎄 Holidays / Праздники</button>
-            <button class="topic-btn" onclick="showTopic('travel', this)">️ Travelling / Путешествия</button>
+            <button class="topic-btn" onclick="showTopic('travel', this)">✈️ Travelling / Путешествия</button>
             <button class="topic-btn" onclick="showTopic('urban', this)">🏙️ Urban Life / Город и деревня</button>
-            <button class="topic-btn" onclick="showTopic('health', this)"> Health / Здоровье</button>
+            <button class="topic-btn" onclick="showTopic('health', this)">🏥 Health / Здоровье</button>
             <button class="topic-btn" onclick="showTopic('media', this)">📺 Mass Media / СМИ</button>
             <button class="topic-btn" onclick="showTopic('environment', this)">🌍 Environment / Окружающая среда</button>
             <button class="topic-btn" onclick="showTopic('phrasal', this)">🔄 Phrasal Verbs / Фразовые глаголы</button>
@@ -868,7 +867,7 @@ function checkAnswer(topic) {
         feedback.innerHTML = `✅ <b>Отлично!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
     } else {
         feedback.className = 'feedback incorrect';
-        feedback.innerHTML = ` <b>Почти!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
+        feedback.innerHTML = `❌ <b>Почти!</b><br><br>📖 <b>Правильный ответ:</b><br>${q.en}<br><br><button class="btn btn-speak" onclick="speakText('${q.en.replace(/'/g, "\\'")}')">🔊 Прослушать</button>`;
     }
     feedback.style.display = 'block';
     inputEl.disabled = true;
@@ -897,16 +896,16 @@ function showResults(topic) {
     const percentage = Math.round((state.score / state.questions.length) * 100);
     let message = "";
     if (percentage === 100) message = " Идеально! Вы мастер!";
-    else if (percentage >= 80) message = " Отличный результат!";
+    else if (percentage >= 80) message = "🔥 Отличный результат!";
     else if (percentage >= 60) message = " Хорошая работа!";
     else message = "💪 Продолжайте тренироваться!";
     
     const resetBtnId = `reset-btn-${topic}`;
     document.getElementById(`questions-${topic}`).innerHTML = `
         <div style="text-align: center; padding: 40px;">
-            <h3 style="font-family:'Cormorant Garamond',serif; font-size: 2em; margin-bottom: 20px; color: #000000;">Тренировка завершена!</h3>
-            <p style="font-size: 1.4em; margin-bottom: 20px; color: #000000;">Ваш результат: ${state.score} / ${state.questions.length} (${percentage}%)</p>
-            <p style="font-size: 1.2em; margin-bottom: 30px; color: #333333; font-style: italic;">${message}</p>
+            <h3 style="font-family:'Cormorant Garamond',serif; font-size: 2em; margin-bottom: 20px; color: var(--deep);">Тренировка завершена!</h3>
+            <p style="font-size: 1.4em; margin-bottom: 20px; color: var(--text);">Ваш результат: ${state.score} / ${state.questions.length} (${percentage}%)</p>
+            <p style="font-size: 1.2em; margin-bottom: 30px; color: var(--soft); font-style: italic;">${message}</p>
             <button id="${resetBtnId}" class="btn btn-check" onclick="resetTopic('${topic}')">🔄 Пройти еще раз</button>
         </div>
     `;
