@@ -296,34 +296,36 @@
 <p>© 2026 Наталья Николаева · English with soul</p>
 </footer>
 
-<!-- МОДУЛЬНЫЙ FIREBASE -->
+<!-- МОДУЛЬНЫЙ FIREBASE (ОПТИМИЗИРОВАННЫЙ) -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getFirestore, collection, query, orderBy, onSnapshot, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  import { getFirestore, collection, getDocs, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  
   const firebaseConfig = {
-  apiKey: "AIzaSyCXy8bGrYAi9IIp9jhhU1mDpjze1fyE3Zw",
-  authDomain: "nikinat-english.firebaseapp.com",
-  projectId: "nikinat-english",
-  storageBucket: "nikinat-english.firebasestorage.app",
-  messagingSenderId: "820894083136",
-  appId: "1:820894083136:web:24ba3bddbe4f1ba719d7a5"
-};
+    apiKey: "AIzaSyCXy8bGrYAi9IIp9jhhU1mDpjze1fyE3Zw",
+    authDomain: "nikinat-english.firebaseapp.com",
+    projectId: "nikinat-english",
+    storageBucket: "nikinat-english.firebasestorage.app",
+    messagingSenderId: "820894083136",
+    appId: "1:820894083136:web:24ba3bddbe4f1ba719d7a5"
+  };
+  
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  
   window.db = db;
   document.body.classList.add('loaded');
   
-  // Словари для сложности
-  const diffMap = {
-    'beginner': 1, 'elementary': 2, 'pre-intermediate': 3,
-    'intermediate': 4, 'upper-intermediate': 5, 'advanced': 6
+  // КЭШ ДАННЫХ (чтобы не скачивать одно и то же дважды)
+  const cache = {
+    programs: null,
+    trainers: null,
+    articles: null,
+    videos: null,
+    gallery: null
   };
-  const diffLabels = {
-    'beginner': '🌱 Beginner', 'elementary': '🌿 Elementary',
-    'pre-intermediate': '🌳 Pre-Intermediate', 'intermediate': '🌲 Intermediate',
-    'upper-intermediate': '🌴 Upper-Intermediate', 'advanced': '🌵 Advanced'
-  };
+
+  const diffMap = { 'beginner': 1, 'elementary': 2, 'pre-intermediate': 3, 'intermediate': 4, 'upper-intermediate': 5, 'advanced': 6 };
+  const diffLabels = { 'beginner': '🌱 Beginner', 'elementary': '🌿 Elementary', 'pre-intermediate': '🌳 Pre-Intermediate', 'intermediate': '🌲 Intermediate', 'upper-intermediate': '🌴 Upper-Intermediate', 'advanced': '🌵 Advanced' };
 
   function getDifficultyLabel(diff) {
     if (!diff) return '';
@@ -331,13 +333,12 @@
   }
 
   function sortItems(items, field, direction) {
-    return items.sort((a, b) => {
+    return [...items].sort((a, b) => { // [...items] создает копию, чтобы не ломать исходный кэш
       let valA = a[field] !== undefined ? a[field] : '';
       let valB = b[field] !== undefined ? b[field] : '';
       
       if (field === 'title' || field === 'name') {
-        valA = String(valA).toLowerCase();
-        valB = String(valB).toLowerCase();
+        valA = String(valA).toLowerCase(); valB = String(valB).toLowerCase();
       } else if (field === 'difficulty') {
         valA = diffMap[String(valA).toLowerCase().trim()] || 0;
         valB = diffMap[String(valB).toLowerCase().trim()] || 0;
@@ -345,8 +346,7 @@
         valA = valA?.toDate ? valA.toDate().getTime() : new Date(valA || 0).getTime();
         valB = valB?.toDate ? valB.toDate().getTime() : new Date(valB || 0).getTime();
       } else if (field === 'views' || field === 'popularity') {
-        valA = Number(valA) || 0;
-        valB = Number(valB) || 0;
+        valA = Number(valA) || 0; valB = Number(valB) || 0;
       }
       
       if (valA < valB) return direction === 'asc' ? -1 : 1;
@@ -355,139 +355,140 @@
     });
   }
 
-  function renderPrograms(sortBy = 'date-desc') {
+  // ✅ ГЛАВНАЯ ОПТИМИЗАЦИЯ: Ленивая загрузка + Кэширование
+  async function renderPrograms(sortBy = 'date-desc') {
     const el = document.getElementById('programs-list');
     if (!el) return;
-    
+
+    // Если данных еще нет в кэше, загружаем их ОДИН раз
+    if (!cache.programs || !cache.trainers) {
+      el.innerHTML = '<div class="loader"></div>';
+      try {
+        // Убрали orderBy из запроса, чтобы забрать все данные одним пакетом и отсортировать локально (это мгновенно)
+        // Добавили limit(50) на всякий случай, чтобы не грузить тысячи записей, если база разрастется
+        const [progSnap, trainSnap] = await Promise.all([
+          getDocs(query(collection(db, 'programs'), limit(50))),
+          getDocs(query(collection(db, 'trainers'), limit(50)))
+        ]);
+        cache.programs = progSnap.docs.map(d => ({id: d.id, ...d.data()}));
+        cache.trainers = trainSnap.docs.map(d => ({id: d.id, ...d.data()}));
+      } catch (err) {
+        console.error('Ошибка загрузки программ:', err);
+        el.innerHTML = '<div class="empty">Ошибка загрузки данных</div>';
+        return;
+      }
+    }
+
+    // Сортируем УЖЕ ЗАГРУЖЕННЫЕ данные локально (0 миллисекунд, без запроса к интернету!)
     const [field, direction] = sortBy.split('-');
     const dbField = field === 'date' ? 'createdAt' : field;
     
-    // Показываем лоадер при смене сортировки
-    el.innerHTML = '<div class="loader"></div>';
-
-    Promise.all([
-        getDocs(query(collection(db, 'programs'))),
-        getDocs(query(collection(db, 'trainers')))
-    ]).then(([progSnap, trainSnap]) => {
-        let programs = progSnap.docs.map(d => ({id: d.id, ...d.data()}));
-        let trainers = trainSnap.docs.map(d => ({id: d.id, ...d.data()}));
-        
-        // Сортируем массивы
-        programs = sortItems(programs, dbField, direction);
-        trainers = sortItems(trainers, dbField, direction);
-        
-        if (!programs.length && !trainers.length) {
-            el.innerHTML = '<div class="empty">Программы и тренажёры скоро появятся</div>';
-            return;
-        }
-        
-        let html = '';
-        
-        programs.forEach(p => {
-            html += '<article class="card">' +
-                (p.imageUrl ? '<img src="' + p.imageUrl + '" alt="' + p.title + '">' : '') +
-                '<h3>' + p.title + '</h3>' +
-                (p.difficulty ? '<span class="badge badge-diff">' + getDifficultyLabel(p.difficulty) + '</span>' : '') +
-                '<p>' + (p.description || '').replace(/\n/g, '<br>') + '</p></article>';
-        });
-        
-        trainers.forEach(t => {
-            html += '<article class="card" style="cursor:pointer" data-trainer-file="' + t.file + '" data-trainer-id="' + t.id + '">' +
-                '<div style="font-size:48px;text-align:center;margin-bottom:16px" aria-hidden="true">🎮</div>' +
-                '<h3>' + t.title + '</h3>' +
-                (t.difficulty ? '<span class="badge badge-diff">' + getDifficultyLabel(t.difficulty) + '</span>' : '') +
-                (t.views ? '<span class="badge badge-views"> ' + t.views + '</span>' : '') +
-                '<p>' + (t.description || '').replace(/\n/g, '<br>') + '</p>' +
-                '<button class="btn" style="margin-top:12px">Открыть тренажёр →</button></article>';
-        });
-        
-        el.innerHTML = html;
-        
-        // ✅ Обработчик клика БЕЗ вызова incrementViews
-        el.querySelectorAll('[data-trainer-file]').forEach(card => {
-            card.addEventListener('click', function() {
-                window.open(this.dataset.trainerFile, '_blank');
-            });
-        });
-    }).catch(err => {
-        console.error('Ошибка загрузки программ:', err);
-        el.innerHTML = '<div class="empty">Ошибка загрузки данных</div>';
+    const sortedPrograms = sortItems(cache.programs, dbField, direction);
+    const sortedTrainers = sortItems(cache.trainers, dbField, direction);
+    
+    if (!sortedPrograms.length && !sortedTrainers.length) {
+      el.innerHTML = '<div class="empty">Программы и тренажёры скоро появятся</div>';
+      return;
+    }
+    
+    let html = '';
+    sortedPrograms.forEach(p => {
+      html += '<article class="card">' +
+        (p.imageUrl ? '<img src="' + p.imageUrl + '" alt="' + p.title + '" loading="lazy">' : '') + // ✅ Добавлен lazy loading
+        '<h3>' + p.title + '</h3>' +
+        (p.difficulty ? '<span class="badge badge-diff">' + getDifficultyLabel(p.difficulty) + '</span>' : '') +
+        '<p>' + (p.description || '').replace(/\n/g, '<br>') + '</p></article>';
+    });
+    
+    sortedTrainers.forEach(t => {
+      html += '<article class="card" style="cursor:pointer" data-trainer-file="' + t.file + '" data-trainer-id="' + t.id + '">' +
+        '<div style="font-size:48px;text-align:center;margin-bottom:16px" aria-hidden="true">🎮</div>' +
+        '<h3>' + t.title + '</h3>' +
+        (t.difficulty ? '<span class="badge badge-diff">' + getDifficultyLabel(t.difficulty) + '</span>' : '') +
+        (t.views ? '<span class="badge badge-views">👁 ' + t.views + '</span>' : '') +
+        '<p>' + (t.description || '').replace(/\n/g, '<br>') + '</p>' +
+        '<button class="btn" style="margin-top:12px">Открыть тренажёр →</button></article>';
+    });
+    
+    el.innerHTML = html;
+    
+    el.querySelectorAll('[data-trainer-file]').forEach(card => {
+      card.addEventListener('click', function() {
+        window.open(this.dataset.trainerFile, '_blank');
+      });
     });
   }
 
-  function renderArticles(items) {
+  // ✅ Заменяем тяжелые onSnapshot (постоянное слушание) на легкие getDocs (однократная загрузка)
+  async function loadArticles() {
+    if (cache.articles) return;
     const el = document.getElementById('articles-list');
     if (!el) return;
-    if (!items.length) { el.innerHTML = '<div class="empty">Статьи скоро появятся</div>'; return; }
-    el.innerHTML = items.map(a => '<article class="card">' +
-        (a.imageUrl ? '<img src="' + a.imageUrl + '" alt="' + a.title + '">' : '') +
+    el.innerHTML = '<div class="loader"></div>';
+    try {
+      const snap = await getDocs(query(collection(db, 'articles'), orderBy('createdAt', 'desc'), limit(20)));
+      cache.articles = snap.docs.map(d => ({id: d.id, ...d.data()}));
+      if (!cache.articles.length) { el.innerHTML = '<div class="empty">Статьи скоро появятся</div>'; return; }
+      el.innerHTML = cache.articles.map(a => '<article class="card">' +
+        (a.imageUrl ? '<img src="' + a.imageUrl + '" alt="' + a.title + '" loading="lazy">' : '') +
         '<div style="font-size:13px;color:var(--soft);margin-bottom:8px">' + (a.date || '') + '</div>' +
         '<h3>' + a.title + '</h3>' +
-        '<p>' + (a.content || '').replace(/\n/g, '<br>') + '</p></article>').join('');
+        '<p>' + (a.content || '').substring(0, 300) + (a.content.length > 300 ? '...' : '') + '</p></article>').join(''); // ✅ Обрезаем длинный текст для скорости рендера
+    } catch (err) {
+      el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
+    }
   }
 
-  function renderVideos(items) {
+  async function loadVideos() {
+    if (cache.videos) return;
     const el = document.getElementById('videos-list');
     if (!el) return;
-    if (!items.length) { el.innerHTML = '<div class="empty">Видео скоро появятся</div>'; return; }
-    el.innerHTML = items.map(v => {
-      const id = v.url ? v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/) : null;
-      const embed = id ? '<iframe src="https://www.youtube.com/embed/' + id[1] + '" allowfullscreen loading="lazy"></iframe>' : '';
-      return '<article class="video-card">' + embed + '<div class="info"><h3>' + v.title + '</h3><p>' + (v.description || '') + '</p></div></article>';
-    }).join('');
+    el.innerHTML = '<div class="loader"></div>';
+    try {
+      const snap = await getDocs(query(collection(db, 'videos'), orderBy('createdAt', 'desc'), limit(10)));
+      cache.videos = snap.docs.map(d => ({id: d.id, ...d.data()}));
+      if (!cache.videos.length) { el.innerHTML = '<div class="empty">Видео скоро появятся</div>'; return; }
+      el.innerHTML = cache.videos.map(v => {
+        const id = v.url ? v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/) : null;
+        const embed = id ? '<iframe src="https://www.youtube.com/embed/' + id[1] + '" allowfullscreen loading="lazy"></iframe>' : '';
+        return '<article class="video-card">' + embed + '<div class="info"><h3>' + v.title + '</h3><p>' + (v.description || '') + '</p></div></article>';
+      }).join('');
+    } catch (err) {
+      el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
+    }
   }
 
-  function renderGallery(items) {
+  async function loadGallery() {
+    if (cache.gallery) return;
     const el = document.getElementById('gallery-list');
     if (!el) return;
-    if (!items.length) { el.innerHTML = '<div class="empty">Фото скоро появятся</div>'; return; }
-    el.innerHTML = items.map(g => '<div class="gallery-item" onclick="openModal(\'' + g.imageUrl + '\')" role="button" tabindex="0" aria-label="Открыть изображение">' +
-        '<img src="' + g.imageUrl + '" alt="' + (g.caption || '') + '"></div>').join('');
+    el.innerHTML = '<div class="loader"></div>';
+    try {
+      const snap = await getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc'), limit(20)));
+      cache.gallery = snap.docs.map(d => ({id: d.id, ...d.data()}));
+      if (!cache.gallery.length) { el.innerHTML = '<div class="empty">Фото скоро появятся</div>'; return; }
+      el.innerHTML = cache.gallery.map(g => '<div class="gallery-item" onclick="openModal(\'' + g.imageUrl + '\')" role="button" tabindex="0" aria-label="Открыть изображение">' +
+        '<img src="' + g.imageUrl + '" alt="' + (g.caption || '') + '" loading="lazy"></div>').join('');
+    } catch (err) {
+      el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
+    }
   }
 
-  function loadArticles() {
-    onSnapshot(query(collection(db, 'articles'), orderBy('createdAt', 'desc')), snap => {
-      renderArticles(snap.docs.map(d => ({id: d.id, ...d.data()})));
-    }, err => {
-      const el = document.getElementById('articles-list');
-      if (el) el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
-    });
-  }
-
-  function loadVideos() {
-    onSnapshot(query(collection(db, 'videos'), orderBy('createdAt', 'desc')), snap => {
-      renderVideos(snap.docs.map(d => ({id: d.id, ...d.data()})));
-    }, err => {
-      const el = document.getElementById('videos-list');
-      if (el) el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
-    });
-  }
-
-  function loadGallery() {
-    onSnapshot(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')), snap => {
-      renderGallery(snap.docs.map(d => ({id: d.id, ...d.data()})));
-    }, err => {
-      const el = document.getElementById('gallery-list');
-      if (el) el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
-    });
-  }
-
-  // Инициализация
+  // ✅ Инициализация: загружаем ТОЛЬКО то, что нужно. 
+  // Программы грузим сразу, так как это главная фишка сайта.
   renderPrograms('date-desc');
-  loadArticles();
-  loadVideos();
-  loadGallery();
+  
+  // Остальное загрузится только когда пользователь откроет соответствующую вкладку (см. ниже)
 
-  // Обработчик смены сортировки
   const sortSelect = document.getElementById('sortSelect');
   if (sortSelect) {
     sortSelect.addEventListener('change', (e) => {
-      renderPrograms(e.target.value);
+      renderPrograms(e.target.value); // Теперь это работает мгновенно, без запросов к сети!
     });
   }
 </script>
 
-<!-- Навигация и модальные окна -->
+<!-- Навигация и модальные окна (ОБНОВЛЕННАЯ) -->
 <script>
   function showPage(pageId) {
     document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
@@ -498,8 +499,18 @@
       link.classList.add('active');
       page.classList.add('active');
       window.scrollTo({top: 0, behavior: 'smooth'});
+      
+      // ✅ ЛЕНИВАЯ ЗАГРУЗКА: грузим данные только когда пользователь открыл вкладку!
+      if (pageId === 'articles') window.loadArticles();
+      if (pageId === 'videos') window.loadVideos();
+      if (pageId === 'gallery') window.loadGallery();
     }
   }
+
+  // Делаем функции доступными глобально для вызова из навигации
+  window.loadArticles = loadArticles;
+  window.loadVideos = loadVideos;
+  window.loadGallery = loadGallery;
 
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -538,6 +549,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
   });
+</script>
 </script>
 </body>
 </html>
