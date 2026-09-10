@@ -223,7 +223,7 @@
       <div class="service"><div class="icon" aria-hidden="true">📚</div><h4>General English</h4><p>Общий английский с нуля до продвинутого уровня</p></div>
       <div class="service"><div class="icon" aria-hidden="true">💼</div><h4>Business English</h4><p>Деловой английский для карьеры</p></div>
       <div class="service"><div class="icon" aria-hidden="true">🎓</div><h4>Подготовка к экзаменам</h4><p>ЕГЭ, ОГЭ</p></div>
-      <div class="service"><div class="icon" aria-hidden="true">️</div><h4>Разговорный</h4><p>Свободное общение</p></div>
+      <div class="service"><div class="icon" aria-hidden="true">🗣️</div><h4>Разговорный</h4><p>Свободное общение</p></div>
     </div>
   </div>
 </section>
@@ -423,6 +423,7 @@
     }
   }
 
+  // ✅ ОБНОВЛЕННАЯ ФУНКЦИЯ ДЛЯ GOOGLE DRIVE
   async function loadVideos() {
     if (cache.videos) return;
     const el = document.getElementById('videos-list');
@@ -432,12 +433,25 @@
       const snap = await getDocs(query(collection(db, 'videos'), orderBy('createdAt', 'desc'), limit(10)));
       cache.videos = snap.docs.map(d => ({id: d.id, ...d.data()}));
       if (!cache.videos.length) { el.innerHTML = '<div class="empty">Видео скоро появятся</div>'; return; }
+      
       el.innerHTML = cache.videos.map(v => {
-        const id = v.url ? v.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/) : null;
-        const embed = id ? '<iframe src="https://www.youtube.com/embed/' + id[1] + '" allowfullscreen loading="lazy"></iframe>' : '';
+        let fileId = null;
+        if (v.url) {
+          // Поддержка ссылок вида: /file/d/FILE_ID/ или ?id=FILE_ID
+          const match1 = v.url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+          const match2 = v.url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+          fileId = match1 ? match1[1] : (match2 ? match2[1] : null);
+        }
+        
+        // Формируем ссылку для встраивания (preview)
+        const embed = fileId 
+          ? `<iframe src="https://drive.google.com/file/d/${fileId}/preview" allow="autoplay" allowfullscreen loading="lazy"></iframe>` 
+          : '<div style="padding:40px;text-align:center;color:var(--soft)">Некорректная ссылка на видео</div>';
+          
         return '<article class="video-card">' + embed + '<div class="info"><h3>' + v.title + '</h3><p>' + (v.description || '') + '</p></div></article>';
       }).join('');
     } catch (err) {
+      console.error('Ошибка загрузки видео:', err);
       el.innerHTML = '<div class="empty">Ошибка загрузки</div>';
     }
   }
@@ -473,7 +487,7 @@
   }
 </script>
 
-<!-- ✅ ИСПРАВЛЕННЫЙ ОБЫЧНЫЙ СКРИПТ (убраны дубликаты и лишний закрывающий тег) -->
+<!-- ✅ ИСПРАВЛЕННЫЙ ОБЫЧНЫЙ СКРИПТ -->
 <script>
   function showPage(pageId) {
     document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
